@@ -1,0 +1,30 @@
+<form class="form" #f="ngForm" (ngSubmit)="f.valid && searchCustomer()" novalidate>
+    <div class="input-group">
+        <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
+               placeholder="Name, phone no, card no">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+</form>
+
+<div class="customers">
+    <div class="row customer" *ngFor="let customer of customers"
+         (click)="selectCustomer(customer)" [class.selected]="customer === selectedCustomer">
+        <div class="col-2 col-md">
+            {{customer.id}}
+        </div>
+        <div class="col col-md-6">
+            {{customer.firstname}} {{customer.lastname}}
+        </div>
+        <div class="col col-md-4">
+            {{customer.mobile}}
+        </div>
+        <!--<div class="col-md">
+            <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="$event.stopPropagation(); deleteCustomer(customer)"
+                    title="Delete">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>-->
+    </div>
+</div>

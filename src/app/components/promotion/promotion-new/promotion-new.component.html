@@ -1,0 +1,15 @@
+<h2>New promotion</h2>
+
+<div *ngIf="topLevelForm" class="container container-card">
+    <promotion-info [topLevelForm]="topLevelForm" *ngIf="currentStep === steps[0]">
+    </promotion-info>
+
+    <promotion-filter [topLevelForm]="topLevelForm" *ngIf="currentStep === steps[1]">
+    </promotion-filter>
+
+    <button *ngIf="currentStep !== steps[0]" type="button" class="btn btn-outline-secondary" (click)="previous()">Previous</button>
+    <button *ngIf="currentStep !== steps[steps.length-1]" type="button" class="btn btn-outline-secondary" 
+            (click)="next()"[disabled]="currentStep.invalid">Next</button>
+    <button *ngIf="currentStep === steps[steps.length-1]" type="submit" class="btn btn-primary"
+           (click)="submit()" [disabled]="currentStep.invalid">Submit</button>
+</div>

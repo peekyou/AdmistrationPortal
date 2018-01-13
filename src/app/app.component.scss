@@ -1,0 +1,119 @@
+@import '../styles/variables';
+@import "~bootstrap/scss/bootstrap";
+
+:host {
+    display:block;
+}
+
+h1 {
+  color: $h1-title-color;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+}
+
+main {
+    margin: 20px 0;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn:disabled {
+    cursor: default;
+}
+
+a {
+    cursor: pointer;
+}
+
+a.active {
+  background-color: gray;
+}
+
+.alert-sm {
+    @extend .alert;
+    font-size: .8em;
+    padding: .2em .4em;
+}
+
+.btn-xs {
+    @extend .btn-sm;
+    padding: 0.23em 0.6em;
+    line-height: 1.3em;
+}
+
+.line-breaker {
+    white-space: pre-line;
+}
+
+small.smaller {
+    font-size: .65em;
+
+    ul {
+        margin-left: 1.5em;
+        li {
+           list-style-type: disc;
+        }
+    }
+}
+
+/*.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442;
+}*/
+
+.with-chevron .completer-input {
+    border-right: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.container-card {
+    background-color: #fefefe;
+    border: 1px #ddd solid;
+    padding: 1.5em;
+}
+
+// General Responsive Classes
+.only-mobile {
+  display: none;
+}
+
+app-login {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@include media-breakpoint-up(md) {
+  app-login {
+    width: 360px;
+  }
+}
+@include media-breakpoint-up(lg) {
+  app-login {
+    width: 400px;
+  }
+}
+@include media-breakpoint-up(xl) {
+  app-login {
+    width: 450px;
+  }
+}

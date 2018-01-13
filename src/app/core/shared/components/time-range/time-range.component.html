@@ -1,0 +1,3 @@
+<input #input class="form-control" type="text" [attr.id]="id" [formControl]="control" 
+       (input)="onChanges($event)" (focus)="onFocus()" (focusout)="onFocusOut()"
+       (keypress)="onKeyPress($event)" placeholder="Closed">

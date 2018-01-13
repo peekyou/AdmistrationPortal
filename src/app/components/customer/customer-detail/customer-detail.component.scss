@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+
+:host {
+    display:block;
+}
+
+.form-inline {
+    margin-bottom: 1.4em;
+    display: inline-block;
+}
+
+.card-header {
+    background-color: #444;
+    color: #fff;
+}
+
+@media screen and (min-width: 900px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .card-columns {
+        column-count: 1;
+    }
+}

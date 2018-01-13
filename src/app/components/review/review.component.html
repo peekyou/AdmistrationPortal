@@ -1,0 +1,78 @@
+<div class="card" *ngIf="reviews && reviews.paging.itemsCount > 0"> 
+    <div class="card-body">
+        <h4 class="card-title">Average rating</h4>
+        <div class="row">
+            <div class="col">{{reviews[0].rating1Label}}</div>
+            <div class="col-8">
+                <ngb-rating [(rate)]="averageRating1" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                </ngb-rating>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">{{reviews[0].rating2Label}}</div>
+            <div class="col-8">
+                <ngb-rating [(rate)]="averageRating2" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                </ngb-rating>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">{{reviews[0].rating3Label}}</div>
+            <div class="col-8">
+                <ngb-rating [(rate)]="averageRating3" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                </ngb-rating>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div *ngIf="reviews && reviews.paging.itemsCount > 0" 
+     infiniteScrollDistance="1" infiniteScrollThrottle="300" (scrolled)="onScroll()">
+    <div class="card-columns">
+        <div class="card" *ngFor="let review of reviews.data">
+            <div class="card-header">
+                {{review.createdBy}} <small class="text-muted">{{review.createdDate}}</small>
+            </div>
+            <div class="card-body">
+                <p class="card-text line-breaker">{{review.comment}}</p>
+
+                <div class="row">
+                    <div class="col">{{review.rating1Label}}</div>
+                    <div class="col-8">
+                        <ngb-rating [(rate)]="review.rating1" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                        </ngb-rating>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">{{review.rating2Label}}</div>
+                    <div class="col-8">
+                        <ngb-rating [(rate)]="review.rating2" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                        </ngb-rating>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">{{review.rating3Label}}</div>
+                    <div class="col-8">
+                        <ngb-rating [(rate)]="review.rating3" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                        </ngb-rating>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #averageTemplate let-fill="fill">
+    <span *ngIf="fill === 100" class="average-star filled">&#9733;</span>
+    <span *ngIf="fill === 0" class="average-star">&#9733;</span>
+    <span *ngIf="fill < 100 && fill > 0" class="average-star">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+</ng-template>
+
+<ng-template #normalTemplate let-fill="fill">
+    <span class="star" [class.filled]="fill === 100">&#9733;</span>
+</ng-template>
+
+<div *ngIf="reviews && reviews.paging.itemsCount == 0">
+    <h2>No review</h2>
+</div>

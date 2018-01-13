@@ -1,0 +1,28 @@
+<div *ngIf="page" [ngClass]="cssClass" class="page-root">
+    <div class="row default" [ngClass]="'level-' + level" [class.selected]="page.selected">
+        <div class="col-8">
+            <span *ngIf="numbering">{{numbering}}.</span>{{page?.order}} {{page?.title}}
+            <span *ngIf="page.editing">*</span>
+        </div>
+        <div class="col">
+            <ul>
+                <!--<li *ngIf="page.draggable"><i class="fa fa-arrows-v" title="Drag"></i></li>-->
+                <li *ngIf="page.editable"><i class="fa fa-pencil" title="Edit" (click)="edit()"></i></li>
+                <li *ngIf="page.expandable">
+                    <i *ngIf="!page.expanded" class="fa fa-plus" title="Expand" (click)="page.expanded = !page.expanded"></i>
+                    <i *ngIf="page.expanded" class="fa fa-minus" title="Collapse" (click)="page.expanded = !page.expanded"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div *ngIf="page.children" [ngbCollapse]="!page.expanded">
+        <app-page-header *ngFor="let childPage of page.children; let i = index"
+                            [page]="childPage" [level]="level | increment"
+                            [canCreate]="canCreate" [numbering]="numbering ? numbering + '.' + page.order.toString() : page.order.toString()">
+        </app-page-header>
+    </div>   
+
+    <app-page-create *ngIf="canCreate && page.expanded" [page]="page" [level]="level | increment" [numbering]="numbering">
+    </app-page-create>
+</div>

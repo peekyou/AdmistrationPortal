@@ -1,0 +1,34 @@
+@import '../../../styles/variables';
+
+:host {
+    display:block;
+}
+
+page-header {
+    cursor: default;
+}
+
+.form-control.high {
+    height: 70px;
+}
+
+.custom-page {
+    cursor: move !important;
+}
+
+.time-table {
+    font-size: 0.85em;
+
+    .day {
+        padding: .1em 0;
+    }
+
+    .col-time {
+        /*padding: 0 .6em;*/
+        text-align: center;
+    }
+
+    /*.col-2 {
+        padding: 0;
+    }*/
+}

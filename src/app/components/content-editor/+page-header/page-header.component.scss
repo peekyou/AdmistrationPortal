@@ -1,0 +1,67 @@
+@import '../../../../styles/variables';
+
+:host {
+    display:block;
+}
+
+.page-root {
+    margin-top: .3em;
+
+    .default {
+        color: #fff;
+    }
+
+    .selected {
+        background-color: #fcd9a5;
+        box-shadow: 1px 2px 6px #888888;
+        background: linear-gradient(#fefad3, #fcd9a5);
+        color: #333;
+    }
+
+    .default.level-0 {
+        background-color: #aeaeae;
+    }
+
+    .default.level-1 {
+        background-color: #666;
+    }
+
+    .default.level-2 {
+        background-color: #333;
+    }
+
+    .row {
+        padding: .3em 0;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        float: right;
+
+        li {
+            display: inline;
+
+            .fa {
+                padding-left: .7em;
+                cursor: pointer;
+            }
+
+            .fa-arrows-v {
+                cursor: move;
+            }
+        }
+    }
+}
+
+.home-header.page-root {
+    margin-bottom: 1.5em !important;
+}
+
+.location-header.page-root {
+    margin-top: 1.5em !important;
+}
+
+.contact-header.page-root {
+    margin-bottom: 1.5em !important;
+}

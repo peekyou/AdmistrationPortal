@@ -1,0 +1,41 @@
+@import "~bootstrap/scss/bootstrap";
+
+:host {
+    display:block;
+}
+
+.chevron-holder {
+    position: absolute;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-color: rgba(0, 0, 0, 0.14902);
+    background-color: white;
+    border-radius: 25%;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-left: 0;
+}
+
+:host ngb-tabset /deep/ ul {
+    margin-left: -1.55em;
+    margin-right: -1.5em;
+}
+
+.form-group:first-child {
+    margin-top: 1em;
+}
+
+.promotion-result {
+    margin: .8em 0;
+    
+    .btn {
+        padding-left: 0;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .promotion-result {
+        margin-top: 6em;
+        text-align: center;
+    }
+}

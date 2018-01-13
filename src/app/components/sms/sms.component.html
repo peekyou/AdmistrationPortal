@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="lead">Your stock</p>
+            <h2>0 SMS</h2>
+        </div>
+        <div class="col">
+            <h1>+</h1>
+        </div>
+        <div class="col">
+            <input type="number" min="1" max="10000" step="1" 
+                   [(ngModel)]="packNumber" (keypress)="onInputChange($event)" />
+            <h2>X 500 SMS</h2>
+        </div>
+        <div class="col">
+            <h1>=</h1>
+        </div>
+        <div class="col">
+            <p class="lead">New stock</p>
+            <h2>{{ packNumber * 500 }} SMS</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>Amount: {{ packNumber * 50 }} AED</h1>
+            <p>
+                The amount of this purchase has to be paid by credit card.
+                Your payment will be impacted on your next invoice (available on the 1st of each month).
+            </p>
+        </div>
+    </div>
+</div>

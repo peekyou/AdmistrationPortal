@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
+            <ngb-tabset>
+                <ngb-tab title="Points">
+                    <ng-template ngbTabContent>
+                        <div class="form-group">
+                            <label class="col-form-label" for="current-points-min">Current points</label>
+                            <div class="form-inline">
+                                <div>
+                                    <input type="number" min="0" class="form-control" id="current-points-min"
+                                           formControlName="currentPointsMin" placeholder="0" />
+                                    to
+                                    <input type="number" min="0" class="form-control" id="current-points-max"
+                                           formControlName="currentPointsMax" placeholder="10" />
+                                    points
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cumulated-points-min">Accumulated points</label>
+                            <div class="form-inline">
+                                <div>
+                                    <input type="number" min="0" class="form-control" id="cumulated-points-min"
+                                           formControlName="cumulatedPointsMin" placeholder="0" />
+                                    to
+                                    <input type="number" min="0" class="form-control" id="cumulated-points-max"
+                                           formControlName="cumulatedPointsMax" placeholder="1000" />
+                                    points
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchase-amount-min">Accumulated purchase</label>
+                            <div class="form-inline">
+                                <div>
+                                    <input type="number" min="0" class="form-control" id="purchase-amount-min"
+                                           formControlName="purchaseAmountMin" placeholder="0" />
+                                    to
+                                    <input type="number" min="0" class="form-control" id="purchase-amount-max"
+                                           formControlName="purchaseAmountMax" placeholder="1000" />
+                                    AED
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Customer">
+                    <ng-template ngbTabContent>
+                        <div class="form-group">
+                            <label for="customer-name">Customer name</label>
+                            <input type="text" class="form-control" id="customer-name" formControlName="customerName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-since">Customer since</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="customerSince"
+                                       id="customer-since" ngbDatepicker #since="ngbDatepicker">
+                                <button class="input-group-addon" (click)="since.toggle()" type="button">
+                                    <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="last-entry-from">Last entry from</label>
+                                </div>
+                                <div class="col">
+                                    <label for="last-entry-to">Last entry to</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" formControlName="lastEntryFrom"
+                                               id="last-entry-from" ngbDatepicker #entryFrom="ngbDatepicker">
+                                        <button class="input-group-addon" (click)="entryFrom.toggle()" type="button">
+                                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" formControlName="lastEntryTo"
+                                               id="last-entry-to" ngbDatepicker #entryTo="ngbDatepicker">
+                                        <button class="input-group-addon" (click)="entryTo.toggle()" type="button">
+                                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Promotion">
+                    <ng-template ngbTabContent>
+                        <div class="form-group">
+                            <label for="received">Received message</label>
+                            <select formControlName="receivedPromotion" class="form-control" id="received">
+                                <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="didnt-received">Did not received message</label>
+                            <select formControlName="didntReceivePromotion" class="form-control" id="didnt-received">
+                                <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
+                            </select>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </form>
+    </div>
+    <div class="col col-lg-6">
+        <div class="promotion-result">            
+            Promotion will be sent to <b>{{nbCustomers}}</b> customers
+            <br />
+            <button type="button" class="btn btn-link" (click)="details()">See details</button>
+        </div>
+    </div>
+</div>

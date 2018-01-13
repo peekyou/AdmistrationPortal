@@ -1,0 +1,16 @@
+{
+    "TOOLBAR": {
+      "CUSTOMERS": "Clients",
+      "PROMOTIONS": "Promotions"
+    },
+    "COMMON": {
+        "LOADING": "Chargement",
+        "USERNAME": "Nom utilisateur",
+        "PASSWORD": "Mot de passe"
+    },
+    "LOGIN": {
+        "TITLE": "Connexion à votre compte",
+        "SIGNIN": "Se connecter",
+        "INVALID_CREDENTIALS": "Echec connexion"
+      }
+  }

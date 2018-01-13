@@ -1,0 +1,27 @@
+@import '../../../../styles/variables';
+
+:host {
+    display: block;
+}
+
+.row {
+    padding: .3em 0;
+}
+
+.create {
+    color: #666;
+    margin-top: .2em;
+    cursor: pointer;
+}
+
+.create.level-0 {
+    border: 1.2px dashed #aeaeae;
+}
+
+.create.level-1 {
+    border: 1.2px dashed #666;
+}
+
+.create.level-2 {
+    border: 1.2px dashed #333;
+}

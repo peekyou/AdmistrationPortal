@@ -1,0 +1,152 @@
+<customer-search></customer-search>
+
+<div class="card-columns" *ngIf="customer">
+    <div class="card">
+        <h3 class="card-header">{{customer.firstname}} {{customer.lastname}}</h3>
+        <div class="card-body">
+            <p class="card-text">Save an entry for this customer</p>
+            <form class="form-inline" #entryF="ngForm"
+                  (ngSubmit)="entryF.valid && saveEntry()" novalidate>
+                <input type="number" min="0" class="form-control" id="amount" name="amount"
+                       placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
+                <app-submit-button value="Save entry" loadingValue="Saving..." [form]="entryF.form"
+                                   [subscription]="saveEntrySubscription">
+                </app-submit-button>
+            </form>
+
+            <div class="row" *ngIf="customer.lastEntry">
+                <div class="col">Last entry</div>
+                <div class="col">{{customer.lastEntry}}</div>
+            </div>
+            <div class="row" *ngIf="customer.firstEntry">
+                <div class="col">First entry</div>
+                <div class="col">{{customer.firstEntry}}</div>
+            </div>
+            <div class="row">
+                <div class="col">History</div>
+                <div class="col">{{customer.totalPoints}} points ({{customer.purchaseData?.totalPurchaseAmountString}})</div>
+            </div>
+            <div class="row" *ngIf="customer.currentPoints">
+                <div class="col">Points</div>
+                <div class="col">{{customer.currentPoints}} points ({{customer.purchaseData?.currentPurchaseAmountString}})</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5 class="card-header">Edit informations</h5>
+        <div class="card-body">
+            <form class="form" #f="ngForm" (ngSubmit)="f.valid && saveCustomer()" novalidate>
+                <div class="form-group">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname"
+                           [(ngModel)]="customer.firstname" #firstname="ngModel" required />
+                    <div [hidden]="firstname.valid || (firstname.pristine && !f.submitted)" class="alert-sm alert-danger">
+                        Firstname is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname"
+                           [(ngModel)]="customer.lastname" #lastname="ngModel" required />
+                    <div [hidden]="lastname.valid || (lastname.pristine && !f.submitted)" class="alert-sm alert-danger">
+                        Lastname is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile number</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile"
+                           [(ngModel)]="customer.mobileNumber" #mobile="ngModel" required />
+                    <div *ngIf="!mobile.valid && (!mobile.pristine || f.submitted)" class="alert-sm alert-danger">
+                        <div *ngIf="mobile.errors.required">
+                            Mobile number is required.
+                        </div>
+                        <div *ngIf="mobile.errors.phoneFormat">
+                            Mobile number format is wrong
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email"
+                           [(ngModel)]="customer.email" #email="ngModel" [email]="customer.email" />
+                    <div [hidden]="email.valid || (email.pristine && !f.submitted)" class="alert-sm alert-danger">
+                        Email is invalid
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customer-information">Customer information</label>
+                    <textarea class="form-control" id="customer-information" name="customer-information"
+                              rows="5" [(ngModel)]="customer.comment"></textarea>
+                </div>
+                <!--<div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" name="receive-sms" class="form-check-input"
+                               [(ngModel)]="customer.receiveSms">Receive SMS
+                    </label>
+                </div>-->
+                <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form" 
+                                   [subscription]="saveSubscription">
+                </app-submit-button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" style="text-align:center">
+        <h5 class="card-header">Current points detail</h5>
+        <div class="card-body">
+            <table class="table table-sm">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Current points</th>
+                        <th>Point(s)</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let point of customer.points | currentPoints">
+                        <td>{{point.date | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>1</td>
+                        <td>{{point.correspondingAmount}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="openDeleteModal(point)"
+                                    title="Delete">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="customer.purchaseData?.remainder">
+                        <th scope="row">Remainder</th>
+                        <td>{{customer.purchaseData?.remainder}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--<div class="card">
+        <h5 class="card-header">Add existing points</h5>
+        <div class="card-body">
+            <form class="form">
+                <div class="form-group">
+                    <label for="points">Points</label>
+                    <input type="number" min="0" class="form-control" id="points" placeholder="Points">
+                </div>
+                <div class="form-group">
+                    <label for="points-amount">Amount</label>
+                    <input type="number" min="0" class="form-control" id="points-amount" placeholder="Amount">
+                </div>
+
+
+                <button type="submit" class="btn btn-info">Save existing points</button>
+            </form>
+        </div>
+    </div>-->
+    <!--<div class="card">
+        <h5 class="card-header">Promotions</h5>
+        <div class="card-body">
+            <div class="card-title">Promotion</div>
+        </div>
+    </div>-->
+</div>

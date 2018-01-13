@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+    <a routerLink="new" class="btn btn-info">Create a new promotion</a>
+</div>
+<br />
+
+<div *ngIf="promotions && promotions.paging.itemsCount > 0" 
+     infiniteScrollDistance="1" infiniteScrollThrottle="300"
+     (scrolled)="onScroll()">
+    <table class="table table-responsive table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Promotion</th>
+                <th>Period</th>
+                <th>Created</th>
+                <th>Sent</th>
+                <th class="w-50">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let promotion of promotions.data">
+                <th scope="row">{{promotion?.name}}</th>
+                <td>
+                    From {{promotion?.fromDate | date:'dd/MM/yyyy'}}<br />
+                    To {{promotion?.toDate | date:'dd/MM/yyyy'}}
+                </td>
+                <td>{{promotion?.createdDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{promotion?.smsSent}} sms</td>
+                <td>{{promotion?.details}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="promotions && promotions.paging.itemsCount == 0">
+    <h2>No promotion</h2>
+</div>

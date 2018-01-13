@@ -1,0 +1,95 @@
+<!--<ng-container [(appAssignTo)]="loggedIn" [from]="loggedIn$ | async"></ng-container>-->
+<header>
+    <!--<div class="banner">
+        <div class="aep-logos pull-left">
+            <a routerLink="/">SoApp!</a>
+        </div>
+        <div class="aep-profile pull-right">
+            <div class="userPreferences profile-panel" *ngIf="loggedIn">
+                <ul class="profile-menu">
+                    <li id="ctl00_liDropdown" class="userAcc" ngbDropdown ngb3Dropdown>
+                        <a id="userPreferences" ngbDropdownToggle>
+                            <span class="avatar pull-left">
+                                <img id="ctl00_Image5" title="Photo" class="img-responsive" src="/assets/images/avatar.png" alt="Photo" style="border-width:0px;">
+                            </span>
+                            <span class="username" *ngIf="login$ | async as login; else noLogin">{{login}}</span>
+                            <ng-template #noLogin>
+                                <span class="username">{{'Officer Name' | translate}}</span>
+                            </ng-template>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu sub-profile-menu" aria-labelledby="userPreferences">
+                            <li role="separator" class="divider mobile-menu"></li>
+                            <li><a title="Click to logout" (click)="logout()">{{'Logout' | translate}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <span class="language-panel"><app-lang-switcher right="true"></app-lang-switcher></span>
+        </div>
+        <div class="clearfix"></div>
+    </div>-->
+    <nav *ngIf="user.isAuthenticated()" ngbDropdown class="eap-navigation navbar navbar-expand-md navbar-light bg-faded unified-navbar colorClass">
+        <button class="navbar-toggler navbar-toggler-left" type="button" id="unified-dropmenu" ngbDropdownToggle>
+            <!--<span class="navbar-toggler-icon"></span>-->
+            <i class="fa fa-bars"></i>
+        </button>
+        
+        <div class="collapse navbar-collapse unified-collapse" aria-labelledby="unified-dropmenu">
+            <ul class="nav navbar-nav unified-navigation">
+                <li *ngIf="user.hasPermission(customersPermission)">
+                    <a routerLink="customers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp;Customers
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(contentPermission)">
+                    <a routerLink="content" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp;Content
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(reviewsPermission)">
+                    <a routerLink="reviews" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Reviews
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(promotionsPermission)">
+                    <a routerLink="promotions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp;Promotions
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(smsPermission)">
+                    <a routerLink="sms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;SMS Packs
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(userManagementPermission)">
+                    <a routerLink="usermanagement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;User management
+                    </a>
+                </li>
+                <li *ngIf="user.hasPermission(billsPermission)">
+                    <a routerLink="billing" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Bills
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="mobile-preview" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>&nbsp;Mobile preview
+                    </a>
+                </li>
+                <!--<li>
+                    <a [routerLink]="['./about']"
+                       routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-question-circle fa-fw" aria-hidden="true"></i>&nbsp;About
+                    </a>
+                </li>-->
+                <li class="mob-menu seperator only-mobile"></li>
+                <li *ngIf="user.isAuthenticated()">
+                    <a [routerLink]="['./login']" title="Click to logout" (click)="logout()">
+                        <i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

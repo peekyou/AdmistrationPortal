@@ -1,0 +1,7 @@
+<div class="row create" [ngClass]="'level-' + level" (click)="create()">
+    <div class="col">
+        <span *ngIf="numbering">{{numbering}}</span>
+        <span *ngIf="page">{{page.order}}.{{page.children?.length + 1}} </span>
+        Create a new page<span *ngIf="page"> under {{page.title}}</span>
+</div>
+</div>

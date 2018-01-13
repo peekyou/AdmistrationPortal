@@ -1,0 +1,16 @@
+{
+    "TOOLBAR": {
+      "CUSTOMERS": "Customers",
+      "PROMOTIONS": "Promotions"
+    },
+    "COMMON": {
+        "LOADING": "Loading...",
+        "USERNAME": "Username",
+        "PASSWORD": "Password"
+    },
+    "LOGIN": {
+        "TITLE": "Login to your account",
+        "SIGNIN": "Sign in",
+        "INVALID_CREDENTIALS": "Invalid credentials"
+      }
+  }

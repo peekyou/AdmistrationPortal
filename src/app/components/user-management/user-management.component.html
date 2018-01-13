@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+    <a routerLink="new" class="btn btn-info">Create a new user</a>
+</div>
+<br />
+<div *ngIf="users && users.paging.itemsCount > 0"
+     infiniteScrollDistance="1" infiniteScrollThrottle="300"
+     (scrolled)="onScroll()">
+    <table class="table table-responsive table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Last login</th>
+                <th class="w-50">Permissions</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users.data">
+                <th>{{user?.username}}</th>
+                <td>{{user?.firstName}} {{user?.lastName}}</td>
+                <td>{{user?.status}}</td>
+                <td>{{user?.lastLogin | date:'dd/MM/yyyy'}}</td>
+                <td>Admin</td>
+                <td>
+                    <a class="btn btn-secondary btn-xs" aria-label="Edit" [routerLink]="['edit', user.id]"
+                       title="Edit">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="delete(user)"
+                            title="Delete">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="users && users.paging.itemsCount == 0">
+    <h2>No user</h2>
+</div>

@@ -1,0 +1,45 @@
+<div class="issue-drop-zone" [ngClass]="{'active': dragging}" (dragenter)="dragEnter()"
+     (dragleave)="dragLeave()" (drop)="drop($event)" ondragover="return false;">
+
+    <div duitype="dndattachment/dropzones/AttachmentsDropZone" 
+         class="issue-drop-zone -dui-type-parsed" data-upload-limit="10485760" 
+         data-upload-size="10.00 MB">
+        <div class="issue-drop-zone__target">
+        </div>
+        <span class="issue-drop-zone__text">
+            <span class="issue-drop-zone__drop-icon"> </span> 
+            Drop files to attach, or 
+            <button type="button" class="issue-drop-zone__button" (click)="file.click()"> browse.</button>
+            <input class="issue-drop-zone__file" type="file" (change)="fileChange($event)" 
+                   accept="image/*" #file>
+        </span>
+    </div>
+
+    <div id="attachment_thumbnails" class="row item-attachments">
+        <div class="col attachment-content" *ngFor="let file of files">
+            <div class="attachment-thumb">
+                <img height="75" width="125" [src]="file.src" (load)="fileLoad()">
+            </div>
+            <dl>
+                <dd class="attachment-size"><i class="fa fa-trash" (click)="open(file)"></i> 60 kB
+                </dd>
+            </dl>
+        </div>
+        <div class="col attachment-content">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" *ngIf="loading"></i>
+        </div>
+    </div>
+    <div>
+        <small class="smaller form-text text-muted">
+            Max image size: 5Mo<br />
+            Accepted formats: JPG, PNG<br />
+            Optimal images size is 800px large and 380px high. If size is different:
+            <ul>
+                <li>Pictures less than 600px large will be rejected</li>
+                <li>Pictures greater than 800px large will be resized</li>
+                <li>Pictures greater than 380px height will be cropped on top and bottom to maintain visual center</li>
+            </ul>
+            Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo.
+        </small>
+    </div>
+</div>

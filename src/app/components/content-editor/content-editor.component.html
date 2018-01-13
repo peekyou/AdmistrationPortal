@@ -1,0 +1,190 @@
+<div class="row">
+    <div class="col-lg">
+        <app-page-header (onEdit)="editContent($event)" [page]="homePage" cssClass="home-header"></app-page-header>
+
+        <div class="list-group" dnd-sortable-container [sortableData]="customPages">
+            <app-page-header *ngFor="let page of customPages; let i = index"
+                                (onEdit)="editContent($event)" [page]="page"
+                                canCreate="true" class="custom-page"
+                                dnd-sortable [sortableIndex]="i"
+                                (onDropSuccess)="orderChanged($event, i)">
+            </app-page-header>
+        </div>
+        <app-page-create *ngIf="customPages && customPages.length > 0" 
+                         [level]="level" [numbering]="customPages?.length + 1">
+        </app-page-create>
+
+        <app-page-header (onEdit)="editContent($event)" [page]="locationPage" cssClass="location-header"></app-page-header>
+        <app-page-header (onEdit)="editContent($event)" [page]="contactPage" cssClass="contact-header"></app-page-header>
+    </div>
+
+    <div class="col-lg-5">
+        <div *ngIf="selectedPage">
+
+            <!-- Home page -->
+            <div *ngIf="selectedPage === homePage">
+                <h2>Home</h2>
+                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
+                    <div class="form-group">
+                        <label for="slogan">Slogan</label>
+                        <textarea class="form-control" id="slogan" name="slogan"
+                                  rows="5" [(ngModel)]="selectedPage.content"></textarea>
+                        <div class="form-group">
+                            <label for="call-text">Call text</label>
+                            <select [(ngModel)]="selectedPage.data1" class="form-control" id="call-text" name="call-text">
+                                <option *ngFor="let c of callOptions" [ngValue]="c.id">{{c.label}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h5>Pages put on the home page</h5>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" class="form-control high" id="discover-us-text" name="discover-us-text" value="Discover us"
+                                       [(ngModel)]="selectedPage.data2" #discoverUsText="ngModel" 
+                                       placeholder="Discover us!" required />
+                                <div [hidden]="discoverUsText.valid || (discoverUsText.pristine && !f.submitted)" class="alert-sm alert-danger">
+                                    Required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="call-text">Link to</label>
+                                <select [(ngModel)]="selectedPage.data3" class="form-control" id="discover-us-link" name="discover-us-link">
+                                    <option *ngFor="let p of customPages" [ngValue]="p.id">{{p.title}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" class="form-control high" id="custom-text" name="custom-text" value="Custom (ex: Menus)"
+                                       [(ngModel)]="selectedPage.data4" #customText="ngModel"
+                                       placeholder="Label (ex: Menu, Book online)" required />
+                                <div [hidden]="customText.valid || (customText.pristine && !f.submitted)" class="alert-sm alert-danger">
+                                    Required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="call-text">Link to</label>
+                                <select [(ngModel)]="selectedPage.data5" class="form-control" id="custom-link" name="custom-link">
+                                    <option *ngFor="let p of customPages" [ngValue]="p.id">{{p.title}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
+                                           [subscription]="savePageSubscription">
+                        </app-submit-button>
+                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Custom page -->
+            <div *ngIf="selectedPage?.typeId == 4 || selectedPage?.typeId == 5">
+                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="New page"
+                               [(ngModel)]="selectedPage.title" #title="ngModel" required />
+                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
+                            Title is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <ckeditor [(ngModel)]="selectedPage.content" [config]="ckeditorConfig"
+                                  name="content" debounce="500" (change)="onChange($event)">
+                        </ckeditor>
+                    </div>
+                    <div class="form-group">
+                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
+                                           [subscription]="savePageSubscription">
+                        </app-submit-button>
+                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
+                        <input type="button" class="btn btn-danger" value="Delete" (click)="openDeleteModal()" />
+                    </div>
+                </form>
+            </div>
+
+            <!-- Find us page -->
+            <div *ngIf="selectedPage === locationPage">
+                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Find us"
+                               [(ngModel)]="selectedPage.title" #title="ngModel" required />
+                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
+                            Title is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
+                                           [subscription]="savePageSubscription">
+                        </app-submit-button>
+                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()" />
+                    </div>
+                </form>
+            </div>
+
+            <!-- Contact page -->
+            <div *ngIf="selectedPage === contactPage">
+                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Contact & Timings"
+                               [(ngModel)]="contactPage.title" #title="ngModel" required />
+                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
+                            Title is required
+                        </div>
+                    </div>
+                    
+                    <div class="container time-table" *ngIf="contactPage.timeTable">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-4 col-time">Morning</div>
+                            <div class="col-4 col-time">Afternoon</div>
+                            <div class="col-2">Non stop</div>
+                        </div>
+                        <div class="row day" *ngFor="let weekDay of weekDays; let i = index">
+                            <div class="col-2">{{weekDay.name}}</div>
+                            <div class="col-time" [ngClass]="contactPage.timeTable[i].nonStop ? 'col-8' : 'col-4'">
+                                <app-time-range (timeChange)="onTimeChange($event)" [day]="weekDay.id"
+                                                [time]="contactPage.timeTable[i].morningTime" type="morning">
+                                </app-time-range>
+                            </div>
+                            <div class="col-4 col-time" *ngIf="!contactPage.timeTable[i].nonStop">
+                                <app-time-range (timeChange)="onTimeChange($event)" [day]="weekDay.id"
+                                                [time]="contactPage.timeTable[i].afternoonTime" typeof="afternoon">
+                                </app-time-range>
+                            </div>
+                            <div class="col-2">
+                                <input type="checkbox" name="nonStop" [checked]="contactPage.timeTable[i].nonStop"
+                                       (change)="contactPage.timeTable[i].nonStop = !contactPage.timeTable[i].nonStop" />
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">Empty fields will be replaced by mention "Closed"</small>
+                    </div>
+                                      
+                    <div class="form-group">
+                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
+                                           [subscription]="savePageSubscription">
+                        </app-submit-button>
+                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg">
+        <div *ngIf="selectedPage && selectedPage !== contactPage">
+            <file-upload [files]="selectedPage.pictures" [totalFileSize]="totalFileSize"
+                         [onFileUpload]="addFile" (onDeleteFile)="deleteFile($event)"></file-upload>
+        </div>
+    </div>
+</div>

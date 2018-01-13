@@ -1,0 +1,11 @@
+<select [(ngModel)]="selectedDevice" (ngModelChange)="onDeviceChange($event)">
+    <option [ngValue]="device" *ngFor="let device of devices">{{device.name}}</option>
+</select>
+
+<div class="mobile-container" 
+     [style.background]="'url(../../../assets/images/'+ selectedDevice.id + '.png)'">
+    <iframe class="mobile-preview" [style.top]="selectedDevice.top" [style.left]="selectedDevice.left"
+            width="{{selectedDevice.width}}" height="{{selectedDevice.height}}" 
+            frameborder="0" src="http://localhost:3001">
+    </iframe>
+</div>
