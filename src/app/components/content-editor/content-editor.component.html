@@ -23,21 +23,21 @@
 
             <!-- Home page -->
             <div *ngIf="selectedPage === homePage">
-                <h2>Home</h2>
+                <h2>{{ 'COMMON.HOME' | translate }}</h2>
                 <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
                     <div class="form-group">
-                        <label for="slogan">Slogan</label>
+                        <label for="slogan">{{ 'CONTENT.SLOGAN' | translate }}</label>
                         <textarea class="form-control" id="slogan" name="slogan"
                                   rows="5" [(ngModel)]="selectedPage.content"></textarea>
-                        <div class="form-group">
-                            <label for="call-text">Call text</label>
-                            <select [(ngModel)]="selectedPage.data1" class="form-control" id="call-text" name="call-text">
-                                <option *ngFor="let c of callOptions" [ngValue]="c.id">{{c.label}}</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="call-text">{{ 'CONTENT.CALL_TEXT' | translate }}</label>
+                        <select [(ngModel)]="selectedPage.data1" class="form-control" id="call-text" name="call-text">
+                            <option *ngFor="let c of callOptions" [ngValue]="c.id">{{c.label}}</option>
+                        </select>
                     </div>
 
-                    <h5>Pages put on the home page</h5>
+                    <h5>{{ 'CONTENT.PAGES_HOME' | translate }}</h5>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -80,8 +80,9 @@
                     </div>
 
                     <div class="form-group">
-                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
-                                           [subscription]="savePageSubscription">
+                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                           loadingValue="{{ 'COMMON.SAVING' | translate }}" 
+                                           [form]="f.form" [subscription]="savePageSubscription">
                         </app-submit-button>
                         <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
                     </div>
@@ -123,6 +124,27 @@
                             Title is required
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                            <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
+                            <app-country-select [(country)]="selectedPage.address.countryCode">
+                            </app-country-select>
+                        </div>
+                    <div class="form-group">
+                        <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                        <input type="text" class="form-control" id="city" name="city"
+                               [(ngModel)]="selectedPage.address.city" />
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
+                        <input type="text" class="form-control" id="addressLine1" name="addressLine1"
+                                [(ngModel)]="selectedPage.address.addressLine1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
+                        <input type="text" class="form-control" id="addressLine2" name="addressLine2"
+                                [(ngModel)]="selectedPage.address.addressLine2" />
+                    </div>
 
                     <div class="form-group">
                         <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
@@ -147,9 +169,9 @@
                     <div class="container time-table" *ngIf="contactPage.timeTable">
                         <div class="row">
                             <div class="col-2"></div>
-                            <div class="col-4 col-time">Morning</div>
-                            <div class="col-4 col-time">Afternoon</div>
-                            <div class="col-2">Non stop</div>
+                            <div class="col-4 col-time">{{ 'CONTENT.MORNING' | translate }}</div>
+                            <div class="col-4 col-time">{{ 'CONTENT.AFTERNOON' | translate }}</div>
+                            <div class="col-2">{{ 'CONTENT.NON_STOP' | translate }}</div>
                         </div>
                         <div class="row day" *ngFor="let weekDay of weekDays; let i = index">
                             <div class="col-2">{{weekDay.name}}</div>
@@ -168,14 +190,16 @@
                                        (change)="contactPage.timeTable[i].nonStop = !contactPage.timeTable[i].nonStop" />
                             </div>
                         </div>
-                        <small class="form-text text-muted">Empty fields will be replaced by mention "Closed"</small>
+                        <small class="form-text text-muted">{{ 'CONTENT.EMPTY_TIMES' | translate }}</small>
                     </div>
                                       
                     <div class="form-group">
-                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
-                                           [subscription]="savePageSubscription">
+                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                           loadingValue="{{ 'COMMON.SAVING' | translate }}" 
+                                           [form]="f.form" [subscription]="savePageSubscription">
                         </app-submit-button>
-                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()" />
+                        <input type="button" class="btn btn-secondary" value="{{ 'COMMON.CANCEL' | translate }}"
+                               (click)="cancelPageEdition()" />
                     </div>
                 </form>
             </div>

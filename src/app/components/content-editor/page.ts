@@ -27,6 +27,7 @@ export class Page {
     expanded?: boolean;
     editing?: boolean;
     selected?: boolean;
+    address?: Address;
 }
 
 export class CallOption {
@@ -45,4 +46,13 @@ export class TimeTable {
 export class WeekDay {
     id: number;
     name: string;
+}
+
+export class Address {
+    countryCode?: string;
+    state?: string;
+    city?: string;
+    zipCode?: string;
+    addressLine1?: string;
+    addressLine2?: string;
 }

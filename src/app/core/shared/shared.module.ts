@@ -7,7 +7,9 @@ import { PipesModule } from '../../pipes';
 import { ModalsModule } from './modals/modals.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgAutoCompleteModule } from "ng-auto-complete";
 
+import { CountrySelectComponent } from './components/country-select/country-select.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
@@ -20,11 +22,13 @@ const IMPORTS = [
     NgbModule,
     InfiniteScrollModule,
     TranslateModule,
+    NgAutoCompleteModule,
     PipesModule,
     ModalsModule
 ];
 
 const DECLARATIONS = [
+    CountrySelectComponent,
     FileUploadComponent,
     SubmitButtonComponent,
     TimeRangeComponent

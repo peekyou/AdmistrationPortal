@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <a routerLink="new" class="btn btn-info">Create a new promotion</a>
+    <a routerLink="new" class="btn btn-info">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</a>
 </div>
 <br />
 
@@ -9,11 +9,11 @@
     <table class="table table-responsive table-hover">
         <thead class="thead-inverse">
             <tr>
-                <th>Promotion</th>
-                <th>Period</th>
-                <th>Created</th>
-                <th>Sent</th>
-                <th class="w-50">Details</th>
+                <th>{{ 'PROMOTIONS.PROMOTION' | translate }}</th>
+                <th>{{ 'PROMOTIONS.PERIOD' | translate }}</th>
+                <th>{{ 'COMMON.CREATED' | translate }}</th>
+                <th>{{ 'COMMON.SENT' | translate }}</th>
+                <th class="w-50">{{ 'COMMON.DETAILS' | translate }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,5 +32,5 @@
 </div>
 
 <div *ngIf="promotions && promotions.paging.itemsCount == 0">
-    <h2>No promotion</h2>
+    <h2>{{ 'PROMOTIONS.NO_PROMOTION' | translate }}</h2>
 </div>

@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {    
     loginSubscription: Subscription;
-    error: string = null;
+    error: boolean = false;
     username = this.fb.control('', Validators.required);
     password = this.fb.control('', Validators.required);
 
@@ -21,7 +21,10 @@ export class LoginComponent implements OnInit {
         password: this.password
     });
 
-    constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+    constructor(
+        private fb: FormBuilder, 
+        private userService: UserService, 
+        private router: Router) { }
 
     ngOnInit() {
         if (this.userService.isAuthenticated()) {
@@ -35,12 +38,12 @@ export class LoginComponent implements OnInit {
                 if (result === true) {
                     this.router.navigate(['/']);
                 } else {
-                    this.error = 'Invalid credentials';
+                    this.error = true;
                 }
             },
             err => {
                 console.log(err);
-                this.error = 'Invalid credentials';
+                this.error = true;
             });
     }
 }

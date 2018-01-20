@@ -1,7 +1,7 @@
 <form class="form" #f="ngForm" (ngSubmit)="f.valid && searchCustomer()" novalidate>
     <div class="input-group">
         <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
-               placeholder="Name, phone no, card no">
+               placeholder="{{ 'CUSTOMERS.SEARCH_PLACEHOLDER' | translate }}">
         <div class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
         </div>

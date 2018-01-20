@@ -1,16 +1,107 @@
 {
     "TOOLBAR": {
       "CUSTOMERS": "Customers",
-      "PROMOTIONS": "Promotions"
+      "CONTENT": "Content",
+      "REVIEWS": "Reviews",
+      "PROMOTIONS": "Promotions",
+      "SMS_PACKS": "SMS Packs",
+      "USER_MANAGEMENT": "User management",
+      "BILLS": "Bills",
+      "MOBILE_PREVIEW": "Mobile preview",
+      "STATISTICS": "Statistics",
+      "LOGOUT": "Logout"
     },
     "COMMON": {
+        "HOME": "Home",
+        "DELETE": "Delete",
+        "CANCEL": "Cancel",
+        "DATE": "Date",
         "LOADING": "Loading...",
+        "SAVE": "Save",
+        "SAVING": "Saving...",
         "USERNAME": "Username",
-        "PASSWORD": "Password"
+        "PASSWORD": "Password",
+        "PASSWORD_CONFIRMATION": "Confirm password",
+        "AMOUNT": "Amount",
+        "POINTS": "Point(s)",
+        "REMAINDER": "Remainder",
+        "FIRSTNAME": "Firstname",
+        "LASTNAME": "Lastname",
+        "STATUS": "Status",
+        "ACTIONS": "Actions",
+        "NAME": "Name",
+        "MOBILE_NO": "Mobile number",
+        "EMAIL": "Email",
+        "CREATED": "Created",
+        "SENT": "Sent",
+        "DETAILS": "Details",
+        "COUNTRY": "Country",
+        "STATE": "State",
+        "CITY": "City",
+        "ZIP_CODE": "Zip code",
+        "ADDRESS_LINE_1": "Address",
+        "ADDRESS_LINE_2": "Address 2",
+        "COUNTRY_PLACEHOLDER": "Search / choose in / from list"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
         "SIGNIN": "Sign in",
         "INVALID_CREDENTIALS": "Invalid credentials"
-      }
-  }
+    },
+    "CUSTOMERS": {
+        "COUNT": "You have {{count}} customers",
+        "SEARCH": "Customer search",
+        "SEARCH_PLACEHOLDER": "Name, phone no, card no",
+        "SAVE_ENTRY_LABEL": "Save an entry for this customer",
+        "SAVE_ENTRY_BUTTON": "Save entry",
+        "LAST_ENTRY": "Last entry",
+        "FIRST_ENTRY": "First entry",
+        "HISTORY_POINTS": "History",
+        "CURRENT_POINTS_DETAIL": "Current points detail",
+        "EDIT_INFOS": "Edit informations",
+        "CUSTOMER_INFOS": "Customer information"
+    },
+    "CONTENT": {
+        "SLOGAN": "Slogan",
+        "CREATE_PAGE": "Create a new page",
+        "CREATE_PAGE_UNDER": "under",
+        "CALL_TEXT": "Call text",
+        "PAGES_HOME": "Pages to put on the home page",
+        "LINK_TO": "Link to",
+        "MORNING": "Morning",
+        "AFTERNOON": "Afternoon",
+        "NON_STOP": "Non stop",
+        "EMPTY_TIMES": "Empty fields will be replaced by mention \"Closed\"",
+        "DROP_ZONE_LABEL": "Drop files to attach, or ",
+        "DROP_ZONE_BROWSE": "browse",
+        "FILE_UPLOAD_TEXT": "Max image size: 5Mo<br />Accepted formats: JPG, PNG<br />Optimal images size is 800px large and 380px high. If size is different:<ul><li>Pictures less than 600px large will be rejected</li><li>Pictures greater than 800px large will be resized</li><li>Pictures greater than 380px height will be cropped on top and bottom to maintain visual center</li></ul>Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo."
+    },
+    "REVIEWS": {
+        "NO_REVIEW": "No review",
+        "AVERAGE_RATING": "Average rating"
+    },
+    "PROMOTIONS": {
+        "NO_PROMOTION": "No promotion",
+        "PROMOTION": "Promotion",
+        "PERIOD": "Period",
+        "CREATE_NEW": "Create a new promotion"
+    },
+    "SMS_PACKS": {
+        "SMS": "SMS",
+        "STOCK": "Your stock",
+        "NEW_STOCK": "New stock",
+        "CC_NOTICE": "The amount of this purchase has to be paid by credit card.",
+        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice (available on the 1st of each month)."
+    },
+    "USER_MANAGEMENT": {
+        "NO_USER": "No user",
+        "CREATE_NEW": "Create new user",
+        "NEW": "New user",
+        "EDIT": "Edit user",
+        "LAST_LOGIN": "Last login",
+        "PERMISSIONS": "Permissions"
+    },
+    "BILLS": {
+        "NO_BILL": "You don't have any bill"
+    }
+}

@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-12">
-            <h4 class="card-title">Customer search</h4>
+            <h4 class="card-title">{{ 'CUSTOMERS.SEARCH' | translate }}</h4>
         </div>
         <div class="col">
-            <span>You have {{customersCount}} customers</span>
+            <span>{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
         </div>
     </div>
     <customer-search></customer-search>

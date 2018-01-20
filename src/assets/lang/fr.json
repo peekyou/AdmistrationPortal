@@ -1,16 +1,107 @@
 {
     "TOOLBAR": {
       "CUSTOMERS": "Clients",
-      "PROMOTIONS": "Promotions"
+      "CONTENT": "Contenus",
+      "REVIEWS": "Avis",
+      "PROMOTIONS": "Promotions",
+      "SMS_PACKS": "Packs SMS",
+      "USER_MANAGEMENT": "Gestion utilisateurs",
+      "BILLS": "Factures",
+      "MOBILE_PREVIEW": "Aperçu mobile",
+      "STATISTICS": "Statistiques",
+      "LOGOUT": "Déconnexion"
     },
     "COMMON": {
+        "HOME": "Accueil",
+        "DELETE": "Supprimer",
+        "CANCEL": "Annuler",
+        "DATE": "Date",
         "LOADING": "Chargement",
+        "SAVE": "Sauvegarder",
+        "SAVING": "En cours...",
         "USERNAME": "Nom utilisateur",
-        "PASSWORD": "Mot de passe"
+        "PASSWORD": "Mot de passe",
+        "PASSWORD_CONFIRMATION": "Confirmer mot de passe",
+        "AMOUNT": "Montant",
+        "REMAINDER": "Reste",
+        "FIRSTNAME": "Prénom",
+        "LASTNAME": "Nom",
+        "STATUS": "Status",
+        "ACTIONS": "Actions",
+        "NAME": "Nom",
+        "MOBILE_NO": "No téléphone",
+        "EMAIL": "Email",
+        "CREATED": "Créé",
+        "SENT": "Envoyés",
+        "DETAILS": "Détails",
+        "COUNTRY": "Pays",
+        "STATE": "Etat",
+        "CITY": "Ville",
+        "ZIP_CODE": "Code postal",
+        "ADDRESS_LINE_1": "Adresse",
+        "ADDRESS_LINE_2": "Adresse 2",
+        "COUNTRY_PLACEHOLDER": "Rechercher ou sélectionner"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
         "SIGNIN": "Se connecter",
         "INVALID_CREDENTIALS": "Echec connexion"
-      }
-  }
+    },
+    "CUSTOMERS": {
+        "COUNT": "Vous avez {{count}} clients",
+        "SEARCH": "Recherche client",
+        "SEARCH_PLACEHOLDER": "Nom, tel, no carte",
+        "SAVE_ENTRY_LABEL": "Sauvegarder un passage client",
+        "SAVE_ENTRY_BUTTON": "Sauvegarder",
+        "LAST_ENTRY": "Dernière visite",
+        "FIRST_ENTRY": "Première visite",
+        "HISTORY_POINTS": "Historique",
+        "CURRENT_POINTS": "Point(s)",
+        "CURRENT_POINTS_DETAIL": "Détail points en cours",
+        "EDIT_INFOS": "Modifier informations",
+        "CUSTOMER_INFOS": "Informations client"
+    },
+    "CONTENT": {
+        "SLOGAN": "Slogan",
+        "CREATE_PAGE": "Créer une page",
+        "CREATE_PAGE_UNDER": "sous",
+        "CALL_TEXT": "Texte appel",
+        "PAGES_HOME": "Pages à mettre en page d'accueil",
+        "LINK_TO": "Lien vers",
+        "MORNING": "Matin",
+        "AFTERNOON": "Après-midi",
+        "NON_STOP": "Non stop",
+        "EMPTY_TIMES": "Les champs vides seront remplacés par la mention \"fermé\"",
+        "DROP_ZONE_LABEL": "Déposer des fichiers, ou ",
+        "DROP_ZONE_BROWSE": "parcourir",
+        "FILE_UPLOAD_TEXT": "Taille max image: 5Mo<br />Formats acceptés: JPG, PNG<br />La taille optimale des images est 800px de large et 380px de haut. Si ce format n'est pas respecté:<ul><li>Les images inférieures à 600px de large seront refusées</li><li>Les images supérieures à 800px de large seront redimensionnées</li><li>Les images supérieures à 380px de haut seront rognées en haut et en bas pour conserver le centre du visuel</li></ul>Espace disponible restant : {{availableSpace}} Mo / {{totalSpace}} Mo."
+    },
+    "REVIEWS": {
+        "NO_REVIEW": "Aucun avis",
+        "AVERAGE_RATING": "Notes moyennes"
+    },
+    "PROMOTIONS": {
+        "NO_PROMOTION": "Aucune promotion",
+        "PROMOTION": "Promotion",
+        "PERIOD": "Période",
+        "CREATE_NEW": "Créer une nouvelle promotion"
+    },
+    "SMS_PACKS": {
+        "SMS": "SMS",
+        "STOCK": "Votre stock",
+        "NEW_STOCK": "Nouveau stock",
+        "CC_NOTICE": "Le montant de cet achat est à régler par carte bancaire.",
+        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture (disponible le 1er de chaque mois)."
+    },
+    "USER_MANAGEMENT": {
+        "NO_USER": "Aucun utilisateur",
+        "CREATE_NEW": "Créer nouvel utilisateur",
+        "NEW": "Nouvel utilisateur",
+        "EDIT": "Modifier utilisateur",
+        "LAST_LOGIN": "Dernière connexion",
+        "PERMISSIONS": "Permissions"
+    },
+    "BILLS": {
+        "NO_BILL": "Vous n'avez pas de facture"
+    }
+}

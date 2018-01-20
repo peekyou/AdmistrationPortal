@@ -19,10 +19,10 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { APP_PROVIDERS } from './app.providers';
 import { AppState, InternalStateType } from './app.service';
-import { HeaderComponent } from './components/header';
-import { UserModule } from './components/user/user.module';
+import { HeaderModule } from './components/header';
+import { UserModule } from './components/user';
 import { CustomerModule } from './components/customer';
-import { ContentEditorModule } from './components/content-editor/content-editor.module';
+import { ContentEditorModule } from './components/content-editor';
 import { PromotionModule } from './components/promotion';
 import { ReviewModule } from './components/review';
 import { SmsModule } from './components/sms';
@@ -60,7 +60,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        HeaderComponent,
         AboutComponent,
         NoContentComponent
     ],
@@ -79,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         }),
         BrowserModule,
         SharedModule,
+        HeaderModule,
         CustomerModule,
         ContentEditorModule,
         PromotionModule,

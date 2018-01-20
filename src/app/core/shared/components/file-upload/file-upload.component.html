@@ -8,8 +8,10 @@
         </div>
         <span class="issue-drop-zone__text">
             <span class="issue-drop-zone__drop-icon"> </span> 
-            Drop files to attach, or 
-            <button type="button" class="issue-drop-zone__button" (click)="file.click()"> browse.</button>
+            {{ 'CONTENT.DROP_ZONE_LABEL' | translate }}
+            <button type="button" class="issue-drop-zone__button" (click)="file.click()">
+                {{ 'CONTENT.DROP_ZONE_BROWSE' | translate }}
+            </button>
             <input class="issue-drop-zone__file" type="file" (change)="fileChange($event)" 
                    accept="image/*" #file>
         </span>
@@ -30,16 +32,8 @@
         </div>
     </div>
     <div>
-        <small class="smaller form-text text-muted">
-            Max image size: 5Mo<br />
-            Accepted formats: JPG, PNG<br />
-            Optimal images size is 800px large and 380px high. If size is different:
-            <ul>
-                <li>Pictures less than 600px large will be rejected</li>
-                <li>Pictures greater than 800px large will be resized</li>
-                <li>Pictures greater than 380px height will be cropped on top and bottom to maintain visual center</li>
-            </ul>
-            Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo.
+        <small [innerHTML]="'CONTENT.FILE_UPLOAD_TEXT' | translate:{availableSpace: availableSpace, totalSpace: totalSpace}" 
+               class="smaller form-text text-muted">
         </small>
     </div>
 </div>

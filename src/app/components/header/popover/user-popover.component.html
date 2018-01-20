@@ -1,0 +1,14 @@
+<div class="nav-user-container">
+    <div class="nav-user-container-top">
+        <div class="nav-container-username">{{ user.getUsername() }}</div>
+        <div class="close-cross" (click)="close()"></div>
+    </div>
+    <div class="nav-user-container-content">
+        
+    </div>
+    <div class="nav-user-container-bottom">
+        <a [routerLink]="['./login']" (click)="user.logout()">
+            <button type="button" class="btn btn-outline-secondary">{{ 'TOOLBAR.LOGOUT' | translate }}</button>
+        </a>
+    </div>
+</div>

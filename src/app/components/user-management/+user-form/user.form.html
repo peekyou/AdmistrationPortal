@@ -1,7 +1,7 @@
 <div *ngIf="form" class="container new-user">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
         <div class="form-group">
-            <label for="name">Username</label>
+            <label for="name">{{ 'COMMON.USERNAME' | translate }}</label>
             <input type="text" class="form-control" id="username" formControlName="username" 
                    required [readonly]="isEdit" />
             <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert-sm alert-danger">
@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">{{ 'COMMON.PASSWORD' | translate }}</label>
             <input type="password" class="form-control" id="password" formControlName="password" 
                    [required]="!isEdit" />
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert-sm alert-danger">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="password-confirmation">Confirm password</label>
+            <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}</label>
             <input type="password" class="form-control" id="password-confirmation" 
                    formControlName="passwordConfirmation" [required]="!isEdit" />
             <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="alert-sm alert-danger">
@@ -27,18 +27,18 @@
         <div class="row alert-sm alert-danger" *ngIf="form.errors">{{ form.errors?.passwords | json }}</div>
 
         <div class="form-group">
-            <label for="firstname">First name</label>
+            <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}</label>
             <input type="text" class="form-control" id="firstname" formControlName="firstname" />
         </div>
         <div class="form-group">
-            <label for="lastname">Last name</label>
+            <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}</label>
             <input type="text" class="form-control" id="lastname" formControlName="lastname" />
         </div>
         <div class="form-group">
-            <label for="status">Status</label>
+            <label for="status">{{ 'COMMON.STATUS' | translate }}</label>
             <input type="text" class="form-control" id="status" formControlName="status" />
         </div>
-        <label>Permissions</label>
+        <label>{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</label>
         <div formArrayName="permissions">
             <div class="form-check" *ngFor="let permission of permissions; let i = index">
                 <label class="form-check-label" formGroupName="{{i}}">
@@ -50,10 +50,10 @@
         </div>
         
         <button type="submit" class="btn btn-info" [disabled]="form.invalid">
-            Submit
+            {{ 'COMMON.SAVE' | translate }}
         </button>
         <a class="btn btn-secondary" routerLink="/usermanagement">
-            Cancel
+            {{ 'COMMON.CANCEL' | translate }}
         </a>
     </form>
 </div>

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <a routerLink="new" class="btn btn-info">Create a new user</a>
+    <a routerLink="new" class="btn btn-info">{{ 'USER_MANAGEMENT.CREATE_NEW' | translate }}</a>
 </div>
 <br />
 <div *ngIf="users && users.paging.itemsCount > 0"
@@ -8,12 +8,12 @@
     <table class="table table-responsive table-hover">
         <thead class="thead-inverse">
             <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Last login</th>
-                <th class="w-50">Permissions</th>
-                <th>Actions</th>
+                <th>{{ 'COMMON.USERNAME' | translate }}</th>
+                <th>{{ 'COMMON.NAME' | translate }}</th>
+                <th>{{ 'COMMON.STATUS' | translate }}</th>
+                <th>{{ 'USER_MANAGEMENT.LAST_LOGIN' | translate }}</th>
+                <th class="w-50">{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</th>
+                <th>{{ 'COMMON.ACTIONS' | translate }}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,5 +39,5 @@
 </div>
 
 <div *ngIf="users && users.paging.itemsCount == 0">
-    <h2>No user</h2>
+    <h2>{{ 'USER_MANAGEMENT.NO_USER' | translate }}</h2>
 </div>

@@ -39,57 +39,59 @@
             <ul class="nav navbar-nav unified-navigation">
                 <li *ngIf="user.hasPermission(customersPermission)">
                     <a routerLink="customers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp;Customers
+                        <i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.CUSTOMERS' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(contentPermission)">
                     <a routerLink="content" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp;Content
+                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.CONTENT' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(reviewsPermission)">
                     <a routerLink="reviews" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Reviews
+                        <i class="fa fa-comments fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.REVIEWS' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(promotionsPermission)">
                     <a routerLink="promotions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp;Promotions
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.PROMOTIONS' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(smsPermission)">
                     <a routerLink="sms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;SMS Packs
+                        <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.SMS_PACKS' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(userManagementPermission)">
                     <a routerLink="usermanagement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;User management
+                        <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.USER_MANAGEMENT' | translate }}
                     </a>
                 </li>
                 <li *ngIf="user.hasPermission(billsPermission)">
                     <a routerLink="billing" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Bills
+                        <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.BILLS' | translate }}
                     </a>
                 </li>
                 <li>
                     <a routerLink="mobile-preview" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>&nbsp;Mobile preview
+                        <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.MOBILE_PREVIEW' | translate }}
                     </a>
                 </li>
-                <!--<li>
-                    <a [routerLink]="['./about']"
-                       routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fa fa-question-circle fa-fw" aria-hidden="true"></i>&nbsp;About
-                    </a>
-                </li>-->
                 <li class="mob-menu seperator only-mobile"></li>
                 <li *ngIf="user.isAuthenticated()">
-                    <a [routerLink]="['./login']" title="Click to logout" (click)="logout()">
-                        <i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;Logout
+                    <a (click)="showUserContainer = !showUserContainer">
+                        <i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;{{ user.getUsername() }}
                     </a>
                 </li>
+
+                <!-- <li>
+                    <a (click)="translate.use('en')">En</a>
+                </li>
+                <li>
+                    <a (click)="translate.use('fr')">Fr</a>
+                </li> -->
             </ul>
         </div>
+        <app-user-popover *ngIf="showUserContainer" (closeEvent)="showUserContainer = false"></app-user-popover>
     </nav>
 </header>

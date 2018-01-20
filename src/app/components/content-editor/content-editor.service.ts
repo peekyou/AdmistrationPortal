@@ -9,7 +9,6 @@ import { AppSettings } from '../../app.settings';
 @Injectable()
 export class ContentEditorService {
     private api = AppSettings.API_ENDPOINT + '/pages';
-    private pages: Page[];
     private callOptions: CallOption[];
     private weekDays: WeekDay[];
 
@@ -34,11 +33,7 @@ export class ContentEditorService {
     }
 
     getPages(): Observable<Page[]> {
-        return this.http.get(this.api)
-            .map((response: any) => {
-                this.pages = response;
-                return response;
-            });
+        return this.http.get(this.api);
     }
 
     getCallOptions(): Observable<CallOption[]> {

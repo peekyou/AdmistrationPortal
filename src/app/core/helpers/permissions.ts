@@ -8,3 +8,8 @@
     public static Bills = "18AAF22415A44D4089F93D27CBDC8108";
     public static Statistics = "C8221455BF4B4EFCAD2F31C1B9F62E27";
 }
+
+export class Claims {
+    public static Name = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+    public static Permissions = "http://appwards.com/claims/permissions";
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Page, CallOption, WeekDay } from './page';
 import { ContentEditorService } from './content-editor.service';
 import { PageNotifierService } from './page-notifier.service';
@@ -43,8 +43,11 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         return canDeactivate;
     }
 
-    constructor(private service: ContentEditorService, private notifier: PageNotifierService,
-        private modalService: NgbModal) {
+    constructor(
+        private service: ContentEditorService, 
+        private notifier: PageNotifierService,
+        private modalService: NgbModal
+    ) {
         notifier.onEditSource.subscribe(page => this.editContent(page));
         notifier.onCreateSource.subscribe(parent => this.createPage(parent));
 
@@ -94,6 +97,9 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                     this.contactPage = pages.filter(p => p.typeId == 3)[0];
                     this.customPages = pages.filter(p => p.typeId == 4);
                     this.initWeekDays(this.contactPage);
+                    if (!this.locationPage.address) {
+                        this.locationPage.address = {};
+                    }
                 },
                 err => { console.log(err); }
             );

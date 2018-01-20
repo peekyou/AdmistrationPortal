@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { UserService } from '../user/user.service'
+import { TranslateService } from '@ngx-translate/core';
+
+import { UserService } from '../user/user.service';
 import { Permissions } from '../../core/helpers/permissions';
 
 @Component({
@@ -8,6 +10,7 @@ import { Permissions } from '../../core/helpers/permissions';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+    public showUserContainer: boolean = false;
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;
     public reviewsPermission = Permissions.Reviews;
@@ -17,13 +20,9 @@ export class HeaderComponent {
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
 
-    constructor(public user: UserService) { }
+    constructor(public user: UserService, public translate: TranslateService) { }
 
     showMenu(): boolean {
         return false;
-    }
-
-    logout() {
-        this.user.logout();
     }
 }

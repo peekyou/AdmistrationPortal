@@ -9,8 +9,7 @@ import { UserManagementService } from '../user-management/user-management.servic
 export class CustomerComponent implements OnInit {
     customersCount: number;
 
-    constructor(private service: CustomerService)
-    { }
+    constructor(private service: CustomerService) { }
 
     public ngOnInit() {
         this.service.getAllCount()
