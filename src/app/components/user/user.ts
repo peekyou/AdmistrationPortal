@@ -13,3 +13,9 @@ export class Permission {
     id: string;
     resourceKey: string;
 }
+
+export class UserPreferences {
+    userId: string;
+    merchantsIds: string[];
+    lang: string;
+}

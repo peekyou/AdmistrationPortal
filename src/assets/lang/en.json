@@ -27,6 +27,7 @@
         "REMAINDER": "Remainder",
         "FIRSTNAME": "Firstname",
         "LASTNAME": "Lastname",
+        "GENDER": "Gender",
         "STATUS": "Status",
         "ACTIONS": "Actions",
         "NAME": "Name",
@@ -41,7 +42,13 @@
         "ZIP_CODE": "Zip code",
         "ADDRESS_LINE_1": "Address",
         "ADDRESS_LINE_2": "Address 2",
-        "COUNTRY_PLACEHOLDER": "Search / choose in / from list"
+        "AUTOCOMPLETE_PLACEHOLDER": "Search / choose in / from list",
+        "APPLY_CHANGES": "Apply changes",
+        "LANGUAGES": "Languages",
+        "ADD_LANGUAGE": "Add language",
+        "GENDER_F": "Female",
+        "GENDER_M": "Male",
+        "UNKNOWN": "Unknown"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -57,6 +64,7 @@
         "LAST_ENTRY": "Last entry",
         "FIRST_ENTRY": "First entry",
         "HISTORY_POINTS": "History",
+        "CURRENT_POINTS": "Point(s)",
         "CURRENT_POINTS_DETAIL": "Current points detail",
         "EDIT_INFOS": "Edit informations",
         "CUSTOMER_INFOS": "Customer information"
@@ -103,5 +111,9 @@
     },
     "BILLS": {
         "NO_BILL": "You don't have any bill"
+    },
+    "STATS": {
+        "GENDER_PIE": "Gender segmentation",
+        "AGE_PIE": "Age segmentation"
     }
 }

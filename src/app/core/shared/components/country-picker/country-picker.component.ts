@@ -2,19 +2,18 @@ import { Component, Input, Output, OnInit, ViewChild, EventEmitter } from '@angu
 import { HttpClient } from '@angular/common/http';
 import { CreateNewAutocompleteGroup, SelectedAutocompleteItem, NgAutocompleteComponent } from "ng-auto-complete";
 import { TranslationService } from '../../../services/translation.service';
-import { CountrySelectService } from './country-select.service';
-import { CountrySelect } from './country-select';
+import { CountryPickerService } from './country-picker.service';
+import { CountryPicker } from './country-picker';
 
 @Component({
-    selector: 'app-country-select',
-    templateUrl: './country-select.component.html',
-    styleUrls: ['./country-select.component.scss']
+    selector: 'app-country-picker',
+    templateUrl: './country-picker.component.html',
+    styleUrls: ['./country-picker.component.scss']
 })
-export class CountrySelectComponent implements OnInit {
+export class CountryPickerComponent implements OnInit {
     countries: any[];
     selectedCountry;
 
-    // @Output() onSelected: EventEmitter<string | number> = new EventEmitter();
     @ViewChild(NgAutocompleteComponent) public completer: NgAutocompleteComponent;  
     @Output() countryChange = new EventEmitter();
     
@@ -36,11 +35,11 @@ export class CountrySelectComponent implements OnInit {
     constructor(
         private http: HttpClient, 
         private translation: TranslationService,
-        private countryService: CountrySelectService) { }
+        private countryService: CountryPickerService) { }
 
     ngOnInit() {
         // Init the countries list
-        this.translation.get('COMMON.COUNTRY_PLACEHOLDER', x => {
+        this.translation.get('COMMON.AUTOCOMPLETE_PLACEHOLDER', x => {
             this.countries = [
                 CreateNewAutocompleteGroup(x, 'completer', [], { titleKey: 'name', childrenKey: null }),
             ];

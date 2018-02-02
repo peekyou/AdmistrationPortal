@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { FilterByPipe } from './filter-by';
 import { IncrementPipe } from './increment';
 import { CurrentPointsPipe } from './current-points';
+import { ExpensesChartPipe } from './expenses-chart';
 
 const PIPES = [
     FilterByPipe,
     IncrementPipe,
-    CurrentPointsPipe
+    CurrentPointsPipe,
+    ExpensesChartPipe
 ];
 
 @NgModule({

@@ -9,10 +9,12 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgAutoCompleteModule } from "ng-auto-complete";
 
-import { CountrySelectComponent } from './components/country-select/country-select.component';
+import { CountryPickerComponent } from './components/country-picker/country-picker.component';
+import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 const IMPORTS = [
     CommonModule,
@@ -28,10 +30,12 @@ const IMPORTS = [
 ];
 
 const DECLARATIONS = [
-    CountrySelectComponent,
+    CountryPickerComponent,
+    LanguagePickerComponent,
     FileUploadComponent,
     SubmitButtonComponent,
-    TimeRangeComponent
+    TimeRangeComponent,
+    LineChartComponent
 ];
 
 @NgModule({

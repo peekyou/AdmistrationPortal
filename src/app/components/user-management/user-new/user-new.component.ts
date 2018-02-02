@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 
-import { User, Permission } from '../user';
+import { User, Permission } from '../../user/user';
 import { UserManagementService } from '../user-management.service';
 
 @Component({

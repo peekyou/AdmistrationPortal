@@ -1,0 +1,41 @@
+:host {
+    display: block;
+}
+
+.statistics {
+    text-align: center;
+}
+
+.arc text {
+    font: .7em sans-serif;
+    text-anchor: middle;
+}
+
+.arc path {
+    stroke: #fff;
+}
+
+#tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: .3em;
+    background-color: white;
+    -webkit-border-radius: .4em;
+    -moz-border-radius: .4em;
+    border-radius: .4em;
+    -webkit-box-shadow: .1em .1em .4em rgba(0, 0, 0, 0.4);
+    -mox-box-shadow: .1em .1em .1em .4em rgba(0, 0, 0, 0.4);
+    box-shadow: .1em .1em .4em rbga(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+#tooltip.hidden {
+    opacity: 0;
+}
+#tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: .75em;
+    line-height: 1em;
+}

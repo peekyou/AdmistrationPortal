@@ -37,66 +37,15 @@
     <div class="card">
         <h5 class="card-header">{{ 'CUSTOMERS.EDIT_INFOS' | translate }}</h5>
         <div class="card-body">
-            <form class="form" #f="ngForm" (ngSubmit)="f.valid && saveCustomer()" novalidate>
-                <div class="form-group">
-                    <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname"
-                           [(ngModel)]="customer.firstname" #firstname="ngModel" required />
-                    <div [hidden]="firstname.valid || (firstname.pristine && !f.submitted)" class="alert-sm alert-danger">
-                        Firstname is required
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname"
-                           [(ngModel)]="customer.lastname" #lastname="ngModel" required />
-                    <div [hidden]="lastname.valid || (lastname.pristine && !f.submitted)" class="alert-sm alert-danger">
-                        Lastname is required
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile"
-                           [(ngModel)]="customer.mobileNumber" #mobile="ngModel" required />
-                    <div *ngIf="!mobile.valid && (!mobile.pristine || f.submitted)" class="alert-sm alert-danger">
-                        <div *ngIf="mobile.errors.required">
-                            Mobile number is required.
-                        </div>
-                        <div *ngIf="mobile.errors.phoneFormat">
-                            Mobile number format is wrong
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email">{{ 'COMMON.EMAIL' | translate }}</label>
-                    <input type="text" class="form-control" id="email" name="email"
-                           [(ngModel)]="customer.email" #email="ngModel" [email]="customer.email" />
-                    <div [hidden]="email.valid || (email.pristine && !f.submitted)" class="alert-sm alert-danger">
-                        Email is invalid
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="customer-information">Customer information</label>
-                    <textarea class="form-control" id="customer-information" name="customer-information"
-                              rows="5" [(ngModel)]="customer.comment"></textarea>
-                </div>
-                <!--<div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" name="receive-sms" class="form-check-input"
-                               [(ngModel)]="customer.receiveSms">Receive SMS
-                    </label>
-                </div>-->
-                <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
-                                   loadingValue="{{ 'COMMON.SAVING' | translate }}" 
-                                   [form]="f.form" [subscription]="saveSubscription">
-                </app-submit-button>
-            </form>
+            <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
+                               [submitSubscription]="saveSubscription">
+            </app-customer-form>
         </div>
     </div>
 
     <div class="card" style="text-align:center">
         <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
-        <div class="card-body">
+        <div class="card-body points-detail">
             <table class="table table-sm">
                 <thead class="thead-inverse">
                     <tr>
@@ -145,6 +94,12 @@
             </form>
         </div>
     </div>-->
+    <div class="card" *ngIf="customer && customer.expenses && customer.expenses.length > 1">
+        <h5 class="card-header">{{ 'CUSTOMERS.HISTORY_EXPENSES' | translate }}</h5>
+        <div class="card-body">
+            <app-line-chart [data]="customer.expenses | expensesChart"></app-line-chart>
+        </div>
+    </div>
     <!--<div class="card">
         <h5 class="card-header">Promotions</h5>
         <div class="card-body">

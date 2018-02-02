@@ -23,9 +23,11 @@
         "PASSWORD": "Mot de passe",
         "PASSWORD_CONFIRMATION": "Confirmer mot de passe",
         "AMOUNT": "Montant",
+        "POINTS": "Point(s)",
         "REMAINDER": "Reste",
         "FIRSTNAME": "Prénom",
         "LASTNAME": "Nom",
+        "GENDER": "Sexe",
         "STATUS": "Status",
         "ACTIONS": "Actions",
         "NAME": "Nom",
@@ -40,7 +42,13 @@
         "ZIP_CODE": "Code postal",
         "ADDRESS_LINE_1": "Adresse",
         "ADDRESS_LINE_2": "Adresse 2",
-        "COUNTRY_PLACEHOLDER": "Rechercher ou sélectionner"
+        "AUTOCOMPLETE_PLACEHOLDER": "Rechercher ou sélectionner",
+        "APPLY_CHANGES": "Sauvegarder",
+        "LANGUAGES": "Langues",
+        "ADD_LANGUAGE": "Ajouer langue",
+        "GENDER_F": "Femme",
+        "GENDER_M": "Homme",
+        "UNKNOWN": "Non renseigné"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -103,5 +111,9 @@
     },
     "BILLS": {
         "NO_BILL": "Vous n'avez pas de facture"
+    },
+    "STATS": {
+        "GENDER_PIE": "Gender segmentation",
+        "AGE_PIE": "Age segmentation"
     }
 }

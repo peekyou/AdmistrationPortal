@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { UserManagementService } from './user-management.service';
-import { User } from './user';
+import { User } from '../user/user';
 import { PagingResponse } from '../../core/models/paging';
 
 @Component({

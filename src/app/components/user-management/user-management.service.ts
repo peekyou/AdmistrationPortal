@@ -2,7 +2,7 @@
 import { Observable } from 'rxjs/Observable';
 
 import { AuthHttpService } from '../../core/services/auth-http.service';
-import { User, Permission } from './user';
+import { User, Permission } from '../user/user';
 import { PagingResponse } from '../../core/models/paging';
 import { AppSettings } from '../../app.settings';
 

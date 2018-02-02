@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Customer, CustomerExpense } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -11,41 +12,17 @@ import { CustomerService } from '../customer.service';
     templateUrl: './customer-new.component.html'
 })
 export class CustomerNewComponent {
-    form: FormGroup;
-    submitting = false;
+    saveSubscription: Subscription;
         
-    constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private service: CustomerService) {
-        this.init();
-    }
-        
-    init() {
-        this.form = this.fb.group({
-            firstname: [null, Validators.required],
-            lastname: [null, Validators.required],
-            mobile: [null, Validators.required],
-            receiveSms: [true],
-            amount: [null, Validators.required]
-        });
+    constructor(private router: Router, private service: CustomerService) {
     }
     
-    saveCustomer() {
-        this.submitting = true;
-        var newCustomer: Customer = {
-            expenses: [{ createdDate: new Date(), amount: this.form.value.amount }],
-            mobileNumber: this.form.value.mobile,
-            firstname: this.form.value.firstname,
-            lastname: this.form.value.lastname
-        };
-        this.service
-            .create(newCustomer)
+    saveCustomer(customer: Customer) {
+        this.saveSubscription = this.service
+            .create(customer)
             .subscribe(
                 id => this.router.navigate(['/customers', id]),
-                err => { console.log(err); this.submitting = false; }
+                err => { console.log(err); }
             );
     }
-    
-    get firstname() { return this.form.get('firstname'); }
-    get lastname() { return this.form.get('lastname'); }
-    get amount() { return this.form.get('amount'); }
-    get mobile() { return this.form.get('mobile'); }
 }

@@ -236,6 +236,16 @@ header {
     .unified-navigation {
         margin-left: 60px;
     }
+
+    .only-desktop {
+        display: initial;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .only-desktop {
+        display: none;
+    }
 }
 
 // Unified Desktop Required Widht (993px - main break)

@@ -1,0 +1,98 @@
+<div *ngIf="form">
+    <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
+        <div class="form-group">
+            <div class="form-check-inline">
+                <input type="radio" name="gender" id="genderM" value="M"
+                    formControlName="gender">
+                <label for="genderM">Male</label>
+            </div>
+            <div class="form-check-inline">
+                <input type="radio" name="gender" id="genderF" value="F"
+                    formControlName="gender">
+                <label for="genderF">Female</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">{{ 'COMMON.FIRSTNAME' | translate }}</label>
+            <input type="text" class="form-control" id="firstname" formControlName="firstname" required />
+            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert-sm alert-danger">
+                Firstname is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}</label>
+            <input type="text" class="form-control" id="lastname" formControlName="lastname" required />
+            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert-sm alert-danger">
+                Lastname is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}</label>
+            <input type="text" class="form-control" id="mobile" formControlName="mobile" required />
+            <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert-sm alert-danger">
+                <div *ngIf="mobile.errors.required">
+                    Mobile number is required.
+                </div>
+                <div *ngIf="mobile.errors.phoneFormat">
+                    Mobile number format is wrong
+                </div>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="isEdit">
+            <label for="email">{{ 'COMMON.EMAIL' | translate }}</label>
+            <input type="text" class="form-control" id="email" formControlName="email" />
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert-sm alert-danger">
+                Email is invalid
+            </div>
+        </div>
+
+        <div class="card card-languages">
+            <div class="card-header">
+                <label for="languages">{{ 'COMMON.LANGUAGES' | translate }}</label>
+            </div>
+            <div class="card-body">
+                <div formArrayName="languages">
+                    <div *ngFor="let language of form.controls.languages.controls; let i = index">
+                        <div class="language-control" [ngClass]="{'first': i == 0}">
+                            <app-language-picker [formControl]="language">
+                            </app-language-picker>
+                            <button type="button" class="btn btn-danger btn-xs delete-btn" 
+                                    (click)="removeLanguage(i)" *ngIf="i > 0">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-xs" (click)="addLanguage()">
+                    <i class="fa fa-plus"></i> {{ 'COMMON.ADD_LANGUAGE' | translate }}
+                </button>
+            </div>
+        </div>
+        
+        <!--<div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="receiveSms">
+                Reveice SMS
+            </label>
+        </div>-->
+        <div class="form-group" *ngIf="isEdit">
+            <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
+            <textarea class="form-control" id="comment" name="comment" 
+                      rows="5" formControlName="comment"></textarea>
+        </div>
+
+        <div class="form-group" *ngIf="!isEdit">
+            <label for="amount">{{ 'COMMON.AMOUNT' | translate }}</label>
+            <input type="number" min="0" class="form-control" id="amount"
+                    placeholder="AED" formControlName="amount" required>
+            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert-sm alert-danger">
+                Amount is required
+            </div>
+        </div>
+        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                           loadingValue="{{ 'COMMON.SAVING' | translate }}" 
+                           [form]="form" [subscription]="submitSubscription">
+        </app-submit-button>
+    </form>
+</div>

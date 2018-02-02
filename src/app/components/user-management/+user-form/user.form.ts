@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
-import { User, Permission } from '../user';
+import { User, Permission } from '../../user/user';
 import { UserManagementService } from '../user-management.service';
 
 @Component({
@@ -17,11 +17,13 @@ export class UserForm implements OnInit {
     @Output() onPopulate: EventEmitter<any> = new EventEmitter();
     @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
-    constructor(private fb: FormBuilder, private service: UserManagementService, private location: Location) {
-        this.init();
-    }
+    constructor(
+        private fb: FormBuilder, 
+        private service: UserManagementService, 
+        private location: Location) {}
 
-    ngOnInit() {
+    ngOnInit() {        
+        this.init();
         this.isEdit = this.onPopulate.observers.length > 0;
     }
     

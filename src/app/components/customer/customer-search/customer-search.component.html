@@ -12,7 +12,7 @@
     <div class="row customer" *ngFor="let customer of customers"
          (click)="selectCustomer(customer)" [class.selected]="customer === selectedCustomer">
         <div class="col-2 col-md">
-            {{customer.id}}
+            {{customer.cardNumber}}
         </div>
         <div class="col col-md-6">
             {{customer.firstname}} {{customer.lastname}}

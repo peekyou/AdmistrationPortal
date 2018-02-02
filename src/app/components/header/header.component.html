@@ -72,15 +72,20 @@
                         <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.BILLS' | translate }}
                     </a>
                 </li>
-                <li>
+                <li class="only-desktop">
                     <a routerLink="mobile-preview" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.MOBILE_PREVIEW' | translate }}
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="stats" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>&nbsp;{{ 'TOOLBAR.STATISTICS' | translate }}
                     </a>
                 </li>
                 <li class="mob-menu seperator only-mobile"></li>
                 <li *ngIf="user.isAuthenticated()">
                     <a (click)="showUserContainer = !showUserContainer">
-                        <i class="fa fa-power-off fa-fw" aria-hidden="true"></i>&nbsp;{{ user.getUsername() }}
+                        <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>&nbsp;{{ user.getUsername() }}
                     </a>
                 </li>
 

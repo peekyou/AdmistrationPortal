@@ -8,7 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DndModule } from 'ng2-dnd';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { TreeviewModule } from 'ngx-treeview';
+import { D3Service } from 'd3-ng2-service';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -29,6 +30,7 @@ import { SmsModule } from './components/sms';
 import { BillingModule } from './components/billing';
 import { UserManagementModule } from './components/user-management'
 import { MobilePreviewModule } from './components/mobile-preview';
+import { StatsModule } from './components/stats';
 import { AboutComponent } from './components/about';
 import { NoContentComponent } from './components/no-content';
 import { routes } from './app.routes';
@@ -39,6 +41,7 @@ import '../styles/styles.scss';
 const PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...APP_PROVIDERS,
+    D3Service,
     AppState
 ];
 
@@ -76,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        TreeviewModule.forRoot(),
         BrowserModule,
         SharedModule,
         HeaderModule,
@@ -88,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MobilePreviewModule,
         UserManagementModule,
         UserModule,
+        StatsModule,
         RouterModule.forRoot(routes, { 
             preloadingStrategy: PreloadAllModules, 
             useHash: Boolean(history.pushState) === false 

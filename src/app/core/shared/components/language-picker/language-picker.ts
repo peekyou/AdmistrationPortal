@@ -1,4 +1,4 @@
-export class CountrySelect {
+export class LanguagePicker {
     name?: string;
     id?: string;
 

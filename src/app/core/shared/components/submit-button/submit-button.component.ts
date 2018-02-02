@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -7,11 +7,18 @@ import { Subscription } from 'rxjs/Subscription';
     styleUrls: ['./submit-button.component.scss'],
     templateUrl: './submit-button.component.html'
 })
-export class SubmitButtonComponent {
+export class SubmitButtonComponent implements OnInit {
+    @Input() buttonClass: string;
     @Input() form: FormGroup;
     @Input() value: string;
     @Input() loadingValue: string;
     @Input() subscription: Subscription;
 
     constructor() { }
+
+    ngOnInit() {
+        if (!this.buttonClass) {
+            this.buttonClass = 'btn btn-info';
+        }
+    }
 }

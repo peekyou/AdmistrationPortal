@@ -12,4 +12,5 @@
 export class Claims {
     public static Name = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
     public static Permissions = "http://appwards.com/claims/permissions";
+    public static Profile = "http://appwards.com/claims/profile";
 }

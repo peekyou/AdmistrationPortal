@@ -1,14 +1,30 @@
 <div class="nav-user-container">
     <div class="nav-user-container-top">
         <div class="nav-container-username">{{ user.getUsername() }}</div>
-        <div class="close-cross" (click)="close()"></div>
+        <div class="close-cross" (click)="close()">
+            <i class="fa fa-close" aria-hidden="true"></i>    
+        </div>
     </div>
     <div class="nav-user-container-content">
-        
+        <div class="merchants-tree">
+            <ngx-treeview [config]="merchantsTreeConfig" [items]="merchants"
+                        (selectedChange)="onMerchantSelected($event)">
+            </ngx-treeview>
+        </div>
     </div>
     <div class="nav-user-container-bottom">
-        <a [routerLink]="['./login']" (click)="user.logout()">
-            <button type="button" class="btn btn-outline-secondary">{{ 'TOOLBAR.LOGOUT' | translate }}</button>
-        </a>
+        <!-- <button type="button" class="btn btn-outline-secondary" (click)="saveContext()">
+            {{ 'COMMON.APPLY_CHANGES' | translate }}
+        </button> -->
+        <app-submit-button value="{{ 'COMMON.APPLY_CHANGES' | translate }}"
+            loadingValue="{{ 'COMMON.LOADING' | translate }}" [subscription]="userPrefSubscription"
+            buttonClass="btn btn-outline-info nav-user-button" (click)="savePreferences()">
+        </app-submit-button>
+        <div class="logout">
+            <a [routerLink]="['./login']" (click)="logout()">
+                <button type="button" class="btn btn-outline-secondary nav-user-button">{{ 'TOOLBAR.LOGOUT' | translate }}</button>
+            </a>
+        </div>
+        
     </div>
 </div>

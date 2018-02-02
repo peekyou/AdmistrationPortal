@@ -14,6 +14,11 @@
     color: #fff;
 }
 
+.points-detail {
+    max-height: 30em;
+    overflow: scroll;
+}
+
 @media screen and (min-width: 900px) {
     .card-columns {
         column-count: 2;

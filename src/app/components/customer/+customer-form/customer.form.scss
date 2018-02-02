@@ -1,0 +1,30 @@
+:host {
+    display:block;
+}
+
+.card-languages {
+    margin-bottom: 1em;
+
+    .language-control {
+        margin-bottom: .5em;
+        width: 100%;
+    
+        .delete-btn {
+            margin-top: .5em;
+            margin-left: .5em;
+        }
+    
+        app-language-picker {
+            float: left;
+            width: calc(100% - 2.4em);
+        }
+    }
+    
+    .language-control.first {
+        width: calc(100% - 2.4em);
+    
+        app-language-picker {
+            float: none;
+        }
+    }    
+}

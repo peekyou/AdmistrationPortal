@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CustomerComponent } from './customer.component';
+import { CustomerForm } from './+customer-form/customer.form';
 import { CustomerDetailComponent } from './customer-detail';
 import { CustomerSearchComponent } from './customer-search';
 import { CustomerNewComponent } from './customer-new';
@@ -15,6 +16,7 @@ import { routes } from './customer.routes';
     ],
     declarations: [
         CustomerComponent,
+        CustomerForm,
         CustomerDetailComponent,
         CustomerSearchComponent,
         CustomerNewComponent

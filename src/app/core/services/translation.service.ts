@@ -16,7 +16,7 @@ export class TranslationService {
         this.translate
             .get([
                 'LOGIN.INVALID_CREDENTIALS',
-                'COMMON.COUNTRY_PLACEHOLDER'
+                'COMMON.AUTOCOMPLETE_PLACEHOLDER'
             ])
             .subscribe(res => {
                 this.translations = res;
@@ -28,6 +28,19 @@ export class TranslationService {
             callback(this.translations[name]);
         }
         return this.translate.get(name).subscribe(res => {
+            callback(res);
+        });;
+    }
+
+    public getMultiple(names: string[], callback: (data: any) => void) {
+        if (this.translations) {
+            var res = {};
+            names.forEach(n => {
+                res[n] = this.translations[n];
+            })
+            callback(res);
+        }
+        return this.translate.get(names).subscribe(res => {
             callback(res);
         });;
     }

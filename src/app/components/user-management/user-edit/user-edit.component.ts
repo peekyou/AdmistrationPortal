@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { User, Permission } from '../user';
+import { User, Permission } from '../../user/user';
 import { UserManagementService } from '../user-management.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UserEditComponent {
         protected router: Router, protected location: Location) {
     }
 
-    getCustomer(form: FormGroup) {
+    getUser(form: FormGroup) {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.service.getUser(params.get('id')))
             .subscribe(user => {

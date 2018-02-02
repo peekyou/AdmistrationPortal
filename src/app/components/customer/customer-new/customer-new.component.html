@@ -1,50 +1,5 @@
 <h5>Unknown customer, please register</h5>
 <div class="container container-card">
-    <div *ngIf="form">
-        <form [formGroup]="form" class="form" (ngSubmit)="form.valid && saveCustomer()" novalidate>
-            <div class="form-group">
-                <label for="name">Firstname</label>
-                <input type="text" class="form-control" id="firstname" formControlName="firstname" required />
-                <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert-sm alert-danger">
-                    Firstname is required
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lastname">Lastname</label>
-                <input type="text" class="form-control" id="lastname" formControlName="lastname" required />
-                <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert-sm alert-danger">
-                    Lastname is required
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="mobile">Mobile number</label>
-                <input type="text" class="form-control" id="mobile" formControlName="mobile" required />
-                <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert-sm alert-danger">
-                    <div *ngIf="mobile.errors.required">
-                        Mobile number is required.
-                    </div>
-                    <div *ngIf="mobile.errors.phoneFormat">
-                        Mobile number format is wrong
-                    </div>
-                </div>
-            </div>
-            <!--<div class="form-check">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" formControlName="receiveSms">
-                    Reveice SMS
-                </label>
-            </div>-->
-            <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" min="0" class="form-control" id="amount"
-                       placeholder="AED" formControlName="amount" required>
-                <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert-sm alert-danger">
-                    Lastname is required
-                </div>
-            </div>
-            <button type="submit" class="btn btn-info" [disabled]="form.invalid || submitting">
-                Submit
-            </button>
-        </form>
-    </div>
+    <app-customer-form (onSubmit)="saveCustomer($event)" [submitSubscription]="saveSubscription">
+    </app-customer-form>
 </div>

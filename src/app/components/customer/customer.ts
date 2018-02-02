@@ -1,11 +1,12 @@
 export class Customer {
     id?: string;
     cardNumber?: string;
-    firstname: string;
-    lastname: string;
+    gender?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     birthdate?: Date;
-    mobileNumber: string;
+    mobileNumber?: string;
     firstEntry?: Date;
     lastEntry?: Date;
     comment?: string;
@@ -15,6 +16,7 @@ export class Customer {
     expenses?: CustomerExpense[];
     points?: CustomerPoint[];
     purchaseData?: PurchaseData;
+    languages?: string[];
 }
 
 export class PurchaseData {
@@ -27,7 +29,7 @@ export class PurchaseData {
 
 export class CustomerExpense {
     id?: string;
-    createdDate: Date;
+    date: Date;
     amount: number;
 }
 

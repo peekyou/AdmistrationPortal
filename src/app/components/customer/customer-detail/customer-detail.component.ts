@@ -2,6 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,6 +16,7 @@ import { DeleteModal } from '../../../core/shared/modals/delete.modal';
 })
 export class CustomerDetailComponent implements OnInit {
     customer: Customer = null;
+    customerForm: FormGroup;
     newEntryAmount: number = null;
     saveEntrySubscription: Subscription;
     saveSubscription: Subscription;
@@ -33,34 +35,49 @@ export class CustomerDetailComponent implements OnInit {
             .subscribe(customer => {
                 this.customer = customer;
                 this.customer.purchaseData = this.service.calculatePurchaseData(customer.points);
+                this.populateUser();
             });
     }
+
+    populateUser(form: FormGroup = null) {
+        if (form) {
+            this.customerForm = form;
+        }
+        if (this.customerForm) {
+            this.customerForm.patchValue({
+                gender: this.customer.gender,
+                firstname: this.customer.firstname,
+                lastname: this.customer.lastname,
+                mobile: this.customer.mobileNumber,
+                email: this.customer.email,
+                languages: this.customer.languages, // Set first language
+                comment: this.customer.comment
+            });
+
+            // Set other languages
+            const languagesControl = <FormArray>this.customerForm.controls['languages'];
+            for (let i = 1; this.customer.languages && i < this.customer.languages.length; i++) {
+                let newLanguage = new FormControl(this.customer.languages[i]);
+                languagesControl.push(newLanguage);
+            }
+        }
+    }
     
-    saveEntry(): void {
+    saveEntry() {
         this.saveEntrySubscription = this.service
             .saveEntry(this.customer.id, this.newEntryAmount)
             .subscribe(
                 r => {
                     this.customer = r;
                     this.customer.purchaseData = this.service.calculatePurchaseData(this.customer.points);
-                    //if (!this.customer.points) {
-                    //    this.customer.points = [];
-                    //}
-                    //if (r.length > 0) {
-                    //    this.customer.lastEntry = r[0].date;
-                    //    r.forEach(p => {
-                    //        this.customer.points.push(p);
-                    //        this.customer.currentPoints += p.correspondingAmount;
-                    //        this.customer.totalPoints += p.correspondingAmount;
-                    //    });
-                    //    this.customer.purchaseData = this.service.calculatePurchaseData(this.customer.points);
-                    //}
                 },
                 err => { console.log(err); }
             );
     }
 
-    saveCustomer() {
+    saveCustomer(customer: Customer) {
+        // Merge the data coming from the form to the current customer
+        Object.assign(this.customer, customer);
         this.saveSubscription = this.service
             .update(this.customer)
             .subscribe(
