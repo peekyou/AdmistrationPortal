@@ -118,7 +118,7 @@ export class LineChartComponent implements OnInit {
             .y(function(d) { return y(d.value); });
             
         x.domain(d3.extent(data, function(d) { return d.date; }));
-        y.domain([d3.min(data, function(d) { return d.value; }) / 1.005, d3.max(data, function(d) { return d.value; }) * 1.005]);
+        y.domain([0, d3.max(data, function(d) { return d.value; })]);
     
         g.select(".axis--x")
             .attr("transform", "translate(0," + height + ")")

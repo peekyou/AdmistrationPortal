@@ -12,8 +12,16 @@ export class Segmentation {
 export class SegmentationDetail {
     count: number;
     label: string;
-    value?: string;
     percentage?: number;
+}
+
+export enum DataType {
+    Gender = 1,
+    Age,
+    Languages,
+    City,
+    Country,
+    Nationality
 }
 
 // export class GenderSegmentation extends Segmentation

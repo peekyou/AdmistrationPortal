@@ -5,12 +5,14 @@ import { FilterByPipe } from './filter-by';
 import { IncrementPipe } from './increment';
 import { CurrentPointsPipe } from './current-points';
 import { ExpensesChartPipe } from './expenses-chart';
+import { GroupBarChartPipe } from './group-bar-chart';
 
 const PIPES = [
     FilterByPipe,
     IncrementPipe,
     CurrentPointsPipe,
-    ExpensesChartPipe
+    ExpensesChartPipe,
+    GroupBarChartPipe
 ];
 
 @NgModule({

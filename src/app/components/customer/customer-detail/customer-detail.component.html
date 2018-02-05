@@ -95,7 +95,7 @@
         </div>
     </div>-->
     <div class="card" *ngIf="customer && customer.expenses && customer.expenses.length > 1">
-        <h5 class="card-header">{{ 'CUSTOMERS.HISTORY_EXPENSES' | translate }}</h5>
+        <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
         <div class="card-body">
             <app-line-chart [data]="customer.expenses | expensesChart"></app-line-chart>
         </div>

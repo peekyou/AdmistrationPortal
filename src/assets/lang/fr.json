@@ -28,6 +28,7 @@
         "FIRSTNAME": "Prénom",
         "LASTNAME": "Nom",
         "GENDER": "Sexe",
+        "AGE": "Age",
         "STATUS": "Status",
         "ACTIONS": "Actions",
         "NAME": "Nom",
@@ -48,7 +49,8 @@
         "ADD_LANGUAGE": "Ajouer langue",
         "GENDER_F": "Femme",
         "GENDER_M": "Homme",
-        "UNKNOWN": "Non renseigné"
+        "UNKNOWN": "Non renseigné",
+        "FILTERS": "Filtres"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -67,7 +69,8 @@
         "CURRENT_POINTS": "Point(s)",
         "CURRENT_POINTS_DETAIL": "Détail points en cours",
         "EDIT_INFOS": "Modifier informations",
-        "CUSTOMER_INFOS": "Informations client"
+        "CUSTOMER_INFOS": "Informations client",
+        "EXPENSES_CHART": "Graphe des dépenses"
     },
     "CONTENT": {
         "SLOGAN": "Slogan",
@@ -114,6 +117,7 @@
     },
     "STATS": {
         "GENDER_PIE": "Gender segmentation",
-        "AGE_PIE": "Age segmentation"
+        "AGE_PIE": "Age segmentation",
+        "GROUP_BAR_CHART": "Graphe groupé"
     }
 }

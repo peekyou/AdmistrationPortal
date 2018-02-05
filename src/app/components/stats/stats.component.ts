@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
-import { D3Service, D3, Selection, PieArcDatum, DefaultArcObject, BaseType } from 'd3-ng2-service';
+import { D3Service, D3, Selection, PieArcDatum, BaseType } from 'd3-ng2-service';
 
 import { TranslationService } from '../../core/services/translation.service';
-import { SegmentationStatistics, Segmentation, SegmentationDetail } from './segmentation-statistics';
+import { SegmentationStatistics, Segmentation, SegmentationDetail, DataType } from './segmentation-statistics';
 import { StatsService } from './stats.service';
+import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -11,8 +12,10 @@ import { StatsService } from './stats.service';
     templateUrl: './stats.component.html'
 })
 export class StatsComponent implements OnInit {
+    DataType = DataType;
     private translationMapping = {
         null: 'COMMON.UNKNOWN', 
+        '': 'COMMON.UNKNOWN', 
         'M': 'COMMON.GENDER_M',
         'F': 'COMMON.GENDER_F'
     }
@@ -20,6 +23,10 @@ export class StatsComponent implements OnInit {
     private staticStrings: any;
     private d3: D3;
     private parentNativeElement: any;
+    private groupChartDataTypes: DataType[] = [DataType.Gender];
+    // private genderGroupChecked: boolean = true;
+    // private ageGroupChecked: boolean = false;
+    private barChartData: BarChartData[] | GroupBarChartData[];
     
     constructor(
         element: ElementRef,
@@ -42,8 +49,15 @@ export class StatsComponent implements OnInit {
                     stats => this.buildPies(stats),
                     err => { console.log(err); }
                 );
+
+                this.updateGroupedBarChart();
             });
         }
+
+        // this.barChartData = [
+        //     { label: "Male", value: 5 },
+        //     { label: "Female", value: 8 }
+        // ];
     }
 
     buildPies(data: SegmentationStatistics) {
@@ -70,21 +84,17 @@ export class StatsComponent implements OnInit {
             };
         }
 
-        data.genderSegmentation.details.forEach(d => {
-            var key = this.translationMapping[d.label];
-            d.label = this.staticStrings[key];
-        })
-
+        this.translateLabels(data.genderSegmentation.details);
         this.buildPie(data.genderSegmentation, 'gender-stats');
         this.buildPie(data.ageSegmentation, 'age-stats');
     }
     
     buildPie(data: Segmentation, svgContainerClass: string) {
-        var info = this.init(svgContainerClass);
-        this.update(data, info.svg, info.radius);
+        var info = this.initPieChart(svgContainerClass);
+        this.updatePieChart(data, info.svg, info.radius);
     }
 
-    private init(svgContainerClass: string) {
+    private initPieChart(svgContainerClass: string) {
         let d3 = this.d3; // <-- for convenience use a block scope variable
         let d3ParentElement: Selection<any, any, any, any>; // <-- Use the Selection interface (very basic here for illustration only)
         
@@ -105,7 +115,7 @@ export class StatsComponent implements OnInit {
         return { svg: svg, radius: radius };
     }
 
-    private update(data: Segmentation, svg: Selection<BaseType, {}, HTMLElement, any>, radius: number) { 
+    private updatePieChart(data: Segmentation, svg: Selection<BaseType, {}, HTMLElement, any>, radius: number) { 
         let d3 = this.d3;
         var color = d3.scaleOrdinal(d3.schemeCategory20c);
         
@@ -145,11 +155,90 @@ export class StatsComponent implements OnInit {
         
         g.append("path")
             .attr("d", arc)
-            .style("fill", <any>function(d) { return color(d.data.value); });
+            .style("fill", <any>function(d) { return color(d.data.label); });
         
         g.append("text")
             .attr("transform", function(d: PieArcDatum<SegmentationDetail>) { return "translate(" + labelArc.centroid(d) + ")"; })
             .attr("dy", ".35em")
             .text(function(d: PieArcDatum<SegmentationDetail>) { return d.data.label; });
+    }
+
+    selectDataType(type: DataType) {
+        var index = this.groupChartDataTypes.indexOf(type);
+        if (index === -1) {
+            this.groupChartDataTypes.push(type);
+            // Allow aonly 2 filters
+            while (this.groupChartDataTypes.length > 2) {
+                this.groupChartDataTypes.shift();
+            }
+        }
+        else {
+            this.groupChartDataTypes.splice(index, 1);
+        }
+        this.updateGroupedBarChart();
+    }
+
+    updateGroupedBarChart() {
+        this.service.getGroupedStatistics(this.groupChartDataTypes)
+        .subscribe(
+            stats => {
+                this.barChartData = stats
+                this.barChartData.forEach(x => {
+                    this.translateLabels(x.details);
+                });
+                this.translateLabels(this.barChartData);
+            },
+            err => { console.log(err); }
+        );
+
+        // if (this.genderGroupChecked && this.ageGroupChecked) {
+        //     this.barChartData = [
+        //        new GroupBarChartData("Male", [
+        //             { label: "Under 5", value: 5 },
+        //             { label: "5-20", value: 15 },
+        //             { label: "20-35", value: 35 },
+        //             { label: "35-40", value: 5 },
+        //             { label: "40-50", value: 15 },
+        //             { label: "Above 50", value: 35 }
+        //         ]),
+        //         new GroupBarChartData("Female", [
+        //             { label: "Under 5", value: 15 },
+        //             { label: "5-20", value: 25 },
+        //             { label: "20-35", value: 105 },
+        //             { label: "35-40", value: 2 },
+        //             { label: "40-50", value: 45 },
+        //             { label: "Above 50", value: 15 }
+        //         ])
+        //     ];
+        // }
+        // else if (this.ageGroupChecked) {
+        //     this.barChartData = [
+        //         { label: "Under 5", value: 15 },
+        //         { label: "5-20", value: 25 },
+        //         { label: "20-35", value: 105 },
+        //         { label: "35-40", value: 2 },
+        //         { label: "40-50", value: 45 },
+        //         { label: "Above 50", value: 15 }
+        //     ];
+        // }
+        // else {
+        //     this.barChartData = [
+        //         { label: "Male", value: 5 },
+        //         { label: "Female", value: 8 }
+        //     ];
+        // }
+    }
+
+    public hasDataType(type: DataType) {
+        return this.groupChartDataTypes.indexOf(type) !== -1;
+    }
+
+    private translateLabels(data: any[]) {
+        data.forEach(d => {
+            var key = this.translationMapping[d.label];
+            if (key) {
+                d.label = this.staticStrings[key];
+            }
+        });
     }
 }

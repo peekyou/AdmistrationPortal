@@ -2,8 +2,58 @@
     <h2>Statistics</h2>
     <div class="statistics">
         <div class="row">
-            <div class="col gender-stats">{{ 'STATS.GENDER_PIE' | translate }}</div>
-            <div class="col age-stats">{{ 'STATS.AGE_PIE' | translate }}</div>
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                    <div class="card-body gender-stats"></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">{{ 'STATS.AGE_PIE' | translate }}</h5>
+                    <div class="card-body age-stats"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
+
+                    <div class="row">
+                        <div class="col filters">
+                            <div class="filters-heading">{{ 'COMMON.FILTERS' | translate }}</div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="genderGroup" 
+                                            (change)="selectDataType(DataType.Gender)" 
+                                            [checked]="hasDataType(DataType.Gender)" value="genderGroup">
+                                    {{ 'COMMON.GENDER' | translate }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                            (change)="selectDataType(DataType.Age)" 
+                                            [checked]="hasDataType(DataType.Age)" value="ageGroup">
+                                    {{ 'COMMON.AGE' | translate }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                                (change)="selectDataType(DataType.City)" 
+                                                [checked]="hasDataType(DataType.City)" value="ageGroup">
+                                        {{ 'COMMON.CITY' | translate }}
+                                    </label>
+                                </div>
+                        </div>
+                        <div class="col-10">
+                            <app-group-bar-chart [data]="barChartData | groupBarChart:groupChartDataTypes.length > 1"></app-group-bar-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

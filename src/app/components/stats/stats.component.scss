@@ -4,6 +4,20 @@
 
 .statistics {
     text-align: center;
+
+    .card {
+        margin-top: 2em;
+    }
+}
+
+.filters {
+
+    .filters-heading {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin: .8em 0;
+        // border-bottom: 1px solid gray;
+    }
 }
 
 .arc text {

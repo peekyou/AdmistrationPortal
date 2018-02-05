@@ -11,9 +11,9 @@
 }
 
 .line {
-  fill: none;
-  stroke: #6F257F;
-  stroke-width: 5px;
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
 }
 
 .overlay {
@@ -23,12 +23,12 @@
 
 .focus circle {
   fill: #F1F3F3;
-  stroke: #6F257F;
-  stroke-width: 5px;
+  stroke: steelblue;
+  stroke-width: 3px;
 }
   
 .hover-line {
-  stroke: #6F257F;
+  stroke: steelblue;
   stroke-width: 2px;
   stroke-dasharray: 3,3;
 }

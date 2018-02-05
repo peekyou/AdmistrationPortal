@@ -15,6 +15,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
 
 const IMPORTS = [
     CommonModule,
@@ -35,7 +36,8 @@ const DECLARATIONS = [
     FileUploadComponent,
     SubmitButtonComponent,
     TimeRangeComponent,
-    LineChartComponent
+    LineChartComponent,
+    GroupBarChartComponent
 ];
 
 @NgModule({
