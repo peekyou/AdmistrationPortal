@@ -8,6 +8,7 @@ import { ModalsModule } from './modals/modals.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgAutoCompleteModule } from "ng-auto-complete";
+import { LoadingModule } from 'ngx-loading';
 
 import { CountryPickerComponent } from './components/country-picker/country-picker.component';
 import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
@@ -26,6 +27,7 @@ const IMPORTS = [
     InfiniteScrollModule,
     TranslateModule,
     NgAutoCompleteModule,
+    LoadingModule,
     PipesModule,
     ModalsModule
 ];

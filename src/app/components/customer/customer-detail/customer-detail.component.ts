@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import { Customer, CustomerPoint } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -31,7 +32,14 @@ export class CustomerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap
-            .switchMap((params: ParamMap) => this.service.getById(params.get('id')))
+            .switchMap((params: ParamMap) => {
+                if (this.service.customerSearched) {
+                    var clone = Object.assign({}, this.service.customerSearched);   
+                    this.service.customerSearched = null;                 
+                    return Observable.of(clone);
+                }
+                return this.service.getById(params.get('id'));
+            })
             .subscribe(customer => {
                 this.customer = customer;
                 this.customer.purchaseData = this.service.calculatePurchaseData(customer.points);

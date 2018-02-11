@@ -10,6 +10,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TreeviewModule } from 'ngx-treeview';
 import { D3Service } from 'd3-ng2-service';
+import { LoadingModule } from 'ngx-loading';
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -21,6 +23,7 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { APP_PROVIDERS } from './app.providers';
 import { AppState, InternalStateType } from './app.service';
 import { HeaderModule } from './components/header';
+import { SidebarModule } from './components/sidebar';
 import { UserModule } from './components/user';
 import { CustomerModule } from './components/customer';
 import { ContentEditorModule } from './components/content-editor';
@@ -79,10 +82,16 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        LoadingModule.forRoot({
+            primaryColour: '#0F4676', 
+            secondaryColour: '#0F4676', 
+            tertiaryColour: '#0F4676'
+        }),
         TreeviewModule.forRoot(),
         BrowserModule,
         SharedModule,
         HeaderModule,
+        SidebarModule,
         CustomerModule,
         ContentEditorModule,
         PromotionModule,

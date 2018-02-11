@@ -95,19 +95,21 @@ export class GroupBarChartComponent implements OnInit {
         this.g.append("g")
             .attr("class", "axis--x")
             .attr("transform", "translate(0," + this.height + ")")
-            .call(d3.axisBottom(this.x0));
+            .call(d3.axisBottom(this.x0))
+            .attr("font-size", ".8em");
     
         this.g.append("g")
             .attr("class", "axis--y")
             .call(d3.axisLeft(this.y).ticks(null, "s"))
             .append("text")
             .attr("x", 2)
-            .attr("y", this.y(this.y.ticks().pop()) + 0.5)
-            .attr("dy", "0.32em")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
             .attr("fill", "#000")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start")
-            .text("Average expenses (" + this.currency + ")");
+            .attr("text-anchor", "end")
+            .text("Average expenses (" + this.currency + ")")
+            .attr("font-size", "1.2em");
 
         this.initialized = true;
     }
@@ -197,7 +199,7 @@ export class GroupBarChartComponent implements OnInit {
         if (this.isGroupedChart()) {
             var legend = g.append("g")
                 .attr("font-family", "sans-serif")
-                .attr("font-size", 10)
+                .attr("font-size", "1.2em")
                 .attr("text-anchor", "end")
                 .attr("class", "legend")
                 .selectAll("g")
@@ -215,6 +217,7 @@ export class GroupBarChartComponent implements OnInit {
                 .attr("x", width - 24)
                 .attr("y", 9.5)
                 .attr("dy", "0.32em")
+                .attr("font-size", "0.6em")
                 .text(function(d) { return d; });
         }
 

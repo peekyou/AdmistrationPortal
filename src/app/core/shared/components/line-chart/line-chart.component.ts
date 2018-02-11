@@ -11,6 +11,7 @@ import { LineChartData } from './line-chart';
     templateUrl: './line-chart.component.html'
 })
 export class LineChartComponent implements OnInit {
+    private initialized: boolean = false;
     private d3: D3;
     private parentNativeElement: any;
     private currency: string;
@@ -18,9 +19,21 @@ export class LineChartComponent implements OnInit {
     private x: ScaleTime<number, number>;
     private y: ScaleLinear<number, number>;
     private svg: Selection<Element, {}, HTMLElement, any>;
-    private margin = {top: 20, right: 20, bottom: 30, left: 40};
-
-    @Input() data: LineChartData[];
+    private margin = {top: 20, right: 30, bottom: 30, left: 40};
+    private _data: LineChartData[];
+    
+    @Input() 
+    set data(data: LineChartData[]) {
+        this._data = data;
+        if (!this.initialized) {
+            this.initialized = true;
+            this.initChart();
+        }
+        this.drawChart(); 
+    }
+    get data(): LineChartData[] {
+        return this._data;
+    }
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
@@ -60,12 +73,11 @@ export class LineChartComponent implements OnInit {
         //     // {date : new Date(2018, 2, 8), value: 779200},
         //     // {date : new Date(2018, 4, 21), value: 782300}
         // ];
-        console.log(this.data);
 
-        if (this.parentNativeElement !== null) {
-            this.initChart();
-            this.drawChart();        
-        }
+        // if (this.parentNativeElement !== null) {
+        //     this.initChart();
+        //     this.drawChart();        
+        // }
     }
 
     initChart() {
@@ -119,6 +131,10 @@ export class LineChartComponent implements OnInit {
             
         x.domain(d3.extent(data, function(d) { return d.date; }));
         y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        g.selectAll(".line")
+        .remove()
+        .exit();
     
         g.select(".axis--x")
             .attr("transform", "translate(0," + height + ")")
@@ -165,7 +181,7 @@ export class LineChartComponent implements OnInit {
             .attr("r", 7.5);
     
         focus.append("text")
-            .attr("x", 15)
+            .attr("x", 12)
             .attr("dy", ".31em");
     
         this.svg.append("rect")
@@ -177,10 +193,7 @@ export class LineChartComponent implements OnInit {
             .on("mouseout", function() { focus.style("display", "none"); })
             .on("mousemove", function () {
                 var x0 = x.invert(d3.mouse(<any>this)[0]);
-                console.log('x0', x0);
                 var i = bisectDate(data, x0, 1);
-                console.log('data', data);
-                console.log('i', i);
                 var d0 = data[i - 1];
                 var d1 = data[i];
                 var d = x0.valueOf() - d0.date.valueOf() > d1.date.valueOf() - x0.valueOf() ? d1 : d0;

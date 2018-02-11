@@ -1,15 +1,15 @@
 <div *ngIf="form">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
         <div class="form-group">
-            <div class="form-check-inline">
+            <div class="form-check form-check-inline">
                 <input type="radio" name="gender" id="genderM" value="M"
-                    formControlName="gender">
-                <label for="genderM">Male</label>
+                    formControlName="gender" class="form-check-input">
+                <label for="genderM" class="form-check-label">Male</label>
             </div>
             <div class="form-check-inline">
                 <input type="radio" name="gender" id="genderF" value="F"
-                    formControlName="gender">
-                <label for="genderF">Female</label>
+                    formControlName="gender" class="form-check-input">
+                <label for="genderF" class="form-check-label">Female</label>
             </div>
         </div>
 

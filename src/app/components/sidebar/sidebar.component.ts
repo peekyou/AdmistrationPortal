@@ -3,15 +3,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from '../user/user.service';
 import { Permissions } from '../../core/helpers/permissions';
-import { AppSettings } from '../../app.settings';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss']
 })
-export class HeaderComponent {
-    public title = AppSettings.MerchantName;
+export class SidebarComponent {
     public showUserContainer: boolean = false;
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;

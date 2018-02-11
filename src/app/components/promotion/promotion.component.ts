@@ -12,15 +12,20 @@ import { PagingResponse } from '../../core/models/paging';
     templateUrl: './promotion.component.html'
 })
 export class PromotionComponent implements OnInit {
+    loading = false;
     promotions: PagingResponse<Promotion>;
 
     constructor(private service: PromotionService) { }
 
     ngOnInit() {
+        this.loading = true;
         this.service
             .getAll()
             .subscribe(
-                promotions => this.promotions = promotions,
+                promotions => {
+                    this.promotions = promotions;
+                    this.loading = false;
+                },
                 err => { console.log(err); }
             );
     }

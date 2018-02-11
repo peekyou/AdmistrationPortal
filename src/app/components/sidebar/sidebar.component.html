@@ -1,0 +1,82 @@
+<div id="sidebar" class="sidebar-collapse in" *ngIf="user.isAuthenticated()">
+        <div class="list-group panel">
+            <div *ngIf="user.hasPermission(customersPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="customers" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.CUSTOMERS' | translate }}</span>
+                </a>
+            </div>
+
+            <div *ngIf="user.hasPermission(contentPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="content" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.CONTENT' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(reviewsPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="reviews" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-comments fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.REVIEWS' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(promotionsPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="promotions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.PROMOTIONS' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(smsPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="sms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.SMS_PACKS' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(userManagementPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="usermanagement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.USER_MANAGEMENT' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(billsPermission)">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="billing" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.BILLS' | translate }}</span>
+                </a>
+            </div>
+            <div class="only-desktop">
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="mobile-preview" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.MOBILE_PREVIEW' | translate }}</span>
+                </a>
+            </div>
+            <div>
+                <a class="list-group-item collapsed" data-parent="#sidebar"
+                    routerLink="stats" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.STATISTICS' | translate }}</span>
+                </a>
+            </div>
+            
+            
+            <!-- <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i></a>
+            
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span class="hidden-sm-down">Item 2</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="hidden-sm-down">Item 4</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-list"></i> <span class="hidden-sm-down">Item 5</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-clock-o"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-th"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-gear"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-bar-chart-o"></i> <span class="hidden-sm-down">Link</span></a>
+            <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-star"></i> <span class="hidden-sm-down">Link</span></a> -->
+        </div>
+    </div>

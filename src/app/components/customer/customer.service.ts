@@ -9,6 +9,7 @@ import { AppSettings } from '../../app.settings';
 
 export class CustomerService {
     private api = AppSettings.API_ENDPOINT + '/customers';
+    customerSearched: Customer;
 
     constructor(private http: AuthHttpService) {
     }

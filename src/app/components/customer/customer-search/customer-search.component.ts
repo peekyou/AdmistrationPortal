@@ -13,11 +13,16 @@ import { CustomerService } from '../customer.service';
     templateUrl: './customer-search.component.html'
 })
 export class CustomerSearchComponent {
+    loading = false;
     searchTerm: string;
     customers: Customer[];
     form: FormGroup;
         
-    constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private service: CustomerService) {
+    constructor(
+        private fb: FormBuilder, 
+        private route: ActivatedRoute, 
+        private router: Router, 
+        private service: CustomerService) {
         this.init();
     }
         
@@ -33,27 +38,43 @@ export class CustomerSearchComponent {
 
     searchCustomer() {
         this.customers = [];
+        this.loading = true;
         if (this.searchTerm) {
             this.service
                 .find(this.searchTerm.toLowerCase())
                 .subscribe(customers => {
                     if (customers.length === 0) {
+                        this.loading = false;
                         this.router.navigate(['/customers/new']);
                     }
                     else if (customers.length === 1) {
                         this.selectCustomer(customers[0]);
                     }
                     else {
+                        this.loading = false;
                         this.customers = customers;
                     }
                 },
-                err => { console.log(err); }
+                err => { 
+                    this.loading = false;
+                    console.log(err); 
+                }
             );
         }
     }
 
     selectCustomer(customer: Customer) {
-        this.router.navigate(['/customers', customer.id]);
+        // Call get by id before going to detail page, to avoid two loading
+        this.service.getById(customer.id)
+                    .subscribe(c => {
+                        console.log(c);
+                        this.service.customerSearched = c;
+                        this.loading = false;
+                        this.router.navigate(['/customers', customer.id]);
+                    },
+                    err => {
+                        this.loading = false;
+                    });
     }
     
     get firstname() { return this.form.get('firstname'); }

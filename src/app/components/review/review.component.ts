@@ -12,22 +12,27 @@ import { PagingResponse } from '../../core/models/paging';
     templateUrl: './review.component.html'
 })
 export class ReviewComponent {
+    loading = false;
     reviews: PagingResponse<Review>;
     averageRating1: number = 0;
     averageRating2: number = 0;
     averageRating3: number = 0;
 
     constructor(private service: ReviewService) {
+        this.loading = true;
         this.service
             .getAll(1, 100)
             .subscribe(
-                reviews => { this.reviews = reviews; this.calculateAverage(); },
+                reviews => { 
+                    this.reviews = reviews; this.calculateAverage(); 
+                    this.loading = false;
+                },
                 err => { console.log(err); }
             );
     }
 
     private calculateAverage() {
-        if (this.reviews.paging.itemsCount > 1) {
+        if (this.reviews.paging.itemsCount > 0) {
             this.reviews.data.forEach(r => {
                 this.averageRating1 += r.rating1;
                 this.averageRating2 += r.rating2;

@@ -41,3 +41,4 @@
 <div *ngIf="users && users.paging.itemsCount == 0">
     <h2>{{ 'USER_MANAGEMENT.NO_USER' | translate }}</h2>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

@@ -7,6 +7,7 @@ import { BillingService } from './billing.service';
     templateUrl: './billing.component.html'
 })
 export class BillingComponent {
+    loading = false;
 
     constructor(private service: BillingService) { }
 }

@@ -4,7 +4,8 @@
             <h4 class="card-title">{{ 'CUSTOMERS.SEARCH' | translate }}</h4>
         </div>
         <div class="col">
-            <span>{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
+            <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-fw"></i>                
+            <span *ngIf="!loading">{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
         </div>
     </div>
     <customer-search></customer-search>

@@ -21,7 +21,8 @@ export class UserPopoverComponent implements AfterViewInit {
         decoupleChildFromParent: false,
         maxHeight: 500
     };
-    merchants: TreeviewItem[] = []; 
+    merchants: TreeviewItem[] = [];
+    isMerchantHierarchy = false;
 
     private parentNode: any;
     @Output() private closeEvent: EventEmitter<void> = new EventEmitter();
@@ -60,6 +61,7 @@ export class UserPopoverComponent implements AfterViewInit {
                 result => {
                     this.userPreferences = result;
                     this.merchants = this.buildTree(hierarchy);
+                    this.setIsMerchantHierarchy();
                 },
                 err => { console.log(err); }
             );
@@ -86,6 +88,16 @@ export class UserPopoverComponent implements AfterViewInit {
             })));
         }
         return children;
+    }
+
+    setIsMerchantHierarchy() {
+        this.isMerchantHierarchy = this.merchants.length > 1;
+        for (let i = 0; i < this.merchants.length; i++) {
+            if (this.merchants[i].children && this.merchants[i].children.length > 0) {
+                this.isMerchantHierarchy = true;
+                break;
+            }
+        }
     }
 
     logout() {

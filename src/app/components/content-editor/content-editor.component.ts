@@ -17,6 +17,7 @@ import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
     providers: [PageNotifierService]
 })
 export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
+    loading = false;
     ckeditorConfig: object;
     selectedPage: Page;
     homePage: Page;
@@ -87,6 +88,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     }
 
     getPages() {
+        this.loading = true;
         this.service
             .getPages()
             .subscribe(
@@ -100,6 +102,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                     if (!this.locationPage.address) {
                         this.locationPage.address = {};
                     }
+                    this.loading = false;
                 },
                 err => { console.log(err); }
             );

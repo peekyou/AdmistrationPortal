@@ -20,10 +20,10 @@
             <tr *ngFor="let promotion of promotions.data">
                 <th scope="row">{{promotion?.name}}</th>
                 <td>
-                    From {{promotion?.fromDate | date:'dd/MM/yyyy'}}<br />
-                    To {{promotion?.toDate | date:'dd/MM/yyyy'}}
+                    From {{promotion?.fromDate | date:'dd-MM-yyyy'}}<br />
+                    To {{promotion?.toDate | date:'dd-MM-yyyy'}}
                 </td>
-                <td>{{promotion?.createdDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{promotion?.createdDate | date:'dd-MM-yyyy'}}</td>
                 <td>{{promotion?.smsSent}} sms</td>
                 <td>{{promotion?.details}}</td>
             </tr>
@@ -34,3 +34,5 @@
 <div *ngIf="promotions && promotions.paging.itemsCount == 0">
     <h2>{{ 'PROMOTIONS.NO_PROMOTION' | translate }}</h2>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

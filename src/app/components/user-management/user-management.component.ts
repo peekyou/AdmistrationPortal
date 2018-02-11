@@ -12,14 +12,19 @@ import { PagingResponse } from '../../core/models/paging';
 })
 export class UserManagementComponent implements OnInit {
     users: PagingResponse<User>;
+    loading = false;
 
     constructor(private service: UserManagementService) { }
 
     ngOnInit() {
+        this.loading = true;
         this.service
             .getUsers()
             .subscribe(
-                users => this.users = users,
+                users => {
+                    this.users = users;
+                    this.loading = false;
+                },
                 err => { console.log(err); }
             );
     }

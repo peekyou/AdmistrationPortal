@@ -53,7 +53,10 @@ export class UserService {
 
     logout(): void {
         this.token = null;
+        this.userId = null;
+        this.username = null;
         this.permissions = [];
+        this.merchantHierarchy = null;
         localStorage.removeItem('token');
     }
 

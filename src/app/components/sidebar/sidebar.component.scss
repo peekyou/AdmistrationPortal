@@ -1,0 +1,125 @@
+@import "~bootstrap/scss/bootstrap";
+
+:host {
+    display: block;
+}
+
+#sidebar {
+    position: fixed;
+    z-index: 1000;
+    height: calc(100vh - 4rem);
+    top: 3.5em;
+    background-color: #ddd;
+    overflow-y: auto;
+}
+
+#sidebar .list-group-item {
+    border-radius: 0;
+    background-color: #ddd;
+    color: #333;
+    border-left: 0;
+    border-right: 0;
+    // border-color: #2c2c2c;
+    //color: #0275d8;
+    white-space: nowrap;
+}
+
+/* highlight active menu */
+#sidebar .list-group-item:not(.collapsed) {
+    background-color: #222;
+}
+
+/* closed state */
+#sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 5px;
+}
+
+/* open state */
+#sidebar .list-group .list-group-item[aria-expanded="true"] {
+  background-color: #222;
+}
+#sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+  content: " \f0da";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 5px;
+}
+
+/* level 1*/
+#sidebar .list-group .sidebar-collapse .list-group-item  {
+  padding-left: 20px;
+}
+
+/* level 2*/
+#sidebar .list-group .sidebar-collapse > .sidebar-collapse .list-group-item {
+  padding-left: 30px;
+}
+
+/* level 3*/
+#sidebar .list-group .sidebar-collapse > .sidebar-collapse > .sidebar-collapse .list-group-item {
+  padding-left: 40px;
+}
+
+@media (max-width: 576px) {
+    /* overlay sub levels on small screens */
+    #sidebar {
+        position: sticky !important;
+    }
+
+    #sidebar .list-group .sidebar-collapse.in, #sidebar .list-group .collapsing {
+        position: absolute;
+        z-index: 1;
+        width: 190px;
+    }
+    #sidebar .list-group .list-group-item {
+        text-align: center;
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        padding-left: .5rem;
+        padding-right: 2rem;
+
+        span {
+            display: none;
+        }
+    }
+    /* hide caret icons of top level when collapsed */
+    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
+    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+        display:none;
+    }
+}
+
+/* change transition animation to width when entire sidebar is toggled */
+#sidebar.sidebar-collapse {
+  -webkit-transition-timing-function: ease;
+       -o-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-duration: .2s;
+       -o-transition-duration: .2s;
+          transition-duration: .2s;
+}
+
+#sidebar.collapsing {
+  opacity: 0.8;
+  width: 0;
+  -webkit-transition-timing-function: ease-in;
+       -o-transition-timing-function: ease-in;
+          transition-timing-function: ease-in;
+  -webkit-transition-property: width;
+       -o-transition-property: width;
+          transition-property: width;
+
+}
+
+a.active {
+    color: rgba(255, 255, 255, 1) !important;
+    background: none;
+    border: 0;
+    background-color: #0275d8 !important;
+    transition: all 0.2s ease;
+}

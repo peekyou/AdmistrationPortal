@@ -23,10 +23,10 @@ export class StatsComponent implements OnInit {
     private staticStrings: any;
     private d3: D3;
     private parentNativeElement: any;
-    private groupChartDataTypes: DataType[] = [DataType.Gender];
-    // private genderGroupChecked: boolean = true;
-    // private ageGroupChecked: boolean = false;
-    private barChartData: BarChartData[] | GroupBarChartData[];
+    barChartData: BarChartData[] | GroupBarChartData[];
+    groupChartDataTypes: DataType[] = [DataType.Gender];
+    loadingGroupChart = false;
+    loadingPies = false;
     
     constructor(
         element: ElementRef,
@@ -40,13 +40,16 @@ export class StatsComponent implements OnInit {
 
     ngOnInit() {
         if (this.parentNativeElement !== null) {
-            
+            this.loadingPies = true;
             this.translation.getMultiple(this.translationKeys, x => {
                 this.staticStrings = x;
                 this.service
                 .getSegmentationStatistics()
                 .subscribe(
-                    stats => this.buildPies(stats),
+                    stats => {
+                        this.buildPies(stats);
+                        this.loadingPies = false;
+                    },
                     err => { console.log(err); }
                 );
 
@@ -61,28 +64,28 @@ export class StatsComponent implements OnInit {
     }
 
     buildPies(data: SegmentationStatistics) {
-        if (!data.ageSegmentation) {
-            data.ageSegmentation = {
-                name: 'Age',
-                details: [
-                    { label: '0', count: 10 },
-                    { label: '25-35', count: 17 },
-                    { label: '35-50', count: 17 },
-                    { label: '+50', count: 2 },
-                ]
-            };
-        };
+        // if (data.ageSegmentation) {
+        //     data.ageSegmentation = {
+        //         name: 'Age',
+        //         details: [
+        //             { label: '0', count: 10, percentage: 27 },
+        //             { label: '25-35', count: 17, percentage: 36 },
+        //             { label: '35-50', count: 17, percentage: 36 },
+        //             { label: '+50', count: 2, percentage: 5 },
+        //         ]
+        //     };
+        // };
 
         
-        if (!data.genderSegmentation) {
-            data.genderSegmentation = {
-                name: 'Gender',
-                details: [
-                    { label: 'F', count: 10 },
-                    { label: 'M', count: 17 },
-                ]
-            };
-        }
+        // if (!data.genderSegmentation) {
+        //     data.genderSegmentation = {
+        //         name: 'Gender',
+        //         details: [
+        //             { label: 'F', count: 10 },
+        //             { label: 'M', count: 17 },
+        //         ]
+        //     };
+        // }
 
         this.translateLabels(data.genderSegmentation.details);
         this.buildPie(data.genderSegmentation, 'gender-stats');
@@ -100,7 +103,7 @@ export class StatsComponent implements OnInit {
         
         d3ParentElement = d3.select(this.parentNativeElement); // <-- use the D3 select method 
         
-        var width = 460;
+        var width = 400;
         var height = 200;
         var radius = Math.min(width, height) / 2;
                 
@@ -131,24 +134,30 @@ export class StatsComponent implements OnInit {
         .sort(null)
         .value(function(d) { return d.count; });
 
-        var div = d3.select("#tooltip");
+        if (!data.details || data.details.length == 0) {
+            svg.append("text")
+            .text("No data") 
+            .attr("font-size", "20px");
+            return;
+        }
+
+        var tooltip = d3.select("#tooltip");
         var g = svg.selectAll(".arc")
             .data(pie(data.details))
             .enter().append("g")
             .attr("class", "arc")
             .on("mouseover", function(d) {
-                div.transition()
+                tooltip.transition()
                     .duration(200)
                     .style("opacity", .9)
-                // div.text((<any>d).value)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", (d3.event.pageX - 34) + "px")
+                    .style("top", (d3.event.pageY - 12) + "px");;
 
-                    div.select("strong").text(data.name); 
-                    div.select("#value").text(d.data.percentage + "% (" + (<any>d).value + ")");                    
+                    tooltip.select("strong").text(data.name); 
+                    tooltip.select("#value").text(d.data.percentage + "% (" + (<any>d).value + ")");                    
                 })
             .on("mouseout", function(d) {
-            div.transition()
+            tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
             });
@@ -160,7 +169,7 @@ export class StatsComponent implements OnInit {
         g.append("text")
             .attr("transform", function(d: PieArcDatum<SegmentationDetail>) { return "translate(" + labelArc.centroid(d) + ")"; })
             .attr("dy", ".35em")
-            .text(function(d: PieArcDatum<SegmentationDetail>) { return d.data.label; });
+            .text(function(d: PieArcDatum<SegmentationDetail>) { return d.data.label + " (" + d.data.percentage + "%)"; });
     }
 
     selectDataType(type: DataType) {
@@ -179,6 +188,7 @@ export class StatsComponent implements OnInit {
     }
 
     updateGroupedBarChart() {
+        this.loadingGroupChart = true;
         this.service.getGroupedStatistics(this.groupChartDataTypes)
         .subscribe(
             stats => {
@@ -187,6 +197,7 @@ export class StatsComponent implements OnInit {
                     this.translateLabels(x.details);
                 });
                 this.translateLabels(this.barChartData);
+                this.loadingGroupChart = false;
             },
             err => { console.log(err); }
         );

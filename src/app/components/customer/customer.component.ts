@@ -8,13 +8,16 @@ import { UserManagementService } from '../user-management/user-management.servic
 })
 export class CustomerComponent implements OnInit {
     customersCount: number;
+    loading = false;
 
     constructor(private service: CustomerService) { }
 
     public ngOnInit() {
+        this.loading = true;
         this.service.getAllCount()
             .subscribe(c => {
                 this.customersCount = c;
+                this.loading = false;
             });
     }
 }
