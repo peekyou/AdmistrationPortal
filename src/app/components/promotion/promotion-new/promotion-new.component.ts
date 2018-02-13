@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Promotion, PromotionFilter } from '../promotion';
 import { PromotionService } from '../promotion.service';
@@ -15,6 +16,7 @@ export class PromotionNewComponent {
     topLevelForm: FormGroup;
     steps: any[];
     currentStep: any;
+    submitSubscription: Subscription;
 
     constructor(private service: PromotionService, private fb: FormBuilder, private router: Router) {
         this.init();
@@ -59,7 +61,7 @@ export class PromotionNewComponent {
             let t = group.controls[to];
             if (f.value && t.value && ngbDateStructToDate(f.value) > ngbDateStructToDate(t.value)) {
                 return {
-                    dates: "Date from should be less or equal than Date to"
+                    dates: 'From date must be before to date'
                 };
             }
             return {};
@@ -93,10 +95,10 @@ export class PromotionNewComponent {
             filter: PromotionFilter.createFromForm(promoFilter)
         };
 
-        this.service
+        this.submitSubscription = this.service
             .create(newPromotion)
             .subscribe(
-                p => this.router.navigate(['/promotions']),
+                p => this.router.navigate(['/promotions/list']),
                 err => { console.log(err); }
             );
     }

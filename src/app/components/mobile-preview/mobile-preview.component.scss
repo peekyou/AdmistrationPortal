@@ -3,7 +3,7 @@
 }
 
 .mobile-container {
-    /*background-image: url(../../../assets/images/galaxy-s5.png);*/
+    margin: auto;
     background-repeat: no-repeat;
     position: relative;
     height: 940px;
@@ -12,4 +12,9 @@
 
 .mobile-preview {
     position: absolute;
+}
+
+select {
+    margin: auto;
+    max-width: 200px;
 }

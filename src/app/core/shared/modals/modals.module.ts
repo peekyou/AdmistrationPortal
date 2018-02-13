@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DeleteModal } from './delete.modal';
+import { EmailCampaignModal } from './email-campaign/email-campaign.modal';
 
 const MODALS = [
-    DeleteModal
+    DeleteModal,
+    EmailCampaignModal
 ];
 
 @NgModule({

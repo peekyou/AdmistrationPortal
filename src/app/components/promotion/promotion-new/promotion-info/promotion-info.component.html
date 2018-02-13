@@ -1,30 +1,36 @@
 <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
     <div class="form-group">
-        <label for="name">Promotion name</label>
+        <label for="name">Promotion name*</label>
         <input type="text" class="form-control" id="name" formControlName="name" required />
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert-sm alert-danger">
-            Name is required
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-field">
+            {{ 'FORM.REQUIRED' | translate }}
         </div>
     </div>
     <div class="form-group form-inline">
-        <label for="dateFrom">From</label>
+        <label for="dateFrom">From*</label>
         <div class="input-group pl-0 pl-md-2 col-md-5">
             <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateFrom"
                    id="dateFrom" ngbDatepicker #from="ngbDatepicker" required>
             <button class="input-group-addon" (click)="from.toggle()" type="button">
                 <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
             </button>
+            <div *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_DATE' | translate }}
+            </div>
         </div>
-        <label for="dateTo">To</label>
+        <label for="dateTo">To*</label>
         <div class="input-group pl-0 pl-md-2 col-md-5">
             <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateTo"
                    id="dateTo" ngbDatepicker #to="ngbDatepicker" required>
             <button class="input-group-addon" (click)="to.toggle()" type="button">
                 <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
             </button>
+            <div *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_DATE' | translate }}
+            </div>
         </div>
+        <div class="invalid-field" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>
     </div>
-    <div class="row alert-sm alert-danger" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>
     
     <div class="form-group">
         <label for="percentage">Percentage</label>
@@ -32,10 +38,10 @@
     </div>
 
     <div class="form-group">
-        <label for="details">Sms preview</label>
+        <label for="details">Sms preview*</label>
         <textarea class="form-control" id="details" rows="3" formControlName="details" required></textarea>
-        <div *ngIf="details.invalid && (details.dirty || details.touched)" class="alert-sm alert-danger">
-            Sms is required
+        <div *ngIf="details.invalid && (details.dirty || details.touched)" class="invalid-field">
+            {{ 'FORM.REQUIRED' | translate }}
         </div>
         <small class="form-text text-muted">xx characters remaining in this SMS (too long message will be splited in chunks)</small>
         <small class="form-text text-muted">xx SMS will be sent per customer</small>

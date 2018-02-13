@@ -153,7 +153,7 @@ export class StatsComponent implements OnInit {
                     .style("left", (d3.event.pageX - 34) + "px")
                     .style("top", (d3.event.pageY - 12) + "px");;
 
-                    tooltip.select("strong").text(data.name); 
+                    tooltip.select("strong").text(d.data.label); 
                     tooltip.select("#value").text(d.data.percentage + "% (" + (<any>d).value + ")");                    
                 })
             .on("mouseout", function(d) {
@@ -169,7 +169,7 @@ export class StatsComponent implements OnInit {
         g.append("text")
             .attr("transform", function(d: PieArcDatum<SegmentationDetail>) { return "translate(" + labelArc.centroid(d) + ")"; })
             .attr("dy", ".35em")
-            .text(function(d: PieArcDatum<SegmentationDetail>) { return d.data.label + " (" + d.data.percentage + "%)"; });
+            .text(function(d: PieArcDatum<SegmentationDetail>) { return d.data.label; });
     }
 
     selectDataType(type: DataType) {

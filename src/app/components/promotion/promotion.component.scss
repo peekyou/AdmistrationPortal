@@ -11,3 +11,30 @@ table {
         border-top: 1px solid #ddd;
     }
 }
+
+.email-campaign {
+    //cursor: pointer;
+    img {
+        width: 70%;
+        margin: auto;
+    }
+
+    a {
+        color: #28a745 !important;
+    }
+    a:hover {
+        color: #fff !important;
+    }
+}
+
+// .sms-campaign {
+//     cursor: pointer;
+//     img {
+//         width: 99%;
+//         margin: auto;
+//     }
+// }
+
+// .email-campaign:hover, .sms-campaign:hover {
+//     border-color: #17a2b8;
+// }

@@ -25,4 +25,21 @@ export class CustomerNewComponent {
                 err => { console.log(err); }
             );
     }
+
+    populateSearch(form: FormGroup = null) {  
+        if (this.isMobileNumber(this.service.searchTerm)) {          
+            form.patchValue({
+                mobile: this.service.searchTerm
+            });
+            this.service.searchTerm = null;
+        }
+    }
+
+    isMobileNumber(searchTerm: string): boolean {
+        if (searchTerm && (searchTerm.startsWith('+') || searchTerm.startsWith('0'))) {
+            var cleaned = searchTerm.replace(/[\+_\-\s]/g, '');
+            return /^[\d]+$/.test(cleaned);
+        }
+        return false;
+    }
 }

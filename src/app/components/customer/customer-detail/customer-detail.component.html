@@ -47,7 +47,7 @@
         <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
         <div class="card-body points-detail">
             <table class="table table-sm">
-                <thead class="thead-inverse">
+                <thead class="thead-dark">
                     <tr>
                         <th>{{ 'COMMON.DATE' | translate }}</th>
                         <th>{{ 'COMMON.POINTS' | translate }}</th>
@@ -69,8 +69,8 @@
                     </tr>
                     <tr *ngIf="customer.purchaseData?.remainder">
                         <th scope="row">{{ 'COMMON.REMAINDER' | translate }}</th>
-                        <td>{{customer.purchaseData?.remainder}}</td>
                         <td></td>
+                        <td>{{customer.purchaseData?.remainder}}</td>
                     </tr>
                 </tbody>
             </table>

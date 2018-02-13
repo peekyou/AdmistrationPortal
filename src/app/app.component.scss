@@ -43,6 +43,10 @@ a.active {
   background-color: gray;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .alert-sm {
     @extend .alert;
     font-size: .8em;
@@ -53,6 +57,13 @@ a.active {
     @extend .btn-sm;
     padding: 0.23em 0.6em;
     line-height: 1.3em;
+}
+
+.invalid-field {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
 }
 
 .line-breaker {

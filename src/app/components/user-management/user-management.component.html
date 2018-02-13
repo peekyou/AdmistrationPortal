@@ -4,9 +4,9 @@
 <br />
 <div *ngIf="users && users.paging.itemsCount > 0"
      infiniteScrollDistance="1" infiniteScrollThrottle="300"
-     (scrolled)="onScroll()">
-    <table class="table table-responsive table-hover">
-        <thead class="thead-inverse">
+     (scrolled)="onScroll()" class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th>{{ 'COMMON.USERNAME' | translate }}</th>
                 <th>{{ 'COMMON.NAME' | translate }}</th>

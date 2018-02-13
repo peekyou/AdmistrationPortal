@@ -11,6 +11,11 @@
       "STATISTICS": "Statistics",
       "LOGOUT": "Logout"
     },
+    "FORM": {
+        "REQUIRED": "Required field",
+        "INVALID_EMAIL": "Invalid email",
+        "INVALID_DATE": "Invalid date"
+    },
     "COMMON": {
         "HOME": "Home",
         "DELETE": "Delete",
@@ -34,6 +39,7 @@
         "NAME": "Name",
         "MOBILE_NO": "Mobile number",
         "EMAIL": "Email",
+        "BIRTHDATE": "Birthdate",
         "CREATED": "Created",
         "SENT": "Sent",
         "DETAILS": "Details",
@@ -50,7 +56,8 @@
         "GENDER_F": "Female",
         "GENDER_M": "Male",
         "UNKNOWN": "Unknown",
-        "FILTERS": "Filters"
+        "FILTERS": "Filters",
+        "SUBMIT": "Submit"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -95,7 +102,7 @@
         "NO_PROMOTION": "No promotion",
         "PROMOTION": "Promotion",
         "PERIOD": "Period",
-        "CREATE_NEW": "Create a new promotion"
+        "CREATE_NEW": "Create a new SMS campaign"
     },
     "SMS_PACKS": {
         "SMS": "SMS",

@@ -24,12 +24,60 @@ table {
 }
 
 .filled {
-    color: #1e90ff;
+    // color: #1e90ff;
+    color: orange;
 }
 
 .half {
     position: absolute;
     display: inline-block;
     overflow: hidden;
-    color: #1e90ff;
+    // color: #1e90ff;
+    color: orange;
+}
+
+.average-rating {
+    max-width: 370px;
+}
+
+.rating-block {
+    background-color: #FAFAFA;
+    border: 1px solid #EFEFEF;
+    padding: 15px 15px 20px 15px;
+    border-radius: 3px;
+}
+
+.row-rating {
+    line-height: 2em;
+
+    small {
+        color: #777;
+        font-size: .7em;
+    }
+}
+
+.review-block {
+    background-color: #FAFAFA;
+    border: 1px solid #EFEFEF;
+    padding: 15px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+
+    .review-row {
+        margin-bottom: 1em;
+        border-bottom: 1px solid #EFEFEF;
+        padding-bottom: 1em;
+    }
+
+    .review-block-date {
+        font-size: .8em;
+        line-height: 2;
+        color: #555;
+    }
+
+    .review-block-rate {
+        line-height: 1.45em;
+        font-size: .85em;
+        color: #555;
+    }
 }

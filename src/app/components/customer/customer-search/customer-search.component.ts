@@ -45,6 +45,7 @@ export class CustomerSearchComponent {
                 .subscribe(customers => {
                     if (customers.length === 0) {
                         this.loading = false;
+                        this.service.searchTerm = this.searchTerm;
                         this.router.navigate(['/customers/new']);
                     }
                     else if (customers.length === 1) {

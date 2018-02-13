@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { Customer, CustomerPoint } from '../customer';
 import { CustomerService } from '../customer.service';
 import { DeleteModal } from '../../../core/shared/modals/delete.modal';
+import { dateToNgbDateStruct } from '../../../core/helpers/utils';
 
 @Component({
     styleUrls: ['./customer-detail.component.scss'],
@@ -51,13 +52,14 @@ export class CustomerDetailComponent implements OnInit {
         if (form) {
             this.customerForm = form;
         }
-        if (this.customerForm) {
+        if (this.customerForm) {                
             this.customerForm.patchValue({
                 gender: this.customer.gender,
                 firstname: this.customer.firstname,
                 lastname: this.customer.lastname,
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
+                birthdate: dateToNgbDateStruct(this.customer.birthdate),
                 languages: this.customer.languages, // Set first language
                 comment: this.customer.comment
             });

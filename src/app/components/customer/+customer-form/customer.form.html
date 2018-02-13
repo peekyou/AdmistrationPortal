@@ -1,49 +1,70 @@
 <div *ngIf="form">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
+        <div class="form-group" *ngIf="!isEdit">
+            <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+            <input type="number" min="0" class="form-control" id="amount"
+                    placeholder="AED" formControlName="amount" required>
+            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
+                {{ 'FORM.REQUIRED' | translate }}
+            </div>
+        </div>
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <input type="radio" name="gender" id="genderM" value="M"
                     formControlName="gender" class="form-check-input">
-                <label for="genderM" class="form-check-label">Male</label>
+                <label for="genderM" class="form-check-label">{{ 'COMMON.GENDER_M' | translate }}</label>
             </div>
             <div class="form-check-inline">
                 <input type="radio" name="gender" id="genderF" value="F"
                     formControlName="gender" class="form-check-input">
-                <label for="genderF" class="form-check-label">Female</label>
+                <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="name">{{ 'COMMON.FIRSTNAME' | translate }}</label>
+            <label for="name">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
             <input type="text" class="form-control" id="firstname" formControlName="firstname" required />
-            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert-sm alert-danger">
-                Firstname is required
+            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="invalid-field">
+                {{ 'FORM.REQUIRED' | translate }}
             </div>
         </div>
         <div class="form-group">
-            <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}</label>
+            <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}*</label>
             <input type="text" class="form-control" id="lastname" formControlName="lastname" required />
-            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert-sm alert-danger">
-                Lastname is required
+            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="invalid-field">
+                {{ 'FORM.REQUIRED' | translate }}
             </div>
         </div>
         <div class="form-group">
-            <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}</label>
+            <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}*</label>
             <input type="text" class="form-control" id="mobile" formControlName="mobile" required />
-            <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert-sm alert-danger">
+            <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="invalid-field">
                 <div *ngIf="mobile.errors.required">
-                    Mobile number is required.
+                    {{ 'FORM.REQUIRED' | translate }}
                 </div>
                 <div *ngIf="mobile.errors.phoneFormat">
                     Mobile number format is wrong
                 </div>
             </div>
         </div>
-        <div class="form-group" *ngIf="isEdit">
+        <div class="form-group">
             <label for="email">{{ 'COMMON.EMAIL' | translate }}</label>
             <input type="text" class="form-control" id="email" formControlName="email" />
-            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert-sm alert-danger">
-                Email is invalid
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_EMAIL' | translate }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="birthdate"
+                        id="birthdate" ngbDatepicker #birthdate="ngbDatepicker" required>
+                <button class="input-group-addon" (click)="birthdate.toggle()" type="button">
+                    <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_DATE' | translate }}
             </div>
         </div>
 
@@ -80,15 +101,6 @@
             <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
             <textarea class="form-control" id="comment" name="comment" 
                       rows="5" formControlName="comment"></textarea>
-        </div>
-
-        <div class="form-group" *ngIf="!isEdit">
-            <label for="amount">{{ 'COMMON.AMOUNT' | translate }}</label>
-            <input type="number" min="0" class="form-control" id="amount"
-                    placeholder="AED" formControlName="amount" required>
-            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert-sm alert-danger">
-                Amount is required
-            </div>
         </div>
         <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
                            loadingValue="{{ 'COMMON.SAVING' | translate }}" 

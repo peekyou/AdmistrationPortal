@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractCon
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
+import { ngbDateStructToDate } from '../../../core/helpers/utils';
 
 @Component({
     selector: 'app-customer-form',
@@ -33,6 +34,7 @@ export class CustomerForm implements OnInit {
             gender: [null],
             mobile: [null, Validators.required],
             email: [null, this.customEmailValidator],
+            birthdate: [null],
             languages: this.fb.array([]),
             receiveSms: [true],
             comment: [null],
@@ -60,6 +62,7 @@ export class CustomerForm implements OnInit {
             gender: this.form.value.gender,
             languages: this.form.value.languages,
             email: this.form.value.email,
+            birthdate: ngbDateStructToDate(this.form.value.birthdate),
             mobileNumber: this.form.value.mobile,
             firstname: this.form.value.firstname,
             lastname: this.form.value.lastname,
@@ -91,6 +94,7 @@ export class CustomerForm implements OnInit {
     get amount() { return this.form.get('amount'); }
     get mobile() { return this.form.get('mobile'); }
     get email() { return this.form.get('email'); }
+    get birthdate() { return this.form.get('birthdate'); }
     get gender() { return this.form.get('gender'); }
     get comment() { return this.form.get('comment'); }
 }

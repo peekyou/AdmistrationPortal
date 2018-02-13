@@ -1,38 +1,27 @@
-<div class="d-flex justify-content-center">
-    <a routerLink="new" class="btn btn-info">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</a>
+<div class="row">
+    <div class="col">
+        <div class="card text-center sms-campaign">
+            <img class="card-img-top" src="./assets/images/sms-campaign.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">SMS marketing campaigns</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <a class="btn btn-outline-info" routerLink="new">
+                    Create SMS campaign
+                </a>     
+                <a class="btn btn-outline-secondary" routerLink="list">
+                    See created campaigns
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-center email-campaign mb-3">
+            <img class="card-img-top" src="./assets/images/email-campaign.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Email marketing campaigns</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <a class="btn btn-outline-success" (click)="openEmailModal()">Get email campaign tool</a>                                
+            </div>          
+        </div>
+    </div>
 </div>
-<br />
-
-<div *ngIf="promotions && promotions.paging.itemsCount > 0" 
-     infiniteScrollDistance="1" infiniteScrollThrottle="300"
-     (scrolled)="onScroll()">
-    <table class="table table-responsive table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>{{ 'PROMOTIONS.PROMOTION' | translate }}</th>
-                <th>{{ 'PROMOTIONS.PERIOD' | translate }}</th>
-                <th>{{ 'COMMON.CREATED' | translate }}</th>
-                <th>{{ 'COMMON.SENT' | translate }}</th>
-                <th class="w-50">{{ 'COMMON.DETAILS' | translate }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let promotion of promotions.data">
-                <th scope="row">{{promotion?.name}}</th>
-                <td>
-                    From {{promotion?.fromDate | date:'dd-MM-yyyy'}}<br />
-                    To {{promotion?.toDate | date:'dd-MM-yyyy'}}
-                </td>
-                <td>{{promotion?.createdDate | date:'dd-MM-yyyy'}}</td>
-                <td>{{promotion?.smsSent}} sms</td>
-                <td>{{promotion?.details}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div *ngIf="promotions && promotions.paging.itemsCount == 0">
-    <h2>{{ 'PROMOTIONS.NO_PROMOTION' | translate }}</h2>
-</div>
-
-<ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

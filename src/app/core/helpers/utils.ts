@@ -1,4 +1,5 @@
 ﻿import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 export function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -8,9 +9,17 @@ export function guid() {
 }
 
 export function ngbDateStructToDate(date: NgbDateStruct): Date {
-    if (!date)
-        return null;
-    return new Date(date.year, date.month - 1, date.day);
+    if (!date) return null;
+    return new Date(Date.UTC(date.year, date.month - 1, date.day));
+}
+
+export function dateToNgbDateStruct(date: Date | string): NgbDateStruct {                
+    if (!date) return null;
+    if (typeof date === 'string') {
+        var mDate = moment.utc(date);
+        return  { year: mDate.year(), month: mDate.month() + 1, day: mDate.date() };
+    }
+    return  { year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate() };
 }
 
 export function normalizeNumber(n: string | number): string {

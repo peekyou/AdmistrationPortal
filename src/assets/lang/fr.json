@@ -11,6 +11,11 @@
       "STATISTICS": "Statistiques",
       "LOGOUT": "Déconnexion"
     },
+    "FORM": {
+        "REQUIRED": "Champs obligatoire",
+        "INVALID_EMAIL": "Email incorrect",
+        "INVALID_DATE": "Date incorrecte"
+    },
     "COMMON": {
         "HOME": "Accueil",
         "DELETE": "Supprimer",
@@ -34,6 +39,7 @@
         "NAME": "Nom",
         "MOBILE_NO": "No téléphone",
         "EMAIL": "Email",
+        "BIRTHDATE": "Date de naissance",
         "CREATED": "Créé",
         "SENT": "Envoyés",
         "DETAILS": "Détails",
@@ -50,7 +56,8 @@
         "GENDER_F": "Femme",
         "GENDER_M": "Homme",
         "UNKNOWN": "Non renseigné",
-        "FILTERS": "Filtres"
+        "FILTERS": "Filtres",
+        "SUBMIT": "Envoyer"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
