@@ -1,3 +1,5 @@
+import { Address } from '../../core/shared/components/address/address'; 
+
 export class Customer {
     id?: string;
     cardNumber?: string;
@@ -17,6 +19,7 @@ export class Customer {
     points?: CustomerPoint[];
     purchaseData?: PurchaseData;
     languages?: string[];
+    address?: Address; 
 }
 
 export class PurchaseData {

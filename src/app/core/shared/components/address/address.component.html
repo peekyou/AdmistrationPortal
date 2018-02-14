@@ -10,7 +10,7 @@
             </div>
             <div class="form-group">
                 <label for="state">Emirate</label>
-                <select formControlName="state" id="state" class="form-control">
+                <select formControlName="state" id="state" class="form-control" (change)="onStateChange($event.target.value)">
                     <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
                 </select>
             </div>

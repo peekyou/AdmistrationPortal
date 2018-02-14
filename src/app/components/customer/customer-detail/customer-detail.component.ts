@@ -64,6 +64,18 @@ export class CustomerDetailComponent implements OnInit {
                 comment: this.customer.comment
             });
 
+            if (this.customer.address) {
+                this.customerForm.patchValue({
+                   address: {
+                        address: this.customer.address.addressLine1,
+                        city: this.customer.address.city,
+                        area: this.customer.address.area,
+                        zip: this.customer.address.zipCode,
+                        state: this.customer.address.state
+                    }
+                });
+            }
+
             // Set other languages
             const languagesControl = <FormArray>this.customerForm.controls['languages'];
             for (let i = 1; this.customer.languages && i < this.customer.languages.length; i++) {

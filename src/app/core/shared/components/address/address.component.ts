@@ -13,4 +13,11 @@ export class AddressComponent {
     public addressForm: FormGroup;
     
     states = ['Abu Dhabi','Ajman','Dubai','Fujairah','Ras al-Khaimah','Sharjah','Umm al-Quwain'];
+
+    onStateChange(value: string) {
+        var val = value.split(':');
+        if (val.length > 0) {
+            this.addressForm.controls['city'].setValue(val[1].trim());
+        }
+    }
 }

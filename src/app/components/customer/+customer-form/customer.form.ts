@@ -73,7 +73,15 @@ export class CustomerForm implements OnInit {
             mobileNumber: this.form.value.mobile,
             firstname: this.form.value.firstname,
             lastname: this.form.value.lastname,
-            comment: this.form.value.comment
+            comment: this.form.value.comment,
+            address: {
+                addressLine1: this.form.value.address.address,
+                city: this.form.value.address.city,
+                countryCode: 'AE',
+                area: this.form.value.address.area,
+                zipCode: this.form.value.address.zip,
+                state: this.form.value.address.state
+            }
         };
 
         if (!this.isEdit && this.form.value.amount) {
