@@ -36,6 +36,13 @@ export class CustomerForm implements OnInit {
             email: [null, this.customEmailValidator],
             birthdate: [null],
             languages: this.fb.array([]),
+            address: this.fb.group({
+                address: [null],
+                state: [null],
+                city: [null],
+                area: [null],
+                zip: [null],
+            }),
             receiveSms: [true],
             comment: [null],
             amount: [null, (c) => this.AmountValidator(c)]

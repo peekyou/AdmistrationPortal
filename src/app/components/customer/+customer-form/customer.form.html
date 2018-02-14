@@ -91,6 +91,8 @@
             </div>
         </div>
         
+        <app-address [group]="form.controls.address"></app-address>
+
         <!--<div class="form-check">
             <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" formControlName="receiveSms">
@@ -106,5 +108,6 @@
                            loadingValue="{{ 'COMMON.SAVING' | translate }}" 
                            [form]="form" [subscription]="submitSubscription">
         </app-submit-button>
+        <pre>{{ form.value | json }}</pre>
     </form>
 </div>

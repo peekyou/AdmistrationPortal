@@ -57,7 +57,8 @@
         "GENDER_M": "Male",
         "UNKNOWN": "Unknown",
         "FILTERS": "Filters",
-        "SUBMIT": "Submit"
+        "SUBMIT": "Submit",
+        "ADDRESS": "Address"
     },
     "LOGIN": {
         "TITLE": "Login to your account",

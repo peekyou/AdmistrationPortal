@@ -1,3 +1,29 @@
 :host {
     display:block;
 }
+
+$base: 8px;
+
+.address {
+  margin-bottom: $base * 2;
+
+  .form-group {
+    margin-bottom: $base * 2;
+  }
+
+  .city-state {
+    display: flex;
+
+    .city {
+      flex: 1;
+      margin-right: $base * 2;
+    }
+    .state {
+      flex: 0 0 auto;
+      margin-right: $base * 2;
+    }
+    .zip {
+      flex: 0 0 100px;
+    }
+  }
+}

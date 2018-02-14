@@ -57,7 +57,8 @@
         "GENDER_M": "Homme",
         "UNKNOWN": "Non renseigné",
         "FILTERS": "Filtres",
-        "SUBMIT": "Envoyer"
+        "SUBMIT": "Envoyer",
+        "ADDRESS": "Adresse"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
