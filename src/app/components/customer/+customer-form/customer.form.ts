@@ -1,6 +1,7 @@
 import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -9,7 +10,8 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 @Component({
     selector: 'app-customer-form',
     styleUrls: ['./customer.form.scss'],
-    templateUrl: './customer.form.html'
+    templateUrl: './customer.form.html',
+    providers: [NgbDatepickerConfig]
 })
 export class CustomerForm implements OnInit {
     form: FormGroup;
@@ -19,7 +21,13 @@ export class CustomerForm implements OnInit {
     @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        private fb: FormBuilder, private service: CustomerService, private location: Location) {
+        private fb: FormBuilder, 
+        private service: CustomerService, 
+        private location: Location,
+        config: NgbDatepickerConfig) {
+            var currentDate = new Date();
+            config.minDate = {year: 1900, month: 1, day: 1};
+            config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
     }
     
     ngOnInit() {
