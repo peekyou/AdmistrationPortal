@@ -124,6 +124,7 @@
         "NO_BILL": "You don't have any bill"
     },
     "STATS": {
+        "TITLE": "Dashboard",
         "GENDER_PIE": "Gender segmentation",
         "AGE_PIE": "Age segmentation",
         "GROUP_BAR_CHART": "Group bar chart"

@@ -85,7 +85,8 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-xs" (click)="addLanguage()">
+                <button type="button" class="btn btn-secondary btn-xs" (click)="addLanguage()"
+                        [disabled]="anyLanguageEmpty()">
                     <i class="fa fa-plus"></i> {{ 'COMMON.ADD_LANGUAGE' | translate }}
                 </button>
             </div>
@@ -108,6 +109,6 @@
                            loadingValue="{{ 'COMMON.SAVING' | translate }}" 
                            [form]="form" [subscription]="submitSubscription">
         </app-submit-button>
-        <!-- <pre>{{ form.value | json }}</pre> -->
+        <pre>{{ form.value | json }}</pre>
     </form>
 </div>

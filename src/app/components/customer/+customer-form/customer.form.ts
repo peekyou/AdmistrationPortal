@@ -98,6 +98,16 @@ export class CustomerForm implements OnInit {
         this.onSubmit.emit(customer);
     }
 
+    anyLanguageEmpty(): boolean {
+        var languages = this.form.value.languages;
+        for (let i = 0; languages && i < languages.length; i++) {
+            if (languages[i] == null || languages[i] == '') {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private customEmailValidator(control: AbstractControl): ValidationErrors {
         if (!control.value) {
             return null;

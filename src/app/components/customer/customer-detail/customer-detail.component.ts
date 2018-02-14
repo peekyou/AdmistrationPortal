@@ -52,15 +52,18 @@ export class CustomerDetailComponent implements OnInit {
         if (form) {
             this.customerForm = form;
         }
-        if (this.customerForm) {                
+        if (this.customerForm) {
+            this.customerForm.reset();
+            const languagesControl = <FormArray>this.customerForm.controls['languages'];
+            this.clearFormArray(languagesControl);
             this.customerForm.patchValue({
                 gender: this.customer.gender,
                 firstname: this.customer.firstname,
                 lastname: this.customer.lastname,
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
-                birthdate: dateToNgbDateStruct(this.customer.birthdate),
-                languages: this.customer.languages, // Set first language
+                birthdate: this.customer.birthdate,
+                //languages: this.customer.languages, // Set first language
                 comment: this.customer.comment
             });
 
@@ -77,8 +80,7 @@ export class CustomerDetailComponent implements OnInit {
             }
 
             // Set other languages
-            const languagesControl = <FormArray>this.customerForm.controls['languages'];
-            for (let i = 1; this.customer.languages && i < this.customer.languages.length; i++) {
+            for (let i = 0; this.customer.languages && i < this.customer.languages.length; i++) {
                 let newLanguage = new FormControl(this.customer.languages[i]);
                 languagesControl.push(newLanguage);
             }
@@ -140,4 +142,10 @@ export class CustomerDetailComponent implements OnInit {
     goBack(): void {
         this.location.back();
     }
+
+    clearFormArray = (formArray: FormArray) => {
+        while (formArray.length !== 0) {
+          formArray.removeAt(0)
+        }
+      }
 }
