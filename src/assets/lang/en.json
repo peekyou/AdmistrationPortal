@@ -107,10 +107,10 @@
     },
     "SMS_PACKS": {
         "SMS": "SMS",
-        "STOCK": "Your stock",
-        "NEW_STOCK": "New stock",
+        "STOCK": "Your current stock is: ",
+        "NEW_STOCK": "New stock will be: ",
         "CC_NOTICE": "The amount of this purchase has to be paid by credit card.",
-        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice (available on the 1st of each month)."
+        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "No user",

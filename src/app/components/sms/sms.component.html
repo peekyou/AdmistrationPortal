@@ -1,8 +1,30 @@
-<div class="container">
-    <div class="row">
+<div class="container sms-container">
+    <p class="lead">{{ 'SMS_PACKS.STOCK' | translate }}<span class="quota">{{ quota }} SMS</span></p>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="stock">Buy</label>
+            <input type="number" id="stock"name="stock" class="form-control mx-sm-3" min="1" max="10000" 
+                   [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
+            <div>
+            X 500 {{ 'SMS_PACKS.SMS' | translate }}
+            </div>
+        </div>
+    </form>
+    <p class="lead">{{ 'SMS_PACKS.NEW_STOCK' | translate }}<span class="quota">{{ packNumber * 500 }} {{ 'SMS_PACKS.SMS' | translate }}</span></p>
+    <div>
+            <h1>{{ 'COMMON.AMOUNT' | translate }}: {{ packNumber * packPrice }} AED</h1>
+            <p class="text-muted">
+                {{ 'SMS_PACKS.INVOICE_NOTICE' | translate }}
+            </p>
+            <button type="button" class="btn btn-success btn-lg" (click)="openModal()">Buy!</button>            
+    </div>
+        <!-- Buy 
+        <input type="number" min="1" max="10000" step="1" 
+        [(ngModel)]="packNumber" (keypress)="onInputChange($event)" />    
+     -->
+    <!-- <div class="row">
         <div class="col">
-            <p class="lead">{{ 'SMS_PACKS.STOCK' | translate }}</p>
-            <h2>0 {{ 'SMS_PACKS.SMS' | translate }}</h2>
+            <p class="lead">{{ 'SMS_PACKS.STOCK' | translate }}</p><span class="quota">{{ quota }} SMS</span>
         </div>
         <div class="col">
             <h1>+</h1>
@@ -29,5 +51,5 @@
                 {{ 'SMS_PACKS.INVOICE_NOTICE' | translate }}
             </p>
         </div>
-    </div>
+    </div> -->
 </div>

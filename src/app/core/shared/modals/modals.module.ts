@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AppModal } from './modal';
 import { DeleteModal } from './delete.modal';
 import { EmailCampaignModal } from './email-campaign/email-campaign.modal';
 
 const MODALS = [
+    AppModal,
     DeleteModal,
     EmailCampaignModal
 ];
