@@ -58,7 +58,8 @@
         "UNKNOWN": "Unknown",
         "FILTERS": "Filters",
         "SUBMIT": "Submit",
-        "ADDRESS": "Address"
+        "ADDRESS": "Address",
+        "CONFIRMATION_QUESTION": "Do you confirm?"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -103,7 +104,15 @@
         "NO_PROMOTION": "No promotion",
         "PROMOTION": "Promotion",
         "PERIOD": "Period",
-        "CREATE_NEW": "Create a new SMS campaign"
+        "CREATE_NEW": "Create a new SMS campaign",
+        "SMS_CAMPAIGN_TITLE": "SMS marketing campaigns",
+        "EMAIL_CAMPAIGN_TITLE": "Email marketing campaigns",
+        "SMS_CAMPAIGN_DESCRIPTION": "Target your customers directly on their phone with SMS campaign.",
+        "EMAIL_CAMPAIGN_DESCRIPTION": "Ask for a powerful and filled with functionalities tool to create nice looking email marketing campaigns.",
+        "CREATE_SMS_CAMPAIGN": "Create SMS campaign",
+        "LIST_SMS_CAMPAIGN": "See created campaigns",
+        "GET_EMAIL_TOOL": "Get email campaign tool",
+        "EMAIL_TOOL_MODAL": "An email will be sent an you will be contacted afterwards."
     },
     "SMS_PACKS": {
         "SMS": "SMS",

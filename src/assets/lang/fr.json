@@ -58,7 +58,8 @@
         "UNKNOWN": "Non renseigné",
         "FILTERS": "Filtres",
         "SUBMIT": "Envoyer",
-        "ADDRESS": "Adresse"
+        "ADDRESS": "Adresse",
+        "CONFIRMATION_QUESTION": "Confirmer ?"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -103,7 +104,15 @@
         "NO_PROMOTION": "Aucune promotion",
         "PROMOTION": "Promotion",
         "PERIOD": "Période",
-        "CREATE_NEW": "Créer une nouvelle promotion"
+        "CREATE_NEW": "Créer une nouvelle promotion",
+        "SMS_CAMPAIGN_TITLE": "Campagnes marketing SMS",
+        "EMAIL_CAMPAIGN_TITLE": "Campagnes marketing Email",
+        "SMS_CAMPAIGN_DESCRIPTION": "Ciblez vos clients directement sur leur téléphone avec une campagne SMS.",
+        "EMAIL_CAMPAIGN_DESCRIPTION": "Demandez un outil puissant et rempli de fonctionnalités pour créer des campagnes de marketing par courriel.",
+        "CREATE_SMS_CAMPAIGN": "Créer une campagne SMS",
+        "LIST_SMS_CAMPAIGN": "Voir les campagnes créees",
+        "GET_EMAIL_TOOL": "Demander l'outil de campagnes email",
+        "EMAIL_TOOL_MODAL": "Un email sera envoyé, vous allez ensuite être contacté."
     },
     "SMS_PACKS": {
         "SMS": "SMS",

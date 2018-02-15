@@ -120,7 +120,9 @@ export class StatsComponent implements OnInit {
 
     private updatePieChart(data: Segmentation, svg: Selection<BaseType, {}, HTMLElement, any>, radius: number) { 
         let d3 = this.d3;
-        var color = d3.scaleOrdinal(d3.schemeCategory20c);
+        // var color = d3.scaleOrdinal()
+        // .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
         
         var arc = d3.arc<PieArcDatum<SegmentationDetail>>()
             .outerRadius(radius - 10)
@@ -164,7 +166,18 @@ export class StatsComponent implements OnInit {
         
         g.append("path")
             .attr("d", arc)
-            .style("fill", <any>function(d) { return color(d.data.label); });
+            .style("fill", <any>function(d) { 
+                if (d.data.label == "Female") {
+                    return "rgb(251,180,174)";
+                }
+                else if (d.data.label == "Male") {
+                    return "rgb(179,205,227)";
+                }
+                else if (d.data.label == "Unknown") {
+                    return "rgb(221,221,221)";
+                }
+                return color(d.data.label); 
+            });
         
         g.append("text")
             .attr("transform", function(d: PieArcDatum<SegmentationDetail>) { return "translate(" + labelArc.centroid(d) + ")"; })

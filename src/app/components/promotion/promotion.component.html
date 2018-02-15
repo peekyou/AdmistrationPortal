@@ -3,13 +3,13 @@
         <div class="card text-center sms-campaign">
             <img class="card-img-top" src="./assets/images/sms-campaign.jpg" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">SMS marketing campaigns</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <h5 class="card-title">{{ 'PROMOTIONS.SMS_CAMPAIGN_TITLE' | translate }}</h5>
+                <p class="card-text">{{ 'PROMOTIONS.SMS_CAMPAIGN_DESCRIPTION' | translate }}</p>
                 <a class="btn btn-outline-info" routerLink="new">
-                    Create SMS campaign
+                    {{ 'PROMOTIONS.CREATE_SMS_CAMPAIGN' | translate }}
                 </a>     
                 <a class="btn btn-outline-secondary" routerLink="list">
-                    See created campaigns
+                    {{ 'PROMOTIONS.LIST_SMS_CAMPAIGN' | translate }}
                 </a>
             </div>
         </div>
@@ -18,9 +18,9 @@
         <div class="card text-center email-campaign mb-3">
             <img class="card-img-top" src="./assets/images/email-campaign.png" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">Email marketing campaigns</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <a class="btn btn-outline-success" (click)="openEmailModal()">Get email campaign tool</a>                                
+                <h5 class="card-title">{{ 'PROMOTIONS.EMAIL_CAMPAIGN_TITLE' | translate }}</h5>
+                <p class="card-text">{{ 'PROMOTIONS.EMAIL_CAMPAIGN_DESCRIPTION' | translate }}</p>
+                <a class="btn btn-outline-success" (click)="openEmailModal()">{{ 'PROMOTIONS.GET_EMAIL_TOOL' | translate }}</a>                                
             </div>          
         </div>
     </div>

@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AppModal } from './modal';
 import { DeleteModal } from './delete.modal';
@@ -17,7 +18,8 @@ const MODALS = [
     imports: [
         CommonModule,
         FormsModule,
-        NgbModule
+        NgbModule,
+        TranslateModule
     ],
     exports: MODALS,
     declarations: MODALS,
