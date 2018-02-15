@@ -30,7 +30,7 @@ export class SmsComponent {
     openModal() {
         const modalRef = this.modalService.open(AppModal);
         modalRef.componentInstance.title = 'Buy SMS';
-        modalRef.componentInstance.text1 = 'You are about to get ' + (this.packNumber * 500) + 'SMS for' + (this.packNumber * this.packPrice) + 'AED';
+        modalRef.componentInstance.text1 = 'You are about to get ' + (this.packNumber * 500) + ' SMS for ' + (this.packNumber * this.packPrice) + ' AED';
         modalRef.componentInstance.text2 = 'Do you confirm?';
         
         modalRef.result.then((result) => {

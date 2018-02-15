@@ -4,8 +4,43 @@
 <br />
 <div *ngIf="users && users.paging.itemsCount > 0"
      infiniteScrollDistance="1" infiniteScrollThrottle="300"
-     (scrolled)="onScroll()" class="table-responsive">
-    <table class="table table-hover">
+     (scrolled)="onScroll()">
+
+     <div class="table">
+        <div class="row header blue">
+            <div class="cell">{{ 'COMMON.USERNAME' | translate }}</div>
+            <div class="cell">{{ 'COMMON.NAME' | translate }}</div>
+            <div class="cell">{{ 'USER_MANAGEMENT.LAST_LOGIN' | translate }}</div>
+            <!-- <div class="cell">{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</div> -->
+            <div class="cell">{{ 'COMMON.ACTIONS' | translate }}</div>
+        </div>
+        <div class="row" *ngFor="let user of users.data">
+            <div class="cell" data-title="Username">
+                {{user?.username}}
+            </div>
+            <div class="cell" data-title="Name">
+                {{user?.firstName}} {{user?.lastName}}
+            </div>
+            <div class="cell" data-title="Last login">
+                {{user?.lastLogin | date:'dd-MM-yyyy HH:mm'}}
+            </div>
+            <!-- <div class="cell" data-title="Permissions">
+                <span *ngFor="let p of user.permissions">{{p}}<br /></span>
+            </div> -->
+            <div class="cell" data-title="Actions">
+                    <a class="btn btn-secondary btn-xs" aria-label="Edit" [routerLink]="['edit', user.id]"
+                    title="Edit">
+                     <i class="fa fa-pencil"></i>
+                 </a>
+                 <a class="btn btn-danger btn-xs" aria-label="Delete" (click)="delete(user)"
+                         title="Delete">
+                     <i class="fa fa-trash-o"></i>
+                 </a>
+            </div>
+        </div>
+    </div>
+<!-- 
+    <table class="table table-responsive table-hover">
         <thead class="thead-dark">
             <tr>
                 <th>{{ 'COMMON.USERNAME' | translate }}</th>
@@ -35,7 +70,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 </div>
 
 <div *ngIf="users && users.paging.itemsCount == 0">

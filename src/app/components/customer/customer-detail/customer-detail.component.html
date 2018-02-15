@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="card" style="text-align:center">
+    <div class="card" style="text-align:center" *ngIf="customer.points && customer.points.length > 0">
         <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
         <div class="card-body points-detail">
             <table class="table table-sm">
