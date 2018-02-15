@@ -202,6 +202,7 @@ export class StatsComponent implements OnInit {
 
     updateGroupedBarChart() {
         this.loadingGroupChart = true;
+        this.barChartData = null;
         this.service.getGroupedStatistics(this.groupChartDataTypes)
         .subscribe(
             stats => {

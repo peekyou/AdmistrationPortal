@@ -136,6 +136,6 @@
         "TITLE": "Dashboard",
         "GENDER_PIE": "Gender segmentation",
         "AGE_PIE": "Age segmentation",
-        "GROUP_BAR_CHART": "Group bar chart"
+        "GROUP_BAR_CHART": "Expenses chart"
     }
 }

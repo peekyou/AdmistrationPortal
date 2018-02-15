@@ -32,7 +32,10 @@ export class GroupBarChartComponent implements OnInit {
     @Input() 
     set data(data: ChartData[]) {
         this._data = data;
-        if (this.initialized) {
+        if (!data) {
+            this.clear();
+        }
+        else if (this.initialized) {
             this.setDataKeys();
             this.drawChart(); 
         }
@@ -238,6 +241,20 @@ export class GroupBarChartComponent implements OnInit {
                 .duration(500)
                 .style("opacity", 0);
             });
+        }
+    }
+
+    clear() {
+        if (this.g) {
+            this.g.selectAll(".bars")
+                .remove()
+                .exit();
+            this.g.selectAll(".bar")
+                .remove()
+                .exit();
+            this.g.selectAll(".legend")
+                .remove()
+                .exit();
         }
     }
 
