@@ -81,6 +81,20 @@ small.smaller {
     }
 }
 
+.no-result {
+    width: 70%;
+    padding: 1em;
+    margin: auto;
+    text-align: center;
+
+    h2:before {    
+        content: "\F002";
+        font-family: FontAwesome;
+        margin-right: 1em;
+    }
+
+}
+
 /*.ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948;
 }

@@ -134,7 +134,8 @@
     <span class="star" [class.filled]="fill === 100">&#9733;</span>
 </ng-template>
 
-<div *ngIf="reviews && reviews.paging.itemsCount == 0">
+<div *ngIf="reviews && reviews.paging.itemsCount == 0" class="no-result">
+    <span class="icon"></span>
     <h2>{{ 'REVIEWS.NO_REVIEW' | translate }}</h2>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
