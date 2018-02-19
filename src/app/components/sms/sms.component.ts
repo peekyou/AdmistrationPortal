@@ -10,7 +10,7 @@ import { AppModal } from '../../core/shared/modals/modal';
 })
 export class SmsComponent {
     packNumber: number = 1;
-    packPrice: number = 100;
+    packPrice: number = 50;
     quota = 0;
 
     constructor(private service: SmsService, private modalService: NgbModal) { 

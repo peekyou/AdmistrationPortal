@@ -7,7 +7,7 @@ import { NoContentComponent } from './components/no-content';
 import { DataResolver } from './app.resolver';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/customers', pathMatch: 'full' },
+    { path: '', redirectTo: '/stats', pathMatch: 'full' },
     { path: 'auth', loadChildren: './components/user#UserModule' },
     { path: 'customers', loadChildren: './components/customer#CustomerModule' },
     { path: 'content', loadChildren: './components/content-editor#ContentEditorModule' },

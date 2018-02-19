@@ -1,10 +1,81 @@
 <div class="container">
-    <h2>{{ 'STATS.TITLE' | translate }}</h2>
     <div class="statistics">
+            <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Customers</p>
+                                            <h4 class="card-title">{{customersCount}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="icon-big">
+                                            <i class="fa fa-lightbulb-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <p class="card-category">Total expenses</p>
+                                            <h4 class="card-title">{{totalExpenses}} AED</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="icon-big">
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <p class="card-category">Best customers</p>
+                                            <h5 class="card-title">
+                                                Test<i class="fa fa-circle gold"></i>
+                                            </h5>
+                                            <h5 class="card-title">
+                                                Test 2<i class="fa fa-circle silver"></i>
+                                            </h5>
+                                            <h5 class="card-title">
+                                                Test 3<i class="fa fa-circle bronze"></i>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h5 class="card-header">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                    <div class="card-header">
+                        <h4 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h4>
+                    </div>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body gender-stats"></div>
                 </div>
@@ -57,5 +128,10 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="row">
+            <div class="col">
+                <app-country-map></app-country-map>
+            </div>
+        </div> -->
     </div>
 </div>

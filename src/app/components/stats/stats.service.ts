@@ -21,4 +21,8 @@ export class StatsService {
         getGroupedStatistics(dataTypes: number[]): Observable<GroupBarChartData[]> {
             return this.http.post(this.api + '/grouped', { dataTypes: dataTypes });
         }
+
+        getTotalExpenses(): Observable<number> {
+            return this.http.get(AppSettings.API_ENDPOINT + '/merchants/expenses/amount');            
+        }
 }

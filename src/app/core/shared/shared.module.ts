@@ -18,6 +18,7 @@ import { SubmitButtonComponent } from './components/submit-button/submit-button.
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
+import { CountryMapComponent } from './components/country-map/country-map.component';
 
 const IMPORTS = [
     CommonModule,
@@ -41,7 +42,8 @@ const DECLARATIONS = [
     SubmitButtonComponent,
     TimeRangeComponent,
     LineChartComponent,
-    GroupBarChartComponent
+    GroupBarChartComponent,
+    CountryMapComponent
 ];
 
 @NgModule({

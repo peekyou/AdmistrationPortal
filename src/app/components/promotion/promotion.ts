@@ -9,7 +9,7 @@ export class Promotion {
     toDate?: Date;
     percentage?: number;
     details?: string;
-    smsSent?: number;
+    nbSmsSent?: number;
     filter?: PromotionFilter;
 
     constructor() {
@@ -18,13 +18,16 @@ export class Promotion {
 }
 
 export class PromotionFilter {
-    customerName: string;
+    customerId: string;
     currentPointsMin: number;
     currentPointsMax: number;
     cumulatedPointsMin: number;
     cumulatedPointsMax: number;
     purchaseAmountMin: number;
     purchaseAmountMax: number;
+    customerGender: string;
+    customerAgeFrom: number;
+    customerAgeTo: number;
     customerSince: Date;
     lastEntryFrom: Date;
     lastEntryTo: Date;
@@ -38,7 +41,10 @@ export class PromotionFilter {
             cumulatedPointsMin: form.cumulatedPointsMin,
             currentPointsMax: form.currentPointsMax,
             currentPointsMin: form.currentPointsMin,
-            customerName: form.customerName,
+            customerId: form.customerName,
+            customerGender: form.customerGender == 'U' ? null : form.customerGender,
+            customerAgeFrom: form.customerAgeFrom,
+            customerAgeTo: form.customerAgeTo,
             customerSince: ngbDateStructToDate(form.customerSince),
             didntReceivePromotionId: form.didntReceivePromotion,
             lastEntryFrom: ngbDateStructToDate(form.lastEntryFrom),

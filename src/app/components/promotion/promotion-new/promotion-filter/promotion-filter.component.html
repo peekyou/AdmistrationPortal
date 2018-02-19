@@ -2,7 +2,7 @@
     <div class="col-12 col-lg-6">
         <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
             <ngb-tabset>
-                <ngb-tab title="Points">
+                <!-- <ngb-tab title="Points">
                     <ng-template ngbTabContent>
                         <div class="form-group">
                             <label class="col-form-label" for="current-points-min">Current points</label>
@@ -44,13 +44,44 @@
                             </div>
                         </div>
                     </ng-template>
-                </ngb-tab>
+                </ngb-tab> -->
                 <ngb-tab title="Customer">
                     <ng-template ngbTabContent>
                         <!-- <div class="form-group">
                             <label for="customer-name">Customer name</label>
                             <input type="text" class="form-control" id="customer-name" formControlName="customerName" />
                         </div> -->
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="genderM" value="M"
+                                    formControlName="customerGender" class="form-check-input">
+                                <label for="genderM" class="form-check-label">{{ 'COMMON.GENDER_M' | translate }}</label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" id="genderF" value="F"
+                                    formControlName="customerGender" class="form-check-input">
+                                <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" id="genderU" value="U"
+                                    formControlName="customerGender" class="form-check-input">
+                                <label for="genderU" class="form-check-label">Both</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="customer-age-from">Age from</label>
+                                    <input type="number" step="1" min="0" max="130" class="form-control" 
+                                           id="customer-age-from" formControlName="customerAgeFrom" />
+                                </div>
+                                <div class="col">
+                                    <label for="customer-age-to">Age to</label>
+                                    <input type="number" step="1" min="0" max="130" class="form-control" 
+                                           id="customer-age-to" formControlName="customerAgeTo" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="customer-since">Customer since</label>
                             <div class="input-group">

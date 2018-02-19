@@ -15,7 +15,7 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 })
 export class CustomerForm implements OnInit {
     form: FormGroup;
-    isEdit: boolean;
+    @Input() isEdit: boolean;
     @Input() submitSubscription;
     @Output() onPopulate: EventEmitter<any> = new EventEmitter();
     @Output() onSubmit: EventEmitter<any> = new EventEmitter();
@@ -31,7 +31,6 @@ export class CustomerForm implements OnInit {
     }
     
     ngOnInit() {
-        this.isEdit = this.onPopulate.observers.length > 0;
         this.init();
     }
     

@@ -7,6 +7,56 @@
 
     .card {
         margin-top: 2em;
+
+        .card-header {
+            padding: 15px 15px 0;
+            background-color: #fff;
+            border-bottom: none!important;
+            text-align: left;
+        }
+
+        .card-category {
+            margin-bottom: 0;
+            font-size: 0.875rem;
+            color: #9A9A9A;
+        }
+
+        .card-title {
+            margin: 0;
+            color: #333333;
+            font-weight: 300;
+        }
+    }
+    
+    .card-stats {
+        .fa {
+            font-size: 3.4em;
+        }
+        
+        .fa-user {
+            color: #FFA534 !important;
+        }
+
+        .numbers {
+            text-align: right;
+            word-wrap: break-word;
+
+            h4, h5, h6 {
+                .fa {
+                    font-size: .8em;
+                    padding-left: .25em;
+                }
+                .gold {
+                    color: gold;
+                }
+                .silver {
+                    color: silver;
+                }
+                .bronze {
+                    color: #CD7F32;
+                }
+            }
+        }
     }
 }
 

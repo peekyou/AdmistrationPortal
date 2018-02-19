@@ -140,12 +140,12 @@ module.exports = function (env) {
      */
     plugins: [
 
-      new SourceMapDevToolPlugin({
-        filename: '[file].map[query]',
-        moduleFilenameTemplate: '[resource-path]',
-        fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
-        sourceRoot: 'webpack:///'
-      }),
+      // new SourceMapDevToolPlugin({
+      //   filename: '[file].map[query]',
+      //   moduleFilenameTemplate: '[resource-path]',
+      //   fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
+      //   sourceRoot: 'webpack:///'
+      // }),
 
 
       /**
@@ -171,7 +171,7 @@ module.exports = function (env) {
        * NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
        */
       new UglifyJsPlugin({
-        sourceMap: true,
+        sourceMap: false,
         uglifyOptions: getUglifyOptions(supportES2015)
       })
 

@@ -38,7 +38,7 @@
         <h5 class="card-header">{{ 'CUSTOMERS.EDIT_INFOS' | translate }}</h5>
         <div class="card-body">
             <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
-                               [submitSubscription]="saveSubscription">
+                               [submitSubscription]="saveSubscription" isEdit="true">
             </app-customer-form>
         </div>
     </div>

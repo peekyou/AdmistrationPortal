@@ -3,10 +3,6 @@
         <div class="col-md-4 col-12">
             <h4 class="card-title">{{ 'CUSTOMERS.SEARCH' | translate }}</h4>
         </div>
-        <div class="col">
-            <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-fw"></i>                
-            <span *ngIf="!loading">{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
-        </div>
     </div>
     <customer-search></customer-search>
 </div>

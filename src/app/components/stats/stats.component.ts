@@ -4,6 +4,7 @@ import { D3Service, D3, Selection, PieArcDatum, BaseType } from 'd3-ng2-service'
 import { TranslationService } from '../../core/services/translation.service';
 import { SegmentationStatistics, Segmentation, SegmentationDetail, DataType } from './segmentation-statistics';
 import { StatsService } from './stats.service';
+import { CustomerService } from '../customer/customer.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 
 @Component({
@@ -27,18 +28,25 @@ export class StatsComponent implements OnInit {
     groupChartDataTypes: DataType[] = [DataType.Gender];
     loadingGroupChart = false;
     loadingPies = false;
+    customersCount: number;
+    loadingCustomerCount: boolean = false;
+    totalExpenses: number;
+    loadingTotalExpenses: boolean = false;
     
     constructor(
         element: ElementRef,
         d3Service: D3Service, 
         private service: StatsService,
-        private translation: TranslationService) { 
+        private translation: TranslationService,
+        private customerService: CustomerService) { 
 
             this.d3 = d3Service.getD3();
             this.parentNativeElement = element.nativeElement;
     }
 
     ngOnInit() {
+        this.loadGeneralStats();
+
         if (this.parentNativeElement !== null) {
             this.loadingPies = true;
             this.translation.getMultiple(this.translationKeys, x => {
@@ -256,6 +264,21 @@ export class StatsComponent implements OnInit {
 
     public hasDataType(type: DataType) {
         return this.groupChartDataTypes.indexOf(type) !== -1;
+    }
+
+    private loadGeneralStats() {
+        this.loadingCustomerCount = this.loadingTotalExpenses = true;
+        this.customerService.getAllCount()
+            .subscribe(c => {
+                this.customersCount = c;
+                this.loadingCustomerCount = false;
+            });
+
+        this.service.getTotalExpenses()
+            .subscribe(res => {
+                this.totalExpenses = res;
+                this.loadingTotalExpenses = false;
+            });
     }
 
     private translateLabels(data: any[]) {
