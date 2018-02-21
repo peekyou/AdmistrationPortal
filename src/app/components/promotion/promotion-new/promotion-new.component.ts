@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Promotion, PromotionFilter } from '../promotion';
 import { PromotionService } from '../promotion.service';
-import { ngbDateStructToDate } from '../../../core/helpers/utils';
+import { ngbDateStructToDate, dateToNgbDateStruct } from '../../../core/helpers/utils';
 
 @Component({
     styleUrls: ['./promotion-new.component.scss'],
@@ -26,7 +26,7 @@ export class PromotionNewComponent {
     init() {
         var firstForm = this.fb.group({
             name: ['', Validators.required],
-            dateFrom: [null, Validators.required],
+            dateFrom: [dateToNgbDateStruct(new Date()), Validators.required],
             dateTo: [null, Validators.required],
             percentage: [''],
             details: [this.smsSentence, Validators.required]

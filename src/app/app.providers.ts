@@ -12,6 +12,7 @@ import { SmsService } from './components/sms/sms.service';
 import { BillingService } from './components/billing/billing.service';
 import { UserManagementService } from './components/user-management/user-management.service';
 import { StatsService } from './components/stats/stats.service';
+import { MobilePreviewService } from './components/mobile-preview/mobile-preview.service';
 import { AuthGuard } from './guards/auth.guard';
 import { PermissionGuard } from './guards/permission.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
@@ -31,6 +32,7 @@ export const APP_PROVIDERS = [
     BillingService,
     UserManagementService,
     StatsService,
+    MobilePreviewService,
     AuthGuard,
     PermissionGuard,
     PendingChangesGuard

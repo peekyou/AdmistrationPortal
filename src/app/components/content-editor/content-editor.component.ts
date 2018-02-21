@@ -5,7 +5,10 @@ import { PageNotifierService } from './page-notifier.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operator/debounceTime';
 
+import { TranslationService } from '../../core/services/translation.service';
 import { DeleteModal } from '../../core/shared/modals/delete.modal';
 import { guid } from '../../core/helpers/utils';
 import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
@@ -31,6 +34,13 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     savePageSubscription: Subscription;
     totalFileSize: number = 0;
 
+    // Alerts
+    alertType = 'success';
+    alertSuccessMessage: string;
+    alertErrorMessage: string;
+    alertMessage: string;
+    private _serverStatus = new Subject<string>();
+
     // @HostListener allows us to also guard against browser refresh, close, etc.
     @HostListener('window:beforeunload')
     canDeactivate(): Observable<boolean> | boolean {
@@ -38,21 +48,23 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         // returning true will navigate without confirmation
         // returning false will show a confirm dialog before navigating away
         var canDeactivate = true;
-        for (var i = 0; this.pages && i < this.pages.length && canDeactivate; i++) {
-            canDeactivate = !this.pages[i].editing;
-        }
+        // for (var i = 0; this.pages && i < this.pages.length && canDeactivate; i++) {
+        //     canDeactivate = !this.pages[i].editing;
+        // }
         return canDeactivate;
     }
 
     constructor(
         private service: ContentEditorService, 
         private notifier: PageNotifierService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private translation: TranslationService
     ) {
         notifier.onEditSource.subscribe(page => this.editContent(page));
         notifier.onCreateSource.subscribe(parent => this.createPage(parent));
 
         this.ckeditorConfig = {
+            enterMode: 2, //CKEDITOR.ENTER_BR
             toolbar: [
                 //{ name: 'document', items: ['Source', '-', 'Templates'] },
                 { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
@@ -79,12 +91,20 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                 err => { console.log(err); }
         );
 
+        this.translation.getMultiple(['CONTENT.SAVE_PAGE_SUCCESS', 'COMMON.SERVER_ERROR'], x => {
+            this.alertSuccessMessage = x['CONTENT.SAVE_PAGE_SUCCESS'];
+            this.alertErrorMessage = x['COMMON.SERVER_ERROR'];
+        });
+
         this.service
             .getFilesSize()
             .subscribe(
                 res => this.totalFileSize = res,
                 err => { console.log(err); }
             );
+
+        this._serverStatus.subscribe((message) => this.alertMessage = message);
+        debounceTime.call(this._serverStatus, 5000).subscribe(() => this.alertMessage = null);
     }
 
     getPages() {
@@ -176,11 +196,18 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     savePage() {
         this.savePageSubscription = this.service
             .savePage(this.selectedPage)
-            .subscribe(r => {
+            .subscribe(id => {
+                this.alertType = 'success';
+                this._serverStatus.next(this.alertSuccessMessage);                
+                this.selectedPage.id = id;
                 this.selectedPage.editing = false;
                 this.oldSelectedPage = null;
             },
-            err => { console.log(err); });
+            err => { 
+                this.alertType = 'danger';
+                this._serverStatus.next(this.alertErrorMessage);
+                console.log(err); 
+            });
     }
 
     cancelPageEdition() {

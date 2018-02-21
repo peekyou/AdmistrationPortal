@@ -102,4 +102,17 @@ export class FileUploadComponent implements OnInit {
     calculateAvailableSpace() {
         this.availableSpace = Math.max(0, this.totalSpace - (Math.round(this.totalFileSize * 100) / 100));
     }
+
+    formatFileSize(size: number): string {
+        if (size) {
+            var unit = 'KB';
+            size /= 1024;
+            if (size >= 1024) {
+                var unit = 'MB';
+                size /= 1024;
+            }
+            return size.toFixed(2) + ' ' + unit; 
+        }
+        return '';
+    }
 }

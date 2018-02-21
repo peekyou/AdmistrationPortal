@@ -17,6 +17,7 @@
         "INVALID_DATE": "Date incorrecte"
     },
     "COMMON": {
+        "SERVER_ERROR": "Une erreur est survenue, essayez plus tard",
         "HOME": "Accueil",
         "DELETE": "Supprimer",
         "CANCEL": "Annuler",
@@ -82,6 +83,7 @@
         "EXPENSES_CHART": "Graphe des dépenses"
     },
     "CONTENT": {
+        "SAVE_PAGE_SUCCESS": "Page sauvegardée",
         "SLOGAN": "Slogan",
         "CREATE_PAGE": "Créer une page",
         "CREATE_PAGE_UNDER": "sous",

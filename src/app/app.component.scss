@@ -47,10 +47,12 @@ a.active {
     font-weight: bold;
 }
 
-.alert-sm {
-    @extend .alert;
-    font-size: .8em;
-    padding: .2em .4em;
+.alert.alert-dismissible {
+    padding: 0.5rem 1.25rem;
+
+    .close {
+        padding: 0.5rem 1.25rem;
+    }
 }
 
 .btn-xs {

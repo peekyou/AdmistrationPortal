@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { FilterByPipe } from './filter-by';
+import { SafePipe } from './safe';
 import { IncrementPipe } from './increment';
 import { CurrentPointsPipe } from './current-points';
 import { ExpensesChartPipe } from './expenses-chart';
@@ -9,6 +10,7 @@ import { GroupBarChartPipe } from './group-bar-chart';
 
 const PIPES = [
     FilterByPipe,
+    SafePipe,
     IncrementPipe,
     CurrentPointsPipe,
     ExpensesChartPipe,

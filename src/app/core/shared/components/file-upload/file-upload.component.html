@@ -23,7 +23,8 @@
                 <img height="75" width="125" [src]="file.src" (load)="fileLoad()">
             </div>
             <dl>
-                <dd class="attachment-size"><i class="fa fa-trash" (click)="open(file)"></i> 60 kB
+                <dd class="attachment-size"><i class="fa fa-trash" (click)="open(file)"></i>
+                    {{ formatFileSize(file.size) }}
                 </dd>
             </dl>
         </div>

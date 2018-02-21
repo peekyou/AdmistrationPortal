@@ -1,3 +1,7 @@
+<!-- <div style="height: 3.63rem;"> -->
+<div>
+    <ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="alertMessage = null">{{alertMessage}}</ngb-alert>
+</div>
 <div class="row content-editor">
     <div class="col-lg">
         <app-page-header (onEdit)="editContent($event)" [page]="homePage" cssClass="home-header"></app-page-header>
@@ -44,7 +48,7 @@
                                 <input type="text" class="form-control high" id="discover-us-text" name="discover-us-text" value="Discover us"
                                        [(ngModel)]="selectedPage.data2" #discoverUsText="ngModel" 
                                        placeholder="Discover us!" required />
-                                <div [hidden]="discoverUsText.valid || (discoverUsText.pristine && !f.submitted)" class="alert-sm alert-danger">
+                                <div [hidden]="discoverUsText.valid || (discoverUsText.pristine && !f.submitted)" class="invalid-field">
                                     Required field
                                 </div>
                             </div>
@@ -63,10 +67,10 @@
                             <div class="form-group">
                                 <input type="text" class="form-control high" id="custom-text" name="custom-text" value="Custom (ex: Menus)"
                                        [(ngModel)]="selectedPage.data4" #customText="ngModel"
-                                       placeholder="Label (ex: Menu, Book online)" required />
-                                <div [hidden]="customText.valid || (customText.pristine && !f.submitted)" class="alert-sm alert-danger">
+                                       placeholder="Label (ex: Menu, Book online)" />
+                                <!-- <div [hidden]="customText.valid || (customText.pristine && !f.submitted)" class="invalid-field">
                                     Required field
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col">
@@ -85,7 +89,7 @@
                                            [form]="f.form" [subscription]="savePageSubscription">
                         </app-submit-button>
                         <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
-                    </div>
+                    </div> 
                 </form>
             </div>
 

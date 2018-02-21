@@ -48,7 +48,7 @@ export class ContentEditorService {
         return this.http.delete(this.api + '/' + page.id);
     }
 
-    savePage(page: Page): Observable<Page> {
+    savePage(page: Page): Observable<string> {
         return this.http.post(this.api, page);
     }
 
