@@ -2,6 +2,18 @@
     display: block;
 }
 
+.bg-light-blue {
+    background-color: #03A9F4 !important;
+}
+
+.bg-amber {
+    background-color: #ffc107 !important;
+}
+
+.bg-purple {
+    background-color: #d559ea !important;
+}
+
 .statistics {
     text-align: center;
 
@@ -29,12 +41,38 @@
     }
     
     .card-stats {
-        .fa {
-            font-size: 3.4em;
-        }
+        border: none;
+        text-align: left;
+        border-radius: 2px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+
+        .quick-stats {
+            h2 {
+                font-weight: normal;
+                margin: 0;
+                font-size: 1.6rem;
+                color: #FFFFFF;
+                line-height: 100%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
         
-        .fa-user {
-            color: #FFA534 !important;
+            small{
+                font-size: 1rem;
+                display: block;
+                color: rgba(255, 255, 255, 0.8);
+                margin-top: 0.6rem;
+                line-height: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .fa {
+            font-size: 3em;
+            color: rgba(255, 255, 255, 0.8)
         }
 
         .numbers {

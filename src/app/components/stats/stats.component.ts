@@ -6,6 +6,7 @@ import { SegmentationStatistics, Segmentation, SegmentationDetail, DataType } fr
 import { StatsService } from './stats.service';
 import { CustomerService } from '../customer/customer.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
+import { Customer } from '../customer/customer';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -32,6 +33,8 @@ export class StatsComponent implements OnInit {
     loadingCustomerCount: boolean = false;
     totalExpenses: number;
     loadingTotalExpenses: boolean = false;
+    bestCustomer: Customer;
+    loadingBestCustomer: boolean = false;
     
     constructor(
         element: ElementRef,
@@ -267,7 +270,7 @@ export class StatsComponent implements OnInit {
     }
 
     private loadGeneralStats() {
-        this.loadingCustomerCount = this.loadingTotalExpenses = true;
+        this.loadingCustomerCount = this.loadingTotalExpenses = this.loadingBestCustomer = true;
         this.customerService.getAllCount()
             .subscribe(c => {
                 this.customersCount = c;
@@ -278,6 +281,12 @@ export class StatsComponent implements OnInit {
             .subscribe(res => {
                 this.totalExpenses = res;
                 this.loadingTotalExpenses = false;
+            });
+
+        this.service.getBestCustomer()
+            .subscribe(res => {
+                this.bestCustomer = res;
+                this.loadingBestCustomer = false;
             });
     }
 

@@ -23,4 +23,8 @@ export class PromotionService {
     customerCount(filter: PromotionFilter): Observable<number> {
         return this.http.post(this.api + '/customers/count', filter);
     }
+
+    requestEmailTool(): Observable<boolean> {
+        return this.http.post(AppSettings.API_ENDPOINT + '/merchants/emailtool', {});
+    }
 }

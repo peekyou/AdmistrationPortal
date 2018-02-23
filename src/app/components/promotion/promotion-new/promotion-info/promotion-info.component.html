@@ -43,8 +43,9 @@
         <div *ngIf="details.invalid && (details.dirty || details.touched)" class="invalid-field">
             {{ 'FORM.REQUIRED' | translate }}
         </div>
+        <small class="form-text text-muted"><b>{{ details.value.length }}</b> characters</small>
         <small class="form-text text-muted">Max length of one SMS is 160 characters in English and 70 characters in Arabic.</small>
-        <small class="form-text text-muted">Too long message will be splited in chunks and send multiple SMS</small>
+        <small class="form-text text-muted">Longer message will be splited in chunks and send multiple SMS</small>
         
         <!-- <small class="form-text text-muted">xx characters remaining in this SMS (too long message will be splited in chunks)</small>
         <small class="form-text text-muted">xx SMS will be sent per customer</small> -->

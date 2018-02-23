@@ -17,7 +17,7 @@ export class PromotionComponent {
     loading = false;
     promotions: PagingResponse<Promotion>;
 
-    constructor(private modalService: NgbModal) { }
+    constructor(private modalService: NgbModal, private service: PromotionService) { }
 
     openEmailModal() {
         const modalRef = this.modalService.open(EmailCampaignModal);
@@ -29,6 +29,10 @@ export class PromotionComponent {
     }
 
     sendEmail() {
-        
+        this.service.requestEmailTool()
+            .subscribe(
+                response => {},
+                err => { console.log(err); }
+            );
     }
 }
