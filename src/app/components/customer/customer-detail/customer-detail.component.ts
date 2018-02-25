@@ -20,8 +20,10 @@ export class CustomerDetailComponent implements OnInit {
     customer: Customer = null;
     customerForm: FormGroup;
     newEntryAmount: number = null;
+    useDiscountLater: boolean = false;
     saveEntrySubscription: Subscription;
     saveSubscription: Subscription;
+    giveDiscountSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute,
@@ -97,6 +99,18 @@ export class CustomerDetailComponent implements OnInit {
                 },
                 err => { console.log(err); }
             );
+    }
+
+    giveDiscount() {
+        this.giveDiscountSubscription = this.service
+        .giveDiscount(this.customer.id)
+        .subscribe(
+            r => {
+                this.customer = r;
+                this.customer.purchaseData = this.service.calculatePurchaseData(this.customer.points);
+            },
+            err => { console.log(err); }
+        );
     }
 
     saveCustomer(customer: Customer) {

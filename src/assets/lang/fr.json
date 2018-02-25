@@ -73,6 +73,8 @@
         "SEARCH_PLACEHOLDER": "Nom, tel, no carte",
         "SAVE_ENTRY_LABEL": "Sauvegarder un passage client",
         "SAVE_ENTRY_BUTTON": "Sauvegarder",
+        "GIVE_DISCOUNT_BUTTON": "Accorder remise",
+        "KEEP_DISCOUNT_BUTTON": "Utiliser plus tard",
         "LAST_ENTRY": "Dernière visite",
         "FIRST_ENTRY": "Première visite",
         "HISTORY_POINTS": "Historique",

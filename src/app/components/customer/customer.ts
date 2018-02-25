@@ -17,6 +17,7 @@ export class Customer {
     totalPoints?: number;
     expenses?: CustomerExpense[];
     points?: CustomerPoint[];
+    discountAmount?: number;
     purchaseData?: PurchaseData;
     languages?: string[];
     address?: Address; 

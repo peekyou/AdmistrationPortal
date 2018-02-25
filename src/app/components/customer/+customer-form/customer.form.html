@@ -1,13 +1,5 @@
 <div *ngIf="form">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
-        <div class="form-group" *ngIf="!isEdit">
-            <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
-            <input type="number" min="0" class="form-control" id="amount"
-                    placeholder="AED" formControlName="amount" required>
-            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
-                {{ 'FORM.REQUIRED' | translate }}
-            </div>
-        </div>
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <input type="radio" name="gender" id="genderM" value="M"
@@ -104,6 +96,14 @@
             <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
             <textarea class="form-control" id="comment" name="comment" 
                       rows="5" formControlName="comment"></textarea>
+        </div>
+        <div class="form-group" *ngIf="!isEdit">
+            <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+            <input type="number" min="0" class="form-control" id="amount"
+                    placeholder="AED" formControlName="amount" required>
+            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
+                {{ 'FORM.REQUIRED' | translate }}
+            </div>
         </div>
         <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
                            loadingValue="{{ 'COMMON.SAVING' | translate }}" 

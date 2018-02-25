@@ -2,19 +2,39 @@
 
 <div class="card-columns" *ngIf="customer">
     <div class="card">
-        <h3 class="card-header">{{customer.firstname}} {{customer.lastname}}</h3>
+        <h3 class="card-header">{{customer.cardNumber}}. {{customer.firstname}} {{customer.lastname}}</h3>
         <div class="card-body">
-            <p class="card-text">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate }}</p>
-            <form class="form-inline" #entryF="ngForm"
-                  (ngSubmit)="entryF.valid && saveEntry()" novalidate>
-                <input type="number" min="0" class="form-control" id="amount" name="amount"
-                       placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
-                <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
-                                   loadingValue="{{ 'COMMON.LOADING' | translate }}" 
-                                   [form]="entryF.form" [subscription]="saveEntrySubscription">
-                </app-submit-button>
-            </form>
-
+            <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
+                <span class="card-text">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate }}</span>
+                <form class="form-inline" #entryF="ngForm"
+                    (ngSubmit)="entryF.valid && saveEntry()" novalidate>
+                    <input type="number" min="0" class="form-control" id="amount" name="amount"
+                        placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
+                    <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
+                                    loadingValue="{{ 'COMMON.LOADING' | translate }}" 
+                                    [form]="entryF.form" [subscription]="saveEntrySubscription">
+                    </app-submit-button>
+                </form>
+            </div>
+            <div *ngIf="customer.discountAmount != null && !useDiscountLater" class="entry-form">
+                <div class="card-text">Eligible for a discount: {{ customer.discountAmount }} AED</div>
+                <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
+                    <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
+                                    loadingValue="{{ 'COMMON.LOADING' | translate }}"
+                                    [subscription]="giveDiscountSubscription">
+                    </app-submit-button>
+                    <input type="button" class="btn btn-secondary" (click)="useDiscountLater = true"
+                           value="{{ 'CUSTOMERS.KEEP_DISCOUNT_BUTTON' | translate }}" />
+                </form>
+            </div>
+            <div class="row" *ngIf="customer.currentPoints">
+                <div class="col"><b>{{ 'CUSTOMERS.CURRENT_POINTS' | translate }}</b></div>
+                <div class="col">{{customer.currentPoints}} points ({{customer.purchaseData?.currentPurchaseAmountString}})</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ 'CUSTOMERS.HISTORY_POINTS' | translate }}</div>
+                <div class="col">{{customer.totalPoints}} points ({{customer.purchaseData?.totalPurchaseAmountString}})</div>
+            </div>
             <div class="row" *ngIf="customer.lastEntry">
                 <div class="col">{{ 'CUSTOMERS.LAST_ENTRY' | translate }}</div>
                 <div class="col">{{customer.lastEntry | date: 'dd-MM-yyyy HH:mm'}}</div>
@@ -22,14 +42,6 @@
             <div class="row" *ngIf="customer.firstEntry">
                 <div class="col">{{ 'CUSTOMERS.FIRST_ENTRY' | translate }}</div>
                 <div class="col">{{customer.firstEntry | date: 'dd-MM-yyyy HH:mm'}}</div>
-            </div>
-            <div class="row">
-                <div class="col">{{ 'CUSTOMERS.HISTORY_POINTS' | translate }}</div>
-                <div class="col">{{customer.totalPoints}} points ({{customer.purchaseData?.totalPurchaseAmountString}})</div>
-            </div>
-            <div class="row" *ngIf="customer.currentPoints">
-                <div class="col">{{ 'COMMON.POINTS' | translate }}</div>
-                <div class="col">{{customer.currentPoints}} points ({{customer.purchaseData?.currentPurchaseAmountString}})</div>
             </div>
         </div>
     </div>

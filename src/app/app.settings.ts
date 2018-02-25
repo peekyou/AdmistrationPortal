@@ -4,4 +4,7 @@ export class AppSettings {
     // public static API_ENDPOINT = 'http://app-wards.com/SoAppService.svc/json';
     // public static MerchantId = '193DDF9621C3494FBDF84F01D181DE58'; // Test
     public static MerchantName = 'Test Shop';
+
+    // public static MerchantId = '2E5D3ECD37A34E6E971987F836CBFEB6';
+    // public static MerchantName = 'Golden Age';
 }

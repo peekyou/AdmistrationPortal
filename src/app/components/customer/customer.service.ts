@@ -72,6 +72,10 @@ export class CustomerService {
         return this.http.post(this.api + '/' + customerId + '/entry', amount);
     }
 
+    giveDiscount(customerId: string): Observable<Customer> {
+        return this.http.post(this.api + '/' + customerId + '/discount', {});
+    }
+
     deletePoints(point: CustomerPoint): Observable<number> {
         return this.http.delete(this.api + '/points/' + point.id);
     }
