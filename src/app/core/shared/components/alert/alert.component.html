@@ -1,0 +1,4 @@
+<div *ngIf="message">
+    <ngb-alert *ngIf="error === false" type="success" (close)="clear()">{{message}}</ngb-alert>
+    <ngb-alert *ngIf="error === true" type="danger" (close)="clear()">{{message}}</ngb-alert>    
+</div>

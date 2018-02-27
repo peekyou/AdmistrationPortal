@@ -1,4 +1,5 @@
 import { Address } from '../../core/shared/components/address/address'; 
+import { Lookup } from '../../core/models/lookup';
 
 export class Customer {
     id?: string;
@@ -19,7 +20,7 @@ export class Customer {
     points?: CustomerPoint[];
     discountAmount?: number;
     purchaseData?: PurchaseData;
-    languages?: string[];
+    languages?: Lookup[];
     address?: Address; 
 }
 

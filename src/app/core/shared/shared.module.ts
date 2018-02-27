@@ -10,9 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgAutoCompleteModule } from "ng-auto-complete";
 import { LoadingModule } from 'ngx-loading';
 
+import { AlertComponent } from './components/alert/alert.component';
 import { AddressComponent } from './components/address/address.component';
-import { CountryPickerComponent } from './components/country-picker/country-picker.component';
-import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
+import { AutoCompleteComponent } from './components/autocomplete/autocomplete.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
@@ -35,9 +35,9 @@ const IMPORTS = [
 ];
 
 const DECLARATIONS = [
+    AlertComponent,
     AddressComponent,
-    CountryPickerComponent,
-    LanguagePickerComponent,
+    AutoCompleteComponent,
     FileUploadComponent,
     SubmitButtonComponent,
     TimeRangeComponent,

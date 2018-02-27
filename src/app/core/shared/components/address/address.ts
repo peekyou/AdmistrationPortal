@@ -1,5 +1,7 @@
+import { Lookup } from '../../../models/lookup';
+
 export class Address {
-    countryCode?: string;
+    country?: Lookup;
     state?: string;
     city?: string;
     area?: string;

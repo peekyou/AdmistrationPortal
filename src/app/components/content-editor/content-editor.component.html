@@ -1,7 +1,6 @@
-<!-- <div style="height: 3.63rem;"> -->
-<div>
-    <ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="alertMessage = null">{{alertMessage}}</ngb-alert>
-</div>
+<app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}"
+           successMessage="{{ 'CONTENT.SAVE_PAGE_SUCCESS' | translate }}">
+</app-alert>
 <div class="row content-editor">
     <div class="col-lg">
         <app-page-header (onEdit)="editContent($event)" [page]="homePage" cssClass="home-header"></app-page-header>
@@ -109,8 +108,9 @@
                         </ckeditor>
                     </div>
                     <div class="form-group">
-                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
-                                           [subscription]="savePageSubscription">
+                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                           loadingValue="{{ 'COMMON.SAVING' | translate }}"
+                                           [subscription]="savePageSubscription" [form]="f.form">
                         </app-submit-button>
                         <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
                         <input type="button" class="btn btn-danger" value="Delete" (click)="openDeleteModal()" />
@@ -131,8 +131,9 @@
                     
                     <div class="form-group">
                             <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
-                            <app-country-picker [(country)]="selectedPage.address.countryCode">
-                            </app-country-picker>
+                            <app-autocomplete source='countries' name="country" id="country"
+                                             [(ngModel)]="selectedPage.address.country">
+                            </app-autocomplete>
                         </div>
                     <div class="form-group">
                         <label for="city">{{ 'COMMON.CITY' | translate }}</label>
@@ -151,8 +152,9 @@
                     </div>
 
                     <div class="form-group">
-                        <app-submit-button value="Save" loadingValue="Saving..." [form]="f.form"
-                                           [subscription]="savePageSubscription">
+                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                           loadingValue="{{ 'COMMON.SAVING' | translate }}"
+                                           [subscription]="savePageSubscription" [form]="f.form">
                         </app-submit-button>
                         <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()" />
                     </div>

@@ -1,7 +1,6 @@
 import { HttpService } from './core/services/http.service';
 import { AuthHttpService } from './core/services/auth-http.service';
-import { CountryPickerService } from './core/shared/components/country-picker/country-picker.service';
-import { LanguagePickerService } from './core/shared/components/language-picker/language-picker.service';
+import { LookupService } from './core/services/lookup.service';
 import { TranslationService } from './core/services/translation.service';
 import { UserService } from './components/user/user.service';
 import { ContentEditorService } from './components/content-editor/content-editor.service'
@@ -20,8 +19,7 @@ import { PendingChangesGuard } from './guards/pending-changes.guard';
 export const APP_PROVIDERS = [
     HttpService,
     AuthHttpService,
-    CountryPickerService,
-    LanguagePickerService,
+    LookupService,
     TranslationService,
     UserService,
     ContentEditorService,

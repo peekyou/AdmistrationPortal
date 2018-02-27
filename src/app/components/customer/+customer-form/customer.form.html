@@ -68,8 +68,9 @@
                 <div formArrayName="languages">
                     <div *ngFor="let language of form.controls.languages.controls; let i = index">
                         <div class="language-control" [ngClass]="{'first': i == 0}">
-                            <app-language-picker [formControl]="language">
-                            </app-language-picker>
+                            <app-autocomplete class="language-picker" 
+                                              source="languages" [formControl]="language">
+                            </app-autocomplete>
                             <button type="button" class="btn btn-danger btn-xs delete-btn" 
                                     (click)="removeLanguage(i)" *ngIf="i > 0">
                                 <i class="fa fa-remove"></i>

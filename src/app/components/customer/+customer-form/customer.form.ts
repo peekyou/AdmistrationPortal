@@ -84,7 +84,7 @@ export class CustomerForm implements OnInit {
             address: {
                 addressLine1: this.form.value.address.address,
                 city: this.form.value.address.city,
-                countryCode: 'AE',
+                country: { id: 'AE' },
                 area: this.form.value.address.area,
                 zipCode: this.form.value.address.zip,
                 state: this.form.value.address.state

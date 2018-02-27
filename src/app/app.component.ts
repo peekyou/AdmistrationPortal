@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from './app.service';
 import { UserService } from './components/user/user.service';
+import { LookupService } from './core/services/lookup.service';
 
 @Component({
   selector: 'app',
@@ -32,7 +33,7 @@ export class AppComponent {
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
-  constructor(private translate: TranslateService, user: UserService) {
+  constructor(private translate: TranslateService, user: UserService, lookup: LookupService) {
     translate.addLangs(["en", "fr"]);
     translate.setDefaultLang('en');
 

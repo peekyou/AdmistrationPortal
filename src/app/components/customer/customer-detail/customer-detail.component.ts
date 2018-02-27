@@ -65,7 +65,6 @@ export class CustomerDetailComponent implements OnInit {
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
                 birthdate: this.customer.birthdate,
-                //languages: this.customer.languages, // Set first language
                 comment: this.customer.comment
             });
 
@@ -81,7 +80,7 @@ export class CustomerDetailComponent implements OnInit {
                 });
             }
 
-            // Set other languages
+            // Set languages
             for (let i = 0; this.customer.languages && i < this.customer.languages.length; i++) {
                 let newLanguage = new FormControl(this.customer.languages[i]);
                 languagesControl.push(newLanguage);
