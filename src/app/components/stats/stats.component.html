@@ -75,14 +75,18 @@
                         <h4 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h4>
                     </div>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
-                    <div class="card-body gender-stats"></div>
+                    <div class="card-body">
+                        <app-pie-chart [data]="genderPieChartData"></app-pie-chart>
+                    </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <h5 class="card-header">{{ 'STATS.AGE_PIE' | translate }}</h5>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
-                    <div class="card-body age-stats"></div>
+                    <div class="card-body">
+                        <app-pie-chart [data]="agePieChartData"></app-pie-chart>                           
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,4 @@
-import { Component, Input, OnInit, Output, ViewEncapsulation,
-    ViewChild, ElementRef, EventEmitter, HostListener } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, Input, OnInit, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
 import { D3Service, D3, Selection, BaseType, ScaleBand, ScaleLinear, ScaleOrdinal } from 'd3-ng2-service';
 import { BarChartData, GroupBarChartData, ChartData } from './group-bar-chart';
 
@@ -73,7 +71,7 @@ export class GroupBarChartComponent implements OnInit {
         let d3 = this.d3;
         let margin = this.margin;
         let keys = this.dataKeys;
-        this.svg = d3.select("svg");
+        this.svg = d3.select(".group-bar-chart");
         
         var bounds = this.svg.node().getBoundingClientRect();
         this.width = bounds.width - margin.left - margin.right;

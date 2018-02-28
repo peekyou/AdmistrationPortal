@@ -21,18 +21,12 @@ export class PromotionComponent {
 
     openEmailModal() {
         const modalRef = this.modalService.open(EmailCampaignModal);
-        modalRef.result.then((result) => {
-            if (result === 'Y') {
-                this.sendEmail();
-            }
-        }, (reason) => { });
+        // modalRef.result.then((result) => {
+        //     if (result === 'Y') {
+        //         this.sendEmail();
+        //     }
+        // }, (reason) => { });
     }
 
-    sendEmail() {
-        this.service.requestEmailTool()
-            .subscribe(
-                response => {},
-                err => { console.log(err); }
-            );
-    }
+    
 }

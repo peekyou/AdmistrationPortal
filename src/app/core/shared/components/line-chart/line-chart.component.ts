@@ -1,6 +1,4 @@
-import { Component, Input, OnInit, Output, ViewEncapsulation,
-    ViewChild, ElementRef, EventEmitter, HostListener } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, Input, OnInit, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
 import { D3Service, D3, Selection, ScaleTime, ScaleLinear, BaseType } from 'd3-ng2-service';
 import { LineChartData } from './line-chart';
 
@@ -110,9 +108,6 @@ export class LineChartComponent implements OnInit {
         var bounds = this.svg.node().getBoundingClientRect();
         var width = bounds.width - margin.left - margin.right;
         var height = bounds.height - margin.top - margin.bottom;
-
-        console.log('width', width);
-        console.log('hieght', height);
 
         var parseTime = d3.timeParse("%d-%b-%y")
         var bisectDate = d3.bisector<LineChartData, Date>(function(d) { return d.date; }).left;

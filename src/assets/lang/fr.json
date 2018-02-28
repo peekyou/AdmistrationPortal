@@ -60,7 +60,9 @@
         "FILTERS": "Filtres",
         "SUBMIT": "Envoyer",
         "ADDRESS": "Adresse",
-        "CONFIRMATION_QUESTION": "Confirmer ?"
+        "CONFIRMATION_QUESTION": "Confirmer ?",
+        "SEND_EMAIL_SUCCESS": "Email envoyé",
+        "SEND_EMAIL_ERROR": "Une erreur est survenue lors de l'envoi, essayez plus tard"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",

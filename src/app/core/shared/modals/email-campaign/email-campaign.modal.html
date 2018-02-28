@@ -5,12 +5,15 @@
     </button>
 </div>
 <div class="modal-body">
+    <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SEND_EMAIL_ERROR' | translate }}"
+               successMessage="{{ 'COMMON.SEND_EMAIL_SUCCESS' | translate }}">
+    </app-alert>
     <p>
         {{ 'PROMOTIONS.EMAIL_TOOL_MODAL' | translate }}
         <br />{{ 'COMMON.CONFIRMATION_QUESTION' | translate }}
     </p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="activeModal.close('Y')">Yes</button>
+    <button type="button" class="btn btn-outline-info" (click)="sendEmail()" [disabled]="sending">Yes</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('N')">No</button>
 </div>

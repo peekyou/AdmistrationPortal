@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from '../../pipes';
-import { ModalsModule } from './modals/modals.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgAutoCompleteModule } from "ng-auto-complete";
@@ -16,9 +15,20 @@ import { AutoCompleteComponent } from './components/autocomplete/autocomplete.co
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
 import { CountryMapComponent } from './components/country-map/country-map.component';
+
+import { AppModal } from './modals/modal';
+import { DeleteModal } from './modals/delete.modal';
+import { EmailCampaignModal } from './modals/email-campaign/email-campaign.modal';
+
+const MODALS = [
+    AppModal,
+    DeleteModal,
+    EmailCampaignModal
+];
 
 const IMPORTS = [
     CommonModule,
@@ -30,8 +40,7 @@ const IMPORTS = [
     TranslateModule,
     NgAutoCompleteModule,
     LoadingModule,
-    PipesModule,
-    ModalsModule
+    PipesModule
 ];
 
 const DECLARATIONS = [
@@ -41,6 +50,7 @@ const DECLARATIONS = [
     FileUploadComponent,
     SubmitButtonComponent,
     TimeRangeComponent,
+    PieChartComponent,
     LineChartComponent,
     GroupBarChartComponent,
     CountryMapComponent
@@ -48,7 +58,8 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [IMPORTS],
-    exports: [IMPORTS, ...DECLARATIONS],
-    declarations: [DECLARATIONS]
+    exports: [IMPORTS, ...DECLARATIONS, ...MODALS],
+    declarations: [DECLARATIONS, ...MODALS],
+    entryComponents: MODALS
 })
 export class SharedModule { }
