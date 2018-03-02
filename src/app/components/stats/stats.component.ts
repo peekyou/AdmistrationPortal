@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { TranslationService } from '../../core/services/translation.service';
 import { SegmentationStatistics, DataType } from './segmentation-statistics';
@@ -6,7 +7,7 @@ import { StatsService } from './stats.service';
 import { CustomerService } from '../customer/customer.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 import { PieChartData } from '../../core/shared/components/pie-chart/pie-chart';
-import { Customer } from '../customer/customer';
+import { Customer, CustomerExpense } from '../customer/customer';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -35,6 +36,8 @@ export class StatsComponent implements OnInit {
     loadingTotalExpenses: boolean = false;
     bestCustomer: Customer;
     loadingBestCustomer: boolean = false;
+    expenses: CustomerExpense[];
+    getExpensesSubscription: Subscription;
     
     constructor(
         element: ElementRef,
@@ -50,6 +53,7 @@ export class StatsComponent implements OnInit {
             this.staticStrings = x;
             this.loadSegmentationCharts();
             this.loadGroupedBarChart();
+            this.getExpenses();
         });
     }
 
@@ -96,6 +100,15 @@ export class StatsComponent implements OnInit {
             },
             err => { console.log(err); }
         );
+    }
+
+    getExpenses(searchFilter = null) {
+        this.getExpensesSubscription = this.service
+            .getExpenses(searchFilter)
+            .subscribe(
+                res => { this.expenses = res },
+                err => { console.log(err); }
+            );
     }
 
     public hasDataType(type: DataType) {

@@ -106,16 +106,19 @@
             </form>
         </div>
     </div>-->
-    <div class="card" *ngIf="customer && customer.expenses && customer.expenses.length > 1">
-        <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
-        <div class="card-body">
-            <app-line-chart [data]="customer.expenses | expensesChart"></app-line-chart>
-        </div>
-    </div>
     <!--<div class="card">
         <h5 class="card-header">Promotions</h5>
         <div class="card-body">
             <div class="card-title">Promotion</div>
         </div>
     </div>-->
+</div>
+
+<div class="card" *ngIf="customer && customer.expenses">
+    <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
+    <div class="card-body">
+        <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
+                        [dataSubscription]="getExpensesSubscription">
+        </app-line-chart>
+    </div>
 </div>

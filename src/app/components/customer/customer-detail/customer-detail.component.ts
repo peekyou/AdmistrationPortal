@@ -24,6 +24,7 @@ export class CustomerDetailComponent implements OnInit {
     saveEntrySubscription: Subscription;
     saveSubscription: Subscription;
     giveDiscountSubscription: Subscription;
+    getExpensesSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute,
@@ -148,6 +149,15 @@ export class CustomerDetailComponent implements OnInit {
                         this.customer.currentPoints -= r;
                     }
                 },
+                err => { console.log(err); }
+            );
+    }
+
+    getExpenses(searchFilter) {
+        this.getExpensesSubscription = this.service
+            .getExpenses(this.customer.id, searchFilter.from, searchFilter.to)
+            .subscribe(
+                res => { this.customer.expenses = res },
                 err => { console.log(err); }
             );
     }

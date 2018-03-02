@@ -13,27 +13,3 @@ export class BarChartData implements ChartData {
 
     }
 }
-
-
-
-
-
-// export class GroupedStatistics {
-//     genderChart: GroupedChart;
-//     ageChart: GroupedChart;
-//     languageChart: GroupedChart;
-// }
-
-// export class GroupedChart {
-//     groups: StatisticGroup[];
-// }
-
-// export class StatisticGroup {
-//     name: string;
-//     details: StatisticGroupDetail[];
-// }
-
-// export class StatisticGroupDetail {
-//     label: string;
-//     value: string;
-// }

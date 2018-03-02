@@ -1,1 +1,33 @@
+<form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
+    <div class="form-group form-inline">
+        <label for="dateFrom">From</label>
+        <div class="input-group pl-0 pl-md-2 col-md-3">
+            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateFrom"
+                    id="dateFrom" ngbDatepicker #from="ngbDatepicker">
+            <button class="input-group-addon" (click)="from.toggle()" type="button">
+                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+            </button>
+            <div *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_DATE' | translate }}
+            </div>
+        </div>
+        <label for="dateTo">To</label>
+        <div class="input-group pl-0 pl-md-2 col-md-3">
+            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateTo"
+                    id="dateTo" ngbDatepicker #to="ngbDatepicker">
+            <button class="input-group-addon" (click)="to.toggle()" type="button">
+                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+            </button>
+            <div *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)" class="invalid-field">
+                {{ 'FORM.INVALID_DATE' | translate }}
+            </div>
+            <div class="invalid-field" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>            
+        </div>
+        
+       <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" 
+           loadingValue="{{ 'COMMON.LOADING' | translate }}" [subscription]="dataSubscription">
+       </app-submit-button>  
+    </div>    
+</form>
+
 <svg width="100%" height="500"></svg>

@@ -5,7 +5,7 @@ import { AuthHttpService } from '../../core/services/auth-http.service';
 import { AppSettings } from '../../app.settings';
 import { SegmentationStatistics } from './segmentation-statistics';
 import { GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
-import { Customer } from '../customer/customer';
+import { Customer, CustomerExpense } from '../customer/customer';
 
 @Injectable()
 
@@ -29,5 +29,9 @@ export class StatsService {
 
         getBestCustomer(): Observable<Customer> {
             return this.http.get(AppSettings.API_ENDPOINT + '/customers/best');            
+        }
+        
+        getExpenses(searchFilters): Observable<CustomerExpense[]> {
+            return this.http.post(this.api + '/expenses', searchFilters);
         }
 }

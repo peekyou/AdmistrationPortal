@@ -1,78 +1,68 @@
 <div class="container">
     <div class="statistics">
-            <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats bg-light-blue">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="quick-stats col-7">
-                                        <h2 >{{customersCount}}</h2>
-                                        <small>Customers</small>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="icon-big">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats bg-light-blue">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="quick-stats col-7">
+                                <h2 >{{customersCount}}</h2>
+                                <small>Customers</small>
                             </div>
-                        </div>
-                        <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats bg-amber">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="quick-stats col-9">
-                                        <h2 >{{totalExpenses}} AED</h2>
-                                        <small>Total expenses</small>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="icon-big">
-                                            <i class="fa fa-lightbulb-o"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats quick-stats bg-purple">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="quick-stats col-8">
-                                        <h2 *ngIf="bestCustomer">
-                                            {{ bestCustomer.firstname }} {{ bestCustomer.lastname }}
-                                        </h2>
-                                        <small>Best customer</small>
-                                        <!-- <p class="card-category">Best customers</p>
-                                        <h5 class="card-title">
-                                            Test<i class="fa fa-circle gold"></i>
-                                        </h5>
-                                        <h5 class="card-title">
-                                            Test 2<i class="fa fa-circle silver"></i>
-                                        </h5>
-                                        <h5 class="card-title">
-                                            Test 3<i class="fa fa-circle bronze"></i>
-                                        </h5> -->
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="icon-big">
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                        </div>
-                                    </div>
+                            <div class="col-5">
+                                <div class="icon-big">
+                                    <i class="fa fa-user"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats bg-amber">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="quick-stats col-9">
+                                <h2 >{{totalExpenses}} AED</h2>
+                                <small>Total expenses</small>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon-big">
+                                    <i class="fa fa-lightbulb-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats quick-stats bg-purple">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="quick-stats col-8">
+                                <h4 *ngIf="bestCustomer">
+                                    {{ bestCustomer.firstname }} {{ bestCustomer.lastname }}
+                                </h4>
+                                <small>Best customer</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="icon-big">
+                                    <i class="fa fa-thumbs-o-up"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h4>
+                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>
                     </div>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
@@ -135,5 +125,20 @@
                 <app-country-map></app-country-map>
             </div>
         </div> -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                    </div>
+                    <!-- <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>            -->
+                    <div class="card-body">
+                        <app-line-chart [data]="expenses | expensesChart" (onSearch)="getExpenses($event)"
+                            [dataSubscription]="getExpensesSubscription">
+                        </app-line-chart>                            
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

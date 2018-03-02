@@ -1,6 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter,
+         ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
 import { D3Service, D3, Selection, ScaleTime, ScaleLinear, BaseType } from 'd3-ng2-service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 import { LineChartData } from './line-chart';
+import { ngbDateStructToDate, dateToNgbDateStruct } from '../../../helpers/utils';
 
 @Component({
     selector: 'app-line-chart',
@@ -9,6 +13,9 @@ import { LineChartData } from './line-chart';
     templateUrl: './line-chart.component.html'
 })
 export class LineChartComponent implements OnInit {
+    form: FormGroup;
+    private minDate: Date;
+    private maxDate: Date;
     private initialized: boolean = false;
     private d3: D3;
     private parentNativeElement: any;
@@ -17,12 +24,14 @@ export class LineChartComponent implements OnInit {
     private x: ScaleTime<number, number>;
     private y: ScaleLinear<number, number>;
     private svg: Selection<Element, {}, HTMLElement, any>;
-    private margin = {top: 20, right: 30, bottom: 30, left: 40};
+    private margin = {top: 20, right: 50, bottom: 30, left: 40};
     private _data: LineChartData[];
+
+    @Input() dataSubscription: Subscription;
     
     @Input() 
     set data(data: LineChartData[]) {
-        this._data = data;
+        this._data = this.groupSameDay(data);
         if (!this.initialized) {
             this.initialized = true;
             this.initChart();
@@ -32,6 +41,8 @@ export class LineChartComponent implements OnInit {
     get data(): LineChartData[] {
         return this._data;
     }
+
+    @Output() onSearch: EventEmitter<any> = new EventEmitter();    
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
@@ -51,51 +62,36 @@ export class LineChartComponent implements OnInit {
         // });
     }
 
-    constructor(element: ElementRef, d3Service: D3Service) { 
+    constructor(private fb: FormBuilder, element: ElementRef, d3Service: D3Service) { 
         this.d3 = d3Service.getD3();
         this.parentNativeElement = element.nativeElement;
     }
 
     ngOnInit() {
         this.currency = "AED";
-        // this.data = [
-        //     {date : new Date(2017, 10, 27, 11, 33, 22) , value: 10},
-        //     {date : new Date(2017, 11, 8, 1, 2, 4), value: 50},
-        //     // {date : new Date(2017, 11, 22), value: 770500},
-        //     // {date : new Date(2017, 12, 3), value: 770400},
-        //     // {date : new Date(2017, 12, 15), value: 771000},
-        //     // {date : new Date(2018, 1, 7), value: 772400},
-        //     // {date : new Date(2018, 1, 13), value: 774100},
-        //     // {date : new Date(2018, 1, 22), value: 776700},
-        //     // {date : new Date(2018, 1, 28), value: 777100},
-        //     // {date : new Date(2018, 2, 8), value: 779200},
-        //     // {date : new Date(2018, 4, 21), value: 782300}
-        // ];
-
-        // if (this.parentNativeElement !== null) {
-        //     this.initChart();
-        //     this.drawChart();        
-        // }
+        this.initForm();
     }
 
     initChart() {
-        let d3 = this.d3;
-        let margin = this.margin;
-        this.svg = d3.select("svg");
-        // var width = +this.svg.attr("width") - margin.left - margin.right;
-        // var height = +this.svg.attr("height") - margin.top - margin.bottom;
-            
-        this.x = d3.scaleTime();
-        this.y = d3.scaleLinear();
+        if (this.parentNativeElement != null) {
+            let d3 = this.d3;
+            let margin = this.margin;
+            this.svg = this.d3.select(this.parentNativeElement).select("svg")
+            // var width = +this.svg.attr("width") - margin.left - margin.right;
+            // var height = +this.svg.attr("height") - margin.top - margin.bottom;
                 
-        this.g = this.svg.append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
-        this.g.append("g")
-            .attr("class", "axis axis--x");
-    
-        this.g.append("g")
-            .attr("class", "axis axis--y");
+            this.x = d3.scaleTime();
+            this.y = d3.scaleLinear();
+                    
+            this.g = this.svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                
+            this.g.append("g")
+                .attr("class", "axis axis--x");
+        
+            this.g.append("g")
+                .attr("class", "axis axis--y");
+        }
     }
 
     drawChart() {
@@ -108,6 +104,15 @@ export class LineChartComponent implements OnInit {
         var bounds = this.svg.node().getBoundingClientRect();
         var width = bounds.width - margin.left - margin.right;
         var height = bounds.height - margin.top - margin.bottom;
+        
+        g.selectAll(".line").remove().exit();
+        g.selectAll(".circle").remove().exit();
+        g.selectAll(".text").remove().exit();
+        this.svg.selectAll(".overlay").remove().exit();
+
+        if (!data || data.length <= 1) {
+            return;
+        }
 
         var parseTime = d3.timeParse("%d-%b-%y")
         var bisectDate = d3.bisector<LineChartData, Date>(function(d) { return d.date; }).left;
@@ -121,15 +126,12 @@ export class LineChartComponent implements OnInit {
         y.range([height, 0]);
         
         var line = d3.line<LineChartData>()
+            // .curve(d3.curveBasis)
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.value); });
             
         x.domain(d3.extent(data, function(d) { return d.date; }));
         y.domain([0, d3.max(data, function(d) { return d.value; })]);
-
-        g.selectAll(".line")
-        .remove()
-        .exit();
     
         g.select(".axis--x")
             .attr("transform", "translate(0," + height + ")")
@@ -173,9 +175,11 @@ export class LineChartComponent implements OnInit {
             .attr("x2", width);
     
         focus.append("circle")
+            .attr("class", "circle")
             .attr("r", 7.5);
     
         focus.append("text")
+            .attr("class", "text")
             .attr("x", 12)
             .attr("dy", ".31em");
     
@@ -240,4 +244,70 @@ export class LineChartComponent implements OnInit {
     //     yScale.domain([500, d3.max(data, function(d){ return d.value})]).range([chartHeight, 0])
             
     // }
+
+    groupSameDay(data: LineChartData[]): LineChartData[] {
+        if (data && data.length > 0) {
+            var result: LineChartData[] = [];
+            var current = data[0];
+            this.minDate = current.date;
+            for (let i = 1; i < data.length; i++) {
+                if (data[i].date.getDate() == current.date.getDate() &&
+                    data[i].date.getMonth() == current.date.getMonth() &&
+                    data[i].date.getFullYear() == current.date.getFullYear()) {
+                        current.value += data[i].value;
+                }
+                else {
+                    result.push(current);
+                    current = data[i];
+                }
+            }
+            this.maxDate = current.date;
+            result.push(current);
+            return result;
+        }
+        return null;
+    }
+
+    initForm() {
+        var lastYear = new Date();
+        var dateFrom = null;
+        lastYear.setFullYear(lastYear.getFullYear() - 1)
+        if (this.minDate > lastYear) {
+            dateFrom = dateToNgbDateStruct(this.minDate);
+        }
+        else {
+            dateFrom = dateToNgbDateStruct(lastYear);
+        }
+        var dateTo = dateToNgbDateStruct(this.maxDate);
+        
+        this.form = this.fb.group({
+            dateFrom: [dateFrom],
+            dateTo: [dateTo],
+        }/*, { validator: this.dateLessThan('dateFrom', 'dateTo') }*/);
+    }
+
+    submit() {
+        var from = ngbDateStructToDate(this.dateFrom.value);
+        var to = ngbDateStructToDate(this.dateTo.value);
+        to.setUTCHours(23);
+        to.setUTCMinutes(59);
+        to.setUTCSeconds(59);
+        this.onSearch.emit({from: from, to: to});
+    }
+
+    dateLessThan(from: string, to: string) {
+        return (group: FormGroup): { [key: string]: any } => {
+            let f = group.controls[from];
+            let t = group.controls[to];
+            if (f.value && t.value && ngbDateStructToDate(f.value) > ngbDateStructToDate(t.value)) {
+                return {
+                    dates: 'From date must be before to date'
+                };
+            }
+            return {};
+        }
+    }
+    
+    get dateFrom() { return this.form.get('dateFrom'); }
+    get dateTo() { return this.form.get('dateTo'); }
 }

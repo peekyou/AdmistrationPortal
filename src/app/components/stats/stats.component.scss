@@ -57,6 +57,13 @@
                 white-space: nowrap;
                 overflow: hidden;
             }
+
+            h4 {
+                @extend h2;
+                font-size: 1.1rem;
+                text-overflow: clip;
+                line-height: 1.6rem;
+            }
         
             small{
                 font-size: 1rem;
