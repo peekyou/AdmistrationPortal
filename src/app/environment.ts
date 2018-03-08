@@ -1,14 +1,12 @@
 /**
  * Angular 2
  */
-import {
-  enableDebugTools,
-  disableDebugTools
-} from '@angular/platform-browser';
-import {
-  ApplicationRef,
-  enableProdMode
-} from '@angular/core';
+import { enableDebugTools, disableDebugTools } from '@angular/platform-browser';
+import { ApplicationRef, enableProdMode } from '@angular/core';
+
+import { APP_CONFIG, appConfigFactory } from './app.config';
+
+
 /**
  * Environment Providers
  */
@@ -16,6 +14,7 @@ let PROVIDERS: any[] = [
   /**
    * Common env directives
    */
+  { provide: APP_CONFIG, useFactory: appConfigFactory }
 ];
 
 /**

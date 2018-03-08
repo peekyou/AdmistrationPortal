@@ -1,8 +1,8 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
-import { AppSettings } from '../../app.settings';
 import { SegmentationStatistics } from './segmentation-statistics';
 import { GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 import { Customer, CustomerExpense } from '../customer/customer';
@@ -10,28 +10,29 @@ import { Customer, CustomerExpense } from '../customer/customer';
 @Injectable()
 
 export class StatsService {
-    private api = AppSettings.API_ENDPOINT + '/statistics';
+    private api: string;
     
-        constructor(private http: AuthHttpService) {
-        }
-        
-        getSegmentationStatistics(): Observable<SegmentationStatistics> {
-            return this.http.get(this.api + '/segmentation');
-        }
+    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint;
+    }
+    
+    getSegmentationStatistics(): Observable<SegmentationStatistics> {
+        return this.http.get(this.api + '/statistics/segmentation');
+    }
 
-        getGroupedStatistics(dataTypes: number[]): Observable<GroupBarChartData[]> {
-            return this.http.post(this.api + '/grouped', { dataTypes: dataTypes });
-        }
+    getGroupedStatistics(dataTypes: number[]): Observable<GroupBarChartData[]> {
+        return this.http.post(this.api + '/statistics/grouped', { dataTypes: dataTypes });
+    }
 
-        getTotalExpenses(): Observable<number> {
-            return this.http.get(AppSettings.API_ENDPOINT + '/merchants/expenses/amount');            
-        }
+    getTotalExpenses(): Observable<number> {
+        return this.http.get(this.api + '/merchants/expenses/amount');            
+    }
 
-        getBestCustomer(): Observable<Customer> {
-            return this.http.get(AppSettings.API_ENDPOINT + '/customers/best');            
-        }
-        
-        getExpenses(searchFilters): Observable<CustomerExpense[]> {
-            return this.http.post(this.api + '/expenses', searchFilters);
-        }
+    getBestCustomer(): Observable<Customer> {
+        return this.http.get(this.api + '/customers/best');            
+    }
+    
+    getExpenses(searchFilters): Observable<CustomerExpense[]> {
+        return this.http.post(this.api + '/statistics/expenses', searchFilters);
+    }
 }

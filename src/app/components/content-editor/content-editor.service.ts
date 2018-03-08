@@ -1,18 +1,19 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Page, CallOption, WeekDay } from './page';
 import { Picture } from '../../core/shared/components/file-upload/picture';
-import { AppSettings } from '../../app.settings';
 
 @Injectable()
 export class ContentEditorService {
-    private api = AppSettings.API_ENDPOINT + '/pages';
+    private api: string;
     private callOptions: CallOption[];
     private weekDays: WeekDay[];
-
-    constructor(private http: AuthHttpService) {
+    
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/pages';
         this.callOptions = [
             { id: '1', label: 'Book' },
             { id: '2', label: 'Order' },
@@ -53,7 +54,7 @@ export class ContentEditorService {
     }
 
     uploadFile(file: Picture, pageId: string): Observable<string> {
-        return this.http.post(AppSettings.API_ENDPOINT + '/documents/upload', {
+        return this.http.post(this.config.ApiEndpoint + '/documents/upload', {
             data: file.src,
             name: file.name,
             pageId: pageId,
@@ -62,10 +63,10 @@ export class ContentEditorService {
     }
 
     deleteFile(file: Picture): Observable<string> {
-        return this.http.delete(AppSettings.API_ENDPOINT + '/documents/' + file.id);
+        return this.http.delete(this.config.ApiEndpoint + '/documents/' + file.id);
     }
 
     getFilesSize(): Observable<number> {
-        return this.http.get(AppSettings.API_ENDPOINT + '/documents/size');
+        return this.http.get(this.config.ApiEndpoint + '/documents/size');
     }
 }

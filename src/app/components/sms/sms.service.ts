@@ -1,20 +1,18 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
-import { AppSettings } from '../../app.settings';
 
 @Injectable()
 
 export class SmsService {
-    private api = AppSettings.API_ENDPOINT + '/merchants/sms';
-
-    constructor(private http: AuthHttpService) {
-
+    
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
     }
 
     getQuota(): Observable<number> {
-        return this.http.get(this.api + '/quota');
+        return this.http.get(this.config.ApiEndpoint + '/merchants/sms/quota');
     }
 }
 

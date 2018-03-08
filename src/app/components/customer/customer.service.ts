@@ -1,22 +1,23 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
-import { Customer, CustomerExpense, CustomerPoint, PurchaseData } from './customer';
-import { AppSettings } from '../../app.settings';
+import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
 
 @Injectable()
 
 export class CustomerService {
-    private api = AppSettings.API_ENDPOINT + '/customers';
+    private api: string;
     customerSearched: Customer;
     searchTerm: string;
 
-    constructor(private http: AuthHttpService) {
+    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/customers';
     }
     
-    getAllCount(): Observable<number> {
-        return this.http.get(this.api + '/count');
+    getCount(filter: CustomerFilter = null): Observable<number> {
+        return this.http.post(this.api + '/count', filter);
     }
 
     find(searchTerm: string): Observable<Customer[]> {

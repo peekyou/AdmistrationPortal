@@ -1,16 +1,18 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Promotion, PromotionFilter } from './promotion';
 import { PagingResponse } from '../../core/models/paging';
-import { AppSettings } from '../../app.settings';
 
 @Injectable()
 export class PromotionService {
-    private api = AppSettings.API_ENDPOINT + '/promotions';
-
-    constructor(private http: AuthHttpService) { }
+    private api: string;
+    
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/promotions';
+    }
 
     getAll(): Observable<PagingResponse<Promotion>> {
         return this.http.get(this.api);
@@ -25,6 +27,6 @@ export class PromotionService {
     }
 
     requestEmailTool(): Observable<boolean> {
-        return this.http.post(AppSettings.API_ENDPOINT + '/merchants/emailtool', {});
+        return this.http.post(this.config.ApiEndpoint + '/merchants/emailtool', {});
     }
 }

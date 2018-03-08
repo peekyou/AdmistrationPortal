@@ -48,12 +48,6 @@ const PROVIDERS = [
     AppState
 ];
 
-type StoreType = {
-    state: InternalStateType,
-    restoreInputValues: () => void,
-    disposeOldHosts: () => void
-};
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./assets/lang/", ".json");

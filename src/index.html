@@ -21,17 +21,6 @@
   <script src="/webpack-dev-server.js"></script>
   <% } %>
     
-  <script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>
-
-  <!-- Async Google Analytics: change UA-71073175-1 to be your site's ID -->
-  <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', 'UA-71073175-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-  <script async src="https://www.google-analytics.com/analytics.js"></script>
-  <!-- End Google Analytics -->
-
   <!-- CSS will be injected by webpack here -->
   <!-- Preload link tags will be injected by webpack here -->
 
@@ -108,6 +97,27 @@
       <p><span id="value"></span></p>
   </div>
   
+  <script>
+      window.AppConfig = {
+          // ApiEndpoint: 'http://localhost/SoApp/SoAppService.svc/json',
+          // MerchantId: '7D280115C08D468B988E4D9A15344214',
+          ApiEndpoint: 'http://api.app-wards.com/SoAppService.svc/json',
+          MerchantId: '193DDF9621C3494FBDF84F01D181DE58',
+          MerchantName: 'Test Shop'
+      }
+  </script>
+  
   <!-- Scripts will be injected by webpack here -->
+  
+  <script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>
+
+  <!-- Async Google Analytics: change UA-71073175-1 to be your site's ID -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-71073175-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <!-- End Google Analytics -->
 </body>
 </html>

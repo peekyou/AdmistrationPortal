@@ -55,6 +55,25 @@
                         </div>
                     </div>
                 </div>
+                <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats bg-green">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="quick-stats col-9">
+                                <h2 >{{customersHasApplicationCount}}</h2>
+                                <small>Using application</small>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon-big">
+                                    <i class="fa fa-mobile"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
             </div>
         </div>
 
@@ -129,7 +148,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                        <h5 class="card-title">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
                     </div>
                     <!-- <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>            -->
                     <div class="card-body">

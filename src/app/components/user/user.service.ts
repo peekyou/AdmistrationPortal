@@ -1,10 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { HttpService } from '../../core/services/http.service';
-import { AppSettings } from '../../app.settings';
 import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
 import { MerchantHierarchy } from '../../core/models/merchantHierarchy';
@@ -12,21 +12,22 @@ import { UserPreferences } from './user';
 
 @Injectable()
 export class UserService {
-    private api = AppSettings.API_ENDPOINT + '/users';
+    private api: string;
     private permissions: string[];
     private username: string;
     private userId: string;
     private merchantHierarchy: MerchantHierarchy;
     public token: string = null;
     
-    constructor(private http: HttpService) {
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
+        this.api = config.ApiEndpoint;        
         this.token = localStorage.getItem('token');
         this.setPermissions();
     }
 
     login(username: string, password: string): Observable<boolean> {
         return this.http
-            .post(AppSettings.API_ENDPOINT + '/login', { username: username, password: password, userType: 'merchant', merchantId: AppSettings.MerchantId })
+            .post(this.api + '/login', { username: username, password: password, userType: 'merchant', merchantId: this.config.MerchantId })
             .map((response: any) => {
                 // login successful if there's a jwt token in the response
                 let token = response.token; 
@@ -97,13 +98,13 @@ export class UserService {
 
     getPreferences(userId: string): Observable<UserPreferences> {
         if (userId) {
-            return this.http.get(AppSettings.API_ENDPOINT + '/users/' + userId + '/preferences');
+            return this.http.get(this.api + '/users/' + userId + '/preferences');
         }
     }
 
     savePreferences(preferences: UserPreferences): Observable<boolean> {
         if (preferences) {
-            return this.http.post(AppSettings.API_ENDPOINT + '/users/preferences', 
+            return this.http.post(this.api + '/users/preferences', 
             { 
                 userId: this.getUserId(), 
                 merchantsIds: preferences.merchantsIds, 

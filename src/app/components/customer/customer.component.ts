@@ -14,7 +14,7 @@ export class CustomerComponent implements OnInit {
 
     public ngOnInit() {
         this.loading = true;
-        this.service.getAllCount()
+        this.service.getCount()
             .subscribe(c => {
                 this.customersCount = c;
                 this.loading = false;

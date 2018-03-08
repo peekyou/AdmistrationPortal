@@ -46,3 +46,7 @@ export class CustomerPoint {
     isRedeemed?: boolean;
     currency?: string;
 }
+
+export class CustomerFilter {
+    hasApplication?: boolean;
+}

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { UserService } from '../user/user.service';
 import { Permissions } from '../../core/helpers/permissions';
 import { AppSettings } from '../../app.settings';
@@ -11,7 +12,7 @@ import { AppSettings } from '../../app.settings';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    public title = AppSettings.MerchantName;
+    public title: string;
     public showUserContainer: boolean = false;
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;
@@ -22,7 +23,12 @@ export class HeaderComponent {
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
 
-    constructor(public user: UserService, public translate: TranslateService) { }
+    constructor(
+        @Inject(APP_CONFIG) config: AppConfig,
+        public user: UserService, 
+        public translate: TranslateService) { 
+            this.title = config.MerchantName;
+        }
 
     showMenu(): boolean {
         return false;

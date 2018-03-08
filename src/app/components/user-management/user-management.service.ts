@@ -1,24 +1,26 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { User, Permission } from '../user/user';
 import { PagingResponse } from '../../core/models/paging';
-import { AppSettings } from '../../app.settings';
 
 
 @Injectable()
 export class UserManagementService {
-    private api = AppSettings.API_ENDPOINT + '/users';
-
-    constructor(private http: AuthHttpService) { }
+    private api: string;
+    
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/users';
+    }
 
     getUser(id: string): Observable<User> {
         return this.http.get(this.api + '/' + id);
     }
 
     getPermissions(): Observable<Permission[]> {
-        return this.http.get(AppSettings.API_ENDPOINT + '/permissions');
+        return this.http.get(this.config.ApiEndpoint + '/permissions');
 
         //return Observable.of([
         //    { id: '1', name: 'Customers' },

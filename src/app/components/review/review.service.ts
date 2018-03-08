@@ -1,16 +1,17 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Review } from './review';
 import { PagingResponse } from '../../core/models/paging';
-import { AppSettings } from '../../app.settings';
 
 @Injectable()
 export class ReviewService {
-    private api = AppSettings.API_ENDPOINT + '/reviews';
-
-    constructor(private http: AuthHttpService) {
+    private api: string;
+    
+    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/reviews';
     }
 
     getAll(page: number, count: number): Observable<PagingResponse<Review>> {

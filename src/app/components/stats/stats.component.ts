@@ -36,6 +36,8 @@ export class StatsComponent implements OnInit {
     loadingTotalExpenses: boolean = false;
     bestCustomer: Customer;
     loadingBestCustomer: boolean = false;
+    customersHasApplicationCount: number;
+    loadingCustomerHasApplicationCount: boolean = false;
     expenses: CustomerExpense[];
     getExpensesSubscription: Subscription;
     
@@ -116,8 +118,11 @@ export class StatsComponent implements OnInit {
     }
 
     private loadGeneralStats() {
-        this.loadingCustomerCount = this.loadingTotalExpenses = this.loadingBestCustomer = true;
-        this.customerService.getAllCount()
+        this.loadingCustomerCount = true;
+        this.loadingTotalExpenses = true;
+        this.loadingBestCustomer = true;
+        this.loadingCustomerHasApplicationCount = true;
+        this.customerService.getCount()
             .subscribe(c => {
                 this.customersCount = c;
                 this.loadingCustomerCount = false;
@@ -133,6 +138,12 @@ export class StatsComponent implements OnInit {
             .subscribe(res => {
                 this.bestCustomer = res;
                 this.loadingBestCustomer = false;
+            });
+
+        this.customerService.getCount({ hasApplication: true })
+            .subscribe(c => {
+                this.customersHasApplicationCount = c;
+                this.loadingCustomerHasApplicationCount = false;
             });
     }
 

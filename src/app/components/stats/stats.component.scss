@@ -14,6 +14,10 @@
     background-color: #d559ea !important;
 }
 
+.bg-green {
+    background-color: #32c787 !important;
+}
+
 .statistics {
     text-align: center;
 
@@ -53,7 +57,7 @@
                 font-size: 1.6rem;
                 color: #FFFFFF;
                 line-height: 100%;
-                text-overflow: ellipsis;
+                // text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
             }

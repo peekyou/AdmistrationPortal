@@ -31,12 +31,15 @@ export class LineChartComponent implements OnInit {
     
     @Input() 
     set data(data: LineChartData[]) {
-        this._data = this.groupSameDay(data);
-        if (!this.initialized) {
-            this.initialized = true;
-            this.initChart();
+        if (data != null) {
+            this._data = this.groupSameDay(data);
+            if (!this.initialized) {
+                this.initialized = true;
+                this.initForm();
+                this.initChart();
+            }
+            this.drawChart(); 
         }
-        this.drawChart(); 
     }
     get data(): LineChartData[] {
         return this._data;
@@ -65,11 +68,14 @@ export class LineChartComponent implements OnInit {
     constructor(private fb: FormBuilder, element: ElementRef, d3Service: D3Service) { 
         this.d3 = d3Service.getD3();
         this.parentNativeElement = element.nativeElement;
+        this.form = this.fb.group({
+            dateFrom: [null],
+            dateTo: [null],
+        }/*, { validator: this.dateLessThan('dateFrom', 'dateTo') }*/);
     }
 
     ngOnInit() {
         this.currency = "AED";
-        this.initForm();
     }
 
     initChart() {
@@ -280,10 +286,8 @@ export class LineChartComponent implements OnInit {
         }
         var dateTo = dateToNgbDateStruct(this.maxDate);
         
-        this.form = this.fb.group({
-            dateFrom: [dateFrom],
-            dateTo: [dateTo],
-        }/*, { validator: this.dateLessThan('dateFrom', 'dateTo') }*/);
+        this.dateFrom.patchValue(dateFrom);
+        this.dateTo.patchValue(dateTo);
     }
 
     submit() {
