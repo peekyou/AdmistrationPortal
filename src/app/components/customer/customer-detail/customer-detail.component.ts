@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
@@ -6,6 +5,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 import { Customer, CustomerPoint } from '../customer';
 import { CustomerService } from '../customer.service';

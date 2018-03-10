@@ -12,20 +12,15 @@ import { LookupService } from './core/services/lookup.service';
   ],
   template: `
     <app-header></app-header>
-    <div class="container-fluid" style="padding-left:0">
-      <div class="row">
-        <div class="col-sm-3 col-lg-2 col-2 p-l-0 p-r-0">
-          <app-sidebar></app-sidebar>
-        </div>
-        
-        <main class="col-sm-9 col-lg-10 col-10">
-          <router-outlet></router-outlet>
-        </main>
-      </div>
-    </div>
+    <div id="parent">
+      <app-sidebar></app-sidebar>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
 
-    <footer>
-    </footer>
+      <footer>
+      </footer>
+    </div>
   `
 })
 export class AppComponent {
