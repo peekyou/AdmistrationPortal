@@ -1,15 +1,19 @@
 {
     "TOOLBAR": {
-      "CUSTOMERS": "Clients",
-      "CONTENT": "Contenus",
-      "REVIEWS": "Avis",
-      "PROMOTIONS": "Promotions",
-      "SMS_PACKS": "Packs SMS",
-      "USER_MANAGEMENT": "Gestion utilisateurs",
-      "BILLS": "Factures",
-      "MOBILE_PREVIEW": "Aperçu mobile",
-      "STATISTICS": "Dashboard",
-      "LOGOUT": "Déconnexion"
+        "WEEK": "Semaine",
+        "MONTH": "Mois",
+        "YEAR": "Année",
+        "EVER": "Depuis toujours",
+        "CUSTOMERS": "Clients",
+        "CONTENT": "Contenus",
+        "REVIEWS": "Avis",
+        "PROMOTIONS": "Promotions",
+        "SMS_PACKS": "Packs SMS",
+        "USER_MANAGEMENT": "Gestion utilisateurs",
+        "BILLS": "Factures",
+        "MOBILE_PREVIEW": "Aperçu mobile",
+        "STATISTICS": "Dashboard",
+        "LOGOUT": "Déconnexion"
     },
     "FORM": {
         "REQUIRED": "Champs obligatoire",

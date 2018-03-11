@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
+@import '../../../styles/_variables';
 
 :host {
     display: block;
@@ -12,18 +13,28 @@
 #sidebar {
     z-index: 1000;
     height: calc(100vh - 4rem);
-    background-color: #ddd;
+    background-color: #303030;
     overflow-y: auto;
     height: 100%;
+
+    .logo {
+        margin: 2rem 0;
+        text-align: center;
+
+        img {
+            max-width: 150px;
+        }
+    }
 }
 
 #sidebar .list-group-item {
     border-radius: 0;
-    background-color: #ddd;
-    color: #333;
+    background-color: #303030;
+    color: #e3e3e3;
     border-left: 0;
     border-right: 0;
-    padding: 0.75rem .9rem;
+    border: none !important;
+    padding: 0.5rem .9rem;
     white-space: nowrap;
 }
 
@@ -115,9 +126,10 @@
 }
 
 a.active {
-    color: rgba(255, 255, 255, 1) !important;
+    color: black !important;
+    font-weight: bold;
     background: none;
     border: 0;
-    background-color: #d5823b !important;
+    background-color: $theme-color !important;
     transition: all 0.2s ease;
 }

@@ -12,7 +12,6 @@ import { AppSettings } from '../../app.settings';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    public title: string;
     public showUserContainer: boolean = false;
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;
@@ -27,7 +26,6 @@ export class HeaderComponent {
         @Inject(APP_CONFIG) config: AppConfig,
         public user: UserService, 
         public translate: TranslateService) { 
-            this.title = config.MerchantName;
         }
 
     showMenu(): boolean {

@@ -1,5 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">{{ title }}</a>
+    <form class="form-inline">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">
+                {{ 'TOOLBAR.WEEK' | translate }}
+            </button>
+            <button type="button" class="btn btn-secondary">
+                    {{ 'TOOLBAR.MONTH' | translate }}
+            </button>
+            <button type="button" class="btn btn-secondary">
+                    {{ 'TOOLBAR.YEAR' | translate }}
+            </button>
+            <button type="button" class="btn btn-secondary">
+                    {{ 'TOOLBAR.EVER' | translate }}
+            </button>
+        </div>    
+    
+        <div class="form-group">
+            <label for="from" class="form-control-sm">Or personalize:</label>
+            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" 
+                    formControlName="from" id="from" ngbDatepicker #from="ngbDatepicker"
+                    (click)="from.toggle()">
+
+            <label for="to" class="form-control-sm">To</label>
+            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" 
+                    formControlName="to" id="to" ngbDatepicker #to="ngbDatepicker"
+                    (click)="to.toggle()">
+            
+        </div>
+
+        <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
+    </form>
+    
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button> -->

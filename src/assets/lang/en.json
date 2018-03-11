@@ -1,15 +1,19 @@
 {
     "TOOLBAR": {
-      "CUSTOMERS": "Customers",
-      "CONTENT": "Content",
-      "REVIEWS": "Reviews",
-      "PROMOTIONS": "Promotions",
-      "SMS_PACKS": "SMS Packs",
-      "USER_MANAGEMENT": "User accounts",
-      "BILLS": "Bills",
-      "MOBILE_PREVIEW": "Mobile preview",
-      "STATISTICS": "Dashboard",
-      "LOGOUT": "Logout"
+        "WEEK": "Week",
+        "MONTH": "Month",
+        "YEAR": "Year",
+        "EVER": "Ever",
+        "CUSTOMERS": "Customers",
+        "CONTENT": "Content",
+        "REVIEWS": "Reviews",
+        "PROMOTIONS": "Promotions",
+        "SMS_PACKS": "SMS Packs",
+        "USER_MANAGEMENT": "User accounts",
+        "BILLS": "Bills",
+        "MOBILE_PREVIEW": "Mobile preview",
+        "STATISTICS": "Dashboard",
+        "LOGOUT": "Logout"
     },
     "FORM": {
         "REQUIRED": "Required field",
