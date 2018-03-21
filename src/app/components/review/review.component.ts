@@ -32,6 +32,7 @@ export class ReviewComponent {
     }
 
     private calculateAverage() {
+        this.averageRating1 = this.averageRating2 = this.averageRating3 = 0;        
         if (this.reviews.paging.itemsCount > 0) {
             this.reviews.data.forEach(r => {
                 this.averageRating1 += r.rating1;

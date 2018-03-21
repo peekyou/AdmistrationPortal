@@ -1,9 +1,8 @@
 import { Component, AfterViewInit, ElementRef, HostListener, EventEmitter, Output } from '@angular/core';
-import { TreeviewItem } from 'ngx-treeview';
+// import { TreeviewItem } from 'ngx-treeview';
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../user/user.service';
-import { MerchantHierarchy } from '../../../core/models/merchantHierarchy';
 import { UserPreferences } from '../../user/user';
 
 @Component({
@@ -21,17 +20,16 @@ export class UserPopoverComponent implements AfterViewInit {
         decoupleChildFromParent: false,
         maxHeight: 500
     };
-    merchants: TreeviewItem[] = [];
-    isMerchantHierarchy = false;
+    // merchants: TreeviewItem[] = [];
 
     private parentNode: any;
     @Output() private closeEvent: EventEmitter<void> = new EventEmitter();
    
      constructor(private _element: ElementRef, public user: UserService) { 
-         var hierarchy =  user.getMerchantHierarchy();
-         if (hierarchy) {
-            this.init(hierarchy);
-         }
+        //  var hierarchy =  user.getMerchantHierarchy();
+        //  if (hierarchy) {
+        //     this.init(hierarchy);
+        //  }
      }
    
      ngAfterViewInit(): void {
@@ -54,14 +52,13 @@ export class UserPopoverComponent implements AfterViewInit {
         this.userPreferences.merchantsIds = merchants;
     }
 
-    init(hierarchy: MerchantHierarchy) {
+    init() {
         this.user
             .getPreferences(this.user.getUserId())
             .subscribe(
                 result => {
                     this.userPreferences = result;
-                    this.merchants = this.buildTree(hierarchy);
-                    this.setIsMerchantHierarchy();
+                    // this.merchants = this.buildTree(hierarchy);
                 },
                 err => { console.log(err); }
             );
@@ -76,29 +73,19 @@ export class UserPopoverComponent implements AfterViewInit {
             );
     }
     
-    buildTree(merchant: MerchantHierarchy): TreeviewItem[] {
-        var children: TreeviewItem[] = []
-        if (merchant && merchant.children) {
+    // buildTree(merchant: MerchantHierarchy): TreeviewItem[] {
+    //     var children: TreeviewItem[] = []
+    //     if (merchant && merchant.children) {
 
-            merchant.children.forEach(x => children.push(new TreeviewItem({
-                text: x.merchantName,
-                value: x.merchantId,
-                checked: !this.userPreferences || !this.userPreferences.merchantsIds || this.userPreferences.merchantsIds.indexOf(x.merchantId) > -1,
-                children: this.buildTree(x)
-            })));
-        }
-        return children;
-    }
-
-    setIsMerchantHierarchy() {
-        this.isMerchantHierarchy = this.merchants.length > 1;
-        for (let i = 0; i < this.merchants.length; i++) {
-            if (this.merchants[i].children && this.merchants[i].children.length > 0) {
-                this.isMerchantHierarchy = true;
-                break;
-            }
-        }
-    }
+    //         merchant.children.forEach(x => children.push(new TreeviewItem({
+    //             text: x.merchantName,
+    //             value: x.merchantId,
+    //             checked: !this.userPreferences || !this.userPreferences.merchantsIds || this.userPreferences.merchantsIds.indexOf(x.merchantId) > -1,
+    //             children: this.buildTree(x)
+    //         })));
+    //     }
+    //     return children;
+    // }
 
     logout() {
         this.close();

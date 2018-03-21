@@ -8,7 +8,7 @@ export function appConfigFactory(): AppConfig {
 
 export interface AppConfig {
     ApiEndpoint: string;
-    MerchantId: string;
+    GroupId: string;
     //public static API_ENDPOINT = 'http://api.app-wards.com/SoAppService.svc/json';
     // public static MerchantId = '193DDF9621C3494FBDF84F01D181DE58'; // Test
     MerchantName: string;

@@ -1,4 +1,6 @@
 ﻿import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup } from '@angular/forms';
+
 import * as moment from 'moment';
 
 export function guid() {
@@ -32,3 +34,16 @@ export function parseJwt(token) {
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
 };
+
+export function dateLessThanValidation(from: string, to: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+        let f = group.controls[from];
+        let t = group.controls[to];
+        if (f.value && t.value && ngbDateStructToDate(f.value) > ngbDateStructToDate(t.value)) {
+            return {
+                dates: 'From date must be before to date'
+            };
+        }
+        return {};
+    }
+}

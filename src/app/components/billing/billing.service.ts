@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Bill } from './bill';
-import { AppSettings } from '../../app.settings';
 
 @Injectable()
 

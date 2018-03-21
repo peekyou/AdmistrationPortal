@@ -9,7 +9,7 @@
                     <div class="row row-rating">
                         <div class="col">{{reviews.data[0].rating1Label}}</div>
                         <div class="col">
-                            <h4 class="bold"> {{averageRating1}} <small>/ 5</small></h4>
+                            <h4 class="bold"> {{ averageRating1.toFixed(1) }} <small>/ 5</small></h4>
                         </div>            
                         <div class="col">
                             <ngb-rating [(rate)]="averageRating1" [readonly]="true" max="5" [starTemplate]="averageTemplate">
@@ -19,7 +19,7 @@
                     <div class="row row-rating">
                         <div class="col">{{reviews.data[0].rating2Label}}</div>
                         <div class="col">
-                            <h4 class="bold"> {{averageRating2}} <small>/ 5</small></h4>
+                            <h4 class="bold"> {{ averageRating2.toFixed(1) }} <small>/ 5</small></h4>
                         </div>            
                         <div class="col">
                             <ngb-rating [(rate)]="averageRating2" [readonly]="true" max="5" [starTemplate]="averageTemplate">
@@ -29,7 +29,7 @@
                     <div class="row row-rating">
                         <div class="col">{{reviews.data[0].rating3Label}}</div>
                         <div class="col">
-                            <h4 class="bold"> {{averageRating3}} <small>/ 5</small></h4>
+                            <h4 class="bold"> {{ averageRating3.toFixed(1) }} <small>/ 5</small></h4>
                         </div>            
                         <div class="col">
                             <ngb-rating [(rate)]="averageRating3" [readonly]="true" max="5" [starTemplate]="averageTemplate">

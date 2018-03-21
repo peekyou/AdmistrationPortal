@@ -298,19 +298,6 @@ export class LineChartComponent implements OnInit {
         to.setUTCSeconds(59);
         this.onSearch.emit({from: from, to: to});
     }
-
-    dateLessThan(from: string, to: string) {
-        return (group: FormGroup): { [key: string]: any } => {
-            let f = group.controls[from];
-            let t = group.controls[to];
-            if (f.value && t.value && ngbDateStructToDate(f.value) > ngbDateStructToDate(t.value)) {
-                return {
-                    dates: 'From date must be before to date'
-                };
-            }
-            return {};
-        }
-    }
     
     get dateFrom() { return this.form.get('dateFrom'); }
     get dateTo() { return this.form.get('dateTo'); }

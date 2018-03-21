@@ -11,9 +11,9 @@ import { LookupService } from './core/services/lookup.service';
     './app.component.scss'
   ],
   template: `
-    <app-header></app-header>
-    <div id="parent">
-      <app-sidebar></app-sidebar>
+    <app-header *ngIf="user.isAuthenticated()"></app-header>
+    <div id="parent" [ngClass]="{'sidebar-margin': user.isAuthenticated()}">
+      <app-sidebar *ngIf="user.isAuthenticated()"></app-sidebar>
       <main>
         <router-outlet></router-outlet>
       </main>
@@ -28,7 +28,7 @@ export class AppComponent {
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
-  constructor(private translate: TranslateService, user: UserService, lookup: LookupService) {
+  constructor(private translate: TranslateService, public user: UserService, lookup: LookupService) {
     translate.addLangs(["en", "fr"]);
     translate.setDefaultLang('en');
 

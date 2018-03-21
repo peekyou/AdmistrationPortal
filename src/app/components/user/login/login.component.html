@@ -19,6 +19,8 @@
                                [subscription]="loginSubscription">
             </app-submit-button>
         </div>        
-        <div *ngIf="error" class="alert alert-danger">{{ 'LOGIN.INVALID_CREDENTIALS' | translate }}</div>
+        <div class="col">
+            <span *ngIf="error" class="invalid-field">{{ 'LOGIN.INVALID_CREDENTIALS' | translate }}</span>
+        </div>
     </form>
 </div>

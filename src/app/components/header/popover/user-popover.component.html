@@ -1,26 +1,23 @@
 <div class="nav-user-container">
-    <div class="nav-user-container-top" [ngClass]="{'border-bottom': isMerchantHierarchy}">
+    <div class="nav-user-container-top">
         <div class="nav-container-username">{{ user.getUsername() }}</div>
         <div class="close-cross" (click)="close()">
             <i class="fa fa-close" aria-hidden="true"></i>    
         </div>
     </div>
-    <div class="nav-user-container-content" *ngIf="isMerchantHierarchy">
+    <!-- <div class="nav-user-container-content" *ngIf="isMerchantHierarchy">
         <div class="merchants-tree">
             <ngx-treeview [config]="merchantsTreeConfig" [items]="merchants"
                         (selectedChange)="onMerchantSelected($event)">
             </ngx-treeview>
         </div>
-    </div>
-    <div class="nav-user-container-bottom" [ngClass]="{'border-top': isMerchantHierarchy}">
-        <!-- <button type="button" class="btn btn-outline-secondary" (click)="saveContext()">
-            {{ 'COMMON.APPLY_CHANGES' | translate }}
-        </button> -->
-        <app-submit-button *ngIf="isMerchantHierarchy"
+    </div> -->
+    <div class="nav-user-container-bottom">
+        <!-- <app-submit-button *ngIf="isMerchantHierarchy"
             value="{{ 'COMMON.APPLY_CHANGES' | translate }}"
             loadingValue="{{ 'COMMON.LOADING' | translate }}" [subscription]="userPrefSubscription"
             buttonClass="btn btn-outline-info nav-user-button" (click)="savePreferences()">
-        </app-submit-button>
+        </app-submit-button> -->
         <div class="logout">
             <a [routerLink]="['./login']" (click)="logout()">
                 <button type="button" class="btn btn-outline-secondary nav-user-button">{{ 'TOOLBAR.LOGOUT' | translate }}</button>

@@ -7,7 +7,6 @@ import { APP_CONFIG, AppConfig } from '../../app.config';
 import { HttpService } from '../../core/services/http.service';
 import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
-import { MerchantHierarchy } from '../../core/models/merchantHierarchy';
 import { UserPreferences } from './user';
 
 @Injectable()
@@ -16,7 +15,6 @@ export class UserService {
     private permissions: string[];
     private username: string;
     private userId: string;
-    private merchantHierarchy: MerchantHierarchy;
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -27,7 +25,7 @@ export class UserService {
 
     login(username: string, password: string): Observable<boolean> {
         return this.http
-            .post(this.api + '/login', { username: username, password: password, userType: 'merchant', merchantId: this.config.MerchantId })
+            .post(this.api + '/login', { username: username, password: password, userType: 'merchant', groupId: this.config.GroupId })
             .map((response: any) => {
                 // login successful if there's a jwt token in the response
                 let token = response.token; 
@@ -57,7 +55,6 @@ export class UserService {
         this.userId = null;
         this.username = null;
         this.permissions = [];
-        this.merchantHierarchy = null;
         localStorage.removeItem('token');
     }
 
@@ -79,14 +76,6 @@ export class UserService {
             this.userId = claims[Claims.Profile + '/UserId'];
         }
         return this.userId;
-    }
-
-    getMerchantHierarchy() {
-        if (this.token && !this.merchantHierarchy) {
-            var claims = parseJwt(this.token);
-            this.merchantHierarchy = JSON.parse(claims[Claims.Profile + '/MerchantHierarchy']);
-        }
-        return this.merchantHierarchy;
     }
 
     hasPermission(permission: string): boolean {

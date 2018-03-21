@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" id="viewport" />
+  <meta name="apple-mobile-web-app-title" content="GODIVA" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
   <!-- base url -->
@@ -100,9 +104,9 @@
   <script>
       window.AppConfig = {
           ApiEndpoint: 'http://localhost/SoApp/SoAppService.svc/json',
-          MerchantId: '7D280115C08D468B988E4D9A15344214',
+          GroupId: '852EB3C1775F401A976F9CC43AB5631E',
           // ApiEndpoint: 'http://api.app-wards.com/SoAppService.svc/json',
-          // MerchantId: '193DDF9621C3494FBDF84F01D181DE58'
+          // GroupId: '193DDF9621C3494FBDF84F01D181DE58'
       }
   </script>
   
