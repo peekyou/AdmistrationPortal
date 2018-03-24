@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './customer.service';
 import { UserManagementService } from '../user-management/user-management.service';
+import { Customer } from './customer';
+import { PagingResponse } from '../../core/models/paging';
 
 @Component({
     styleUrls: [ './customer.component.scss' ],
     templateUrl: './customer.component.html'
 })
 export class CustomerComponent implements OnInit {
+    customers: PagingResponse<Customer>;
     customersCount: number;
     loading = false;
 
@@ -18,6 +21,12 @@ export class CustomerComponent implements OnInit {
             .subscribe(c => {
                 this.customersCount = c;
                 this.loading = false;
+            });
+
+        
+        this.service.getAll(null, null)
+            .subscribe(customers => {
+                this.customers = customers;
             });
     }
 }

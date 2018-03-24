@@ -1,0 +1,23 @@
+@import '../../../../styles/_variables';
+
+:host {
+    display:block;
+}
+
+.modal-header {
+    background-color: #303030;
+    color: $theme-color;
+    padding: .3rem;
+
+    .modal-title {
+        margin: auto;
+    }
+
+    .close {
+        opacity: 1;
+        text-shadow: none;
+        color: #fff;
+        margin: 0;
+        padding: .5rem;
+    }
+}

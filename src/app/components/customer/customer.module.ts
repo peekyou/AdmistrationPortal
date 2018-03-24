@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 
 import { CustomerComponent } from './customer.component';
 import { CustomerForm } from './+customer-form/customer.form';
-import { CustomerDetailComponent } from './customer-detail';
-import { CustomerSearchComponent } from './customer-search';
-import { CustomerNewComponent } from './customer-new';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { CustomerSearchComponent } from './customer-search/customer-search.component';
+import { CustomerTableComponent } from './customer-table/customer-table.component';
+import { CustomerNewModal } from './customer-new/customer-new.modal';
 import { routes } from './customer.routes';
 
 @NgModule({
@@ -19,7 +20,11 @@ import { routes } from './customer.routes';
         CustomerForm,
         CustomerDetailComponent,
         CustomerSearchComponent,
-        CustomerNewComponent
+        CustomerTableComponent,
+        CustomerNewModal
+    ],
+    entryComponents: [
+        CustomerNewModal
     ]
 })
 export class CustomerModule { }

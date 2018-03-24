@@ -12,8 +12,12 @@
 
 .line {
     fill: none;
-    stroke: steelblue;
+    stroke: #ffaa00; //steelblue;
     stroke-width: 2px;
+}
+
+.area {
+  fill: #ffc600; //lightsteelblue;
 }
 
 .overlay {

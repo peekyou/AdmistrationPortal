@@ -18,7 +18,7 @@ export class SubmitButtonComponent implements OnInit {
 
     ngOnInit() {
         if (!this.buttonClass) {
-            this.buttonClass = 'btn btn-info';
+            this.buttonClass = 'btn btn-primary';
         }
     }
 }

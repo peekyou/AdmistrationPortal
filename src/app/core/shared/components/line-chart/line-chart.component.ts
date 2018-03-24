@@ -82,7 +82,7 @@ export class LineChartComponent implements OnInit {
         if (this.parentNativeElement != null) {
             let d3 = this.d3;
             let margin = this.margin;
-            this.svg = this.d3.select(this.parentNativeElement).select("svg")
+            this.svg = this.d3.select(this.parentNativeElement).select("svg");
             // var width = +this.svg.attr("width") - margin.left - margin.right;
             // var height = +this.svg.attr("height") - margin.top - margin.bottom;
                 
@@ -111,6 +111,7 @@ export class LineChartComponent implements OnInit {
         var width = bounds.width - margin.left - margin.right;
         var height = bounds.height - margin.top - margin.bottom;
         
+        g.selectAll(".area").remove().exit();
         g.selectAll(".line").remove().exit();
         g.selectAll(".circle").remove().exit();
         g.selectAll(".text").remove().exit();
@@ -135,6 +136,12 @@ export class LineChartComponent implements OnInit {
             // .curve(d3.curveBasis)
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.value); });
+
+            // define the area
+        var area = d3.area<LineChartData>()
+            .x(function(d) { return x(d.date); })
+            .y0(height)
+            .y1(function(d) { return y(d.value); });
             
         x.domain(d3.extent(data, function(d) { return d.date; }));
         y.domain([0, d3.max(data, function(d) { return d.value; })]);
@@ -154,6 +161,13 @@ export class LineChartComponent implements OnInit {
             .attr("fill", "#5D6971")
             .text(this.currency);
 
+        // Add the area
+        g.append("path")
+            .datum(data)
+            .attr("class", "area")
+            .attr("d", area);
+
+        // Add the line
         g.append("path")
             .datum(data)
             .attr("class", "line")
@@ -293,9 +307,11 @@ export class LineChartComponent implements OnInit {
     submit() {
         var from = ngbDateStructToDate(this.dateFrom.value);
         var to = ngbDateStructToDate(this.dateTo.value);
-        to.setUTCHours(23);
-        to.setUTCMinutes(59);
-        to.setUTCSeconds(59);
+        if (to) {
+            to.setUTCHours(23);
+            to.setUTCMinutes(59);
+            to.setUTCSeconds(59);
+        }
         this.onSearch.emit({from: from, to: to});
     }
     

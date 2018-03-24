@@ -1,162 +1,145 @@
 <div class="container">
     <div class="statistics">
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="card card-stats bg-light-blue">
+            <div class="col col-lg-4">
+                <div class="card card-stats">
+                    <div class="card-header">Registered customers</div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="quick-stats col-7">
-                                <h2 >{{customersCount}}</h2>
-                                <small>Customers</small>
-                            </div>
-                            <div class="col-5">
-                                <div class="icon-big">
-                                    <i class="fa fa-user"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <h2 >{{customersCount}}</h2>
                     </div>
                 </div>
                 <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card card-stats bg-amber">
+            
+                <div class="card card-stats">
+                    <div class="card-header">Revenues from registered customers</div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="quick-stats col-9">
-                                <h2 >{{totalExpenses}} AED</h2>
-                                <small>Total expenses</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon-big">
-                                    <i class="fa fa-lightbulb-o"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <h2>{{totalExpenses}} AED</h2>
                     </div>
                 </div>
-                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card card-stats quick-stats bg-purple">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="quick-stats col-8">
-                                <h4 *ngIf="bestCustomer">
-                                    {{ bestCustomer.firstname }} {{ bestCustomer.lastname }}
-                                </h4>
-                                <small>Best customer</small>
-                            </div>
-                            <div class="col-4">
-                                <div class="icon-big">
-                                    <i class="fa fa-thumbs-o-up"></i>
+            <div class="col col-lg-8">
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="width:35%">Best customers</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Total spent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let customer of bestCustomers" [routerLink]="['/customers', customer.id]">
+                            <td>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>                                            
+                                    </div>
+                                    <div class="col-10 column-name">
+                                        <b>{{ customer.firstname }} {{ customer.lastname }}</b>
+                                        <div>{{ customer.firstEntry | date: 'dd-MM-yyyy HH:mm' }}</div>                                   
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </td>
+                            <td>{{ customer.mobileNumber }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.totalExpenses }}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card card-stats bg-green">
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="card">
+                    <div class="card-header-dark">
+                        <h5 class="card-title">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
+                    </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="quick-stats col-9">
-                                <h2 >{{customersHasApplicationCount}}</h2>
-                                <small>Using application</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="icon-big">
-                                    <i class="fa fa-mobile"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <app-line-chart [data]="expenses | expensesChart">
+                        </app-line-chart>                            
                     </div>
                 </div>
-                <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card card-pie">
+                    <h5 class="card-header">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
+                    <div class="card-body">
+                        <app-donut-chart [data]="genderPieChartData"></app-donut-chart>
+                    </div>
+                </div>
+                <div class="card card-pie">
+                    <h5 class="card-header">{{ 'STATS.AGE_PIE' | translate }}</h5>
+                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
+                    <div class="card-body">
+                        <app-donut-chart [data]="agePieChartData"></app-donut-chart>                           
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col col-lg-8">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>
+                    <div class="card-header-dark">
+                        <h5 class="card-title">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
                     </div>
-                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
-                        <app-pie-chart [data]="genderPieChartData"></app-pie-chart>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <h5 class="card-header">{{ 'STATS.AGE_PIE' | translate }}</h5>
-                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
-                    <div class="card-body">
-                        <app-pie-chart [data]="agePieChartData"></app-pie-chart>                           
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <h5 class="card-header">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
-                    <ngx-loading [show]="loadingGroupChart" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                    
-                    <div class="row">
-                        <div class="col filters">
-                            <div class="filters-heading">{{ 'COMMON.FILTERS' | translate }}</div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="genderGroup" 
-                                            (change)="selectDataType(DataType.Gender)" 
-                                            [checked]="hasDataType(DataType.Gender)" value="genderGroup">
-                                    {{ 'COMMON.GENDER' | translate }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="ageGroup" 
-                                            (change)="selectDataType(DataType.Age)" 
-                                            [checked]="hasDataType(DataType.Age)" value="ageGroup">
-                                    {{ 'COMMON.AGE' | translate }}
-                                </label>
-                            </div>
-                            <div class="form-check">
+                        <ngx-loading [show]="loadingGroupChart" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                    
+                        <div class="row">
+                            <div class="col form-inline">
+                                <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="ageGroup" 
-                                                (change)="selectDataType(DataType.City)" 
-                                                [checked]="hasDataType(DataType.City)" value="ageGroup">
-                                        {{ 'COMMON.CITY' | translate }}
+                                        <input class="form-check-input" type="checkbox" id="genderGroup" 
+                                                (change)="selectDataType(DataType.Gender)" 
+                                                [checked]="hasDataType(DataType.Gender)" value="genderGroup">
+                                        {{ 'COMMON.GENDER' | translate }}
                                     </label>
                                 </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                                (change)="selectDataType(DataType.Age)" 
+                                                [checked]="hasDataType(DataType.Age)" value="ageGroup">
+                                        {{ 'COMMON.AGE' | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                                    (change)="selectDataType(DataType.City)" 
+                                                    [checked]="hasDataType(DataType.City)" value="ageGroup">
+                                            {{ 'COMMON.CITY' | translate }}
+                                        </label>
+                                    </div>
+                            </div>
                         </div>
-                        <div class="col-10">
-                            <app-group-bar-chart [data]="barChartData | groupBarChart:groupChartDataTypes.length > 1"></app-group-bar-chart>
-                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-group-bar-chart [data]="barChartData | groupBarChart:groupChartDataTypes.length > 1"></app-group-bar-chart>
+                            </div>
+                        </div>              
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div class="row">
-            <div class="col">
-                <app-country-map></app-country-map>
-            </div>
-        </div> -->
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
-                    </div>
-                    <!-- <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>            -->
+            <div class="col col-lg-4">
+                <div class="card card-stats">
+                    <div class="card-header">Using application</div>
                     <div class="card-body">
-                        <app-line-chart [data]="expenses | expensesChart" (onSearch)="getExpenses($event)"
-                            [dataSubscription]="getExpensesSubscription">
-                        </app-line-chart>                            
+                        <h2 >{{customersHasApplicationCount}}</h2>
                     </div>
                 </div>
+                <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+                
+                <div class="card card-stats">
+                    <div class="card-header">Revenues from registered customers</div>
+                    <div class="card-body">
+                        <h2>{{totalExpenses}} AED</h2>
+                    </div>
+                </div>
+                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             </div>
         </div>
     </div>

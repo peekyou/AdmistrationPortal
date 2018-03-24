@@ -1,35 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user.isAuthenticated()">
     <form class="form-inline" [formGroup]="form" (ngSubmit)="form.valid && submit()" novalidate>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary week" (click)="submit('week')">
                 {{ 'TOOLBAR.WEEK' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary month" (click)="submit('month')">
                     {{ 'TOOLBAR.MONTH' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary year" (click)="submit('year')">
                     {{ 'TOOLBAR.YEAR' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary all" (click)="submit('all')">
                     {{ 'TOOLBAR.EVER' | translate }}
             </button>
         </div>    
     
         <div class="form-group">
-            <label for="from" class="form-control-sm">Or personalize:</label>
+            <label for="from" class="form-control-sm">{{ 'TOOLBAR.PERSONALIZE' | translate }}</label>
             <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" 
                     formControlName="dateFrom" id="from" ngbDatepicker #from="ngbDatepicker"
                     (click)="from.toggle()">
 
-            <label for="to" class="form-control-sm">To</label>
+            <label for="to" class="form-control-sm">{{ 'COMMON.TO' | translate }}</label>
             <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" 
                     formControlName="dateTo" id="to" ngbDatepicker #to="ngbDatepicker"
                     (click)="to.toggle()">
         </div>
         
        <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" 
-            buttonClass="btn btn-secondary btn-sm" [subscription]="dataSubscription"
-            loadingValue="{{ 'COMMON.LOADING' | translate }}">
+            buttonClass="btn btn-secondary btn-sm" loadingValue="{{ 'COMMON.LOADING' | translate }}">
         </app-submit-button> 
     </form>
     

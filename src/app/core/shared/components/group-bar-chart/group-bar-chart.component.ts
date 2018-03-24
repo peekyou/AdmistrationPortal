@@ -22,7 +22,7 @@ export class GroupBarChartComponent implements OnInit {
     private x1: ScaleBand<string>;
     private y: ScaleLinear<number, number>;
     private z: ScaleOrdinal<string, {}>;
-    private margin = {top: 20, right: 20, bottom: 30, left: 40};
+    private margin = {top: 20, right: 20, bottom: 20, left: 40};
     private dataKeys: string[] = [];
 
     private _data: ChartData[];
@@ -71,7 +71,7 @@ export class GroupBarChartComponent implements OnInit {
         let d3 = this.d3;
         let margin = this.margin;
         let keys = this.dataKeys;
-        this.svg = d3.select(".group-bar-chart");
+        this.svg = this.d3.select(this.parentNativeElement).select("svg");
         
         var bounds = this.svg.node().getBoundingClientRect();
         this.width = bounds.width - margin.left - margin.right;
@@ -182,7 +182,6 @@ export class GroupBarChartComponent implements OnInit {
                 .attr("fill", <any>function(d: any) { return z(d.key); });
         }
         else {
-
             g.selectAll(".bar")
                 .data<BarChartData>(<BarChartData[]>data)
             .enter().append("rect")
@@ -194,8 +193,8 @@ export class GroupBarChartComponent implements OnInit {
                 .attr("fill", <any>function(d) { return z(d.label); });
         }
 
-        d3.select(".axis--x").call(d3.axisBottom(x0));
-        d3.select(".axis--y").call(d3.axisLeft(y));
+        this.g.select(".axis--x").call(d3.axisBottom(x0));
+        this.g.select(".axis--y").call(d3.axisLeft(y));
         
         if (this.isGroupedChart()) {
             var legend = g.append("g")
@@ -223,7 +222,7 @@ export class GroupBarChartComponent implements OnInit {
         }
 
         if (!tooltip.empty()) {
-            d3.selectAll(".bar")
+            this.g.selectAll(".bar")
             .on("mouseover", (d: BarChartData) => {
                 tooltip.transition()
                     .duration(200)

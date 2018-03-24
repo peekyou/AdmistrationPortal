@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container customer-container">
     <div class="row">
         <div class="col-md-4 col-12">
             <h4 class="card-title">{{ 'CUSTOMERS.SEARCH' | translate }}</h4>
@@ -9,4 +9,5 @@
         </div>
     </div>
     <customer-search></customer-search>
+    <customer-table [customers]="customers"></customer-table>
 </div>

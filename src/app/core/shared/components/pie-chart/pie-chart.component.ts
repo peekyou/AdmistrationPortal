@@ -96,8 +96,10 @@ export class PieChartComponent implements OnInit {
         .sort(null)
         .value(function(d) { return d.count; });
 
+        this.g.selectAll(".arc").remove().exit();     
+
         if (!this.data.details || this.data.details.length == 0) {
-            this.svg.append("text")
+            this.g.append("text")
             .text("No data") 
             .attr("font-size", "20px");
             return;

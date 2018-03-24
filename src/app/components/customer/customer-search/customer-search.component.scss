@@ -1,6 +1,28 @@
+@import '../../../../styles/_variables';
+
 :host {
     display:block;
 }
+
+/* enable absolute positioning */
+.inner-addon { 
+  position: relative; 
+}
+
+/* style icon */
+.inner-addon .fa {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  color: $theme-color;
+  z-index: 100;
+}
+
+/* align icon */
+.right-addon .fa { right: 0px;}
+
+/* add padding  */
+.right-addon input { padding-right: 30px; }
 
 .customer-search {
     padding: 1em;

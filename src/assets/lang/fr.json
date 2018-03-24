@@ -4,6 +4,7 @@
         "MONTH": "Mois",
         "YEAR": "Année",
         "EVER": "Depuis toujours",
+        "PERSONALIZE": "ou personalisé:",        
         "CUSTOMERS": "Clients",
         "CONTENT": "Contenus",
         "REVIEWS": "Avis",
@@ -23,6 +24,8 @@
     "COMMON": {
         "SERVER_ERROR": "Une erreur est survenue, essayez plus tard",
         "HOME": "Accueil",
+        "FROM": "De",
+        "TO": "À",   
         "DELETE": "Supprimer",
         "CANCEL": "Annuler",
         "DATE": "Date",
@@ -74,8 +77,9 @@
         "INVALID_CREDENTIALS": "Echec connexion"
     },
     "CUSTOMERS": {
+        "ADD": "Ajouter un client",        
         "COUNT": "Vous avez {{count}} clients",
-        "SEARCH": "Recherche client",
+        "SEARCH": "Recherchez client",
         "SEARCH_PLACEHOLDER": "Nom, tel, no carte",
         "SAVE_ENTRY_LABEL": "Sauvegarder un passage client",
         "SAVE_ENTRY_BUTTON": "Sauvegarder",

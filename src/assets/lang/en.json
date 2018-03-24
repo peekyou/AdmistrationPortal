@@ -3,7 +3,8 @@
         "WEEK": "Week",
         "MONTH": "Month",
         "YEAR": "Year",
-        "EVER": "Ever",
+        "EVER": "All time",
+        "PERSONALIZE": "or personalize:",
         "CUSTOMERS": "Customers",
         "CONTENT": "Content",
         "REVIEWS": "Reviews",
@@ -23,6 +24,8 @@
     "COMMON": {
         "SERVER_ERROR": "An error occured, please try later",
         "HOME": "Home",
+        "FROM": "From",
+        "TO": "To",        
         "DELETE": "Delete",
         "CANCEL": "Cancel",
         "DATE": "Date",
@@ -74,8 +77,9 @@
         "INVALID_CREDENTIALS": "Invalid credentials"
     },
     "CUSTOMERS": {
+        "ADD": "Add a new customer",
         "COUNT": "You have {{count}} customers",
-        "SEARCH": "Customer search",
+        "SEARCH": "Search a customer",
         "SEARCH_PLACEHOLDER": "Name, phone no, card no",
         "SAVE_ENTRY_LABEL": "Save an entry for this customer",
         "SAVE_ENTRY_BUTTON": "Save entry",
@@ -147,6 +151,6 @@
         "GENDER_PIE": "Gender segmentation",
         "AGE_PIE": "Age segmentation",
         "GROUP_BAR_CHART": "Segmented expenses chart",
-        "EXPENSES_LINE_CHART": "Expenses chart"
+        "EXPENSES_LINE_CHART": "Revenue chart"
     }
 }

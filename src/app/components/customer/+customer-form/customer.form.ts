@@ -15,6 +15,7 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 })
 export class CustomerForm implements OnInit {
     form: FormGroup;
+    @Input() modal: boolean;
     @Input() isEdit: boolean;
     @Input() submitSubscription;
     @Output() onPopulate: EventEmitter<any> = new EventEmitter();

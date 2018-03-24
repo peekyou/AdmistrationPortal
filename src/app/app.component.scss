@@ -20,7 +20,7 @@ html, body {
 }
 
 .sidebar-margin {
-    margin-left: 200px;        
+    margin-left: $sidebar-width;        
 }
 
 .pull-left {
@@ -33,10 +33,45 @@ html, body {
 
 .btn {
     cursor: pointer;
+    border-radius: 1px;
+}
+
+// .btn:focus, .btn-primary:focus, .btn-secondary:focus {
+//     outline: none;
+// }
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus {
+    outline: thin dotted;
+    outline-offset: -2px;
+    box-shadow: none;    
+}
+
+.btn-primary {
+    background-color: $theme-color;
+    border: none;
+}
+
+.btn-primary:hover:not(:disabled):not(.disabled) {
+    background-color: $theme-color-secondary;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active {
+    background-color: $theme-color-secondary;
 }
 
 .btn:disabled {
-    cursor: default;
+    cursor: default;   
+}
+
+.btn-primary:disabled {
+    background-color: $theme-color;
+    opacity: .65;    
+}
+
+.btn-xs {
+    @extend .btn-sm;
+    padding: 0.23em 0.6em;
+    line-height: 1.3em;
 }
 
 a {
@@ -59,12 +94,6 @@ a.active {
     }
 }
 
-.btn-xs {
-    @extend .btn-sm;
-    padding: 0.23em 0.6em;
-    line-height: 1.3em;
-}
-
 .invalid-field {
     width: 100%;
     margin-top: 0.25rem;
@@ -74,6 +103,19 @@ a.active {
 
 .line-breaker {
     white-space: pre-line;
+}
+
+.card-header-dark {
+    @extend .card-header;
+    background-color: #303030;
+    padding: 0.75rem 1.25rem;
+    color: #fff;
+    border-bottom: none!important;    
+
+    .card-title {
+        color: #fff;
+        margin: 0;
+    }
 }
 
 small.smaller {
@@ -152,4 +194,11 @@ app-login {
 .nav-user-button {
     font-size: .9rem;
     line-height: 1;
+}
+
+// New customer modal
+@media (min-width: 770px) {
+    .customer-modal .modal-dialog {
+        max-width: 700px;
+    }
 }

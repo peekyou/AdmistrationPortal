@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
+import { PagingResponse } from '../../core/models/paging';
 
 @Injectable()
 
@@ -15,8 +16,12 @@ export class CustomerService {
     constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService) {
         this.api = config.ApiEndpoint + '/customers';
     }
+
+    getAll(page: number, count: number): Observable<PagingResponse<Customer>> {
+        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count);
+    }
     
-    getCount(filter: CustomerFilter = null): Observable<number> {
+    getCount(filter = null): Observable<number> {
         return this.http.post(this.api + '/count', filter);
     }
 

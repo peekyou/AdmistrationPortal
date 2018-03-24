@@ -47,3 +47,11 @@ export function dateLessThanValidation(from: string, to: string) {
         return {};
     }
 }
+
+export function isMobileNumber(searchTerm: string): boolean {
+    if (searchTerm && (searchTerm.startsWith('+') || searchTerm.startsWith('0'))) {
+        var cleaned = searchTerm.replace(/[\+_\-\s]/g, '');
+        return /^[\d]+$/.test(cleaned);
+    }
+    return false;
+}

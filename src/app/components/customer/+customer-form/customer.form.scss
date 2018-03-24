@@ -2,29 +2,26 @@
     display:block;
 }
 
+.small-height {
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .card-languages {
     margin-bottom: 1em;
 
     .language-control {
         margin-bottom: .5em;
-        width: 100%;
     
-        .delete-btn {
-            margin-top: .5em;
-            margin-left: .5em;
+        .action-btn {
+            padding-top: .15rem;
+            padding-left: 0;
+            padding-right: 0;
         }
     
-        .language-picker {
-            float: left;
-            width: calc(100% - 2.4em);
+        .language-picker {    
+            padding-right: .5rem;
         }
-    }
-    
-    .language-control.first {
-        width: calc(100% - 2.4em);
-    
-        .language-picker {
-            float: none;
-        }
-    }    
+    }   
 }

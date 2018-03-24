@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
+import { CustomerNewModal } from '../customer-new/customer-new.modal';
 
 @Component({
     selector: 'customer-search',
@@ -22,7 +24,8 @@ export class CustomerSearchComponent {
         private fb: FormBuilder, 
         private route: ActivatedRoute, 
         private router: Router, 
-        private service: CustomerService) {
+        private service: CustomerService,
+        private modalService: NgbModal) {
         this.init();
     }
         
@@ -46,7 +49,7 @@ export class CustomerSearchComponent {
                     if (customers.length === 0) {
                         this.loading = false;
                         this.service.searchTerm = this.searchTerm;
-                        this.router.navigate(['/customers/new']);
+                        this.openNewCustomerModal();
                     }
                     else if (customers.length === 1) {
                         this.selectCustomer(customers[0]);
@@ -62,6 +65,19 @@ export class CustomerSearchComponent {
                 }
             );
         }
+    }
+
+    openNewCustomerModal() {
+        const modalRef = this.modalService.open(CustomerNewModal, { 
+            // size: 'lg', 
+            windowClass: 'customer-modal',
+            // container: 'test'
+        });
+
+        modalRef.result.then((result) => {
+            if (result === 'Y') {
+            }
+        }, (reason) => { });
     }
 
     selectCustomer(customer: Customer) {

@@ -1,30 +1,30 @@
 <div class="card card-address">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <label for="languages">{{ 'COMMON.ADDRESS' | translate }}</label>
-    </div>
+    </div> -->
     <div class="card-body">
         <div [formGroup]="addressForm" class="address">
             <div class="form-group">
                 <label for="address">{{ 'COMMON.ADDRESS' | translate }}</label>
-                <input type="text" class="form-control" id="address" formControlName="address" />
+                <input type="text" class="form-control form-control-sm" id="address" formControlName="address" />
             </div>
             <div class="form-group">
                 <label for="state">Emirate</label>
-                <select formControlName="state" id="state" class="form-control" (change)="onStateChange($event.target.value)">
+                <select formControlName="state" id="state" class="form-control form-control-sm" (change)="onStateChange($event.target.value)">
                     <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="address">City</label>
-                <input type="text" class="form-control" id="city" formControlName="city" />
+                <input type="text" class="form-control form-control-sm" id="city" formControlName="city" />
             </div>
             <div class="form-group" *ngIf="isUAE">
                 <label for="address">Area</label>
-                <input type="text" class="form-control" id="area" formControlName="area" />
+                <input type="text" class="form-control form-control-sm" id="area" formControlName="area" />
             </div>
             <div class="form-group" *ngIf="!isUAE">
                 <label for="address">{{ 'COMMON.ZIP_CODE' | translate }}</label>
-                <input type="text" class="form-control" id="zip" formControlName="zip" />
+                <input type="text" class="form-control form-control-sm" id="zip" formControlName="zip" />
             </div>
         </div>
     </div>

@@ -5,9 +5,9 @@
     height: 3.5em;
     position: fixed;
     top: 0;
-    left: 200px;
+    left: $sidebar-width;
     right: 0;
-    z-index: 9999999;
+    z-index: 999;
 }
 
 .navbar {
@@ -19,5 +19,29 @@
 
     .username {
         margin-right: 1.5em;
+    }
+
+    input {
+        width: 130px;
+    }
+
+    .btn {
+        border: 0;
+    }
+
+    .btn.week {
+        background-color: #949494;
+    }
+
+    .btn.month {
+        background-color: #737373;
+    }
+
+    .btn.year {
+        background-color: #4b4b4b;
+    }
+
+    .btn.all {
+        background-color: #303030;
     }
 }

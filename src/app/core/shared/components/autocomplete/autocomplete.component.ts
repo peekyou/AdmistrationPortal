@@ -47,6 +47,7 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
     }
 
     @Input() openOnFocus: boolean = false;
+    @Input() small: boolean = false;
     @Input() source: string;
     values: Lookup[] = [];
     

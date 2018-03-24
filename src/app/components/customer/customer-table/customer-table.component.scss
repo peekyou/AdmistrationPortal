@@ -1,0 +1,25 @@
+@import '../../../../styles/_variables';
+
+:host {
+    display:block;
+}
+
+.table {
+  margin-top: 2em;
+  background-color: #fff;
+  white-space: nowrap;
+  font-size: 14px;
+
+  tbody tr {
+      cursor: pointer;
+  }
+
+  td {
+      overflow: hidden;
+  }
+
+  .column-name {
+      max-width: 200px;
+      text-align: left;
+  }
+}

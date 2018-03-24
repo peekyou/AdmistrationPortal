@@ -16,6 +16,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
 import { CountryMapComponent } from './components/country-map/country-map.component';
@@ -51,6 +52,7 @@ const DECLARATIONS = [
     SubmitButtonComponent,
     TimeRangeComponent,
     PieChartComponent,
+    DonutChartComponent,
     LineChartComponent,
     GroupBarChartComponent,
     CountryMapComponent

@@ -2,12 +2,14 @@ import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription';
 
 import { TranslationService } from '../../core/services/translation.service';
+import { SearchService } from '../../core/services/search.service';
 import { SegmentationStatistics, DataType } from './segmentation-statistics';
 import { StatsService } from './stats.service';
 import { CustomerService } from '../customer/customer.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 import { PieChartData } from '../../core/shared/components/pie-chart/pie-chart';
 import { Customer, CustomerExpense } from '../customer/customer';
+import { SearchFilter } from '../../core/models/search-filter';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -34,7 +36,7 @@ export class StatsComponent implements OnInit {
     loadingCustomerCount: boolean = false;
     totalExpenses: number;
     loadingTotalExpenses: boolean = false;
-    bestCustomer: Customer;
+    bestCustomers: Customer[];
     loadingBestCustomer: boolean = false;
     customersHasApplicationCount: number;
     loadingCustomerHasApplicationCount: boolean = false;
@@ -45,11 +47,19 @@ export class StatsComponent implements OnInit {
         element: ElementRef,
         private service: StatsService,
         private translation: TranslationService,
-        private customerService: CustomerService) { }
+        private searchService: SearchService,
+        private customerService: CustomerService) { 
+            searchService.searchFilter$.subscribe(
+                searchFilter => { 
+                    console.log(searchFilter.from);
+                    this.reload(searchFilter);
+                }
+            );
+        }
 
     ngOnInit() {
         this.loadGeneralStats();
-
+        
         this.loadingPies = true;
         this.translation.getMultiple(this.translationKeys, x => {
             this.staticStrings = x;
@@ -57,6 +67,14 @@ export class StatsComponent implements OnInit {
             this.loadGroupedBarChart();
             this.getExpenses();
         });
+    }
+
+    reload(searchFilter: SearchFilter) {
+        this.loadGeneralStats(searchFilter);
+        this.loadingPies = true;
+        this.loadSegmentationCharts(searchFilter);
+        this.loadGroupedBarChart(searchFilter);
+        this.getExpenses(searchFilter);
     }
 
     selectDataType(type: DataType) {
@@ -74,8 +92,8 @@ export class StatsComponent implements OnInit {
         this.loadGroupedBarChart();
     }
 
-    loadSegmentationCharts() {
-        this.service.getSegmentationStatistics()
+    loadSegmentationCharts(searchFilter: SearchFilter = null) {
+        this.service.getSegmentationStatistics(searchFilter)
         .subscribe(
             stats => {
                 this.translateLabels(stats.genderSegmentation.details);
@@ -87,10 +105,10 @@ export class StatsComponent implements OnInit {
         );
     }
 
-    loadGroupedBarChart() {
+    loadGroupedBarChart(searchFilter: SearchFilter = null) {
         this.loadingGroupChart = true;
         this.barChartData = null;
-        this.service.getGroupedStatistics(this.groupChartDataTypes)
+        this.service.getGroupedStatistics(this.groupChartDataTypes, searchFilter)
         .subscribe(
             stats => {
                 this.barChartData = stats
@@ -104,7 +122,7 @@ export class StatsComponent implements OnInit {
         );
     }
 
-    getExpenses(searchFilter = null) {
+    getExpenses(searchFilter: SearchFilter = null) {
         this.getExpensesSubscription = this.service
             .getExpenses(searchFilter)
             .subscribe(
@@ -117,30 +135,30 @@ export class StatsComponent implements OnInit {
         return this.groupChartDataTypes.indexOf(type) !== -1;
     }
 
-    private loadGeneralStats() {
+    private loadGeneralStats(searchFilter: SearchFilter = null) {
         this.loadingCustomerCount = true;
         this.loadingTotalExpenses = true;
         this.loadingBestCustomer = true;
         this.loadingCustomerHasApplicationCount = true;
-        this.customerService.getCount()
+        this.customerService.getCount({ dateFilter: searchFilter })
             .subscribe(c => {
                 this.customersCount = c;
                 this.loadingCustomerCount = false;
             });
 
-        this.service.getTotalExpenses()
+        this.service.getTotalExpenses(searchFilter)
             .subscribe(res => {
                 this.totalExpenses = res;
                 this.loadingTotalExpenses = false;
             });
 
-        this.service.getBestCustomer()
+        this.service.getBestCustomers(searchFilter)
             .subscribe(res => {
-                this.bestCustomer = res;
+                this.bestCustomers = res;
                 this.loadingBestCustomer = false;
             });
 
-        this.customerService.getCount({ hasApplication: true })
+        this.customerService.getCount({ hasApplication: true, dateFilter: searchFilter })
             .subscribe(c => {
                 this.customersHasApplicationCount = c;
                 this.loadingCustomerHasApplicationCount = false;
