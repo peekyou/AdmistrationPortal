@@ -3,59 +3,30 @@
         <div class="row">
             <div class="col col-lg-4">
                 <div class="card card-stats">
-                    <div class="card-header">Registered customers</div>
                     <div class="card-body">
-                        <h2 >{{customersCount}}</h2>
+                        <div class="card-title">Registered customers</div>
+                        <h2>{{customersCount}}</h2>
                     </div>
                 </div>
                 <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
             
                 <div class="card card-stats">
-                    <div class="card-header">Revenues from registered customers</div>
                     <div class="card-body">
+                        <div class="card-title">Revenues from registered customers</div>
                         <h2>{{totalExpenses}} AED</h2>
                     </div>
                 </div>
                 <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             </div>
             <div class="col col-lg-8">
-                <table class="table table-sm table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col" style="width:35%">Best customers</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Total spent</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let customer of bestCustomers" [routerLink]="['/customers', customer.id]">
-                            <td>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>                                            
-                                    </div>
-                                    <div class="col-10 column-name">
-                                        <b>{{ customer.firstname }} {{ customer.lastname }}</b>
-                                        <div>{{ customer.firstEntry | date: 'dd-MM-yyyy HH:mm' }}</div>                                   
-                                    </div>
-                                </div>
-                            </td>
-                            <td>{{ customer.mobileNumber }}</td>
-                            <td>{{ customer.email }}</td>
-                            <td>{{ customer.totalExpenses }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <customer-table [customers]="bestCustomers" title="{{ 'STATS.BEST_CUSTOMERS' | translate }}"></customer-table>                    
                 <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="card">
-                    <div class="card-header-dark">
-                        <h5 class="card-title">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
-                    </div>
+                    <h5 class="card-header">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
                     <div class="card-body">
                         <app-line-chart [data]="expenses | expensesChart">
                         </app-line-chart>                            
@@ -64,16 +35,16 @@
             </div>
             <div class="col-12 col-lg-4">
                 <div class="card card-pie">
-                    <h5 class="card-header">{{ 'STATS.GENDER_PIE' | translate }}</h5>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
+                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>                    
                         <app-donut-chart [data]="genderPieChartData"></app-donut-chart>
                     </div>
                 </div>
                 <div class="card card-pie">
-                    <h5 class="card-header">{{ 'STATS.AGE_PIE' | translate }}</h5>
                     <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
+                        <h5 class="card-title">{{ 'STATS.AGE_PIE' | translate }}</h5>                    
                         <app-donut-chart [data]="agePieChartData"></app-donut-chart>                           
                     </div>
                 </div>
@@ -83,9 +54,7 @@
         <div class="row">
             <div class="col col-lg-8">
                 <div class="card">
-                    <div class="card-header-dark">
-                        <h5 class="card-title">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
-                    </div>
+                    <h5 class="card-header">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
                     <div class="card-body">
                         <ngx-loading [show]="loadingGroupChart" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                    
                         <div class="row">
@@ -126,16 +95,16 @@
             </div>
             <div class="col col-lg-4">
                 <div class="card card-stats">
-                    <div class="card-header">Using application</div>
                     <div class="card-body">
+                        <div class="card-title">Using application</div>                    
                         <h2 >{{customersHasApplicationCount}}</h2>
                     </div>
                 </div>
                 <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
                 
                 <div class="card card-stats">
-                    <div class="card-header">Revenues from registered customers</div>
                     <div class="card-body">
+                        <div class="card-title">Revenues from registered customers</div>                    
                         <h2>{{totalExpenses}} AED</h2>
                     </div>
                 </div>

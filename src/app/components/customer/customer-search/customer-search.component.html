@@ -16,18 +16,3 @@
         <button class="btn btn-primary" (click)="openNewCustomerModal()">{{ 'CUSTOMERS.ADD' | translate }}</button>
     </div>
 </div>
-
-<div class="customers">
-    <div class="row customer" *ngFor="let customer of customers"
-         (click)="selectCustomer(customer)" [class.selected]="customer === selectedCustomer">
-        <div class="col-2 col-md">
-            {{customer.cardNumber}}
-        </div>
-        <div class="col col-md-6">
-            {{customer.firstname}} {{customer.lastname}}
-        </div>
-        <div class="col col-md-4">
-            {{customer.mobile}}
-        </div>
-    </div>
-</div>

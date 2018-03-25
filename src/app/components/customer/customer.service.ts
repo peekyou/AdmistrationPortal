@@ -17,8 +17,8 @@ export class CustomerService {
         this.api = config.ApiEndpoint + '/customers';
     }
 
-    getAll(page: number, count: number): Observable<PagingResponse<Customer>> {
-        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count);
+    get(page: number, count: number, searchTerm: string = ''): Observable<PagingResponse<Customer>> {
+        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count + '&searchTerm=' + searchTerm);
     }
     
     getCount(filter = null): Observable<number> {

@@ -23,12 +23,8 @@ html, body {
     margin-left: $sidebar-width;        
 }
 
-.pull-left {
-  float: left;
-}
-
-.pull-right {
-  float: right;
+.content-container {
+    width: 90%;
 }
 
 .btn {
@@ -86,6 +82,14 @@ a.active {
     font-weight: bold;
 }
 
+.purple-pink {
+    color: #be058c;
+}
+
+.cyan {
+    color: #0cb3c2;
+}
+
 .alert.alert-dismissible {
     padding: 0.5rem 1.25rem;
 
@@ -103,19 +107,6 @@ a.active {
 
 .line-breaker {
     white-space: pre-line;
-}
-
-.card-header-dark {
-    @extend .card-header;
-    background-color: #303030;
-    padding: 0.75rem 1.25rem;
-    color: #fff;
-    border-bottom: none!important;    
-
-    .card-title {
-        color: #fff;
-        margin: 0;
-    }
 }
 
 small.smaller {
@@ -143,18 +134,20 @@ small.smaller {
 
 }
 
-/*.ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948;
-}
-
-.ng-invalid:not(form)  {
-  border-left: 5px solid #a94442;
-}*/
-
 .with-chevron .completer-input {
     border-right: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+}
+
+.card {
+    margin-top: 2em;
+
+    .card-header {
+        background-color: #303030;
+        color: #fff;
+        border-bottom: none !important;
+    }
 }
 
 .container-card {

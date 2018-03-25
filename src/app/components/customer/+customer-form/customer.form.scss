@@ -18,6 +18,13 @@
             padding-top: .15rem;
             padding-left: 0;
             padding-right: 0;
+
+            button {
+                line-height: 1rem;
+                padding: .1rem .25rem;
+                padding-top: .2rem;
+                border-radius: 3px;            
+            }
         }
     
         .language-picker {    

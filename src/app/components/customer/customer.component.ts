@@ -24,9 +24,13 @@ export class CustomerComponent implements OnInit {
             });
 
         
-        this.service.getAll(null, null)
+        this.service.get(null, null)
             .subscribe(customers => {
                 this.customers = customers;
             });
+    }
+    
+    public updateCustomers(customers: PagingResponse<Customer>) {
+        this.customers = customers;
     }
 }

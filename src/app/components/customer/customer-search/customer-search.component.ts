@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component } from '@angular/core';
+import { Component,Output,EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -17,8 +17,8 @@ import { CustomerNewModal } from '../customer-new/customer-new.modal';
 export class CustomerSearchComponent {
     loading = false;
     searchTerm: string;
-    customers: Customer[];
     form: FormGroup;
+    @Output() onSearch: EventEmitter<any> = new EventEmitter();
         
     constructor(
         private fb: FormBuilder, 
@@ -40,23 +40,22 @@ export class CustomerSearchComponent {
     }
 
     searchCustomer() {
-        this.customers = [];
         this.loading = true;
         if (this.searchTerm) {
             this.service
-                .find(this.searchTerm.toLowerCase())
+                .get(null, null, this.searchTerm.toLowerCase())
                 .subscribe(customers => {
-                    if (customers.length === 0) {
+                    if (customers.paging.totalCount === 0) {
                         this.loading = false;
                         this.service.searchTerm = this.searchTerm;
                         this.openNewCustomerModal();
                     }
-                    else if (customers.length === 1) {
-                        this.selectCustomer(customers[0]);
+                    else if (customers.paging.totalCount === 1) {
+                        this.selectCustomer(customers.data[0]);
                     }
                     else {
                         this.loading = false;
-                        this.customers = customers;
+                        this.onSearch.emit(customers);
                     }
                 },
                 err => { 

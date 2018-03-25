@@ -1,4 +1,4 @@
-<div class="container customer-container">
+<div class="container content-container customer-container">
     <div class="row">
         <div class="col-md-4 col-12">
             <h4 class="card-title">{{ 'CUSTOMERS.SEARCH' | translate }}</h4>
@@ -8,6 +8,6 @@
             <span *ngIf="!loading">{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
         </div>
     </div>
-    <customer-search></customer-search>
-    <customer-table [customers]="customers"></customer-table>
+    <customer-search (onSearch)="updateCustomers($event)"></customer-search>
+    <customer-table [customers]="customers" title="{{ 'TOOLBAR.CUSTOMERS' | translate }}"></customer-table>
 </div>

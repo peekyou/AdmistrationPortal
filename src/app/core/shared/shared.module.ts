@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +21,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
 import { CountryMapComponent } from './components/country-map/country-map.component';
+import { CustomerTableComponent } from './components/customer-table/customer-table.component';
 
 import { AppModal } from './modals/modal';
 import { DeleteModal } from './modals/delete.modal';
@@ -33,6 +35,7 @@ const MODALS = [
 
 const IMPORTS = [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -55,7 +58,8 @@ const DECLARATIONS = [
     DonutChartComponent,
     LineChartComponent,
     GroupBarChartComponent,
-    CountryMapComponent
+    CountryMapComponent,
+    CustomerTableComponent
 ];
 
 @NgModule({

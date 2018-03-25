@@ -1,4 +1,4 @@
-@import '../../../../styles/_variables';
+@import '../../../../../styles/_variables';
 
 :host {
     display:block;
@@ -10,12 +10,21 @@
   white-space: nowrap;
   font-size: 14px;
 
+  img {
+    max-width: 26px;
+  }
+
   tbody tr {
       cursor: pointer;
   }
 
   td {
       overflow: hidden;
+  }
+
+  .gender-logo {
+    float: left;
+    padding: .4rem;
   }
 
   .column-name {

@@ -5,10 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Customer } from '../customer';
-import { CustomerService } from '../customer.service';
-import { CustomerNewModal } from '../customer-new/customer-new.modal';
-import { PagingResponse } from '../../../core/models/paging';
+import { Customer } from '../../../../components/customer/customer';
+import { CustomerService } from '../../../../components/customer/customer.service';
+import { CustomerNewModal } from '../../../../components/customer/customer-new/customer-new.modal';
+import { PagingResponse } from '../../../models/paging';
 
 @Component({
     selector: 'customer-table',
@@ -18,15 +18,16 @@ import { PagingResponse } from '../../../core/models/paging';
 export class CustomerTableComponent {
     loading = false;
     searchTerm: string;
+    private _customers: PagingResponse<Customer> | Customer[];
     
-    private _customers: PagingResponse<Customer>;
-    
+    @Input() title: string;
+
     @Input() 
-    set customers(customers: PagingResponse<Customer>) {
+    set customers(customers: PagingResponse<Customer> | Customer[]) {
         this._customers = customers;
     }
 
-    get customers(): PagingResponse<Customer> {
+    get customers(): PagingResponse<Customer> | Customer[] {
         return this._customers;
     }
         
