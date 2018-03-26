@@ -9,6 +9,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgAutoCompleteModule } from "ng-auto-complete";
 import { LoadingModule } from 'ngx-loading';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AlertComponent } from './components/alert/alert.component';
 import { AddressComponent } from './components/address/address.component';
@@ -22,6 +23,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { GroupBarChartComponent } from './components/group-bar-chart/group-bar-chart.component';
 import { CountryMapComponent } from './components/country-map/country-map.component';
 import { CustomerTableComponent } from './components/customer-table/customer-table.component';
+import { CircleProgressComponent } from './components/circle-progress/circle-progress.component';
 
 import { AppModal } from './modals/modal';
 import { DeleteModal } from './modals/delete.modal';
@@ -44,7 +46,8 @@ const IMPORTS = [
     TranslateModule,
     NgAutoCompleteModule,
     LoadingModule,
-    PipesModule
+    PipesModule,
+    NgxPaginationModule
 ];
 
 const DECLARATIONS = [
@@ -59,7 +62,8 @@ const DECLARATIONS = [
     LineChartComponent,
     GroupBarChartComponent,
     CountryMapComponent,
-    CustomerTableComponent
+    CustomerTableComponent,
+    CircleProgressComponent
 ];
 
 @NgModule({

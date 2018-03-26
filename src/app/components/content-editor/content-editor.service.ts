@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Page, CallOption, WeekDay } from './page';
-import { Picture } from '../../core/shared/components/file-upload/picture';
+import { Picture } from '../../core/models/picture';
 
 @Injectable()
 export class ContentEditorService {

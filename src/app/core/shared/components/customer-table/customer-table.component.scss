@@ -5,30 +5,68 @@
 }
 
 .table {
-  margin-top: 2em;
-  background-color: #fff;
-  white-space: nowrap;
-  font-size: 14px;
+    margin-top: 2em;
+    background-color: #fff;
+    white-space: nowrap;
+    font-size: 14px;
 
-  img {
-    max-width: 26px;
-  }
+    img {
+        max-width: 26px;
+    }
+    
+    thead { 
+        th {
+            text-align: center;
+        }
 
-  tbody tr {
-      cursor: pointer;
-  }
+        .column-name {
+            text-align: left;
+        }
+    }
 
-  td {
-      overflow: hidden;
-  }
+    tbody { 
+        tr {
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        
+        th {
+            font-weight: normal;
+            overflow: hidden;
+        }
+    }
 
-  .gender-logo {
-    float: left;
-    padding: .4rem;
-  }
+    td {
+        overflow: hidden;
+        text-align: center;
+        overflow: hidden;
+        padding: 0.5rem;
+    }
 
-  .column-name {
-      max-width: 200px;
-      text-align: left;
-  }
+    .gender-logo {
+        float: left;
+        padding: .4rem;
+    }
+
+    .column-name {
+        max-width: 170px;
+        text-align: left;
+        text-overflow: ellipsis;
+    }
+
+    .currency {
+        font-size: 11px;
+    }
+
+    .amount {
+        font-size: 15px;
+    }
+
+    .align-name {
+        line-height: 2.3rem;
+    }
+}
+
+.ngx-pagination {
+    background-color: #fff;
 }

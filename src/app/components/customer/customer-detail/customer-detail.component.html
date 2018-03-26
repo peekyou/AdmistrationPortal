@@ -4,7 +4,10 @@
     <div class="row" *ngIf="customer">
         <div class="col col-md-7">
             <div class="card">
-                <h5 class="card-header">{{ 'CUSTOMERS.EDIT_INFOS' | translate }}</h5>
+                <div class="card-header customer-form">
+                    <span>{{customer.firstname}} {{customer.lastname}}</span>
+                    <span class="pull-right">Card no {{customer.cardNumber}}</span>
+                </div>
                 <div class="card-body">
                     <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
                                         [submitSubscription]="saveSubscription" isEdit="true">
@@ -18,8 +21,7 @@
                 <div class="card-body">
                     <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
                         <span class="card-text">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate }}</span>
-                        <form class="form-inline" #entryF="ngForm"
-                            (ngSubmit)="entryF.valid && saveEntry()" novalidate>
+                        <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
                             <input type="number" min="0" class="form-control" id="amount" name="amount"
                                 placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
                             <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
@@ -39,7 +41,28 @@
                                     value="{{ 'CUSTOMERS.KEEP_DISCOUNT_BUTTON' | translate }}" />
                         </form>
                     </div>
-                    <div class="row" *ngIf="customer.currentPoints">
+                    <app-circle-progress subtitle="POINTS OWNED" title="service.user.currentPoints" 
+                        backgroundColor="red"
+                        backgroundOpacity=1
+                        backgroundStroke="#000000"
+                        backgroundPadding="14"
+                        radius=87
+                        space=-9
+                        maxPercent=100
+                        unitsColor="#ffffff"
+                        outerStrokeWidth=9
+                        outerStrokeColor="#ffffff"
+                        innerStrokeColor="#ffdf72"
+                        innerStrokeWidth=9
+                        titleColor="#ffffff"
+                        titleFontSize="45"
+                        subtitleColor="#ffffff"
+                        subtitleFontSize=17
+                        animationDuration=500
+                        [showUnits]=false
+                        percent="80">
+                    </app-circle-progress>
+                    <!-- <div class="row" *ngIf="customer.currentPoints">
                         <div class="col"><b>{{ 'CUSTOMERS.CURRENT_POINTS' | translate }}</b></div>
                         <div class="col">{{customer.currentPoints}} points ({{customer.purchaseData?.currentPurchaseAmountString}})</div>
                     </div>
@@ -54,7 +77,7 @@
                     <div class="row" *ngIf="customer.firstEntry">
                         <div class="col">{{ 'CUSTOMERS.FIRST_ENTRY' | translate }}</div>
                         <div class="col">{{customer.firstEntry | date: 'dd-MM-yyyy HH:mm'}}</div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -11,17 +11,22 @@ import { CustomerNewModal } from '../../../../components/customer/customer-new/c
 import { PagingResponse } from '../../../models/paging';
 
 @Component({
-    selector: 'customer-table',
+    selector: 'app-customer-table',
     styleUrls: ['./customer-table.component.scss'],
-    templateUrl: './customer-table.component.html'
+    templateUrl: './customer-table.component.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class CustomerTableComponent {
     loading = false;
     searchTerm: string;
+    currentPage: number = 1;
     private _customers: PagingResponse<Customer> | Customer[];
     
     @Input() title: string;
-
+    @Input() small: boolean;
+    @Input() itemsPerPage: number = 10;
+    @Output() onPageChanged: EventEmitter<number> = new EventEmitter();
+    
     @Input() 
     set customers(customers: PagingResponse<Customer> | Customer[]) {
         this._customers = customers;
@@ -64,5 +69,10 @@ export class CustomerTableComponent {
                     err => {
                         this.loading = false;
                     });
+    }
+
+    pageChanged(page) {
+        this.currentPage = page;
+        this.onPageChanged.emit(this.currentPage);
     }
 }

@@ -39,7 +39,7 @@ export class CustomerForm implements OnInit {
         this.form = this.fb.group({
             firstname: [null, Validators.required],
             lastname: [null, Validators.required],
-            gender: [null],
+            gender: [null, Validators.required],
             mobile: [null, Validators.required],
             email: [null, this.customEmailValidator],
             birthdate: [null],

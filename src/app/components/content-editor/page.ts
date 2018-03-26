@@ -1,4 +1,4 @@
-import { Picture } from '../../core/shared/components/file-upload/picture'; 
+import { Picture } from '../../core/models/picture'; 
 import { Address } from '../../core/shared/components/address/address'; 
 
 export class Page {

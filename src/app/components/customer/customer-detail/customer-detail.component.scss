@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap-grid.scss";
+@import '../../../../styles/_variables';
 
 :host {
     display:block;
@@ -17,6 +18,11 @@
 .points-detail {
     max-height: 30em;
     overflow: scroll;
+}
+
+.card-header.customer-form {
+    font-size: 22px;
+    color: $theme-color;
 }
 
 @media screen and (min-width: 900px) {

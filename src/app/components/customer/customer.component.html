@@ -9,5 +9,7 @@
         </div>
     </div>
     <customer-search (onSearch)="updateCustomers($event)"></customer-search>
-    <customer-table [customers]="customers" title="{{ 'TOOLBAR.CUSTOMERS' | translate }}"></customer-table>
+    <app-customer-table [customers]="customers" title="{{ 'TOOLBAR.CUSTOMERS' | translate }}"
+                        (onPageChanged)="getCustomersPage($event)" [itemsPerPage]="itemsPerPage">
+    </app-customer-table>
 </div>

@@ -17,7 +17,7 @@ export class Customer {
     currentPoints?: number;
     totalPoints?: number;
     expenses?: CustomerExpense[];
-    totalExpenses?: number;
+    totalExpenses?: CustomerExpense[];
     points?: CustomerPoint[];
     discountAmount?: number;
     purchaseData?: PurchaseData;

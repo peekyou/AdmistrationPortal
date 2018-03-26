@@ -71,7 +71,9 @@
         "CONFIRMATION_QUESTION": "Confirmer ?",
         "SEND_EMAIL_SUCCESS": "Email envoyé",
         "SEND_EMAIL_ERROR": "Une erreur est survenue lors de l'envoi, essayez plus tard",
-        "SINCE": "Depuis"
+        "SINCE": "Depuis",
+        "PREVIOUS": "Précédente",
+        "NEXT": "Suivante"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -95,7 +97,8 @@
         "EDIT_INFOS": "Modifier informations",
         "CUSTOMER_INFOS": "Informations client",
         "EXPENSES_CHART": "Graphe des dépenses",
-        "TOTAL_SPENT": "Total dépensé"
+        "TOTAL_SPENT": "Total dépensé",
+        "FAVORITE_PRODUCTS": "Produits favoris"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Page sauvegardée",

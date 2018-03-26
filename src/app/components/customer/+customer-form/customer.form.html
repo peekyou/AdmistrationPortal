@@ -7,12 +7,12 @@
                     <br />                        
                     <div class="form-check form-check-inline">
                         <input type="radio" name="gender" id="genderM" value="M"
-                            formControlName="gender" class="form-check-input">
+                            formControlName="gender" class="form-check-input" required>
                         <label for="genderM" class="form-check-label">{{ 'COMMON.GENDER_M' | translate }}</label>
                     </div>
                     <div class="form-check-inline">
                         <input type="radio" name="gender" id="genderF" value="F"
-                            formControlName="gender" class="form-check-input">
+                            formControlName="gender" class="form-check-input" required>
                         <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
                     </div>
                 </div>
@@ -111,11 +111,11 @@
             </div>
             <div class="col">
                 <label *ngIf="!isEdit" style="display:block">&nbsp;</label>                    
-                <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="form" 
+                <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="form"
                     loadingValue="{{ 'COMMON.SAVING' | translate }}" [subscription]="submitSubscription">
                 </app-submit-button>
             </div>
         </div>
-        <!-- <pre>{{ form.value | json }}</pre> -->
+        <pre>{{ form.valid | json }}</pre>
     </form>
 </div>

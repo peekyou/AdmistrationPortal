@@ -7,6 +7,7 @@ import { APP_CONFIG, AppConfig } from '../../app.config';
 import { HttpService } from '../../core/services/http.service';
 import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
+import { MerchantInfo } from '../../core/models/merchantInfo';
 import { UserPreferences } from './user';
 
 @Injectable()
@@ -15,6 +16,7 @@ export class UserService {
     private permissions: string[];
     private username: string;
     private userId: string;
+    private accessibleMerchants: MerchantInfo;
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -89,6 +91,14 @@ export class UserService {
         if (userId) {
             return this.http.get(this.api + '/users/' + userId + '/preferences');
         }
+    }
+
+    getAccessibleMerchants() {
+        if (this.token && !this.accessibleMerchants) {
+            var claims = parseJwt(this.token);
+            this.accessibleMerchants = JSON.parse(claims[Claims.Profile + '/AccessibleMerchants']);
+        }
+        return this.accessibleMerchants;
     }
 
     savePreferences(preferences: UserPreferences): Observable<boolean> {

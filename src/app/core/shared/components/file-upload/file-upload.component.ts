@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteModal } from '../../modals/delete.modal';
-import { Picture } from './picture';
+import { Picture } from '../../../models/picture';
 import { guid } from '../../../helpers/utils';
 
 @Component({

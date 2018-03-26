@@ -106,6 +106,7 @@
     "ng2-dnd": "^5.0.2",
     "ngx-infinite-scroll": "^0.8.1",
     "ngx-loading": "^1.0.14",
+    "ngx-pagination": "^3.1.0",
     "ngx-treeview": "^2.0.1",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.5.2",

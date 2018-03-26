@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-submit-button',
     styleUrls: ['./submit-button.component.scss'],
-    templateUrl: './submit-button.component.html'
+    templateUrl: './submit-button.component.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class SubmitButtonComponent implements OnInit {
     @Input() buttonClass: string;

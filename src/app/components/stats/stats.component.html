@@ -19,7 +19,8 @@
                 <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             </div>
             <div class="col col-lg-8">
-                <customer-table [customers]="bestCustomers" title="{{ 'STATS.BEST_CUSTOMERS' | translate }}"></customer-table>                    
+                <app-customer-table [customers]="bestCustomers" small="true" 
+                    title="{{ 'STATS.BEST_CUSTOMERS' | translate }}"></app-customer-table>                    
                 <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
             </div>
         </div>

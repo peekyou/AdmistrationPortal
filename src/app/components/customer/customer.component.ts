@@ -11,6 +11,7 @@ import { PagingResponse } from '../../core/models/paging';
 export class CustomerComponent implements OnInit {
     customers: PagingResponse<Customer>;
     customersCount: number;
+    itemsPerPage: number = 20;
     loading = false;
 
     constructor(private service: CustomerService) { }
@@ -23,14 +24,17 @@ export class CustomerComponent implements OnInit {
                 this.loading = false;
             });
 
-        
-        this.service.get(null, null)
-            .subscribe(customers => {
-                this.customers = customers;
-            });
+        this.getCustomersPage(1);
     }
     
     public updateCustomers(customers: PagingResponse<Customer>) {
         this.customers = customers;
+    }
+
+    public getCustomersPage(page: number) {
+        this.service.get(page, this.itemsPerPage)
+            .subscribe(customers => {
+                this.customers = customers;
+            });
     }
 }
