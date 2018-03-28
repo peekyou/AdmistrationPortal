@@ -7,7 +7,7 @@ import { NoContentComponent } from './components/no-content';
 import { DataResolver } from './app.resolver';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/stats', pathMatch: 'full' },
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'auth', loadChildren: './components/user#UserModule' },
     { path: 'customers', loadChildren: './components/customer#CustomerModule' },
     { path: 'content', loadChildren: './components/content-editor#ContentEditorModule' },
@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'mobile-preview', loadChildren: './components/mobile-preview#MobilePreviewModule' },
     { path: 'sms', loadChildren: './components/sms#SmsModule' },
     { path: 'billing', loadChildren: './components/billing#BillingModule' },
-    { path: 'stats', loadChildren: './components/stats#StatsModule' },
+    { path: 'dashboard', loadChildren: './components/stats#StatsModule' },
     { path: 'about', component: AboutComponent },
     { path: '**',    component: NoContentComponent }
 ];

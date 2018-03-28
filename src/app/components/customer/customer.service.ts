@@ -39,12 +39,10 @@ export class CustomerService {
         }
         var remainder: number = null;
         var purchaseData: PurchaseData = {
-            currentPurchaseAmount: 0,
-            totalPurchaseAmount: 0
+            currentPurchaseAmount: 0
         };
         points.forEach(point => {
             if (point.correspondingAmount != null) {
-                purchaseData.totalPurchaseAmount += point.correspondingAmount;
                 if (!point.isRedeemed) {
                     purchaseData.currentPurchaseAmount += point.correspondingAmount;
                 }
@@ -53,12 +51,9 @@ export class CustomerService {
                 }
             }
         });
-        //purchaseData.currentPurchaseAmount += remainder;
-        //purchaseData.totalPurchaseAmount += remainder;
 
         purchaseData.remainder = remainder;
         purchaseData.currentPurchaseAmountString = purchaseData.currentPurchaseAmount + " AED";
-        purchaseData.totalPurchaseAmountString = purchaseData.totalPurchaseAmount + " AED";
         return purchaseData;
     }
 

@@ -6,18 +6,50 @@
 
 .content-editor {
     max-width: 100%;
+
+    .images {
+        margin-bottom: 1rem;
+    }
+
+    .color {
+        label {
+            margin: 0;
+            padding: 0;
+        }
+        
+        input {
+            color: #fff;
+        }
+    }
 }
 
-page-header {
-    cursor: default;
+app-mobile-preview {
+    position: relative;
 }
 
-.form-control.high {
-    height: 70px;
-}
+.section {
+    margin-top: .2rem;
+    
+    .section-header {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 0.5rem .7rem;
+        border-radius: 5px;
 
-.custom-page {
-    cursor: move !important;
+        .fa {
+            float: right;
+            margin-top: .3rem;
+            color: $theme-color;
+        }
+    }
+
+    input[type='button'] {
+        border: none;
+    }
+
+    file-upload {
+        margin-bottom: 1rem;
+    }
 }
 
 .time-table {

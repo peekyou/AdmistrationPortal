@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DndModule } from 'ng2-dnd';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { MobilePreviewModule } from '../mobile-preview/mobile-preview.module';
 
 import { ContentEditorComponent } from './content-editor.component';
 import { PageCreateComponent } from './+page-create/page-create.component';
@@ -15,6 +17,8 @@ import { routes } from './content-editor.routes';
         SharedModule,
         CKEditorModule,
         DndModule.forRoot(),
+        ColorPickerModule,
+        MobilePreviewModule,
         RouterModule.forChild(routes)
     ],
     declarations: [

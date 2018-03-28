@@ -2,7 +2,7 @@
     <customer-search></customer-search>
         
     <div class="row" *ngIf="customer">
-        <div class="col col-md-7">
+        <div class="col-12 col-lg-7">
             <div class="card">
                 <div class="card-header customer-form">
                     <span>{{customer.firstname}} {{customer.lastname}}</span>
@@ -15,18 +15,18 @@
                 </div>
             </div>
         </div>
-        <div class="col col-md-5">
+        <div class="col-12 col-lg-5">
             <div class="card">
-                <h3 class="card-header">{{customer.cardNumber}}. {{customer.firstname}} {{customer.lastname}}</h3>
-                <div class="card-body">
+                <h5 class="card-header">{{customer.firstname}} {{customer.lastname}} {{ 'CUSTOMERS.POINTS_BALANCE' | translate }}</h5>
+                <div class="card-body text-align-center">
                     <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
-                        <span class="card-text">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate }}</span>
                         <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
-                            <input type="number" min="0" class="form-control" id="amount" name="amount"
+                            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: config.currency} }}</label>
+                            <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;"
                                 placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
                             <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
-                                            loadingValue="{{ 'COMMON.LOADING' | translate }}" 
-                                            [form]="entryF.form" [subscription]="saveEntrySubscription">
+                                loadingValue="{{ 'COMMON.LOADING' | translate }}" 
+                                [form]="entryF.form" [subscription]="saveEntrySubscription">
                             </app-submit-button>
                         </form>
                     </div>
@@ -41,12 +41,13 @@
                                     value="{{ 'CUSTOMERS.KEEP_DISCOUNT_BUTTON' | translate }}" />
                         </form>
                     </div>
-                    <app-circle-progress subtitle="POINTS OWNED" title="service.user.currentPoints" 
-                        backgroundColor="red"
+                    <app-circle-progress subtitle="{{ 'CUSTOMERS.WHEEL_POINTS_SUBTITLE' | translate }}"
+                        [title]="customer.totalPoints - customer.currentPoints" 
+                        backgroundColor="#fdbc00"
                         backgroundOpacity=1
                         backgroundStroke="#000000"
                         backgroundPadding="14"
-                        radius=87
+                        radius=77
                         space=-9
                         maxPercent=100
                         unitsColor="#ffffff"
@@ -57,33 +58,44 @@
                         titleColor="#ffffff"
                         titleFontSize="45"
                         subtitleColor="#ffffff"
-                        subtitleFontSize=17
+                        subtitleFontSize=13
                         animationDuration=500
                         [showUnits]=false
-                        percent="80">
+                        [percent]="(customer.currentPoints / (customer.currentPoints + customer.pointsToDiscount)) * 100">
                     </app-circle-progress>
-                    <!-- <div class="row" *ngIf="customer.currentPoints">
-                        <div class="col"><b>{{ 'CUSTOMERS.CURRENT_POINTS' | translate }}</b></div>
-                        <div class="col">{{customer.currentPoints}} points ({{customer.purchaseData?.currentPurchaseAmountString}})</div>
-                    </div>
                     <div class="row">
-                        <div class="col">{{ 'CUSTOMERS.HISTORY_POINTS' | translate }}</div>
-                        <div class="col">{{customer.totalPoints}} points ({{customer.purchaseData?.totalPurchaseAmountString}})</div>
+                        <div class="col-12 col-sm-4">
+                            <app-circle-progress [showSubtitle]="false"
+                                [title]="customer.currentPoints" 
+                                backgroundColor="#0cb3c2"
+                                backgroundOpacity=1
+                                backgroundStroke="#000000"
+                                backgroundPadding="10"
+                                radius=40
+                                space=-5
+                                maxPercent=100
+                                unitsColor="#ffffff"
+                                outerStrokeWidth=5
+                                outerStrokeColor="#ffffff"
+                                innerStrokeColor="#ffdf72"
+                                innerStrokeWidth=5
+                                titleColor="#ffffff"
+                                titleFontSize="25"
+                                animationDuration=0
+                                [showUnits]=false
+                                percent="100">
+                            </app-circle-progress>
+                        </div>
+                        <div class="col-12 col-sm-8 text-align-left cyan points-used">
+                            <span>{{ 'CUSTOMERS.POINTS_USED' | translate }}</span>
+                        </div>
                     </div>
-                    <div class="row" *ngIf="customer.lastEntry">
-                        <div class="col">{{ 'CUSTOMERS.LAST_ENTRY' | translate }}</div>
-                        <div class="col">{{customer.lastEntry | date: 'dd-MM-yyyy HH:mm'}}</div>
-                    </div>
-                    <div class="row" *ngIf="customer.firstEntry">
-                        <div class="col">{{ 'CUSTOMERS.FIRST_ENTRY' | translate }}</div>
-                        <div class="col">{{customer.firstEntry | date: 'dd-MM-yyyy HH:mm'}}</div>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
     <div class="row" *ngIf="customer">
-        <div class="col col-md-8">
+        <div class="col-12 col-lg-7">
             <div class="card" *ngIf="customer && customer.expenses">
                 <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
                 <div class="card-body">
@@ -93,24 +105,24 @@
                 </div>
             </div>
         </div>
-        <div class="col col-md-4">
-            <div class="card" style="text-align:center" *ngIf="customer.points && customer.points.length > 0">
+        <div class="col-12 col-lg-5">
+            <div class="card" *ngIf="customer.points && customer.points.length > 0">
                 <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
                 <div class="card-body points-detail">
                     <table class="table table-sm">
-                        <thead class="thead-dark">
+                        <thead>
                             <tr>
                                 <th>{{ 'COMMON.DATE' | translate }}</th>
-                                <th>{{ 'COMMON.POINTS' | translate }}</th>
                                 <th>{{ 'COMMON.AMOUNT' | translate }}</th>
+                                <th>{{ 'COMMON.POINTS' | translate }}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let point of customer.points | currentPoints">
-                                <td>{{point.date | date: 'dd-MM-yyyy HH:mm'}}</td>
-                                <td>1</td>
-                                <td>{{point.correspondingAmount}}</td>
+                                <td>{{point.date | date: 'dd-MM-yyyy'}}</td>
+                                <td class="cyan"><small>{{point.currency}}</small><b>{{point.correspondingAmount}}</b></td>
+                                <td class="points"><b>1</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
                                 <td>
                                     <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="openDeleteModal(point)"
                                             title="{{ 'COMMON.DELETE' | translate }}">

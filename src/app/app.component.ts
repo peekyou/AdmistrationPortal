@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from './app.service';
 import { UserService } from './components/user/user.service';
@@ -23,16 +24,30 @@ import { LookupService } from './core/services/lookup.service';
     </div>
   `
 })
-export class AppComponent {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
+export class AppComponent implements OnInit {
+public angularclassLogo = 'assets/img/angularclass-avatar.png';
+public name = 'Angular 2 Webpack Starter';
+public url = 'https://twitter.com/AngularClass';
 
-  constructor(private translate: TranslateService, public user: UserService, lookup: LookupService) {
-    translate.addLangs(["en", "fr"]);
-    translate.setDefaultLang('en');
+constructor(
+  private router: Router,
+  private translate: TranslateService, 
+  public user: UserService, 
+  public lookup: LookupService) {
 
-    let browserLang = translate.getBrowserLang();
-    // translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+  translate.addLangs(["en", "fr"]);
+  translate.setDefaultLang('en');
+
+  let browserLang = translate.getBrowserLang();
+  // translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+}
+
+  ngOnInit() {
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
   }
 }

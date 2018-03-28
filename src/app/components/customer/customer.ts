@@ -20,15 +20,14 @@ export class Customer {
     totalExpenses?: CustomerExpense[];
     points?: CustomerPoint[];
     discountAmount?: number;
+    pointsToDiscount?: number;
     purchaseData?: PurchaseData;
     languages?: Lookup[];
     address?: Address; 
 }
 
 export class PurchaseData {
-    totalPurchaseAmount?: number;
     currentPurchaseAmount?: number;
-    totalPurchaseAmountString?: string;
     currentPurchaseAmountString?: string;
     remainder?: number;
 }
@@ -46,6 +45,7 @@ export class CustomerPoint {
     remainder?: number;
     isRedeemed?: boolean;
     currency?: string;
+    expenseId?: string;
 }
 
 export class CustomerFilter {

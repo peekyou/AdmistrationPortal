@@ -1,22 +1,22 @@
 <form *ngIf="onSearch.observers && onSearch.observers.length > 0" 
-      [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
-    <div class="form-group form-inline">
-        <label for="dateFrom">From</label>
-        <div class="input-group pl-0 pl-md-2 col-md-3">
-            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateFrom"
+      [formGroup]="form" class="form-inline" (ngSubmit)="form.valid && submit()" novalidate>
+    <div class="form-group">
+        <label for="dateFrom" class="form-control-sm">{{ 'COMMON.FROM' | translate }}</label>
+        <div class="input-group pl-0 col-md-3">
+            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="dateFrom"
                     id="dateFrom" ngbDatepicker #from="ngbDatepicker">
-            <button class="input-group-addon" (click)="from.toggle()" type="button">
+            <button class="input-group-append" (click)="from.toggle()" type="button">
                 <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
             </button>
             <div *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)" class="invalid-field">
                 {{ 'FORM.INVALID_DATE' | translate }}
             </div>
         </div>
-        <label for="dateTo">To</label>
-        <div class="input-group pl-0 pl-md-2 col-md-3">
-            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateTo"
+        <label for="dateTo" class="form-control-sm">{{ 'COMMON.TO' | translate }}</label>
+        <div class="input-group pl-0 col-md-3">
+            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="dateTo"
                     id="dateTo" ngbDatepicker #to="ngbDatepicker">
-            <button class="input-group-addon" (click)="to.toggle()" type="button">
+            <button class="input-group-append" (click)="to.toggle()" type="button">
                 <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
             </button>
             <div *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)" class="invalid-field">
@@ -25,7 +25,7 @@
             <div class="invalid-field" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>            
         </div>
         
-       <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" 
+       <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" buttonClass="btn btn-primary btn-sm"
            loadingValue="{{ 'COMMON.LOADING' | translate }}" [subscription]="dataSubscription">
        </app-submit-button>  
     </div>    

@@ -10,6 +10,9 @@ import { routes } from './mobile-preview.routes';
         SharedModule,
         RouterModule.forChild(routes)
     ],
+    exports: [
+        MobilePreviewComponent
+    ],
     declarations: [
         MobilePreviewComponent
     ]

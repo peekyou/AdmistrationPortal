@@ -11,22 +11,34 @@ import { guid } from '../../../helpers/utils';
     styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent implements OnInit {
-    @Input() files: Picture[];
-    @Input() totalFileSize: number;
-    @Input() onFileUpload: (file: Picture) => string;
-    @Output() onDeleteFile: EventEmitter<Picture> = new EventEmitter();
+    _file: Picture;
     availableSpace: number;
     totalSpace = 20;
     dragging: boolean = false;
     loaded: boolean = false;
     loading: boolean = false;
 
+    @Input() simple: boolean = false;
+    @Input() browseLabel: string;
+    @Input() files: Picture[];
+    @Input() totalFileSize: number;
+    @Input() fileHolder: any;
+    @Input() onFileUpload: (file: Picture, fileHolder: any) => string;
+    @Output() onDeleteFile: EventEmitter<Picture> = new EventEmitter();
+
+    @Output() fileChange: EventEmitter<Picture> = new EventEmitter();    
+    @Input() 
+    get file(): Picture {
+        return this._file;
+    }
+
+    set file(value: Picture) {
+        this._file = value;
+    }
+
     constructor(private http: HttpClient, private modalService: NgbModal) { }
 
     ngOnInit() {
-        if (!this.files) {
-            this.files = [];
-        }
         this.calculateAvailableSpace();
     }
 
@@ -41,14 +53,14 @@ export class FileUploadComponent implements OnInit {
     drop(e) {
         e.preventDefault();
         this.dragging = false;
-        this.fileChange(e);
+        this.onFileChanged(e);
     }
 
     fileLoad() {
         this.loading = false;
     }
 
-    fileChange(event) {
+    onFileChanged(event) {
         let fileList: FileList = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         if (fileList && fileList.length > 0) {
             this.loading = true;
@@ -68,7 +80,14 @@ export class FileUploadComponent implements OnInit {
                     name: file.name,
                     createdDate: new Date()
                 };
-                this.onFileUpload(newFile);
+
+                if (typeof this.file !== 'undefined') {
+                    this._file = newFile;
+                    this.fileChange.emit(this._file);
+                }
+                else {
+                    this.onFileUpload(newFile, this.fileHolder);
+                }
                 this.totalFileSize += file.size / 1024 / 1024;
                 this.calculateAvailableSpace();
             }
@@ -89,6 +108,7 @@ export class FileUploadComponent implements OnInit {
 
     deleteFile(file: Picture) {
         this.onDeleteFile.emit(file);
+        this.file = null;
         for (let i = 0; this.files && i < this.files.length; i++) {
             if (this.files[i].id === file.id) {
                 this.totalFileSize -= file.size / 1024 / 1024;

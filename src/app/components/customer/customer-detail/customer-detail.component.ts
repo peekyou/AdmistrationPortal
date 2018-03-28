@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
+import { APP_CONFIG, AppConfig } from '../../../app.config';
 import { Customer, CustomerPoint } from '../customer';
 import { CustomerService } from '../customer.service';
 import { DeleteModal } from '../../../core/shared/modals/delete.modal';
@@ -31,7 +32,8 @@ export class CustomerDetailComponent implements OnInit {
         private router: Router,
         private location: Location,
         private service: CustomerService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        @Inject(APP_CONFIG) public config: AppConfig
     ) { }
 
     ngOnInit() {

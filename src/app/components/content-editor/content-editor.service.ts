@@ -5,23 +5,15 @@ import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Page, CallOption, WeekDay } from './page';
 import { Picture } from '../../core/models/picture';
+import { MerchantDesign } from '../../core/models/merchantDesign';
 
 @Injectable()
 export class ContentEditorService {
     private api: string;
-    private callOptions: CallOption[];
     private weekDays: WeekDay[];
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
         this.api = config.ApiEndpoint + '/pages';
-        this.callOptions = [
-            { id: '1', label: 'Book' },
-            { id: '2', label: 'Order' },
-            { id: '3', label: 'Call' },
-            { id: '4', label: 'Take an appointment' },
-            { id: '5', label: 'Request informations' },
-        ];
-
         this.weekDays = [
             { id: 1, name: 'Sunday' },
             { id: 2, name: 'Monday' },
@@ -37,8 +29,8 @@ export class ContentEditorService {
         return this.http.get(this.api);
     }
 
-    getCallOptions(): Observable<CallOption[]> {
-        return Observable.of(this.callOptions);
+    getDesign(): Observable<MerchantDesign> {
+        return this.http.get(this.config.ApiEndpoint + '/merchants/design');
     }
 
     getWeekDays(): Observable<WeekDay[]> {
@@ -47,6 +39,10 @@ export class ContentEditorService {
        
     deletePage(page: Page): Observable<void> {
         return this.http.delete(this.api + '/' + page.id);
+    }
+
+    saveDesign(design: MerchantDesign): Observable<void> {
+        return this.http.post(this.config.ApiEndpoint + '/merchants/design', design);
     }
 
     savePage(page: Page): Observable<string> {

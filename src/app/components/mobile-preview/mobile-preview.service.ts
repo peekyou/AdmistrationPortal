@@ -18,5 +18,9 @@ export class MobilePreviewService {
         }
         return this.http.get(this.config.ApiEndpoint + '/merchants/url');
     }
+
+    getApplicationHTML(url: string): Observable<string> {
+        return this.http.get(url);        
+    }
 }
 

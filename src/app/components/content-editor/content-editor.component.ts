@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DeleteModal } from '../../core/shared/modals/delete.modal';
+import { MerchantDesign } from '../../core/models/merchantDesign';
 import { guid } from '../../core/helpers/utils';
 import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
 
@@ -18,19 +19,25 @@ import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
 })
 export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     loading = false;
+    scrollOffset: string = "0px";
     ckeditorConfig: object;
-    selectedPage: Page;
-    homePage: Page;
+    design: MerchantDesign;
     locationPage: Page;
     contactPage: Page;
     pages: Page[];
     customPages: Page[];
-    callOptions: CallOption[];
     weekDays: WeekDay[];
     oldSelectedPage: Page;
     savePageSubscription: Subscription;
+    saveDesignSubscription: Subscription;
     totalFileSize: number = 0;
-    error: boolean = false;
+    error: boolean = null;
+
+    @HostListener("window:scroll", [])
+    onWindowScroll() {
+        let n = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;        
+        this.scrollOffset = n + "px";
+    }
 
     // @HostListener allows us to also guard against browser refresh, close, etc.
     @HostListener('window:beforeunload')
@@ -50,8 +57,8 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         private notifier: PageNotifierService,
         private modalService: NgbModal
     ) {
-        notifier.onEditSource.subscribe(page => this.editContent(page));
-        notifier.onCreateSource.subscribe(parent => this.createPage(parent));
+        // notifier.onEditSource.subscribe(page => this.editContent(page));
+        // notifier.onCreateSource.subscribe(parent => this.createPage(parent));
 
         this.ckeditorConfig = {
             enterMode: 2, //CKEDITOR.ENTER_BR
@@ -75,9 +82,9 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         this.getPages();
 
         this.service
-            .getCallOptions()
+            .getDesign()
             .subscribe(
-                res => this.callOptions = res,
+                res => this.design = res,
                 err => { console.log(err); }
         );
 
@@ -96,7 +103,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             .subscribe(
                 pages => {
                     this.pages = pages
-                    this.homePage = pages.filter(p => p.typeId == 1)[0];
+                    // this.homePage = pages.filter(p => p.typeId == 1)[0];
                     this.locationPage = pages.filter(p => p.typeId == 2)[0];
                     this.contactPage = pages.filter(p => p.typeId == 3)[0];
                     this.customPages = pages.filter(p => p.typeId == 4);
@@ -130,19 +137,31 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             );
     }
 
-    selectPage(page: Page) {
-        if (this.selectedPage) {
-            this.selectedPage.selected = false;
-        }
+    saveDesign() {
+        this.saveDesignSubscription = this.service
+            .saveDesign(this.design)
+            .subscribe(res => {    
+                this.error = false;
+            },
+            err => { 
+                this.error = true;
+                console.log(err); 
+            });
+    }
 
-        this.selectedPage = page;
-        this.selectedPage.selected = true;
-    }
+    // selectPage(page: Page) {
+    //     if (this.selectedPage) {
+    //         this.selectedPage.selected = false;
+    //     }
+
+    //     this.selectedPage = page;
+    //     this.selectedPage.selected = true;
+    // }
     
-    editContent(page: Page) {
-        this.oldSelectedPage = Object.assign({}, page);
-        this.setPageEdition(page);
-    }
+    // editContent(page: Page) {
+    //     this.oldSelectedPage = Object.assign({}, page);
+    //     this.setPageEdition(page);
+    // }
 
     orderChanged(page: Page, index: number) {
         this.customPages.forEach((p: Page, i: number) => p.order = i + 1);
@@ -172,16 +191,17 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             this.customPages.push(newPage);
         }
         
-        this.setPageEdition(newPage);
+        // this.setPageEdition(newPage);
     }
 
-    savePage() {
+    savePage(page: Page) {
         this.savePageSubscription = this.service
-            .savePage(this.selectedPage)
+            .savePage(page)
             .subscribe(id => {    
-                this.selectedPage.id = id;
-                this.selectedPage.editing = this.error = false;
+                // this.selectedPage.id = id;
+                // this.selectedPage.editing = this.error = false;
                 this.oldSelectedPage = null;
+                this.error = false;
             },
             err => { 
                 this.error = true;
@@ -189,63 +209,61 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             });
     }
 
-    cancelPageEdition() {
-        this.selectedPage.editing = false;
-        if (this.oldSelectedPage) {
-            this.selectedPage.content = this.oldSelectedPage.content;
-            this.selectedPage.title = this.oldSelectedPage.title;
-        }
-    }
+    // cancelPageEdition() {
+    //     this.selectedPage.editing = false;
+    //     if (this.oldSelectedPage) {
+    //         this.selectedPage.content = this.oldSelectedPage.content;
+    //         this.selectedPage.title = this.oldSelectedPage.title;
+    //     }
+    // }
 
-    deletePage() {
-        if (this.selectedPage && this.selectedPage.id) {
+    deletePage(page: Page) {
+        if (page && page.id) {
             this.service
-                .deletePage(this.selectedPage)
+                .deletePage(page)
                 .subscribe(
                     r => {
-                        this.deleteFromPages(this.customPages);
-                        this.selectedPage = null;
+                        this.deleteFromPages(this.customPages, page);
                     },
                     err => { console.log(err); }
                 );
         }
-        else if (this.selectedPage) {
-            this.deleteFromPages(this.customPages);
-            this.selectedPage = null;
+        else if (page) {
+            this.deleteFromPages(this.customPages, page);
         }
     }
 
-    deleteFromPages(pages: Page[]) {
+    deleteFromPages(pages: Page[], page: Page) {
         for (let i = 0; pages && i < pages.length; i++) {
-            if (pages[i].id === this.selectedPage.id) {
+            if (pages[i].id === page.id) {
                 pages.splice(i, 1);
                 break;
             }
-            this.deleteFromPages(pages[i].children);
+            this.deleteFromPages(pages[i].children, page);
         }
     }
 
-    addFile = (file) => {
-        if (!this.selectedPage.pictures) {
-            this.selectedPage.pictures = [];
+    addPageFile = (file, page: Page) => {
+        if (!page.pictures) {
+            page.pictures = [];
         }
         this.service
-            .uploadFile(file, this.selectedPage.id)
+            .uploadFile(file, page.id)
             .subscribe(
                 r => {
                     file.id = r;
-                    this.selectedPage.pictures.push(file);
+                    page.pictures.push(file);
                 },
                 err => { console.log(err); }
             );
     }
 
-    deleteFile(file) {
+    deleteFile(file, page: Page) {
         this.service
             .deleteFile(file)
             .subscribe(
                 r => {
-                    console.log(this.selectedPage.pictures);
+                    console.log(page.pictures);
                     //this.selectedPage.pictures.push(file);
                 },
                 err => { console.log(err); }
@@ -256,26 +274,26 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         //console.log(event);
     }
 
-    openDeleteModal() {
+    openDeleteModal(page: Page) {
         const modalRef = this.modalService.open(DeleteModal);
-        modalRef.componentInstance.data = this.selectedPage.title;
+        modalRef.componentInstance.data = page.title;
 
         modalRef.result.then((result) => {
             if (result === 'Y') {
-                this.deletePage();
+                this.deletePage(page);
             }
         }, (reason) => { });
     }
 
-    onTimeChange(timeInfo: any) {
-        if (!this.selectedPage.timeTable || this.selectedPage.timeTable.length === 0) {
-            this.selectedPage.timeTable = [];
+    onTimeChange(timeInfo: any, page: Page) {
+        if (!page.timeTable || page.timeTable.length === 0) {
+            page.timeTable = [];
             this.weekDays.forEach(w => {
-                this.selectedPage.timeTable.push({ day: w.id });
+                page.timeTable.push({ day: w.id });
             });
         }
 
-        var day = this.selectedPage.timeTable.filter(d => { return d.day == timeInfo.dayId });
+        var day = page.timeTable.filter(d => { return d.day == timeInfo.dayId });
         if (day.length > 0) {
             if (timeInfo.type == 'morning') {
                 day[0].morningTime = timeInfo.time;
@@ -286,8 +304,8 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         }
     }
 
-    private setPageEdition(page: Page) {
-        this.selectPage(page);
-        this.selectedPage.editing = true;
-    }
+    // private setPageEdition(page: Page) {
+    //     this.selectPage(page);
+    //     this.selectedPage.editing = true;
+    // }
 }

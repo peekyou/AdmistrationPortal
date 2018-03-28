@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user.isAuthenticated()">
-    <form class="form-inline" [formGroup]="form" (ngSubmit)="form.valid && submit()" novalidate>
+    <form *ngIf="router.url === '/dashboard'" class="form-inline" [formGroup]="form" 
+        (ngSubmit)="form.valid && submit()" novalidate>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary week" (click)="submit('week')">
                 {{ 'TOOLBAR.WEEK' | translate }}

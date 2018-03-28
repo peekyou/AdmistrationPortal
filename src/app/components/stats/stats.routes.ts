@@ -7,7 +7,7 @@ import { Permissions } from '../../core/helpers/permissions';
 
 export const routes: Routes = [
     {
-        path: 'stats', data: { permission: Permissions.Statistics }, canActivate: [AuthGuard, PermissionGuard], children: [
+        path: 'dashboard', data: { permission: Permissions.Statistics }, canActivate: [AuthGuard, PermissionGuard], children: [
             { path: '', component: StatsComponent }
         ]
     },

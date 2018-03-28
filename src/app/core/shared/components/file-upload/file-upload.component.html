@@ -1,7 +1,7 @@
-<div class="issue-drop-zone" [ngClass]="{'active': dragging}" (dragenter)="dragEnter()"
+<div *ngIf="!simple" class="issue-drop-zone" [ngClass]="{'active': dragging}" (dragenter)="dragEnter()"
      (dragleave)="dragLeave()" (drop)="drop($event)" ondragover="return false;">
 
-    <div duitype="dndattachment/dropzones/AttachmentsDropZone" 
+    <div duitype="dndattachment/dropzones/AttachmentsDropZone"
          class="issue-drop-zone -dui-type-parsed" data-upload-limit="10485760" 
          data-upload-size="10.00 MB">
         <div class="issue-drop-zone__target">
@@ -9,32 +9,53 @@
         <span class="issue-drop-zone__text">
             <span class="issue-drop-zone__drop-icon"> </span> 
             {{ 'CONTENT.DROP_ZONE_LABEL' | translate }}
-            <button type="button" class="issue-drop-zone__button" (click)="file.click()">
-                {{ 'CONTENT.DROP_ZONE_BROWSE' | translate }}
+            <button type="button" class="issue-drop-zone__button" (click)="fileInput.click()">
+                <span *ngIf="browseLabel">{{ browseLabel }}</span>
+                <span *ngIf="!browseLabel">{{ 'CONTENT.DROP_ZONE_BROWSE' | translate }}</span>
             </button>
-            <input class="issue-drop-zone__file" type="file" (change)="fileChange($event)" 
-                   accept="image/*" #file>
+            <input class="issue-drop-zone__file" type="file" (change)="onFileChanged($event)" 
+                   accept="image/*" #fileInput>
         </span>
     </div>
-
-    <div id="attachment_thumbnails" class="row item-attachments">
-        <div class="col attachment-content" *ngFor="let file of files">
-            <div class="attachment-thumb">
-                <img height="75" width="125" [src]="file.src" (load)="fileLoad()">
-            </div>
-            <dl>
-                <dd class="attachment-size"><i class="fa fa-trash" (click)="open(file)"></i>
-                    {{ formatFileSize(file.size) }}
-                </dd>
-            </dl>
-        </div>
-        <div class="col attachment-content">
-            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" *ngIf="loading"></i>
-        </div>
-    </div>
+    <ng-container *ngTemplateOutlet="thumbnails"></ng-container>    
     <div>
-        <small [innerHTML]="'CONTENT.FILE_UPLOAD_TEXT' | translate:{availableSpace: availableSpace, totalSpace: totalSpace}" 
-               class="smaller form-text text-muted">
+        <small class="smaller form-text text-muted">
+            {{ 'CONTENT.FILE_UPLOAD_MAX_SIZE' | translate }}
+            <br />
+            {{ 'CONTENT.FILE_UPLOAD_FORMATS' | translate }}
+            <br />
+            {{ 'CONTENT.FILE_UPLOAD_AVAILABLE_SIZE' | translate:{availableSpace: availableSpace, totalSpace: totalSpace} }}            
         </small>
     </div>
 </div>
+    
+<span *ngIf="simple">
+    <button type="button" class="issue-drop-zone__button" (click)="fileInput.click()">
+        <span *ngIf="browseLabel">{{ browseLabel }}</span>
+        <span *ngIf="!browseLabel">{{ 'CONTENT.DROP_ZONE_BROWSE' | translate }}</span>
+    </button>
+    <input class="issue-drop-zone__file" type="file" (change)="onFileChanged($event)" 
+            accept="image/*" #fileInput>
+
+    <ng-container *ngTemplateOutlet="thumbnails"></ng-container>            
+</span>
+
+<ng-template #thumbnails>
+    <div id="attachment_thumbnails" class="row item-attachments" *ngIf="!simple || file">
+        <div class="col attachment-content" *ngFor="let f of files || [file]">
+            <div *ngIf="f">
+                <div class="attachment-thumb">
+                    <img height="75" width="125" [src]="f.src" (load)="fileLoad()">
+                </div>
+                <dl>
+                    <dd class="attachment-size"><i class="fa fa-trash" (click)="open(f)"></i>
+                        {{ formatFileSize(f.size) }}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col attachment-content" *ngIf="loading">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        </div>
+    </div>
+</ng-template>

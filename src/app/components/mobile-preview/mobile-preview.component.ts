@@ -4,15 +4,19 @@ import { Observable } from 'rxjs/Observable';
 import { MobilePreviewService } from './mobile-preview.service';
 
 @Component({
+    selector: 'app-mobile-preview',
     styleUrls: ['./mobile-preview.component.scss'],
     templateUrl: './mobile-preview.component.html'
 })
 export class MobilePreviewComponent {
     devices: any[];
     selectedDevice: any;
-    applicationUrl = 'http://goldenage.app-wards.com'
+    applicationUrl: string;
 
+    private myTemplate: any = "";
     constructor(public service: MobilePreviewService) {
+        // service.getApplicationHTML(this.applicationUrl)
+        // .subscribe((html:any) => this.myTemplate = html)
         service.getApplicationUrl()
                .subscribe(url => this.applicationUrl = url,
                 err => console.log(err)

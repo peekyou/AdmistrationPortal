@@ -1,4 +1,5 @@
 import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,7 +34,8 @@ export class HeaderComponent {
         private fb: FormBuilder,
         private searchService: SearchService,
         public user: UserService, 
-        public translate: TranslateService) { 
+        public translate: TranslateService,
+        public router: Router) { 
 
             this.form = this.fb.group({
                 dateFrom: [null],
