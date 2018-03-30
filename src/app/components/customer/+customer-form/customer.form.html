@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 
-                <app-address [group]="form.controls.address"></app-address>
+                <app-address [group]="form.controls.address" hideCountry="true"></app-address>
             </div>
         </div>
         <div class="row">
@@ -116,6 +116,6 @@
                 </app-submit-button>
             </div>
         </div>
-        <pre>{{ form.valid | json }}</pre>
+        <!-- <pre>{{ form.valid | json }}</pre> -->
     </form>
 </div>

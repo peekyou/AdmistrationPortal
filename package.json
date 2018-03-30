@@ -82,6 +82,7 @@
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "~5.1.0",
     "@angular/common": "~5.1.0",
     "@angular/compiler": "~5.1.0",
@@ -118,6 +119,7 @@
     "@angular/compiler-cli": "~5.0.1",
     "@compodoc/compodoc": "^1.0.0-beta.15",
     "@ngtools/webpack": "^1.8.0",
+    "@types/googlemaps": "^3.30.8",
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "2.5.45",
     "@types/node": "^7.0.39",

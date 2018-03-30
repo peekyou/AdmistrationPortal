@@ -1,7 +1,7 @@
 import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import {NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -45,11 +45,13 @@ export class CustomerForm implements OnInit {
             birthdate: [null],
             languages: this.fb.array([]),
             address: this.fb.group({
-                address: [null],
+                country: [null],
+                addressLine1: [null],
+                addressLine2: [null],
                 state: [null],
                 city: [null],
                 area: [null],
-                zip: [null],
+                zipCode: [null],
             }),
             receiveSms: [true],
             comment: [null],
@@ -83,11 +85,12 @@ export class CustomerForm implements OnInit {
             lastname: this.form.value.lastname,
             comment: this.form.value.comment,
             address: {
-                addressLine1: this.form.value.address.address,
+                addressLine1: this.form.value.address.addressLine1,
+                addressLine2: this.form.value.address.addressLine2,
                 city: this.form.value.address.city,
                 country: { id: 'AE' },
                 area: this.form.value.address.area,
-                zipCode: this.form.value.address.zip,
+                zipCode: this.form.value.address.zipCode,
                 state: this.form.value.address.state
             }
         };

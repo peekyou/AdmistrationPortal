@@ -1,4 +1,4 @@
-import { Component, OnInit, forwardRef, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, forwardRef, Input, Output, OnChanges, ViewChild, EventEmitter } from '@angular/core';
 import { FormControl, ControlValueAccessor, Validator, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
@@ -42,6 +42,7 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
         if (value !== this._selectedValue) {
             this._selectedValue = value;
             this._onChangeCallback(value);
+            this.onChange.emit(this._selectedValue);
         }
         this._onTouchedCallback();
     }
@@ -49,6 +50,7 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
     @Input() openOnFocus: boolean = false;
     @Input() small: boolean = false;
     @Input() source: string;
+    @Output() onChange: EventEmitter<Lookup> = new EventEmitter(); 
     values: Lookup[] = [];
     
     @ViewChild('instance') instance: NgbTypeahead;
@@ -77,9 +79,15 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
         }
         
         switch(this.source) {
-            case 'countries': this.values = this.lookupService.countries;
+            case 'countries': this.lookupService.fetchCountries().subscribe(res => {
+                    this.values = res
+                    this.checkValue();
+                });
                 break;
-            case 'languages': this.values = this.lookupService.languages;
+            case 'languages': this.lookupService.fetchLanguages().subscribe(res => {
+                    this.values = res;
+                    this.checkValue();
+                });
                 break;
         }
     }
@@ -90,6 +98,9 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
             var lookup = this.findLookupById(value.id);
             if (lookup != null) {
                 this._selectedValue = lookup;
+            }
+            else if (value && value.id) {
+                this._selectedValue = new Lookup(value.id, value.name)
             }
         }
         else {
@@ -146,5 +157,11 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
             return filter[0];
         }
         return null;
+    }
+
+    checkValue() {
+        if (this._selectedValue && this._selectedValue.id && !this._selectedValue.name) {
+            this._selectedValue = this.findLookupById(this._selectedValue.id);
+        }
     }
 }

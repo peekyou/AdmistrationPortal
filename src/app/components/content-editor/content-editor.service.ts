@@ -50,12 +50,7 @@ export class ContentEditorService {
     }
 
     uploadFile(file: Picture, pageId: string): Observable<string> {
-        return this.http.post(this.config.ApiEndpoint + '/documents/upload', {
-            data: file.src,
-            name: file.name,
-            pageId: pageId,
-            size: file.size
-        });
+        return this.http.post(this.config.ApiEndpoint + '/documents/upload', file);
     }
 
     deleteFile(file: Picture): Observable<string> {

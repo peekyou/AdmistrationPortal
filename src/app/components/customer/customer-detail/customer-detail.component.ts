@@ -67,6 +67,7 @@ export class CustomerDetailComponent implements OnInit {
                 lastname: this.customer.lastname,
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
+                languages: this.customer.languages,
                 birthdate: this.customer.birthdate,
                 comment: this.customer.comment
             });
@@ -74,10 +75,12 @@ export class CustomerDetailComponent implements OnInit {
             if (this.customer.address) {
                 this.customerForm.patchValue({
                    address: {
-                        address: this.customer.address.addressLine1,
+                        country: this.customer.address.country,
+                        addressLine1: this.customer.address.addressLine1,
+                        addressLine2: this.customer.address.addressLine2,
                         city: this.customer.address.city,
                         area: this.customer.address.area,
-                        zip: this.customer.address.zipCode,
+                        zipCode: this.customer.address.zipCode,
                         state: this.customer.address.state
                     }
                 });
@@ -87,6 +90,10 @@ export class CustomerDetailComponent implements OnInit {
             for (let i = 0; this.customer.languages && i < this.customer.languages.length; i++) {
                 let newLanguage = new FormControl(this.customer.languages[i]);
                 languagesControl.push(newLanguage);
+            }
+            // If there is no language, add an empty control
+            if (languagesControl.length == 0 ) {
+                languagesControl.push(new FormControl());                
             }
         }
     }

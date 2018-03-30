@@ -1,59 +1,118 @@
 <div class="card card-address">
-    <!-- <div class="card-header">
-        <label for="languages">{{ 'COMMON.ADDRESS' | translate }}</label>
-    </div> -->
     <div class="card-body">
-        <div [formGroup]="addressForm" class="address">
+        
+        <div class="form-group">
+            <label for="address">{{ 'COMMON.ADDRESS' | translate }}</label>
+            <input placeholder="{{ 'COMMON.SEARCH_LOCATION' | translate }}" autocorrect="off" 
+                autocapitalize="off" spellcheck="off" type="text" class="form-control  form-control-sm" 
+                #search [formControl]="searchControl">            
+        </div>
+
+        <ng-container *ngIf="addressForm" [formGroup]="addressForm" class="address">
+            <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
+                <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
+                <app-autocomplete source="countries" name="country" id="country" 
+                    formControlName="country" small="true" (onChange)="countryChanged($event)">
+                </app-autocomplete>
+            </div>
+
             <div class="form-group">
-                <label for="address">{{ 'COMMON.ADDRESS' | translate }}</label>
-                <input type="text" class="form-control form-control-sm" id="address" formControlName="address" />
+                <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="addressLine1" 
+                       formControlName="addressLine1" />
             </div>
             <div class="form-group">
+                <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="addressLine2" 
+                       formControlName="addressLine2" />
+            </div>
+            <div class="form-group" *ngIf="isUAE()">
                 <label for="state">Emirate</label>
-                <select formControlName="state" id="state" class="form-control form-control-sm" (change)="onStateChange($event.target.value)">
+                <select formControlName="state" id="state" class="form-control form-control-sm" 
+                    (change)="onStateChange($event.target.value)">
                     <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="address">City</label>
-                <input type="text" class="form-control form-control-sm" id="city" formControlName="city" />
+                <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="city"
+                       formControlName="city" />
             </div>
-            <div class="form-group" *ngIf="isUAE">
-                <label for="address">Area</label>
-                <input type="text" class="form-control form-control-sm" id="area" formControlName="area" />
+            <div class="form-group" *ngIf="isUAE()">
+                <label for="area">{{ 'COMMON.AREA' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="area"
+                      formControlName="area" />
             </div>
-            <div class="form-group" *ngIf="!isUAE">
-                <label for="address">{{ 'COMMON.ZIP_CODE' | translate }}</label>
-                <input type="text" class="form-control form-control-sm" id="zip" formControlName="zip" />
+            <div class="form-group" *ngIf="!isUAE()">
+                <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="zip"
+                       formControlName="zipCode" />
             </div>
+        </ng-container>
+
+        <div *ngIf="!addressForm" class="address">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
+                        <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
+                        <app-autocomplete source="countries" name="country" id="country" 
+                            [(ngModel)]="address.country" small="true" (onChange)="countryChanged($event)">
+                        </app-autocomplete>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" id="addressLine1" 
+                            [(ngModel)]="address.addressLine1" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" id="addressLine2" 
+                            [(ngModel)]="address.addressLine2" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group" *ngIf="isUAE()">
+                        <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
+                        <select [(ngModel)]="address.state" id="state" class="form-control form-control-sm" 
+                            (change)="onStateChange($event.target.value)">
+                            <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group" *ngIf="!isUAE()">
+                        <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" id="zip"
+                            [(ngModel)]="address.zipCode" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" id="city"
+                            [(ngModel)]="address.city" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group" *ngIf="isUAE()">
+                        <label for="area">{{ 'COMMON.AREA' | translate }}</label>
+                        <input type="text" class="form-control form-control-sm" id="area"
+                            [(ngModel)]="address.area" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map" *ngIf="showMap">
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            </agm-map>
         </div>
     </div>
 </div>
-<!-- 
-
-<div [formGroup]="addressForm" class="address">
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" formControlName="address" />
-        </div>
-        <div class="form-group city-state">
-        <div class="state">
-            <label>Emirate</label>
-            <select formControlName="state">
-            <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
-            </select>
-        </div>
-        <div class="city">
-            <label>City</label>
-            <input type="text" formControlName="city" />
-        </div>
-        <div class="area" *ngIf="isUAE">
-            <label>Area</label>
-            <input type="text" formControlName="area" />
-        </div>
-        <div class="form-group zip" *ngIf="!isUAE">
-            <label>Zip</label>
-            <input type="text" formControlName="zip" />
-        </div>
-    </div>
-</div> -->

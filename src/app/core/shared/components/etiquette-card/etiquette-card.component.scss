@@ -1,0 +1,24 @@
+@import '../../../../../styles/_variables';
+
+:host {
+    display:block;
+}
+
+.etiquette {
+    padding: 0;
+    background: transparent;
+    border: none;
+    
+    div {
+        padding: 0.7rem 0;
+        text-align: center;
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+    }
+}
+
+.card-col {
+    padding-left: 0;
+}

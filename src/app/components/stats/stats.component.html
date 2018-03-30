@@ -2,21 +2,24 @@
     <div class="statistics">
         <div class="row">
             <div class="col col-lg-4">
-                <div class="card card-stats">
-                    <div class="card-body">
-                        <div class="card-title">Registered customers</div>
-                        <h2>{{customersCount}}</h2>
+                <app-etiquette-card image="/assets/images/customers.png" background="#fdbc00">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="card-title">Registered customers</div>
+                            <h2 [style.color]="'#fdbc00'">{{customersCount}}</h2>
+                        </div>
                     </div>
-                </div>
-                <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
-            
-                <div class="card card-stats">
-                    <div class="card-body">
-                        <div class="card-title">Revenues from registered customers</div>
-                        <h2>{{totalExpenses}} AED</h2>
+                    <ngx-loading [show]="loadingCustomerCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                </app-etiquette-card>
+                <app-etiquette-card image="/assets/images/revenue.png" background="#0cb3c2">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="card-title">Revenues from customers</div>
+                            <h2 class="cyan">{{totalExpenses}} AED</h2>
+                        </div>
                     </div>
-                </div>
-                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                    <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                </app-etiquette-card>
             </div>
             <div class="col col-lg-8">
                 <app-customer-table [customers]="bestCustomers" small="true" 
@@ -95,21 +98,24 @@
                 </div>
             </div>
             <div class="col col-lg-4">
-                <div class="card card-stats">
-                    <div class="card-body">
-                        <div class="card-title">Using application</div>                    
-                        <h2 >{{customersHasApplicationCount}}</h2>
+                <app-etiquette-card image="/assets/images/smartphone.png" background="#fdbc00" imageWidth="18">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="card-title">Using application</div>                    
+                            <h2 [style.color]="'#fdbc00'">{{customersHasApplicationCount}}</h2>
+                        </div>
                     </div>
-                </div>
-                <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
-                
-                <div class="card card-stats">
-                    <div class="card-body">
-                        <div class="card-title">Revenues from registered customers</div>                    
-                        <h2>{{totalExpenses}} AED</h2>
+                    <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
+                </app-etiquette-card>
+                <app-etiquette-card image="/assets/images/comment.png" background="#0cb3c2">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="card-title">Revenues from customers</div>                    
+                            <h2>{{totalExpenses}} AED</h2>
+                        </div>
                     </div>
-                </div>
-                <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                    <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                </app-etiquette-card>
             </div>
         </div>
     </div>

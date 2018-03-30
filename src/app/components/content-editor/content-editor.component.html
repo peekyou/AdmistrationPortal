@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label class="form-control-sm" for="rewards-color">{{ 'CONTENT.REWARDS_WHEEL_COLOR' | translate }}</label>                           
                                     <input id="rewards-color" [value]="design.rewardsWheelColor"
-                                        [(colorPicker)]="design.rewardsWheelColor" cpPosition="bottom"
+                                        [(colorPicker)]="design.rewardsWheelColor" cpPosition="bottom" cpOutputFormat="rgba"
                                         [style.background]="design.rewardsWheelColor" class="form-control form-control-sm" /> 
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label class="form-control-sm" for="titles-color">{{ 'CONTENT.TITLES_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.titlesColor" [value]="design.titlesColor"
-                                        [style.background]="design.titlesColor" cpPosition="bottom" 
+                                        [style.background]="design.titlesColor" cpPosition="bottom" cpOutputFormat="rgba"
                                         id="titles-color" class="form-control form-control-sm"/>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label class="form-control-sm" for="buttons-color">{{ 'CONTENT.BUTTONS_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.buttonsColor" [value]="design.buttonsColor"
-                                        [style.background]="design.buttonsColor" cpPosition="bottom" 
+                                        [style.background]="design.buttonsColor" cpPosition="bottom" cpOutputFormat="rgba"
                                         id="buttons-color" class="form-control form-control-sm"/>                                
                                 </div>
                             </div>
@@ -53,19 +53,18 @@
                                 <div class="form-group">
                                     <label class="form-control-sm" for="menu-color">{{ 'CONTENT.MENU_BACKGROUND_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.menuBackgroundColor" [value]="design.menuBackgroundColor"
-                                        [style.background]="design.menuBackgroundColor" cpPosition="bottom" 
+                                        [style.background]="design.menuBackgroundColor" cpPosition="bottom" cpOutputFormat="rgba"
                                         id="menu-color" class="form-control form-control-sm"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="button">
                             <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="designF.form"
                                                 loadingValue="{{ 'COMMON.SAVING' | translate }}"
                                                 [subscription]="saveDesignSubscription">
                             </app-submit-button>
                         </div>
-                        <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}"
-                            successMessage="{{ 'CONTENT.SAVE_SUCCESS' | translate }}">
+                        <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
                         </app-alert>
                     </form>
                 </div>
@@ -120,11 +119,79 @@
             <div class="card">
                 <h5 class="card-header">{{ 'CONTENT.CONTACT' | translate }}</h5>                    
                 <div class="card-body">
+                    <form *ngIf="contactPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(contactPage)" novalidate>
+                        <div class="container time-table" *ngIf="contactPage.timeTable">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-4 col-time">{{ 'CONTENT.MORNING' | translate }}</div>
+                                <div class="col-4 col-time">{{ 'CONTENT.AFTERNOON' | translate }}</div>
+                                <div class="col-2">{{ 'CONTENT.NON_STOP' | translate }}</div>
+                            </div>
+                            <div class="row day" *ngFor="let weekDay of weekDays; let i = index">
+                                <div class="col-2">{{weekDay.name}}</div>
+                                <div class="col-time" [ngClass]="contactPage.timeTable[i].nonStop ? 'col-8' : 'col-4'">
+                                    <app-time-range (timeChange)="onTimeChange($event, contactPage)" [day]="weekDay.id"
+                                                    [time]="contactPage.timeTable[i].morningTime" type="morning">
+                                    </app-time-range>
+                                </div>
+                                <div class="col-4 col-time" *ngIf="!contactPage.timeTable[i].nonStop">
+                                    <app-time-range (timeChange)="onTimeChange($event, contactPage)" [day]="weekDay.id"
+                                                    [time]="contactPage.timeTable[i].afternoonTime" typeof="afternoon">
+                                    </app-time-range>
+                                </div>
+                                <div class="col-2">
+                                    <input type="checkbox" name="nonStop" [checked]="contactPage.timeTable[i].nonStop"
+                                            (change)="contactPage.timeTable[i].nonStop = !contactPage.timeTable[i].nonStop" />
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">{{ 'CONTENT.EMPTY_TIMES' | translate }}</small>
+                        </div>
+                                            
+                        <div class="button">
+                            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                                loadingValue="{{ 'COMMON.SAVING' | translate }}" 
+                                                [form]="f.form" [subscription]="savePageSubscription">
+                            </app-submit-button>
+                            <!-- <input type="button" class="btn btn-secondary" value="{{ 'COMMON.CANCEL' | translate }}"
+                                    (click)="cancelPageEdition()" /> -->
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card">
                 <h5 class="card-header">{{ 'CONTENT.LOCATION' | translate }}</h5>                    
                 <div class="card-body">
+                    <form *ngIf="locationPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(locationPage)" novalidate>
+                        <app-address [(ngModel)]="locationPage.address" name="address" showMap="true"></app-address>                            
+                        
+                        <!-- <div class="form-group">
+                                <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
+                                <app-autocomplete source="countries" name="country" id="country"
+                                                    [(ngModel)]="locationPage.address.country">
+                                </app-autocomplete>
+                            </div>
+                        <div class="form-group">
+                            <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                            <input type="text" class="form-control" id="city" name="city"
+                                    [(ngModel)]="locationPage.address.city" />
+                        </div>
+                        <div class="form-group">
+                            <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
+                            <input type="text" class="form-control" id="addressLine1" name="addressLine1"
+                                    [(ngModel)]="locationPage.address.addressLine1" />
+                        </div>
+                        <div class="form-group">
+                            <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
+                            <input type="text" class="form-control" id="addressLine2" name="addressLine2"
+                                    [(ngModel)]="locationPage.address.addressLine2" />
+                        </div> -->
+                        <div class="button">
+                            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
+                                                loadingValue="{{ 'COMMON.SAVING' | translate }}"
+                                                [subscription]="savePageSubscription" [form]="f.form">
+                            </app-submit-button>
+                        </div>
+                    </form>
                 </div>
             </div>                    
         </div>

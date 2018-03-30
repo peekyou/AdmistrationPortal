@@ -11,6 +11,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TreeviewModule } from 'ngx-treeview';
 import { D3Service } from 'd3-ng2-service';
 import { LoadingModule } from 'ngx-loading';
+import { AgmCoreModule } from '@agm/core';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -96,6 +97,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         UserManagementModule,
         UserModule,
         StatsModule,
+        AgmCoreModule.forRoot({ 
+            apiKey: 'AIzaSyD2tHPV7C3ehD5O6CFPryF94GJfwj9ARoc',
+            libraries: ["places"]
+        }),
         RouterModule.forRoot(routes, { 
             preloadingStrategy: PreloadAllModules, 
             useHash: Boolean(history.pushState) === false 

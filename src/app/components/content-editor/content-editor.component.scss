@@ -21,6 +21,11 @@
             color: #fff;
         }
     }
+
+    .button {
+        text-align: center;
+        margin-top: 1rem;
+    }
 }
 
 app-mobile-preview {
@@ -54,6 +59,7 @@ app-mobile-preview {
 
 .time-table {
     font-size: 0.85em;
+    padding: 0;
 
     .day {
         padding: .1em 0;
@@ -62,6 +68,11 @@ app-mobile-preview {
     .col-time {
         padding: 0 .7em;
         text-align: center;
+    }
+
+    .col-2 {
+        text-align: center;
+        padding: 0;
     }
 
     /*.col-2 {

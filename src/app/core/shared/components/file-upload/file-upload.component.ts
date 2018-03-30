@@ -108,7 +108,12 @@ export class FileUploadComponent implements OnInit {
 
     deleteFile(file: Picture) {
         this.onDeleteFile.emit(file);
-        this.file = null;
+
+        if (typeof this.file !== 'undefined') {
+            this._file = null;
+            this.fileChange.emit(this._file);
+        }
+
         for (let i = 0; this.files && i < this.files.length; i++) {
             if (this.files[i].id === file.id) {
                 this.totalFileSize -= file.size / 1024 / 1024;

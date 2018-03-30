@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Page, CallOption, WeekDay } from './page';
 import { ContentEditorService } from './content-editor.service';
 import { PageNotifierService } from './page-notifier.service';
@@ -53,6 +54,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     }
 
     constructor(
+        private fb: FormBuilder,
         private service: ContentEditorService, 
         private notifier: PageNotifierService,
         private modalService: NgbModal
@@ -148,20 +150,6 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                 console.log(err); 
             });
     }
-
-    // selectPage(page: Page) {
-    //     if (this.selectedPage) {
-    //         this.selectedPage.selected = false;
-    //     }
-
-    //     this.selectedPage = page;
-    //     this.selectedPage.selected = true;
-    // }
-    
-    // editContent(page: Page) {
-    //     this.oldSelectedPage = Object.assign({}, page);
-    //     this.setPageEdition(page);
-    // }
 
     orderChanged(page: Page, index: number) {
         this.customPages.forEach((p: Page, i: number) => p.order = i + 1);
@@ -303,9 +291,4 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             }
         }
     }
-
-    // private setPageEdition(page: Page) {
-    //     this.selectPage(page);
-    //     this.selectedPage.editing = true;
-    // }
 }
