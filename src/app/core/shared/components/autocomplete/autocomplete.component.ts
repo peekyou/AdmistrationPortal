@@ -122,13 +122,12 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
     // in this case we're checking if the json parsing has passed or failed from the onChange method
     validate(control: FormControl) {
         // The [required] validator will check presence
-        if (!control.value) {
+        if (!control.value || !this.values || this.values.length === 0) {
             return null;
         }
-
         var isValid = false;
-        if (control.value.name) {
-            isValid = this.findLookupByName(control.value.name) != null;
+        if (control.value.id) {
+            isValid = this.findLookupById(control.value.id) != null;
         }
         if (!isValid) {
             return {

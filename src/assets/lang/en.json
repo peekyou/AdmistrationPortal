@@ -180,6 +180,9 @@
         "AGE_PIE": "Age segmentation",
         "GROUP_BAR_CHART": "Segmented expenses chart",
         "EXPENSES_LINE_CHART": "Revenue chart",
-        "BEST_CUSTOMERS": "Best customers"
+        "BEST_CUSTOMERS": "Best customers",
+        "REGISTERED_CUSTOMERS": "Registered customers",
+        "REVENUES": "Revenues from customers",
+        "USING_APPLICATION": "Using application"
     }
 }

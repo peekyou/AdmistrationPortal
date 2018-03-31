@@ -115,7 +115,6 @@
         "CONTACT": "Contact",
         "SHOP": "Description de votre magasin",
         "LOCATION": "Adresse",
-        "SLOGAN": "Slogan",
         "CREATE_PAGE": "Créer une page",
         "CREATE_PAGE_UNDER": "sous",
         "CALL_TEXT": "Texte appel",
@@ -181,6 +180,9 @@
         "AGE_PIE": "Age segmentation",
         "GROUP_BAR_CHART": "Graphe des dépenses segmenté",
         "EXPENSES_LINE_CHART": "Graphe des dépenses",
-        "BEST_CUSTOMERS": "Meilleurs clients"
+        "BEST_CUSTOMERS": "Meilleurs clients",
+        "REGISTERED_CUSTOMERS": "Clients enregistrés",
+        "REVENUES": "Revenus",
+        "USING_APPLICATION": "Utilisent l'application"
     }
 }

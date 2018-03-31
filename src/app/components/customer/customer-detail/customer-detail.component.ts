@@ -67,7 +67,7 @@ export class CustomerDetailComponent implements OnInit {
                 lastname: this.customer.lastname,
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
-                languages: this.customer.languages,
+                // languages: this.customer.languages,
                 birthdate: this.customer.birthdate,
                 comment: this.customer.comment
             });

@@ -5,7 +5,7 @@
                 <app-etiquette-card image="/assets/images/customers.png" background="#fdbc00">
                     <div class="card card-stats">
                         <div class="card-body">
-                            <div class="card-title">Registered customers</div>
+                            <div class="card-title">{{ 'STATS.REGISTERED_CUSTOMERS' | translate }}</div>
                             <h2 [style.color]="'#fdbc00'">{{customersCount}}</h2>
                         </div>
                     </div>
@@ -14,7 +14,7 @@
                 <app-etiquette-card image="/assets/images/revenue.png" background="#0cb3c2">
                     <div class="card card-stats">
                         <div class="card-body">
-                            <div class="card-title">Revenues from customers</div>
+                            <div class="card-title">{{ 'STATS.REVENUES' | translate }}</div>
                             <h2 class="cyan">{{totalExpenses}} AED</h2>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                 <app-etiquette-card image="/assets/images/smartphone.png" background="#fdbc00" imageWidth="18">
                     <div class="card card-stats">
                         <div class="card-body">
-                            <div class="card-title">Using application</div>                    
+                            <div class="card-title">{{ 'STATS.USING_APPLICATION' | translate }}</div>                    
                             <h2 [style.color]="'#fdbc00'">{{customersHasApplicationCount}}</h2>
                         </div>
                     </div>
@@ -110,11 +110,10 @@
                 <app-etiquette-card image="/assets/images/comment.png" background="#0cb3c2">
                     <div class="card card-stats">
                         <div class="card-body">
-                            <div class="card-title">Revenues from customers</div>                    
-                            <h2>{{totalExpenses}} AED</h2>
+                            <div class="card-title">{{ reviewsAverage.totalCount }} {{ 'TOOLBAR.REVIEWS' | translate }}</div>                    
                         </div>
                     </div>
-                    <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+                    <ngx-loading [show]="loadingReviewsAverage" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
                 </app-etiquette-card>
             </div>
         </div>

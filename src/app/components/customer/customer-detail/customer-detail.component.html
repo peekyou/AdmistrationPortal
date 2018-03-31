@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <app-circle-progress [showSubtitle]="false"
-                                [title]="customer.totalPoints - customer.currentPoints" 
+                                [title]="(customer.totalPoints - customer.currentPoints)" 
                                 backgroundColor="#0cb3c2"
                                 backgroundOpacity=1
                                 backgroundStroke="#000000"
@@ -95,8 +95,8 @@
         </div>
     </div>
     <div class="row" *ngIf="customer">
-        <div class="col-12 col-lg-7">
-            <div class="card" *ngIf="customer && customer.expenses">
+        <div class="col-12 col-lg-7" *ngIf="customer.expenses && customer.expenses.length > 1">
+            <div class="card">
                 <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
                 <div class="card-body">
                     <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"

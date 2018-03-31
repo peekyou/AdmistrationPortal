@@ -63,7 +63,13 @@ export class GroupBarChartComponent implements OnInit {
         if (this.isGroupedChart()) {
             this.dataKeys = [];
             var data = <GroupBarChartData[]>this._data;
-            data[0].details.forEach(s => this.dataKeys.push(s.label));
+            data.forEach(d => {
+                d.details.forEach(s => { 
+                    if (this.dataKeys.indexOf(s.label) === -1) {
+                        this.dataKeys.push(s.label);
+                    }
+                });
+            });
         }
     }
 
@@ -135,7 +141,15 @@ export class GroupBarChartComponent implements OnInit {
 
         var yDomainFn = (d) => {
             if (this.isGroupedChart()) {
-                return d3.max(keys, function(key) { return d.details.filter(x => x.label == key)[0].value; });
+                return d3.max(keys, function(key) { 
+                    var res = d.details.filter(x => x.label == key);
+                    if (!res || res.length == 0) {
+                        return null;
+                    }
+                    else {
+                        return res[0].value
+                    }
+                });
             }
             return d.value;
         }
@@ -169,7 +183,7 @@ export class GroupBarChartComponent implements OnInit {
                     var item = d.details.filter(x => x.label == key)[0];
                     return {
                         key: key, 
-                        value: item.value,
+                        value: item ? item.value : null,
                         label: d.label + " " + key
                     }; 
                 }); })
@@ -229,7 +243,8 @@ export class GroupBarChartComponent implements OnInit {
                     .style("opacity", .9)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
-
+                    console.log(d3.event.pageX);
+                    
                     tooltip.select("strong").text(d.label); 
                     tooltip.select("#value").text(d.value + " " + this.currency);                    
                 })

@@ -10,6 +10,8 @@ import { BarChartData, GroupBarChartData } from '../../core/shared/components/gr
 import { PieChartData } from '../../core/shared/components/pie-chart/pie-chart';
 import { Customer, CustomerExpense } from '../customer/customer';
 import { SearchFilter } from '../../core/models/search-filter';
+import { ReviewService } from '../review/review.service';
+import { ReviewsAverage } from '../review/review';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -42,16 +44,19 @@ export class StatsComponent implements OnInit {
     loadingCustomerHasApplicationCount: boolean = false;
     expenses: CustomerExpense[];
     getExpensesSubscription: Subscription;
+    reviewsAverage: ReviewsAverage;
+    loadingReviewsAverage: boolean = false;
     
     constructor(
         element: ElementRef,
         private service: StatsService,
         private translation: TranslationService,
         private searchService: SearchService,
-        private customerService: CustomerService) { 
+        private customerService: CustomerService,
+        private reviewService: ReviewService) { 
+
             searchService.searchFilter$.subscribe(
                 searchFilter => { 
-                    console.log(searchFilter.from);
                     this.reload(searchFilter);
                 }
             );
@@ -140,6 +145,7 @@ export class StatsComponent implements OnInit {
         this.loadingTotalExpenses = true;
         this.loadingBestCustomer = true;
         this.loadingCustomerHasApplicationCount = true;
+        this.loadingReviewsAverage = true;
         this.customerService.getCount({ dateFilter: searchFilter })
             .subscribe(c => {
                 this.customersCount = c;
@@ -162,6 +168,12 @@ export class StatsComponent implements OnInit {
             .subscribe(c => {
                 this.customersHasApplicationCount = c;
                 this.loadingCustomerHasApplicationCount = false;
+            });
+
+        this.reviewService.getAverage()
+            .subscribe(res => {
+                this.reviewsAverage = res;
+                this.loadingReviewsAverage = false;
             });
     }
 

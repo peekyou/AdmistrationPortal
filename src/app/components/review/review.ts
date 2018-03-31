@@ -10,3 +10,15 @@
     rating3Label: string;
     rating3: number;
 }
+
+export class ReviewsAverage
+{
+    totalCount: number;
+    rating1Label: string;
+    rating1Average: number;
+    rating2Label: string;
+    rating2Average: number;
+    rating3Label: string;
+    rating3Average: number;
+    allRatingsAverage: number
+}
