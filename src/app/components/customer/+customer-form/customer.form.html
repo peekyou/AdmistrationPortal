@@ -1,7 +1,7 @@
 <div *ngIf="form" [ngClass]="{'small-height': modal}">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
         <div class="row">
-            <div class="col">
+            <div class="col-5">
                 <div class="form-group">
                     <label for="gender">{{ 'COMMON.GENDER' | translate }}*</label>
                     <br />                        
@@ -68,7 +68,7 @@
                     <textarea class="form-control form-control-sm" id="comment" name="comment"  ows="5" formControlName="comment"></textarea>
                 </div>              
             </div>
-            <div class="col">
+            <div class="col-7">
                 <div class="card card-languages">
                     <div class="card-body">
                         <label for="languages">{{ 'COMMON.LANGUAGES' | translate }}</label>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 
-                <app-address [group]="form.controls.address" hideCountry="true"></app-address>
+                <app-address [group]="form.controls.address" hideCountry="true" cardPadding=".85rem"></app-address>
             </div>
         </div>
         <div class="row">

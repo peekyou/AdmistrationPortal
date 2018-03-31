@@ -16,6 +16,8 @@ export class UserService {
     private permissions: string[];
     private username: string;
     private userId: string;
+    private countryCode: string;
+    private systemCustomerId: string;
     private accessibleMerchants: MerchantInfo;
     public token: string = null;
     
@@ -78,6 +80,22 @@ export class UserService {
             this.userId = claims[Claims.Profile + '/UserId'];
         }
         return this.userId;
+    }
+
+    getSystemCustomerId(): string {
+        if (this.token && !this.systemCustomerId) {
+            var claims = parseJwt(this.token);
+            this.systemCustomerId = claims[Claims.Profile + '/SystemCustomerId'];
+        }
+        return this.systemCustomerId;
+    }
+
+    getCountryCode(): string {
+        if (this.token && !this.countryCode) {
+            var claims = parseJwt(this.token);
+            this.countryCode = claims[Claims.Profile + '/CountryCode'];
+        }
+        return this.countryCode;
     }
 
     hasPermission(permission: string): boolean {

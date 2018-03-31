@@ -23,8 +23,10 @@ export class CustomerNewModal {
             .create(customer)
             .subscribe(
                 id => {
-                    this.activeModal.close();
-                    this.router.navigate(['/customers', id]);
+                    if (id) {
+                        this.activeModal.close();
+                        this.router.navigate(['/customers', id]);
+                    }
                 },
                 err => { 
                     this.error = true;

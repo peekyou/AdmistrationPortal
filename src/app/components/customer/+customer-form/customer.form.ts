@@ -52,6 +52,8 @@ export class CustomerForm implements OnInit {
                 city: [null],
                 area: [null],
                 zipCode: [null],
+                latitude: [null],
+                longitude: [null]
             }),
             receiveSms: [true],
             comment: [null],
@@ -88,10 +90,12 @@ export class CustomerForm implements OnInit {
                 addressLine1: this.form.value.address.addressLine1,
                 addressLine2: this.form.value.address.addressLine2,
                 city: this.form.value.address.city,
-                country: { id: 'AE' },
+                country: this.form.value.address.country,
                 area: this.form.value.address.area,
                 zipCode: this.form.value.address.zipCode,
-                state: this.form.value.address.state
+                state: this.form.value.address.state,
+                latitude: this.form.value.address.latitude,
+                longitude: this.form.value.address.longitude
             }
         };
 

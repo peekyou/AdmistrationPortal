@@ -1,5 +1,5 @@
 <div class="card card-address">
-    <div class="card-body">
+    <div class="card-body" [style.padding]="cardPadding">
         
         <div class="form-group">
             <label for="address">{{ 'COMMON.ADDRESS' | translate }}</label>
@@ -110,7 +110,7 @@
         </div>
         
         <div class="map" *ngIf="showMap">
-            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapClick)="onChoseLocation($event)">
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
             </agm-map>
         </div>

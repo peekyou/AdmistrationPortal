@@ -1,8 +1,5 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Page, CallOption, WeekDay } from './page';
-import { ContentEditorService } from './content-editor.service';
-import { PageNotifierService } from './page-notifier.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,9 +8,11 @@ import { DeleteModal } from '../../core/shared/modals/delete.modal';
 import { MerchantDesign } from '../../core/models/merchantDesign';
 import { guid } from '../../core/helpers/utils';
 import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
+import { Page, CallOption, WeekDay } from './page';
+import { ContentEditorService } from './content-editor.service';
+import { PageNotifierService } from './page-notifier.service';
 
 @Component({
-    selector: 'content-editor',
     templateUrl: './content-editor.component.html',
     styleUrls: ['./content-editor.component.scss'],
     providers: [PageNotifierService]
@@ -33,11 +32,34 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     saveDesignSubscription: Subscription;
     totalFileSize: number = 0;
     error: boolean = null;
+    
+    @ViewChild("mobile", { read: ElementRef })
+    public mobileElementRef: ElementRef;
+    
+    @ViewChild("container")
+    public containerElementRef: ElementRef;
 
     @HostListener("window:scroll", [])
     onWindowScroll() {
         let n = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;        
-        this.scrollOffset = n + "px";
+        var mobileHeight = this.mobileElementRef.nativeElement.offsetHeight;
+        var containerHeight = this.containerElementRef.nativeElement.offsetHeight;
+        
+        // Get availabe space on screen (50px = header height approx)
+        var screnHeight = window.screen.height - 50;
+        var offset = n - (mobileHeight - screnHeight);
+        
+        if (n + screnHeight > containerHeight) {
+            return;
+        }
+        else if (offset > 0) {
+            this.scrollOffset = offset + "px";
+        }
+        else {
+            this.scrollOffset = '0px';
+        }
+        console.log(n);
+        console.log(containerHeight);
     }
 
     // @HostListener allows us to also guard against browser refresh, close, etc.

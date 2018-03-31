@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" #container>
     <div class="row content-editor">
         <div class="col">
             <div class="card">
@@ -51,10 +51,10 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="form-control-sm" for="menu-color">{{ 'CONTENT.MENU_BACKGROUND_COLOR' | translate }}</label>                                
+                                    <!-- <label class="form-control-sm" for="menu-color">{{ 'CONTENT.MENU_BACKGROUND_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.menuBackgroundColor" [value]="design.menuBackgroundColor"
                                         [style.background]="design.menuBackgroundColor" cpPosition="bottom" cpOutputFormat="rgba"
-                                        id="menu-color" class="form-control form-control-sm"/>
+                                        id="menu-color" class="form-control form-control-sm"/> -->
                                 </div>
                             </div>
                         </div>
@@ -163,28 +163,6 @@
                 <div class="card-body">
                     <form *ngIf="locationPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(locationPage)" novalidate>
                         <app-address [(ngModel)]="locationPage.address" name="address" showMap="true"></app-address>                            
-                        
-                        <!-- <div class="form-group">
-                                <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
-                                <app-autocomplete source="countries" name="country" id="country"
-                                                    [(ngModel)]="locationPage.address.country">
-                                </app-autocomplete>
-                            </div>
-                        <div class="form-group">
-                            <label for="city">{{ 'COMMON.CITY' | translate }}</label>
-                            <input type="text" class="form-control" id="city" name="city"
-                                    [(ngModel)]="locationPage.address.city" />
-                        </div>
-                        <div class="form-group">
-                            <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
-                            <input type="text" class="form-control" id="addressLine1" name="addressLine1"
-                                    [(ngModel)]="locationPage.address.addressLine1" />
-                        </div>
-                        <div class="form-group">
-                            <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
-                            <input type="text" class="form-control" id="addressLine2" name="addressLine2"
-                                    [(ngModel)]="locationPage.address.addressLine2" />
-                        </div> -->
                         <div class="button">
                             <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
                                                 loadingValue="{{ 'COMMON.SAVING' | translate }}"
@@ -196,155 +174,10 @@
             </div>                    
         </div>
         <div class="col">
-            <app-mobile-preview ></app-mobile-preview>
+            <app-mobile-preview #mobile [style.top]="scrollOffset"></app-mobile-preview>
         </div>
     </div>
 </div>
-<!-- <div class="row content-editor">
-    <div class="col-lg">
-        <app-page-header (onEdit)="editContent($event)" [page]="homePage" cssClass="home-header"></app-page-header>
-
-        <div class="list-group" dnd-sortable-container [sortableData]="customPages">
-            <app-page-header *ngFor="let page of customPages; let i = index"
-                                (onEdit)="editContent($event)" [page]="page"
-                                canCreate="true" class="custom-page"
-                                dnd-sortable [sortableIndex]="i"
-                                (onDropSuccess)="orderChanged($event, i)">
-            </app-page-header>
-        </div>
-        <app-page-create *ngIf="customPages && customPages.length > 0" 
-                         [level]="level" [numbering]="customPages?.length + 1">
-        </app-page-create>
-
-        <app-page-header (onEdit)="editContent($event)" [page]="locationPage" cssClass="location-header"></app-page-header>
-        <app-page-header (onEdit)="editContent($event)" [page]="contactPage" cssClass="contact-header"></app-page-header>
-    </div>
-
-    <div class="col-lg-5">
-        <div *ngIf="selectedPage">
-            <div *ngIf="selectedPage?.typeId == 4 || selectedPage?.typeId == 5">
-                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="New page"
-                               [(ngModel)]="selectedPage.title" #title="ngModel" required />
-                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
-                            Title is required
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <ckeditor [(ngModel)]="selectedPage.content" [config]="ckeditorConfig"
-                                  name="content" debounce="500" (change)="onChange($event)">
-                        </ckeditor>
-                    </div>
-                    <div class="form-group">
-                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
-                                           loadingValue="{{ 'COMMON.SAVING' | translate }}"
-                                           [subscription]="savePageSubscription" [form]="f.form">
-                        </app-submit-button>
-                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()"/>
-                        <input type="button" class="btn btn-danger" value="Delete" (click)="openDeleteModal()" />
-                    </div>
-                </form>
-            </div>
-
-            <div *ngIf="selectedPage === locationPage">
-                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Find us"
-                               [(ngModel)]="selectedPage.title" #title="ngModel" required />
-                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
-                            Title is required
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                            <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
-                            <app-autocomplete source='countries' name="country" id="country"
-                                             [(ngModel)]="selectedPage.address.country">
-                            </app-autocomplete>
-                        </div>
-                    <div class="form-group">
-                        <label for="city">{{ 'COMMON.CITY' | translate }}</label>
-                        <input type="text" class="form-control" id="city" name="city"
-                               [(ngModel)]="selectedPage.address.city" />
-                    </div>
-                    <div class="form-group">
-                        <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
-                        <input type="text" class="form-control" id="addressLine1" name="addressLine1"
-                                [(ngModel)]="selectedPage.address.addressLine1" />
-                    </div>
-                    <div class="form-group">
-                        <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
-                        <input type="text" class="form-control" id="addressLine2" name="addressLine2"
-                                [(ngModel)]="selectedPage.address.addressLine2" />
-                    </div>
-
-                    <div class="form-group">
-                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
-                                           loadingValue="{{ 'COMMON.SAVING' | translate }}"
-                                           [subscription]="savePageSubscription" [form]="f.form">
-                        </app-submit-button>
-                        <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelPageEdition()" />
-                    </div>
-                </form>
-            </div>
-
-            <div *ngIf="selectedPage === contactPage">
-                <form class="form" #f="ngForm" (ngSubmit)="f.valid && savePage()" novalidate>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Contact & Timings"
-                               [(ngModel)]="contactPage.title" #title="ngModel" required />
-                        <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
-                            Title is required
-                        </div>
-                    </div>
-                    
-                    <div class="container time-table" *ngIf="contactPage.timeTable">
-                        <div class="row">
-                            <div class="col-2"></div>
-                            <div class="col-4 col-time">{{ 'CONTENT.MORNING' | translate }}</div>
-                            <div class="col-4 col-time">{{ 'CONTENT.AFTERNOON' | translate }}</div>
-                            <div class="col-2">{{ 'CONTENT.NON_STOP' | translate }}</div>
-                        </div>
-                        <div class="row day" *ngFor="let weekDay of weekDays; let i = index">
-                            <div class="col-2">{{weekDay.name}}</div>
-                            <div class="col-time" [ngClass]="contactPage.timeTable[i].nonStop ? 'col-8' : 'col-4'">
-                                <app-time-range (timeChange)="onTimeChange($event)" [day]="weekDay.id"
-                                                [time]="contactPage.timeTable[i].morningTime" type="morning">
-                                </app-time-range>
-                            </div>
-                            <div class="col-4 col-time" *ngIf="!contactPage.timeTable[i].nonStop">
-                                <app-time-range (timeChange)="onTimeChange($event)" [day]="weekDay.id"
-                                                [time]="contactPage.timeTable[i].afternoonTime" typeof="afternoon">
-                                </app-time-range>
-                            </div>
-                            <div class="col-2">
-                                <input type="checkbox" name="nonStop" [checked]="contactPage.timeTable[i].nonStop"
-                                       (change)="contactPage.timeTable[i].nonStop = !contactPage.timeTable[i].nonStop" />
-                            </div>
-                        </div>
-                        <small class="form-text text-muted">{{ 'CONTENT.EMPTY_TIMES' | translate }}</small>
-                    </div>
-                                      
-                    <div class="form-group">
-                        <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
-                                           loadingValue="{{ 'COMMON.SAVING' | translate }}" 
-                                           [form]="f.form" [subscription]="savePageSubscription">
-                        </app-submit-button>
-                        <input type="button" class="btn btn-secondary" value="{{ 'COMMON.CANCEL' | translate }}"
-                               (click)="cancelPageEdition()" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg">
-        <div *ngIf="selectedPage && selectedPage !== contactPage">
-            <file-upload [files]="selectedPage.pictures" [totalFileSize]="totalFileSize"
-                         [onFileUpload]="addPageFile" (onDeleteFile)="deleteFile($event)"></file-upload>
-        </div>
-    </div>
-</div> -->
 <div>
     <ngx-loading [show]="loading"></ngx-loading>
 </div>

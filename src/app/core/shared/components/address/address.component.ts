@@ -42,6 +42,7 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     
     @Input() showMap = false;
     @Input() hideCountry = false;
+    @Input() cardPadding = null;
     @Input('group') public addressForm: FormGroup;
     // private addressForm: FormGroup;
     
@@ -102,6 +103,12 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         }
     }
 
+    onChoseLocation(location) {
+        this.latitude = location.coords.lat;
+        this.longitude = location.coords.lng;
+        this.setFormLatLong();
+    }
+
     private setCurrentPosition() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -122,6 +129,7 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    console.log(place);
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
@@ -143,6 +151,8 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         var area: string = null;
         var state: string = null;
         var country: Lookup = null;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
 
         for (var i = 0; i < place.address_components.length; i++) {
             var placeAddress = place.address_components[i];
@@ -165,6 +175,10 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
             }
         }
         
+        if (!address) {
+            address = place.name;
+        }
+
         if (this.address) {
             this.address.addressLine1 = address;
             this.address.addressLine2 = address2;
@@ -184,12 +198,17 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
             this.addressForm.controls['zipCode'].setValue(zipCode);
             this.addressForm.controls['country'].setValue(country);
         }
+        this.setFormLatLong();
     }
 
     private setFormLatLong() {
         if (this.address) {
             this.address.latitude = this.latitude;
             this.address.longitude = this.longitude;
+        }
+        if (this.addressForm) {
+            this.addressForm.controls['latitude'].setValue(this.latitude);
+            this.addressForm.controls['longitude'].setValue(this.longitude);
         }
     }
 
