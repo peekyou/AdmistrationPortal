@@ -107,10 +107,37 @@
                     </div>
                     <ngx-loading [show]="loadingCustomerHasApplicationCount" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                        
                 </app-etiquette-card>
-                <app-etiquette-card image="/assets/images/comment.png" background="#0cb3c2">
+                <app-etiquette-card *ngIf="reviewsAverage" image="/assets/images/comment.png" background="#0cb3c2">
                     <div class="card card-stats">
                         <div class="card-body">
-                            <div class="card-title">{{ reviewsAverage.totalCount }} {{ 'TOOLBAR.REVIEWS' | translate }}</div>                    
+                            <div>
+                                {{ reviewsAverage.totalCount }} {{ 'TOOLBAR.REVIEWS' | translate }}<br />
+                                <ngb-rating [(rate)]="reviewsAverage.allRatingsAverage" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                                </ngb-rating>
+                            </div>  
+                            <div class="ratings">
+                                <div class="row">
+                                    <div class="col">
+                                        <ngb-rating [(rate)]="reviewsAverage.rating1Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                                        </ngb-rating>
+                                    </div>
+                                    <div class="col">{{reviewsAverage.rating1Label}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ngb-rating [(rate)]="reviewsAverage.rating2Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                                        </ngb-rating>
+                                    </div>
+                                    <div class="col">{{reviewsAverage.rating2Label}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ngb-rating [(rate)]="reviewsAverage.rating3Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                                        </ngb-rating>
+                                    </div>
+                                    <div class="col">{{reviewsAverage.rating3Label}}</div>                                    
+                                </div>
+                            </div>                  
                         </div>
                     </div>
                     <ngx-loading [show]="loadingReviewsAverage" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
@@ -119,3 +146,11 @@
         </div>
     </div>
 </div>
+
+<ng-template #averageTemplate let-fill="fill">
+    <span *ngIf="fill === 100" class="average-star filled">&#9733;</span>
+    <span *ngIf="fill === 0" class="average-star">&#9733;</span>
+    <span *ngIf="fill < 100 && fill > 0" class="average-star">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+</ng-template>

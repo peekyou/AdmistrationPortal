@@ -44,10 +44,32 @@
             text-align: left;
         }
     }
+
+    .ratings {
+        font-size: 14px;
+    }
 }
 
 .form-check {
     margin-right: 1rem;
+}
+
+.average-star {
+    font-size: 1.3em;
+    color: #b0c4de;
+    position: relative;
+    display: inline-block;
+}
+
+.filled {
+    color: orange;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: orange;
 }
 
 #tooltip {
