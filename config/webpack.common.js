@@ -232,6 +232,7 @@ module.exports = function (options) {
       */
       new HtmlWebpackPlugin({
         template: 'src/index.html',
+        filename: isProd ? 'customer/index.html' : 'index.html',        
         title: METADATA.title,
         chunksSortMode: function (a, b) {
           const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];

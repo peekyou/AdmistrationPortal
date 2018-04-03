@@ -175,6 +175,14 @@ export class CustomerDetailComponent implements OnInit {
         this.location.back();
     }
 
+    sendApplicationSms() {
+        this.service.sendApplicationSms(this.customer.id)
+        .subscribe(
+            res => {  },
+            err => { console.log(err); }
+        );
+    }
+
     clearFormArray = (formArray: FormArray) => {
         while (formArray.length !== 0) {
           formArray.removeAt(0)

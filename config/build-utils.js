@@ -4,8 +4,8 @@ const fs = require('fs');
 const helpers = require('./helpers');
 
 const DEFAULT_METADATA = {
-  title: 'Test Design - AppWards',
-  baseUrl: '/godiva',
+  title: 'Test - AppWards',
+  baseUrl: '/test',
   isDevServer: helpers.isWebpackDevServer(),
   HMR: helpers.hasProcessFlag('hot'),
   AOT: process.env.BUILD_AOT || helpers.hasNpmFlag('aot'),

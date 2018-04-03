@@ -1,91 +1,55 @@
 <div class="row">
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-7">
         <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
             <ngb-tabset>
-                <!-- <ngb-tab title="Points">
+                <ngb-tab title="{{ 'TOOLBAR.CUSTOMERS' | translate }}">
                     <ng-template ngbTabContent>
-                        <div class="form-group">
-                            <label class="col-form-label" for="current-points-min">Current points</label>
-                            <div class="form-inline">
-                                <div>
-                                    <input type="number" min="0" class="form-control" id="current-points-min"
-                                           formControlName="currentPointsMin" placeholder="0" />
-                                    to
-                                    <input type="number" min="0" class="form-control" id="current-points-max"
-                                           formControlName="currentPointsMax" placeholder="10" />
-                                    points
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="cumulated-points-min">Accumulated points</label>
-                            <div class="form-inline">
-                                <div>
-                                    <input type="number" min="0" class="form-control" id="cumulated-points-min"
-                                           formControlName="cumulatedPointsMin" placeholder="0" />
-                                    to
-                                    <input type="number" min="0" class="form-control" id="cumulated-points-max"
-                                           formControlName="cumulatedPointsMax" placeholder="1000" />
-                                    points
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="purchase-amount-min">Accumulated purchase</label>
-                            <div class="form-inline">
-                                <div>
-                                    <input type="number" min="0" class="form-control" id="purchase-amount-min"
-                                           formControlName="purchaseAmountMin" placeholder="0" />
-                                    to
-                                    <input type="number" min="0" class="form-control" id="purchase-amount-max"
-                                           formControlName="purchaseAmountMax" placeholder="1000" />
-                                    AED
-                                </div>
-                            </div>
-                        </div>
-                    </ng-template>
-                </ngb-tab> -->
-                <ngb-tab title="Customer">
-                    <ng-template ngbTabContent>
-                        <!-- <div class="form-group">
-                            <label for="customer-name">Customer name</label>
-                            <input type="text" class="form-control" id="customer-name" formControlName="customerName" />
-                        </div> -->
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="genderM" value="M"
-                                    formControlName="customerGender" class="form-check-input">
+                                <input type="checkbox" id="genderM" value="M"
+                                    formControlName="customerGenderMale" class="form-check-input">
                                 <label for="genderM" class="form-check-label">{{ 'COMMON.GENDER_M' | translate }}</label>
                             </div>
                             <div class="form-check-inline">
-                                <input type="radio" id="genderF" value="F"
-                                    formControlName="customerGender" class="form-check-input">
+                                <input type="checkbox" id="genderF" value="F"
+                                    formControlName="customerGenderFemale" class="form-check-input">
                                 <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
-                            </div>
-                            <div class="form-check-inline">
-                                <input type="radio" id="genderU" value="U"
-                                    formControlName="customerGender" class="form-check-input">
-                                <label for="genderU" class="form-check-label">Both</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <label for="customer-age-from">Age from</label>
-                                    <input type="number" step="1" min="0" max="130" class="form-control" 
-                                           id="customer-age-from" formControlName="customerAgeFrom" />
+                                    <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                                    <select formControlName="receivedPromotion" class="form-control form-control-sm" id="city">
+                                        <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
+                                    </select>
                                 </div>
                                 <div class="col">
-                                    <label for="customer-age-to">Age to</label>
-                                    <input type="number" step="1" min="0" max="130" class="form-control" 
-                                           id="customer-age-to" formControlName="customerAgeTo" />
+                                    <label for="fav-product">{{ 'PROMOTIONS.FAVORITE_PRODUCT' | translate }}</label>
+                                    <select formControlName="receivedPromotion" class="form-control form-control-sm" id="fav-product">
+                                        <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="customer-since">Customer since</label>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="customer-age-from">{{ 'COMMON.AGE' | translate }}</label>
+                                    <input type="number" step="1" min="0" max="130" class="form-control form-control-sm" 
+                                           id="customer-age-from" formControlName="customerAgeFrom" />
+                                </div>
+                                <div class="col">
+                                    <label for="customer-age-to">{{ 'COMMON.TO' | translate }}</label>
+                                    <input type="number" step="1" min="0" max="130" class="form-control form-control-sm" 
+                                            id="customer-age-to" formControlName="customerAgeTo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-since">{{ 'PROMOTIONS.REGISTERED_SINCE' | translate }}</label>
                             <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="customerSince"
+                                <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="customerSince"
                                        id="customer-since" ngbDatepicker #since="ngbDatepicker">
                                 <button class="input-group-addon" (click)="since.toggle()" type="button">
                                     <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
@@ -94,27 +58,21 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col">
-                                    <label for="last-entry-from">Last entry from</label>
-                                </div>
-                                <div class="col">
-                                    <label for="last-entry-to">Last entry to</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
+                                <div class="col pr-0">
+                                    <label for="last-entry-from">{{ 'CUSTOMERS.LAST_ENTRY' | translate }}</label>
                                     <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" formControlName="lastEntryFrom"
-                                               id="last-entry-from" ngbDatepicker #entryFrom="ngbDatepicker">
+                                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="lastEntryFrom"
+                                                id="last-entry-from" ngbDatepicker #entryFrom="ngbDatepicker">
                                         <button class="input-group-addon" (click)="entryFrom.toggle()" type="button">
                                             <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col pr-0">
+                                    <label for="last-entry-to">{{ 'COMMON.TO' | translate }}</label>
                                     <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" formControlName="lastEntryTo"
-                                               id="last-entry-to" ngbDatepicker #entryTo="ngbDatepicker">
+                                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="lastEntryTo"
+                                                id="last-entry-to" ngbDatepicker #entryTo="ngbDatepicker">
                                         <button class="input-group-addon" (click)="entryTo.toggle()" type="button">
                                             <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
                                         </button>
@@ -124,16 +82,61 @@
                         </div>
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Promotion">
+                <ngb-tab title="{{ 'COMMON.POINTS' | translate }}">
                     <ng-template ngbTabContent>
                         <div class="form-group">
-                            <label for="received">Received message</label>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="current-points-min">{{ 'CUSTOMERS.CURRENT_POINTS' | translate }}</label>
+                                    <input type="number" min="0" class="form-control form-control-sm" id="current-points-min"
+                                           formControlName="currentPointsMin" placeholder="0" />
+                                </div>
+                                <div class="col">
+                                    <label for="current-points-max">{{ 'COMMON.TO' | translate }}</label>
+                                    <input type="number" min="0" class="form-control form-control-sm" id="current-points-max"
+                                           formControlName="currentPointsMax" placeholder="10" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="purchase-amount-min">{{ 'PROMOTIONS.EXPENSES' | translate }}</label>
+                                    <input type="number" min="0" class="form-control form-control-sm" id="purchase-amount-min"
+                                        formControlName="purchaseAmountMin" placeholder="0" />
+                                </div>
+                                <div class="col">
+                                    <label for="purchase-amount-max">{{ 'COMMON.TO' | translate }}</label>
+                                    <input type="number" min="0" class="form-control form-control-sm" id="purchase-amount-max"
+                                           formControlName="purchaseAmountMax" placeholder="1000" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="cumulated-points-min">Accumulated points</label>
+                            <div class="form-inline">
+                                <div>
+                                    <input type="number" min="0" class="form-control form-control-sm" id="cumulated-points-min"
+                                           formControlName="cumulatedPointsMin" placeholder="0" />
+                                    to
+                                    <input type="number" min="0" class="form-control form-control-sm" id="cumulated-points-max"
+                                           formControlName="cumulatedPointsMax" placeholder="1000" />
+                                    points
+                                </div>
+                            </div>
+                        </div> -->
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="{{ 'TOOLBAR.PROMOTIONS' | translate }}">
+                    <ng-template ngbTabContent>
+                        <div class="form-group">
+                            <label for="received">{{ 'PROMOTIONS.RECEIVED' | translate }}</label>
                             <select formControlName="receivedPromotion" class="form-control" id="received">
                                 <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="didnt-received">Did not received message</label>
+                            <label for="didnt-received">{{ 'PROMOTIONS.NOT_RECEIVED' | translate }}</label>
                             <select formControlName="didntReceivePromotion" class="form-control" id="didnt-received">
                                 <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
                             </select>
@@ -143,11 +146,34 @@
             </ngb-tabset>
         </form>
     </div>
-    <div class="col col-lg-6">
-        <div class="promotion-result">            
-            Promotion will be sent to <b>{{nbCustomers}}</b> customers
+    <div class="col col-lg-5">
+        <div class="promotion-result">
+            <app-circle-progress *ngIf="totalNbCustomers != null && nbRecipients != null" 
+                subtitle="{{ 'PROMOTIONS.RECIPIENTS' | translate }}"
+                [title]="nbRecipients" 
+                backgroundColor="#0cb3c2"
+                backgroundOpacity=1
+                backgroundStroke="#000000"
+                backgroundPadding="10"
+                radius=60
+                space=-7
+                maxPercent=100
+                unitsColor="#ffffff"
+                outerStrokeWidth=7
+                outerStrokeColor="#ffffff"
+                innerStrokeColor="#88d2df"
+                innerStrokeWidth=7
+                titleColor="#ffffff"
+                titleFontSize="35"
+                subtitleColor="#ffffff"
+                subtitleFontSize=15
+                animationDuration=500 
+                [showUnits]=false
+                [percent]="(nbRecipients / totalNbCustomers) * 100">
+            </app-circle-progress>
+            <!-- Promotion will be sent to <b>{{nbCustomers}}</b> customers
             <br />
-            <!-- <button type="button" class="btn btn-link" (click)="details()">See details</button> -->
+            <button type="button" class="btn btn-link" (click)="details()">See details</button> -->
         </div>
     </div>
 </div>

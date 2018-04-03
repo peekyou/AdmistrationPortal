@@ -3,7 +3,7 @@
         <div class="col">
             <div class="card">
                 <h5 class="card-header">{{ 'CONTENT.DESIGN' | translate }}</h5>                    
-                <div class="card-body" *ngIf="design">
+                <div class="card-body">
                     <form class="form" #designF="ngForm" (ngSubmit)="designF.valid && saveDesign()" novalidate>                                
                         <div class="row images">
                             <div class="col">
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div style="text-align: center;margin-top: 1rem;">
-                        <button (click)="createPage()" class="btn btn-info">{{ 'CONTENT.NEW_SECTION' | translate }}</button>
+                        <button (click)="createPage(null)" class="btn btn-info">{{ 'CONTENT.NEW_SECTION' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -120,6 +120,15 @@
                 <h5 class="card-header">{{ 'CONTENT.CONTACT' | translate }}</h5>                    
                 <div class="card-body">
                     <form *ngIf="contactPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(contactPage)" novalidate>
+                        <div class="form-group">
+                            <label for="phone">{{ 'COMMON.PHONE' | translate }}*</label>
+                            <input type="text" [(ngModel)]="contactPage.data1" class="form-control" 
+                                    #phone="ngModel" id="phone" name="phone" />
+                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="invalid-field">
+                                {{ 'FORM.REQUIRED' | translate }}
+                            </div>
+                        </div>
+                        
                         <div class="container time-table" *ngIf="contactPage.timeTable">
                             <div class="row">
                                 <div class="col-2"></div>

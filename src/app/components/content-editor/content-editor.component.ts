@@ -21,7 +21,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     loading = false;
     scrollOffset: string = "0px";
     ckeditorConfig: object;
-    design: MerchantDesign;
+    design: MerchantDesign = new MerchantDesign();
     locationPage: Page;
     contactPage: Page;
     pages: Page[];
@@ -58,8 +58,6 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         else {
             this.scrollOffset = '0px';
         }
-        console.log(n);
-        console.log(containerHeight);
     }
 
     // @HostListener allows us to also guard against browser refresh, close, etc.
@@ -108,7 +106,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         this.service
             .getDesign()
             .subscribe(
-                res => this.design = res,
+                res => this.design = res || new MerchantDesign(),
                 err => { console.log(err); }
         );
 

@@ -1,51 +1,66 @@
 <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
     <div class="form-group">
-        <label for="name">Promotion name*</label>
+        <label for="name">{{ 'PROMOTIONS.CAMPAIGN_NAME' | translate }}*</label>
         <input type="text" class="form-control" id="name" formControlName="name" required />
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-field">
             {{ 'FORM.REQUIRED' | translate }}
         </div>
     </div>
-    <div class="form-group form-inline">
-        <label for="dateFrom">From*</label>
-        <div class="input-group pl-0 pl-md-2 col-md-5">
-            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateFrom"
-                   id="dateFrom" ngbDatepicker #from="ngbDatepicker" required>
-            <button class="input-group-addon" (click)="from.toggle()" type="button">
-                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
-            </button>
-            <div *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)" class="invalid-field">
-                {{ 'FORM.INVALID_DATE' | translate }}
+    <div class="row">
+        <div class="col-12 col-lg-4">
+            <div class="form-group">
+                <label for="percentage">{{ 'PROMOTIONS.PERCENTAGE' | translate }}</label>
+                <input type="number" class="form-control form-control-sm" min="0" max="100" id="percentage" formControlName="percentage" />
             </div>
         </div>
-        <label for="dateTo">To*</label>
-        <div class="input-group pl-0 pl-md-2 col-md-5">
-            <input class="form-control" placeholder="yyyy-mm-dd" formControlName="dateTo"
-                   id="dateTo" ngbDatepicker #to="ngbDatepicker" required>
-            <button class="input-group-addon" (click)="to.toggle()" type="button">
-                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
-            </button>
-            <div *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)" class="invalid-field">
-                {{ 'FORM.INVALID_DATE' | translate }}
+        <div class="col-12 col-lg-8">
+            <div class="form-group valid-dates">
+                <div class="row">
+                    <div class="col pl-0">
+                        <label for="dateFrom">{{ 'PROMOTIONS.VALID_FROM' | translate }}*</label>                        
+                    </div>
+                    <div class="col-7 pl-0">
+                        <div class="input-group">
+                            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="dateFrom"
+                                id="dateFrom" ngbDatepicker #from="ngbDatepicker" required>
+                            <button class="input-group-addon" (click)="from.toggle()" type="button">
+                                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                            </button>
+                            <div *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)" class="invalid-field">
+                                {{ 'FORM.INVALID_DATE' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col pl-0">
+                            <label for="dateTo">{{ 'PROMOTIONS.VALID_UNTIL' | translate }}*</label>                        
+                    </div>
+                    <div class="col-7 pl-0">
+                        <div class="input-group">
+                            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="dateTo"
+                                    id="dateTo" ngbDatepicker #to="ngbDatepicker" required>
+                            <button class="input-group-addon" (click)="to.toggle()" type="button">
+                                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                            </button>
+                            <div *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)" class="invalid-field">
+                                {{ 'FORM.INVALID_DATE' | translate }}
+                            </div>
+                        </div>
+                        <div class="invalid-field" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="invalid-field" *ngIf="form.errors">{{ form.errors?.dates | json }}</div>
     </div>
-    
     <div class="form-group">
-        <label for="percentage">Percentage</label>
-        <input type="number" class="form-control" min="0" max="100" id="percentage" formControlName="percentage" />
-    </div>
-
-    <div class="form-group">
-        <label for="details">Sms preview*</label>
-        <textarea class="form-control" id="details" rows="3" formControlName="details" required></textarea>
+        <label for="details">{{ 'PROMOTIONS.MESSAGE' | translate }}*</label>
+        <textarea class="form-control" id="details" rows="4" formControlName="details" required></textarea>
         <div *ngIf="details.invalid && (details.dirty || details.touched)" class="invalid-field">
             {{ 'FORM.REQUIRED' | translate }}
         </div>
-        <small class="form-text text-muted"><b>{{ details.value.length }}</b> characters</small>
-        <small class="form-text text-muted">Max length of one SMS is 160 characters in English and 70 characters in Arabic.</small>
-        <small class="form-text text-muted">Longer message will be splited in chunks and send multiple SMS</small>
+        <small class="form-text text-muted"><b>{{ getSmsCounter().remaining }}</b> {{ 'PROMOTIONS.REMAINING_CHARACTERS' | translate }}</small>
+        <small class="form-text text-muted"><b>{{ getSmsCounter().messages }}</b> {{ 'PROMOTIONS.SMS_NUMBER_SENT' | translate }}</small>
         
         <!-- <small class="form-text text-muted">xx characters remaining in this SMS (too long message will be splited in chunks)</small>
         <small class="form-text text-muted">xx SMS will be sent per customer</small> -->

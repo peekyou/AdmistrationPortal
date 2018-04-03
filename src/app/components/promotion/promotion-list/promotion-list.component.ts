@@ -7,13 +7,15 @@ import { Promotion } from '../promotion';
 import { PagingResponse } from '../../../core/models/paging';
 
 @Component({
+    selector: 'app-promotion-list',
     styleUrls: [ './promotion-list.component.scss' ],
     templateUrl: './promotion-list.component.html'
 })
 export class PromotionListComponent implements OnInit {
     loading = false;
     promotions: PagingResponse<Promotion>;
-
+    currentPage: number = 1;
+    
     constructor(private service: PromotionService) { }
 
     ngOnInit() {
@@ -29,7 +31,7 @@ export class PromotionListComponent implements OnInit {
             );
     }
 
-    onScroll() {
-        console.log('Scroll');
+    pageChanged(page) {
+        this.currentPage = page;
     }
 }

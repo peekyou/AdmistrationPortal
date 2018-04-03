@@ -12,4 +12,10 @@ export class MerchantDesign {
     backgroundImage?: Picture;
     headerImageSrc?: string;
     headerImage?: Picture;
+
+    constructor() {
+        this.logo = null;
+        this.backgroundImage = null;
+        this.headerImage = null;
+    }
 }

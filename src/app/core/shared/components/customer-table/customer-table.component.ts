@@ -75,4 +75,17 @@ export class CustomerTableComponent {
         this.currentPage = page;
         this.onPageChanged.emit(this.currentPage);
     }
+
+    anyCustomer(): boolean {
+        if ((<PagingResponse<Customer>>this._customers).paging) {
+            return (<PagingResponse<Customer>>this._customers).paging.totalCount > 0;
+        }
+        else {
+            return (<Customer[]>this._customers).length > 0;
+        }
+    }
+
+    showPagination(): boolean {
+        return (<PagingResponse<Customer>>this._customers).paging != null;
+    }
 }

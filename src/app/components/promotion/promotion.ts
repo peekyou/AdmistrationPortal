@@ -42,7 +42,7 @@ export class PromotionFilter {
             currentPointsMax: form.currentPointsMax,
             currentPointsMin: form.currentPointsMin,
             customerId: form.customerName,
-            customerGender: form.customerGender == 'U' ? null : form.customerGender,
+            customerGender: PromotionFilter.getGenderFilter(form.customerGenderMale, form.customerGenderFemale),
             customerAgeFrom: form.customerAgeFrom,
             customerAgeTo: form.customerAgeTo,
             customerSince: ngbDateStructToDate(form.customerSince),
@@ -53,5 +53,13 @@ export class PromotionFilter {
             purchaseAmountMin: form.purchaseAmountMin,
             receivedPromotionId: form.receivedPromotion
         };
+    }
+
+    private static getGenderFilter(maleFilter: boolean, femaleFilter: boolean): string {
+        var genderFilter: string = '';
+        if (maleFilter === true) genderFilter += 'M';
+        if (femaleFilter === true) genderFilter += 'F';
+        if (maleFilter === false && femaleFilter === false) genderFilter = null;
+        return genderFilter;
     }
 }

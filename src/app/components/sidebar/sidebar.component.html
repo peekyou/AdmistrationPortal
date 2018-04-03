@@ -36,7 +36,14 @@
                 <a class="list-group-item" data-parent="#sidebar"
                     routerLink="promotions" routerLinkActive="active">
                     <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.PROMOTIONS' | translate }}</span>
+                    <span>&nbsp;{{ 'TOOLBAR.SMS_CAMPAIGNS' | translate }}</span>
+                </a>
+            </div>
+            <div *ngIf="user.hasPermission(promotionsPermission)">
+                <a class="list-group-item" data-parent="#sidebar"
+                    routerLink="email" routerLinkActive="active">
+                    <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                    <span>&nbsp;{{ 'TOOLBAR.EMAIL_CAMPAIGNS' | translate }}</span>
                 </a>
             </div>
             <div *ngIf="user.hasPermission(smsPermission)">

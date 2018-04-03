@@ -1,3 +1,12 @@
 :host {
     display:block;
 }
+
+.valid-dates {
+    text-align: right;
+
+    label {
+        margin-bottom: 0;
+        line-height: 2.5rem;
+    }
+}

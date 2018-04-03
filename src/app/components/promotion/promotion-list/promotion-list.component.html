@@ -1,38 +1,31 @@
-<div class="d-flex justify-content-center">
-    <a routerLink="../new" class="btn btn-info">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</a>
-</div>
-<br />
-
-<div *ngIf="promotions && promotions.paging.itemsCount > 0" 
-     infiniteScrollDistance="1" infiniteScrollThrottle="300"
-     (scrolled)="onScroll()" class="table-responsive">
-    <table class="table table-hover">
+<div *ngIf="promotions && promotions.paging.itemsCount > 0" class="table-responsive">
+    <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th>{{ 'PROMOTIONS.PROMOTION' | translate }}</th>
-                <th>{{ 'PROMOTIONS.PERIOD' | translate }}</th>
-                <th>{{ 'COMMON.CREATED' | translate }}</th>
-                <th>{{ 'COMMON.SENT' | translate }}</th>
-                <th class="w-50">{{ 'COMMON.DETAILS' | translate }}</th>
+                <th>{{ 'PROMOTIONS.HISTORY' | translate }}</th>
+                <th class="w-50">{{ 'PROMOTIONS.MESSAGE' | translate }}</th>
+                <th class="text-align-center">{{ 'PROMOTIONS.TOTAL_RECIPIENTS' | translate }}</th>
+                <th class="text-align-center">{{ 'PROMOTIONS.TOTAL_RECEIVED' | translate }}</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let promotion of promotions.data">
-                <th scope="row">{{promotion?.name}}</th>
-                <td>
-                    From {{promotion?.fromDate | date:'dd-MM-yyyy'}}<br />
-                    To {{promotion?.toDate | date:'dd-MM-yyyy'}}
-                </td>
-                <td>{{promotion?.createdDate | date:'dd-MM-yyyy'}}</td>
-                <td>{{promotion?.nbSmsSent}} sms</td>
+                <th scope="row">
+                    {{promotion?.name}}<br />
+                    <small>{{ 'PROMOTIONS.SENT_ON' | translate }} <b>{{promotion?.createdDate | date:'dd-MM-yyyy'}}</b></small><br />
+                    <small>{{ 'PROMOTIONS.VALID_UNTIL' | translate }} <b>{{promotion?.toDate | date:'dd-MM-yyyy'}}</b></small>
+                </th>
                 <td>{{promotion?.details}}</td>
+                <td class="text-align-center cyan bold">{{promotion?.nbSmsSent}}</td>
+                <td class="text-align-center cyan bold"></td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div *ngIf="promotions && promotions.paging.itemsCount == 0">
-    <h2>{{ 'PROMOTIONS.NO_PROMOTION' | translate }}</h2>
-</div>
+<pagination-controls *ngIf="promotions && promotions.paging.itemsCount > 0" (pageChange)="pageChanged($event)" 
+    autoHide="true" directionLinks="true"
+    previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+</pagination-controls>
 
 <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

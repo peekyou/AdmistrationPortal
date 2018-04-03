@@ -87,5 +87,9 @@ export class CustomerService {
             to: to
         });
     }
+
+    sendApplicationSms(customerId: string): Observable<void> {
+        return this.http.post(this.api + '/' + customerId + '/sms/send', {});
+    }
 }
 

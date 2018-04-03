@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-sm table-hover" *ngIf="customers && ((customers.paging && customers.paging.totalCount > 0) || customers.length > 0)">
+    <table class="table table-sm table-hover" *ngIf="customers && anyCustomer()">
         <thead class="thead-dark">
             <tr>
                 <th scope="col" class="column-name">{{ title }}</th>
@@ -29,7 +29,7 @@
                 </th>
                 <td>{{ customer.mobileNumber }}</td>
                 <td>{{ customer.email }}</td>
-                <td *ngIf="!small">{{ customer.birthDate | date: 'dd-MM-yyyy' }}</td>
+                <td *ngIf="!small">{{ customer.birthdate | date: 'dd-MM-yyyy' }}</td>
                 <td *ngIf="!small">
                     <span *ngIf="customer.address">{{ customer.address.city }}</span>
                 </td>
@@ -43,7 +43,7 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls *ngIf="customers && customers.paging" (pageChange)="pageChanged($event)" 
+    <pagination-controls *ngIf="customers && showPagination()" (pageChange)="pageChanged($event)" 
         autoHide="true" directionLinks="true"
         previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
     </pagination-controls>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Promotion } from '../../promotion';
+import { SmsCounter } from '../../../../core/helpers/smsCounter';
 
 @Component({
     selector: 'promotion-info',
@@ -9,7 +10,7 @@ import { Promotion } from '../../promotion';
     templateUrl: './promotion-info.component.html'
 })
 export class PromotionInfoComponent implements OnInit {
-    smsTemplate: string = '{0}{1}{2}{3}.';
+    smsTemplate: string = '{0}{1}{2}{3}';
     smsSentence: string = 'Your store is pleased to propose a promotion';
     smsPercentageTemplate: string = ' of {0}%';
     smsDateTemplate: string = ' from {0} to {1}';
@@ -46,6 +47,10 @@ export class PromotionInfoComponent implements OnInit {
                 details: this.buildSmsTemplate(this.name.value, value, this.dateFrom.value, this.dateTo.value)
             })
         );
+    }
+
+    getSmsCounter() {
+        return SmsCounter.count(this.details.value);
     }
 
     private buildSmsTemplate(name: string, percentage: string, dateFrom: any, dateTo: any): string {
