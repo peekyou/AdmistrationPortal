@@ -16,7 +16,10 @@ export class TranslationService {
         this.translate
             .get([
                 'LOGIN.INVALID_CREDENTIALS',
-                'COMMON.AUTOCOMPLETE_PLACEHOLDER'
+                'COMMON.AUTOCOMPLETE_PLACEHOLDER',
+                'PROMOTIONS.SELECT_CITIES',
+                'COMMON.SELECT_ALL',
+                'COMMON.UNSELECT_ALL'
             ])
             .subscribe(res => {
                 this.translations = res;

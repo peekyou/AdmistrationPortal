@@ -33,7 +33,13 @@
                 </div>
                 <div class="form-group">
                     <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}*</label>
-                    <input type="text" class="form-control form-control-sm" id="mobile" formControlName="mobile" required />
+                    <!-- <input type="text" class="form-control form-control-sm" id="mobile" formControlName="mobile" required /> -->
+                    <!-- <int-phone-prefix [locale]="'fr'" formControlName="mobile"></int-phone-prefix> -->
+                    <international-phone-number formControlName="mobile" [required]="true"
+                        [small]="true" placeholder="{{ 'CUSTOMERS.MOBILE_PLACEHOLDER' | translate }}" 
+                        [maxlength]="20" [defaultCountry]="!isEdit && user.getCountryCode().toLowerCase()">
+                    </international-phone-number>
+                    
                     <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="invalid-field">
                         <div *ngIf="mobile.errors.required">
                             {{ 'FORM.REQUIRED' | translate }}
@@ -65,8 +71,16 @@
                 </div>  
                 <div class="form-group" *ngIf="isEdit">
                     <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
-                    <textarea class="form-control form-control-sm" id="comment" name="comment"  ows="5" formControlName="comment"></textarea>
-                </div>              
+                    <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
+                </div>      
+                <div class="form-group" *ngIf="!isEdit">
+                    <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+                    <input type="number" min="0" class="form-control form-control-sm" id="amount"
+                            placeholder="AED" formControlName="amount" required>
+                    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>    
             </div>
             <div class="col-7">
                 <div class="card card-languages">
@@ -98,23 +112,10 @@
                 <app-address [group]="form.controls.address" hideCountry="true" cardPadding=".85rem"></app-address>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group" *ngIf="!isEdit">
-                    <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
-                    <input type="number" min="0" class="form-control form-control-sm" id="amount"
-                            placeholder="AED" formControlName="amount" required>
-                    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
-                        {{ 'FORM.REQUIRED' | translate }}
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <label *ngIf="!isEdit" style="display:block">&nbsp;</label>                    
-                <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="form"
-                    loadingValue="{{ 'COMMON.SAVING' | translate }}" [subscription]="submitSubscription">
-                </app-submit-button>
-            </div>
+        <div class="text-align-center">
+            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="form" buttonClass="btn btn-primary w-30"
+                loadingValue="{{ 'COMMON.SAVING' | translate }}" [subscription]="submitSubscription">
+            </app-submit-button>
         </div>
         <!-- <pre>{{ form.value | json }}</pre> -->
     </form>

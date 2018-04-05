@@ -10,6 +10,7 @@ export class Promotion {
     percentage?: number;
     details?: string;
     nbSmsSent?: number;
+    nbRecipients?: number;
     filter?: PromotionFilter;
 
     constructor() {

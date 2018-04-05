@@ -5,6 +5,7 @@ import { NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
+import { UserService } from '../../user/user.service';
 import { ngbDateStructToDate } from '../../../core/helpers/utils';
 
 @Component({
@@ -25,6 +26,7 @@ export class CustomerForm implements OnInit {
         private fb: FormBuilder, 
         private service: CustomerService, 
         private location: Location,
+        private user: UserService,
         config: NgbDatepickerConfig) {
             var currentDate = new Date();
             config.minDate = {year: 1900, month: 1, day: 1};

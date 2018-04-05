@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: 'content', loadChildren: './components/content-editor#ContentEditorModule' },
     { path: 'promotions', loadChildren: './components/promotion#PromotionModule'},
     { path: 'reviews', loadChildren: './components/review#ReviewModule' },
-    { path: 'mobile-preview', loadChildren: './components/mobile-preview#MobilePreviewModule' },
+    // { path: 'mobile-preview', loadChildren: './components/mobile-preview#MobilePreviewModule' },
     { path: 'sms', loadChildren: './components/sms#SmsModule' },
     { path: 'billing', loadChildren: './components/billing#BillingModule' },
     { path: 'dashboard', loadChildren: './components/stats#StatsModule' },

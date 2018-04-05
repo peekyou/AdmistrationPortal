@@ -3,6 +3,7 @@ import { AuthHttpService } from './core/services/auth-http.service';
 import { LookupService } from './core/services/lookup.service';
 import { TranslationService } from './core/services/translation.service';
 import { SearchService } from './core/services/search.service';
+import { CountryService } from './core/shared/components/intl-phone-number/intl-phone-number.service';
 import { UserService } from './components/user/user.service';
 import { ContentEditorService } from './components/content-editor/content-editor.service'
 import { CustomerService } from './components/customer/customer.service';
@@ -24,6 +25,7 @@ export const APP_PROVIDERS = [
     TranslationService,
     SearchService,
     UserService,
+    CountryService,
     ContentEditorService,
     CustomerService,
     PromotionService,

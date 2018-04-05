@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row promotion-filters">
     <div class="col-12 col-lg-7">
         <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
             <ngb-tabset>
@@ -16,22 +16,21 @@
                                 <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="city">{{ 'COMMON.CITY' | translate }}</label>
-                                    <select formControlName="receivedPromotion" class="form-control form-control-sm" id="city">
-                                        <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="fav-product">{{ 'PROMOTIONS.FAVORITE_PRODUCT' | translate }}</label>
-                                    <select formControlName="receivedPromotion" class="form-control form-control-sm" id="fav-product">
-                                        <option *ngFor="let p of promotions" [ngValue]="p.id">{{p.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- <div class="form-group">
+                            <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                            <angular2-multiselect [data]="citiesList" [(ngModel)]="selectedCities" 
+                                [settings]="dropdownSettings"
+                                (onSelect)="onItemSelect($event)" 
+                                (onDeSelect)="OnItemDeSelect($event)"
+                                (onSelectAll)="onSelectAll($event)"
+                                (onDeSelectAll)="onDeSelectAll($event)" formControlName="cities"></angular2-multiselect>
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <label for="fav-product">{{ 'PROMOTIONS.FAVORITE_PRODUCT' | translate }}</label>
+                            <select class="form-control form-control-sm" id="fav-product">
+                                <option></option>
+                            </select>
+                        </div> -->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">

@@ -25,6 +25,8 @@
     },
     "COMMON": {
         "SERVER_ERROR": "Une erreur est survenue, essayez plus tard",
+        "SELECT_ALL": "Tout sélectionner",
+        "UNSELECT_ALL": "Tout désélectionner",
         "HOME": "Accueil",
         "FROM": "De",
         "TO": "À",   
@@ -107,7 +109,8 @@
         "TOTAL_SPENT": "Total dépensé",
         "FAVORITE_PRODUCTS": "Produits favoris",
         "POINTS_BALANCE": "",
-        "POINTS_USED": "Points déjà utilisé"
+        "POINTS_USED": "Points déjà utilisé",
+        "MOBILE_PLACEHOLDER": "Numéro de télépone"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",
@@ -158,6 +161,7 @@
         "PERCENTAGE": "Pourcentage",
         "VALID_FROM": "Valide du",
         "VALID_UNTIL": "Valide jusqu'au",
+        "SELECT_CITIES": "Villes",
         "FAVORITE_PRODUCT": "Produit favori",
         "REGISTERED_SINCE": "Client depuis",
         "RECEIVED": "Promotion reçue",

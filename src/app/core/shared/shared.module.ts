@@ -11,6 +11,9 @@ import { NgAutoCompleteModule } from "ng-auto-complete";
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+// import { InternationalPhoneModule } from 'ng4-intl-phone';
+// import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
 import { AlertComponent } from './components/alert/alert.component';
 import { AddressComponent } from './components/address/address.component';
@@ -26,10 +29,13 @@ import { CountryMapComponent } from './components/country-map/country-map.compon
 import { CustomerTableComponent } from './components/customer-table/customer-table.component';
 import { CircleProgressComponent } from './components/circle-progress/circle-progress.component';
 import { EtiquetteCardComponent } from './components/etiquette-card/etiquette-card.component';
+import { PhoneNumberComponent } from './components/intl-phone-number/intl-phone-number.component';
 
 import { AppModal } from './modals/modal';
 import { DeleteModal } from './modals/delete.modal';
 import { EmailCampaignModal } from './modals/email-campaign/email-campaign.modal';
+
+import { OnlyNumberDirective } from '../../directives/only-number.directive';
 
 const MODALS = [
     AppModal,
@@ -50,7 +56,10 @@ const IMPORTS = [
     LoadingModule,
     PipesModule,
     NgxPaginationModule,
-    AgmCoreModule
+    AgmCoreModule,
+    AngularMultiSelectModule,
+    // InternationalPhoneModule,
+    // InternationalPhoneNumberModule
 ];
 
 const DECLARATIONS = [
@@ -67,7 +76,9 @@ const DECLARATIONS = [
     CountryMapComponent,
     CustomerTableComponent,
     CircleProgressComponent,
-    EtiquetteCardComponent
+    EtiquetteCardComponent,
+    PhoneNumberComponent,
+    OnlyNumberDirective
 ];
 
 @NgModule({

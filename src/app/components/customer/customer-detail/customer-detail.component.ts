@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
 
 import { APP_CONFIG, AppConfig } from '../../../app.config';
 import { Customer, CustomerPoint } from '../customer';

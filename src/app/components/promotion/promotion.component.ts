@@ -17,8 +17,7 @@ import { EmailCampaignModal } from '../../core/shared/modals/email-campaign/emai
     templateUrl: './promotion.component.html'
 })
 export class PromotionComponent {
-    loading = false;
-    promotions: PagingResponse<Promotion>;
+    reload = false;
 
     // New promotion fields
     smsSentence: string = 'Your store is pleased to propose a promotion';
@@ -44,7 +43,8 @@ export class PromotionComponent {
             dateFrom: [dateToNgbDateStruct(new Date()), Validators.required],
             dateTo: [null, Validators.required],
             percentage: [''],
-            details: [this.smsSentence, Validators.required]
+            details: [this.smsSentence, Validators.required],
+            nbRecipients: [null]
         }, { validator: dateLessThanValidation('dateFrom', 'dateTo') });
 
         var secondForm = this.fb.group({
@@ -57,6 +57,7 @@ export class PromotionComponent {
             customerName: [''],
             customerGenderMale: [true],
             customerGenderFemale: [true],
+            cities: [[]],
             customerAgeFrom: [null],
             customerAgeTo: [null],
             customerSince: [null],
@@ -80,20 +81,24 @@ export class PromotionComponent {
             details: promoInfo.details,
             name: promoInfo.name,
             fromDate: ngbDateStructToDate(promoInfo.dateFrom),
-            toDate: ngbDateStructToDate(promoInfo.dateFrom),
+            toDate: ngbDateStructToDate(promoInfo.dateTo),
             percentage: promoInfo.percentage,
+            nbRecipients: promoInfo.nbRecipients,
             filter: PromotionFilter.createFromForm(promoFilter)
         };
 
         this.submitSubscription = this.service
             .create(newPromotion)
             .subscribe(
-                p => this.reload(),
+                p => {
+                    this.reload = true;
+                    this.reset();
+                },
                 err => { console.log(err); }
             );
     }
 
-    reload() { 
-        
-     }
+    reset() {
+        this.topLevelForm.reset();
+    }
 }

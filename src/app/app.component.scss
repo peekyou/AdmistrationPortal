@@ -107,6 +107,10 @@ a.active {
     color: #0cb3c2;
 }
 
+.w-30 {
+    width: 30%;
+}
+
 .alert.alert-dismissible {
     padding: 0.5rem 1.25rem;
 
@@ -217,3 +221,29 @@ app-login {
 .pac-container {
     z-index: 1051 !important;
 }
+
+.promotion-filters .nav-tabs {
+    margin-left: -1.35rem !important;
+}
+
+// Multiselect dropdown component
+.selected-list .c-btn {
+    box-shadow: none !important;
+}
+
+.multi-drop-down-sm {
+    .c-btn {
+        padding: 0.35rem 0.5rem !important;
+        font-size: 0.875rem !important;
+        line-height: 1.5 !important;
+    }
+
+    .dropdown-list ul li {
+        padding: 6px 10px !important;
+    }
+
+    label {
+        font-size: 12px !important;
+    }
+}
+

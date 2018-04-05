@@ -50,6 +50,9 @@ export class PromotionInfoComponent implements OnInit {
     }
 
     getSmsCounter() {
+        if (this.details.value == null) {
+            this.details.patchValue('');
+        }
         return SmsCounter.count(this.details.value);
     }
 

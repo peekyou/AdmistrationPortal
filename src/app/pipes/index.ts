@@ -7,6 +7,7 @@ import { IncrementPipe } from './increment';
 import { CurrentPointsPipe } from './current-points';
 import { ExpensesChartPipe } from './expenses-chart';
 import { GroupBarChartPipe } from './group-bar-chart';
+import { CountryPipe } from '../core/shared/components/intl-phone-number/country.pipe';
 
 const PIPES = [
     FilterByPipe,
@@ -14,7 +15,8 @@ const PIPES = [
     IncrementPipe,
     CurrentPointsPipe,
     ExpensesChartPipe,
-    GroupBarChartPipe
+    GroupBarChartPipe,
+    CountryPipe
 ];
 
 @NgModule({

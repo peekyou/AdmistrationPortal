@@ -25,6 +25,8 @@
     },
     "COMMON": {
         "SERVER_ERROR": "An error occured, please try later",
+        "SELECT_ALL": "Select all",
+        "UNSELECT_ALL": "Unselect all",
         "HOME": "Home",
         "FROM": "From",
         "TO": "To",        
@@ -107,7 +109,8 @@
         "TOTAL_SPENT": "Total spent",
         "FAVORITE_PRODUCTS": "Favorite products",
         "POINTS_BALANCE": "points balance",
-        "POINTS_USED": "Points already used"
+        "POINTS_USED": "Points already used",
+        "MOBILE_PLACEHOLDER": "Enter phone number"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section saved successfully",
@@ -158,6 +161,7 @@
         "PERCENTAGE": "Percentage",
         "VALID_FROM": "Valid from",
         "VALID_UNTIL": "Valid until",
+        "SELECT_CITIES": "Select cities",
         "FAVORITE_PRODUCT": "Favorite product",
         "REGISTERED_SINCE": "Registered since",
         "RECEIVED": "Promotion received",

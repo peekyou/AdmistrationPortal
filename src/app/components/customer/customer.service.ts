@@ -5,6 +5,7 @@ import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
 import { PagingResponse } from '../../core/models/paging';
+import { Lookup } from '../../core/models/lookup';
 
 @Injectable()
 
@@ -19,6 +20,10 @@ export class CustomerService {
 
     get(page: number, count: number, searchTerm: string = ''): Observable<PagingResponse<Customer>> {
         return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count + '&searchTerm=' + searchTerm);
+    }
+    
+    getCustomerCities(): Observable<Lookup[]> {
+        return this.http.get(this.api + '/cities');
     }
     
     getCount(filter = null): Observable<number> {

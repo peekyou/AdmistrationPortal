@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,15 +13,33 @@ import { PagingResponse } from '../../../core/models/paging';
 })
 export class PromotionListComponent implements OnInit {
     loading = false;
+    _reload: boolean;
     promotions: PagingResponse<Promotion>;
     currentPage: number = 1;
+    @Input() itemsPerPage: number = 10;
+
+    @Input() 
+    set reload(reload: boolean) {
+        this._reload = reload;
+        if (this._reload) {
+            this.getPromotionsPage();
+            this._reload = false;
+        }
+    }
+    get data(): boolean {
+        return this._reload;
+    }
     
     constructor(private service: PromotionService) { }
 
     ngOnInit() {
+        this.getPromotionsPage();
+    }
+    
+    getPromotionsPage() {
         this.loading = true;
         this.service
-            .getAll()
+            .get(this.currentPage, this.itemsPerPage)
             .subscribe(
                 promotions => {
                     this.promotions = promotions;
@@ -33,5 +51,6 @@ export class PromotionListComponent implements OnInit {
 
     pageChanged(page) {
         this.currentPage = page;
+        this.getPromotionsPage();
     }
 }
