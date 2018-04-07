@@ -1,5 +1,6 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
@@ -10,6 +11,7 @@ import { PagingResponse } from '../../core/models/paging';
 @Injectable()
 export class UserManagementService {
     private api: string;
+    permissions: Permission[];    
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
         this.api = config.ApiEndpoint + '/users';
@@ -20,21 +22,15 @@ export class UserManagementService {
     }
 
     getPermissions(): Observable<Permission[]> {
-        return this.http.get(this.config.ApiEndpoint + '/permissions');
-
-        //return Observable.of([
-        //    { id: '1', name: 'Customers' },
-        //    { id: '2', name: 'Content' },
-        //    { id: '3', name: 'Review' },
-        //    { id: '4', name: 'Promotions' },
-        //    { id: '5', name: 'Sms recharge' },
-        //    { id: '6', name: 'User management' },
-        //    { id: '7', name: 'Bills' }
-        //]);
+        if (this.permissions) {
+            return Observable.of(this.permissions);
+        }
+        return this.http.get(this.config.ApiEndpoint + '/permissions')
+                        .map(res => this.permissions = res);
     }
 
-    getUsers(): Observable<PagingResponse<User>> {
-        return this.http.get(this.api);
+    getUsers(page: number, count: number): Observable<PagingResponse<User>> {
+        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count);
     }
 
     createUser(user: User): Observable<any> {

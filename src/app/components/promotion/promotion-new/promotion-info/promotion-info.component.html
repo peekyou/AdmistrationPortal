@@ -62,7 +62,6 @@
         <small class="form-text text-muted"><b>{{ getSmsCounter().remaining }}</b> {{ 'PROMOTIONS.REMAINING_CHARACTERS' | translate }}</small>
         <small class="form-text text-muted"><b>{{ getSmsCounter().messages }}</b> {{ 'PROMOTIONS.SMS_NUMBER_SENT' | translate }}</small>
         
-        <!-- <small class="form-text text-muted">xx characters remaining in this SMS (too long message will be splited in chunks)</small>
-        <small class="form-text text-muted">xx SMS will be sent per customer</small> -->
+        <small class="form-text text-danger" *ngIf="!smsQuotaValid()">{{ 'PROMOTIONS.INSUFICIENT_QUOTA' | translate }} ({{smsQuota}})</small>
     </div>
 </form>

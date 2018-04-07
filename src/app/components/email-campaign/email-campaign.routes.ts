@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 
-import { UserManagementComponent } from './user-management.component';
+import { EmailCampaignComponent } from './email-campaign.component';
 import { AuthGuard } from '../../guards/auth.guard';
 import { PermissionGuard } from '../../guards/permission.guard';
 import { Permissions } from '../../core/helpers/permissions';
 
 export const routes: Routes = [
     {
-        path: 'usermanagement', data: { permission: Permissions.UserManagement }, canActivate: [AuthGuard, PermissionGuard], children: [
-            { path: '', component: UserManagementComponent }
+        path: 'email', data: { permission: Permissions.Email }, canActivate: [AuthGuard, PermissionGuard], children: [
+            { path: '', component: EmailCampaignComponent }
         ]
     },
 ];

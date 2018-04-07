@@ -1,59 +1,67 @@
-<div *ngIf="form" class="container new-user">
+<div *ngIf="form" class="container">
     <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
-        <div class="form-group">
-            <label for="name">{{ 'COMMON.USERNAME' | translate }}*</label>
-            <input type="text" class="form-control" id="username" formControlName="username" 
-                   required [readonly]="isEdit" />
-            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-field">
-                {{ 'FORM.REQUIRED' | translate }}
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name">{{ 'COMMON.USERNAME' | translate }}*</label>
+                    <input type="text" class="form-control form-control-sm" id="username" formControlName="username" 
+                            required [readonly]="isEdit" />
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
+                    <input type="text" class="form-control form-control-sm" id="firstname" formControlName="firstname" />
+                </div>
+                <div class="form-group">
+                    <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}*</label>
+                    <input type="text" class="form-control form-control-sm" id="lastname" formControlName="lastname" />
+                </div>
+                <div class="form-group">
+                    <label for="status">{{ 'COMMON.STATUS' | translate }}</label>
+                    <input type="text" class="form-control form-control-sm" id="status" formControlName="status" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="password">{{ 'COMMON.PASSWORD' | translate }}<span *ngIf="!isEdit">*</span></label>
-            <input type="password" class="form-control" id="password" formControlName="password" 
-                   [required]="!isEdit" />
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-field">
-                {{ 'FORM.REQUIRED' | translate }}
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}<span *ngIf="!isEdit">*</span></label>
-            <input type="password" class="form-control" id="password-confirmation" 
-                   formControlName="passwordConfirmation" [required]="!isEdit" />
-            <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="invalid-field">
-                {{ 'FORM.REQUIRED' | translate }}
-            </div>
-        </div>
-        <div class="row invalid-field" *ngIf="form.errors">{{ form.errors?.passwords | json }}</div>
-
-        <div class="form-group">
-            <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}</label>
-            <input type="text" class="form-control" id="firstname" formControlName="firstname" />
-        </div>
-        <div class="form-group">
-            <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}</label>
-            <input type="text" class="form-control" id="lastname" formControlName="lastname" />
-        </div>
-        <div class="form-group">
-            <label for="status">{{ 'COMMON.STATUS' | translate }}</label>
-            <input type="text" class="form-control" id="status" formControlName="status" />
-        </div>
-        <label>{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</label>
-        <div formArrayName="permissions">
-            <div class="form-check" *ngFor="let permission of permissions; let i = index">
-                <label class="form-check-label" formGroupName="{{i}}">
-                    <input type="checkbox" formControlName="{{permission.id}}" class="form-check-input"
-                           (change)="onChange(permission, $event.target.checked)">
-                    {{permission.resourceKey}}
-                </label>
+            <div class="col">
+                <div class="form-group">
+                    <label for="password">{{ 'COMMON.PASSWORD' | translate }}<span *ngIf="!isEdit">*</span></label>
+                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password" 
+                            [required]="!isEdit" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}<span *ngIf="!isEdit">*</span></label>
+                    <input type="password" class="form-control form-control-sm" id="password-confirmation" 
+                            formControlName="passwordConfirmation" [required]="!isEdit" />
+                    <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
+                <div class="row invalid-field" *ngIf="form.errors">{{ form.errors?.passwords | json }}</div>
+                
+                <label>{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</label>
+                <div formArrayName="permissions">
+                    <div class="form-check" *ngFor="let permission of permissions; let i = index">
+                        <label class="form-check-label" formGroupName="{{i}}">
+                            <input type="checkbox" formControlName="{{permission.id}}" class="form-check-input"
+                                (change)="onChange(permission, $event.target.checked)">
+                            {{permission.resourceKey}}
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <button type="submit" class="btn btn-info" [disabled]="form.invalid">
-            {{ 'COMMON.SAVE' | translate }}
-        </button>
-        <a class="btn btn-secondary" routerLink="/usermanagement">
+        <div class="buttons text-align-center">
+            <button type="submit" class="btn btn-primary w-50" [disabled]="form.invalid">
+                {{ 'COMMON.SAVE' | translate }}
+            </button>
+        </div>
+        <!-- <a class="btn btn-secondary" routerLink="/usermanagement">
             {{ 'COMMON.CANCEL' | translate }}
-        </a>
+        </a> -->
     </form>
 </div>

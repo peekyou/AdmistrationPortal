@@ -12,7 +12,6 @@ export interface AppConfig {
     //public static API_ENDPOINT = 'http://api.app-wards.com/SoAppService.svc/json';
     // public static MerchantId = '193DDF9621C3494FBDF84F01D181DE58'; // Test
     MerchantName: string;
-    Currency: string;
     
     // public static MerchantId = '2E5D3ECD37A34E6E971987F836CBFEB6';
     // public static MerchantName = 'Golden Age';

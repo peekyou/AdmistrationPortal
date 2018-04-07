@@ -16,6 +16,7 @@ export class SidebarComponent {
     public reviewsPermission = Permissions.Reviews;
     public promotionsPermission = Permissions.Promotions;
     public smsPermission = Permissions.SMS;
+    public emailPermission = Permissions.Email;
     public userManagementPermission = Permissions.UserManagement;
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;

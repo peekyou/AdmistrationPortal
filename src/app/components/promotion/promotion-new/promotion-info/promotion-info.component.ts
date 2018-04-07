@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Promotion } from '../../promotion';
+import { PromotionService } from '../../promotion.service';
 import { SmsCounter } from '../../../../core/helpers/smsCounter';
+import { SmsService } from '../../../sms/sms.service';
 
 @Component({
     selector: 'promotion-info',
@@ -10,6 +12,7 @@ import { SmsCounter } from '../../../../core/helpers/smsCounter';
     templateUrl: './promotion-info.component.html'
 })
 export class PromotionInfoComponent implements OnInit {
+    smsQuota: number;    
     smsTemplate: string = '{0}{1}{2}{3}';
     smsSentence: string = 'Your store is pleased to propose a promotion';
     smsPercentageTemplate: string = ' of {0}%';
@@ -21,6 +24,14 @@ export class PromotionInfoComponent implements OnInit {
 
     private stepName: string = 'stepInfo';
     private formGroup: FormGroup;
+
+    constructor(private smsService: SmsService, private service: PromotionService) {
+        this.smsService.getQuota()
+            .subscribe(
+                res => this.smsQuota = res,
+                err => console.log(err)
+            );
+    }
     
     ngOnInit() {
         this.form = this.topLevelForm.controls[this.stepName];
@@ -54,6 +65,14 @@ export class PromotionInfoComponent implements OnInit {
             this.details.patchValue('');
         }
         return SmsCounter.count(this.details.value);
+    }
+
+    smsQuotaValid() {
+        var counter = this.getSmsCounter();
+        if (counter != null && this.smsQuota != null && this.service.nbRecipients != null) {
+            return counter.messages * this.service.nbRecipients <= this.smsQuota;
+        }
+        return true;
     }
 
     private buildSmsTemplate(name: string, percentage: string, dateFrom: any, dateTo: any): string {

@@ -9,7 +9,6 @@ import { Promotion, PromotionFilter } from './promotion';
 import { PromotionService } from './promotion.service';
 import { ngbDateStructToDate, dateToNgbDateStruct, dateLessThanValidation } from '../../core/helpers/utils';
 import { PagingResponse } from '../../core/models/paging';
-import { EmailCampaignModal } from '../../core/shared/modals/email-campaign/email-campaign.modal';
 
 @Component({
     selector: 'promotion',
@@ -24,17 +23,11 @@ export class PromotionComponent {
     topLevelForm: FormGroup;
     submitSubscription: Subscription;
 
-    constructor(private modalService: NgbModal, private service: PromotionService, private fb: FormBuilder) { 
+    constructor(
+        private modalService: NgbModal, 
+        private service: PromotionService, 
+        private fb: FormBuilder) { 
         this.init();
-    }
-
-    openEmailModal() {
-        const modalRef = this.modalService.open(EmailCampaignModal);
-        // modalRef.result.then((result) => {
-        //     if (result === 'Y') {
-        //         this.sendEmail();
-        //     }
-        // }, (reason) => { });
     }
 
     init() {

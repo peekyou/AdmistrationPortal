@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { UserManagementComponent } from './user-management.component';
-import { UserNewComponent } from './user-new/user-new.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserModal } from './user-modal/user.modal';
 import { UserForm } from './+user-form/user.form';
 import { routes } from './user-management.routes';
 
@@ -15,9 +14,11 @@ import { routes } from './user-management.routes';
     ],
     declarations: [
         UserManagementComponent,
-        UserNewComponent,
-        UserEditComponent,
-        UserForm
+        UserForm,
+        UserModal
+    ],
+    entryComponents: [
+        UserModal
     ]
 })
 export class UserManagementModule { }

@@ -1,125 +1,78 @@
 <div class="container" *ngIf="reviews && reviews.paging.itemsCount > 0"
      infiniteScrollDistance="1" infiniteScrollThrottle="300" (scrolled)="onScroll()">
     <!-- Average ratings -->
-    <div class="row">
-        <div class="col">
-            <div class="card average-rating"> 
-                <h4 class="card-header">{{ 'REVIEWS.AVERAGE_RATING' | translate }}</h4>
-                <div class="card-body">
-                    <div class="row row-rating">
-                        <div class="col">{{reviews.data[0].rating1Label}}</div>
-                        <div class="col">
-                            <h4 class="bold"> {{ averageRating1.toFixed(1) }} <small>/ 5</small></h4>
-                        </div>            
-                        <div class="col">
-                            <ngb-rating [(rate)]="averageRating1" [readonly]="true" max="5" [starTemplate]="averageTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                    <div class="row row-rating">
-                        <div class="col">{{reviews.data[0].rating2Label}}</div>
-                        <div class="col">
-                            <h4 class="bold"> {{ averageRating2.toFixed(1) }} <small>/ 5</small></h4>
-                        </div>            
-                        <div class="col">
-                            <ngb-rating [(rate)]="averageRating2" [readonly]="true" max="5" [starTemplate]="averageTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                    <div class="row row-rating">
-                        <div class="col">{{reviews.data[0].rating3Label}}</div>
-                        <div class="col">
-                            <h4 class="bold"> {{ averageRating3.toFixed(1) }} <small>/ 5</small></h4>
-                        </div>            
-                        <div class="col">
-                            <ngb-rating [(rate)]="averageRating3" [readonly]="true" max="5" [starTemplate]="averageTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
+    <div class="row average-ratings" *ngIf="reviewsAverage">
+        <div class="col-12 col-lg-4">
+            <h1 class="cyan">{{ reviewsAverage.allRatingsAverage.toFixed(1) }}<small>/ 5</small></h1>
+        </div>
+        <div class="col-12 col-lg-8 average-rating">
+            <div class="total-average">
+                <ngb-rating [rate]="reviewsAverage.allRatingsAverage" [readonly]="true" max="5" 
+                    [starTemplate]="averageTemplate" style="font-size:20px">
+                </ngb-rating>
+                <br />{{ reviews.paging.totalCount }} {{ 'TOOLBAR.REVIEWS' | translate }}
+            </div>
+
+            <div class="row row-rating">
+                <div class="col">
+                    <ngb-rating [rate]="reviewsAverage.rating1Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                    </ngb-rating>
+                    <span class="theme-color">{{ reviewsAverage.rating1Average.toFixed(1) }}</span>
                 </div>
-            </div> 
+                <div class="col">{{reviewsAverage.rating1Label}}</div>
+            </div>
+            <div class="row row-rating">
+                <div class="col">
+                    <ngb-rating [rate]="reviewsAverage.rating2Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                    </ngb-rating>
+                    <span class="theme-color">{{ reviewsAverage.rating2Average.toFixed(1) }}</span>
+                </div>
+                <div class="col">{{reviewsAverage.rating2Label}}</div>
+            </div>
+            <div class="row row-rating">
+                <div class="col">
+                    <ngb-rating [rate]="reviewsAverage.rating3Average" [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                    </ngb-rating>
+                    <span class="theme-color">{{ reviewsAverage.rating3Average.toFixed(1) }}</span>
+                </div>
+                <div class="col">{{reviewsAverage.rating3Label}}</div>
+            </div>
         </div>
     </div>
 
     <!-- All ratings -->
-    <div class="row">
-        <div class="col-sm-7">
-            <hr>
-            <div class="review-block">
-                <div class="row review-row" *ngFor="let review of reviews.data">
-                    <div class="col-sm-3">
-                        <div class="review-block-name">Anonymous</div>
-                        <!-- <div class="review-block-name"><a href="#">{{review.createdBy}}</a></div> -->
-                        <div class="review-block-date">{{review.createdDate | date: 'dd-MM-yyyy'}}</div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="review-block-rate">
-                            <div class="row">
-                                <div class="col-3">{{review.rating1Label}}</div>
-                                <div class="col">
-                                    <ngb-rating [(rate)]="review.rating1" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                                    </ngb-rating>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">{{review.rating2Label}}</div>
-                                <div class="col">
-                                    <ngb-rating [(rate)]="review.rating2" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                                    </ngb-rating>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">{{review.rating3Label}}</div>
-                                <div class="col">
-                                    <ngb-rating [(rate)]="review.rating3" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                                    </ngb-rating>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-block-description line-breaker">
-                            {{review.comment}}
-                        </div>
-                    </div>
-                </div>
+    <div class="review-block">
+        <div class="row review-row" [ngClass]="{'border-bottom': i < reviews.data.length - 1 }"
+             *ngFor="let review of reviews.data; let i = index">
+            <div class="col">
+                <div class="bold">Anonymous</div>
+                <!-- <div class="review-block-name"><a href="#">{{review.createdBy}}</a></div> -->
+                <div class="review-block-date">{{review.createdDate | date: 'dd-MM-yyyy'}}</div>
             </div>
+            <div class="col cyan bold text-align-center">
+                <div>{{ 'REVIEWS.AVERAGE' | translate }}</div>
+                <ngb-rating [rate]="(review.rating1 + review.rating2 + review.rating3) / 3" 
+                    [readonly]="true" max="5" [starTemplate]="averageTemplate">
+                </ngb-rating>
+            </div>
+            <div class="col review-block-rate">
+                <div>{{review.rating1Label}}</div>
+                <ngb-rating [rate]="review.rating1" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                </ngb-rating>
+            </div>
+            <div class="col review-block-rate">
+                <div>{{review.rating2Label}}</div>
+                <ngb-rating [rate]="review.rating2" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                </ngb-rating>
+            </div>
+            <div class="col review-block-rate">
+                <div>{{review.rating3Label}}</div>
+                <ngb-rating [rate]="review.rating3" [readonly]="true" max="5" [starTemplate]="normalTemplate">
+                </ngb-rating>
+            </div>
+            <div class="col-6 line-breaker">{{review.comment}}</div>
         </div>
     </div>
-    <!-- 
-    <div *ngIf="reviews && reviews.paging.itemsCount > 0" 
-            infiniteScrollDistance="1" infiniteScrollThrottle="300" (scrolled)="onScroll()">
-        <div class="card-columns">
-            <div class="card" *ngFor="let review of reviews.data">
-                <div class="card-header">
-                    {{review.createdBy}} <small class="text-muted">{{review.createdDate | date: 'dd-MM-yyyy HH:mm'}}</small>
-                </div>
-                <div class="card-body">
-                    <p class="card-text line-breaker">{{review.comment}}</p>
-    
-                    <div class="row">
-                        <div class="col">{{review.rating1Label}}</div>
-                        <div class="col-8">
-                            <ngb-rating [(rate)]="review.rating1" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">{{review.rating2Label}}</div>
-                        <div class="col-8">
-                            <ngb-rating [(rate)]="review.rating2" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">{{review.rating3Label}}</div>
-                        <div class="col-8">
-                            <ngb-rating [(rate)]="review.rating3" [readonly]="true" max="5" [starTemplate]="normalTemplate">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </div>
 
 <ng-template #averageTemplate let-fill="fill">

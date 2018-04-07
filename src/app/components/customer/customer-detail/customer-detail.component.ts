@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import { APP_CONFIG, AppConfig } from '../../../app.config';
 import { Customer, CustomerPoint } from '../customer';
 import { CustomerService } from '../customer.service';
+import { UserService } from '../../user/user.service';
 import { DeleteModal } from '../../../core/shared/modals/delete.modal';
 import { dateToNgbDateStruct } from '../../../core/helpers/utils';
 
@@ -20,6 +20,7 @@ import { dateToNgbDateStruct } from '../../../core/helpers/utils';
 })
 export class CustomerDetailComponent implements OnInit {
     customer: Customer = null;
+    currency: string;
     customerForm: FormGroup;
     newEntryAmount: number = null;
     useDiscountLater: boolean = false;
@@ -34,8 +35,10 @@ export class CustomerDetailComponent implements OnInit {
         private location: Location,
         private service: CustomerService,
         private modalService: NgbModal,
-        @Inject(APP_CONFIG) public config: AppConfig
-    ) { }
+        user: UserService
+    ) {
+        this.currency = user.getCurrency();        
+     }
 
     ngOnInit() {
         this.route.paramMap

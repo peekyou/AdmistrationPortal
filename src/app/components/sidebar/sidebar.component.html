@@ -28,18 +28,18 @@
             <div *ngIf="user.hasPermission(reviewsPermission)">
                 <a class="list-group-item" data-parent="#sidebar"
                     routerLink="reviews" routerLinkActive="active">
-                    <i class="fa fa-comments fa-fw" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
                     <span>&nbsp;{{ 'TOOLBAR.REVIEWS' | translate }}</span>
                 </a>
             </div>
             <div *ngIf="user.hasPermission(promotionsPermission)">
                 <a class="list-group-item" data-parent="#sidebar"
                     routerLink="promotions" routerLinkActive="active">
-                    <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                    <i class="fa fa-comment fa-fw" aria-hidden="true"></i>
                     <span>&nbsp;{{ 'TOOLBAR.SMS_CAMPAIGNS' | translate }}</span>
                 </a>
             </div>
-            <div *ngIf="user.hasPermission(promotionsPermission)">
+            <div *ngIf="user.hasPermission(emailPermission)">
                 <a class="list-group-item" data-parent="#sidebar"
                     routerLink="email" routerLinkActive="active">
                     <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>

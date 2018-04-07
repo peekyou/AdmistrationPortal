@@ -100,7 +100,7 @@ export class PromotionFilterComponent implements OnInit {
         let filter = PromotionFilter.createFromForm(form);
         this.service
             .customerCount(filter).subscribe(c => {
-                this.nbRecipients = c;
+                this.nbRecipients = this.service.nbRecipients = c;
                 this.topLevelForm.get('stepInfo').get('nbRecipients').patchValue(c);
             },
             err => { console.log(err); });

@@ -1,5 +1,5 @@
 <div class="container content-container">
-    <customer-search></customer-search>
+    <!-- <customer-search></customer-search> -->
         
     <div class="row" *ngIf="customer">
         <div class="col-12 col-lg-7">
@@ -21,9 +21,9 @@
                 <div class="card-body text-align-center">
                     <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
                         <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
-                            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: config.currency} }}</label>
+                            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
                             <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;"
-                                placeholder="Amount" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
+                                placeholder="{{ 'COMMON.AMOUNT' | translate }}" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
                             <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
                                 loadingValue="{{ 'COMMON.LOADING' | translate }}" 
                                 [form]="entryF.form" [subscription]="saveEntrySubscription">

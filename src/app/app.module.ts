@@ -31,6 +31,7 @@ import { ContentEditorModule } from './components/content-editor';
 import { PromotionModule } from './components/promotion';
 import { ReviewModule } from './components/review';
 import { SmsModule } from './components/sms';
+import { EmailCampaignModule } from './components/email-campaign';
 import { BillingModule } from './components/billing';
 import { UserManagementModule } from './components/user-management'
 import { MobilePreviewModule } from './components/mobile-preview';
@@ -92,6 +93,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PromotionModule,
         ReviewModule,
         SmsModule,
+        EmailCampaignModule,
         BillingModule,
         MobilePreviewModule,
         UserManagementModule,

@@ -30,6 +30,9 @@
         "HOME": "Accueil",
         "FROM": "De",
         "TO": "À",   
+        "OF": "de",
+        "FOR": "pour",
+        "CONFIRMATION_QUESTION": "Souhaitez-vous continuer ?",
         "DELETE": "Supprimer",
         "CANCEL": "Annuler",
         "DATE": "Date",
@@ -145,6 +148,7 @@
     },
     "REVIEWS": {
         "NO_REVIEW": "Aucun avis",
+        "AVERAGE": "Moyenne",
         "AVERAGE_RATING": "Notes moyennes"
     },
     "PROMOTIONS": {
@@ -170,27 +174,39 @@
         "RECIPIENTS": "Destinataires",
         "SEND_CAMPAIGN_BUTTON": "Envoyer la campagne",
         "SENT_ON": "Envoyée le",
+        "INSUFICIENT_QUOTA": "Votre quota SMS est insufisant",
         "REMAINING_CHARACTERS": "caractères restant dans ce SMS",
         "SMS_NUMBER_SENT": "SMS seront envoyés par client."
     },
     "EMAIL_CAMPAIGNS": {
-        "GET_EMAIL_TOOL": "Get email campaign tool",
-        "EMAIL_TOOL_MODAL": "An email will be sent an you will be contacted afterwards."
+        "TITLE": "Campagnes email",
+        "EMAILS_CAP": "EMAILS",
+        "EMAIL_TOOL_MODAL": "Motre équipe vous contactera pour mettre l'outil à votre disposition"
     },
     "SMS_PACKS": {
         "SMS": "SMS",
         "STOCK": "Votre stock",
-        "NEW_STOCK": "Nouveau stock",
+        "BUY": "Acheter le pack",
+        "MODAL_TITLE": "Achat SMS",
+        "MODAL_SENTENCE": "Vous achetez {{smsNumber}} SMS pour {{price}}{{currency}}",
+        "NEW_STOCK": "Votre nouveau stock",
         "CC_NOTICE": "Le montant de cet achat est à régler par carte bancaire.",
-        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture (disponible le 1er de chaque mois)."
+        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture (disponible le 1er de chaque mois).",
+        "ADD_SMS_LABEL": "Ajouter les SMS à votre compte"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "Aucun utilisateur",
         "CREATE_NEW": "Créer nouvel utilisateur",
+        "ADD": "Ajouter cet utilisateur",
         "NEW": "Nouvel utilisateur",
         "EDIT": "Modifier utilisateur",
         "LAST_LOGIN": "Dernière connexion",
         "PERMISSIONS": "Permissions"
+    },
+    "PRODUCTS": {
+        "ADD": "Ajouter un produit",
+        "OUR": "Nos produits",
+        "NAME": "Nom du produit"
     },
     "BILLS": {
         "NO_BILL": "Vous n'avez pas de facture"

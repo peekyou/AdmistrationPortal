@@ -1,79 +1,70 @@
-<div class="d-flex justify-content-center">
-    <a routerLink="new" class="btn btn-info">{{ 'USER_MANAGEMENT.CREATE_NEW' | translate }}</a>
-</div>
-<br />
-<div *ngIf="users && users.paging.itemsCount > 0"
-     infiniteScrollDistance="1" infiniteScrollThrottle="300"
-     (scrolled)="onScroll()">
+<div class="container">
+    <div *ngIf="users && users.paging.itemsCount > 0" class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>{{ 'COMMON.USERNAME' | translate }}</th>
+                    <th>{{ 'COMMON.NAME' | translate }}</th>
+                    <th>{{ 'COMMON.STATUS' | translate }}</th>
+                    <th *ngFor="let permission of permissions">{{ permission.resourceKey }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: users?.paging?.totalCount }"
+                    (click)="openUserModal(user)">
+                    <td class="bold">{{user?.username}}</td>
+                    <td>{{user?.firstname}} {{user?.lastname}}</td>
+                    <td>{{user?.status}}</td>
+                    <td *ngFor="let permission of permissions" class="text-align-center">
+                        <i *ngIf="user.permissions && user.permissions.indexOf(permission.id) > -1" 
+                        class="fa fa-check theme-color"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-     <div class="table">
-        <div class="row header gray">
-            <div class="cell">{{ 'COMMON.USERNAME' | translate }}</div>
-            <div class="cell">{{ 'COMMON.NAME' | translate }}</div>
-            <div class="cell">{{ 'USER_MANAGEMENT.LAST_LOGIN' | translate }}</div>
-            <!-- <div class="cell">{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</div> -->
-            <div class="cell">{{ 'COMMON.ACTIONS' | translate }}</div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" (click)="openUserModal()">
+                {{ 'USER_MANAGEMENT.CREATE_NEW' | translate }}
+            </button>
         </div>
-        <div class="row" *ngFor="let user of users.data">
-            <div class="cell" data-title="Username">
-                {{user?.username}}
+    </div>
+
+    <pagination-controls *ngIf="users && users.paging.itemsCount > 0" (pageChange)="pageChanged($event)" 
+        autoHide="true" directionLinks="true"
+        previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+    </pagination-controls>
+
+    <!-- <div *ngIf="users && users.paging.itemsCount == 0">
+        <h2>{{ 'USER_MANAGEMENT.NO_USER' | translate }}</h2>
+    </div> -->
+    <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card">
+                <h5 class="card-header">{{ 'PRODUCTS.ADD' | translate }}</h5>                
+                <div class="card-body">
+                    <form [formGroup]="productForm" class="form text-align-center" (ngSubmit)="productForm.valid && addProduct()" novalidate>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="name"
+                                placeholder="{{ 'PRODUCTS.NAME' | translate }}" required>
+                        </div>
+                        <app-submit-button value="{{ 'PRODUCTS.ADD' | translate }}" 
+                            loadingValue="{{ 'COMMON.LOADING' | translate }}" 
+                            [form]="productForm" [subscription]="saveProductSubscription">
+                        </app-submit-button>
+                    </form>
+                </div>
             </div>
-            <div class="cell" data-title="Name">
-                {{user?.firstName}} {{user?.lastName}}
-            </div>
-            <div class="cell" data-title="Last login">
-                {{user?.lastLogin | date:'dd-MM-yyyy HH:mm'}}
-            </div>
-            <!-- <div class="cell" data-title="Permissions">
-                <span *ngFor="let p of user.permissions">{{p}}<br /></span>
-            </div> -->
-            <div class="cell" data-title="Actions">
-                    <a class="btn btn-secondary btn-xs" aria-label="Edit" [routerLink]="['edit', user.id]"
-                    title="Edit">
-                     <i class="fa fa-pencil"></i>
-                 </a>
-                 <a class="btn btn-danger btn-xs" aria-label="Delete" (click)="delete(user)"
-                         title="Delete">
-                     <i class="fa fa-trash-o"></i>
-                 </a>
+        </div>
+        <div class="col-md-6 col-lg-7">
+            <div class="card">
+                <h5 class="card-header">{{ 'PRODUCTS.OUR' | translate }}</h5>                
+                <div class="card-body">
+                    
+                </div>
             </div>
         </div>
     </div>
-<!-- 
-    <table class="table table-responsive table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>{{ 'COMMON.USERNAME' | translate }}</th>
-                <th>{{ 'COMMON.NAME' | translate }}</th>
-                <th>{{ 'COMMON.STATUS' | translate }}</th>
-                <th>{{ 'USER_MANAGEMENT.LAST_LOGIN' | translate }}</th>
-                <th class="w-50">{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</th>
-                <th>{{ 'COMMON.ACTIONS' | translate }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users.data">
-                <th>{{user?.username}}</th>
-                <td>{{user?.firstName}} {{user?.lastName}}</td>
-                <td>{{user?.status}}</td>
-                <td>{{user?.lastLogin | date:'dd/MM/yyyy'}}</td>
-                <td>Admin</td>
-                <td>
-                    <a class="btn btn-secondary btn-xs" aria-label="Edit" [routerLink]="['edit', user.id]"
-                       title="Edit">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="delete(user)"
-                            title="Delete">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table> -->
-</div>
-
-<div *ngIf="users && users.paging.itemsCount == 0">
-    <h2>{{ 'USER_MANAGEMENT.NO_USER' | translate }}</h2>
-</div>
-<ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+</div> 

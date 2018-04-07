@@ -6,7 +6,7 @@ import { User, Permission } from '../../user/user';
 import { UserManagementService } from '../user-management.service';
 
 @Component({
-    selector: 'user-form',
+    selector: 'app-user-form',
     styleUrls: ['./user.form.scss'],
     templateUrl: './user.form.html'
 })

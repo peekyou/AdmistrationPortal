@@ -107,8 +107,17 @@ a.active {
     color: #0cb3c2;
 }
 
+.theme-color {
+    color: $theme-color;
+}
+
 .w-30 {
     width: 30%;
+}
+
+.thead-dark th {
+    font-weight: normal;
+    font-size: 13px;
 }
 
 .alert.alert-dismissible {

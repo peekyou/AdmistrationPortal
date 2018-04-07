@@ -1,55 +1,80 @@
 <div class="container sms-container">
-    <p class="lead">{{ 'SMS_PACKS.STOCK' | translate }}<span class="quota">{{ quota }} SMS</span></p>
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="stock">Buy</label>
-            <input type="number" id="stock"name="stock" class="form-control mx-sm-3" min="1" max="10000" 
-                   [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
-            <div>
-            X 500 {{ 'SMS_PACKS.SMS' | translate }}
+    <div class="card">
+        <h5 class="card-header">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</h5>                
+        <div class="card-body">
+            <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+            <div class="row" *ngIf="smsPack">
+                <div class="col-12 col-lg-6">
+                    <div>
+                        <div class="cyan bold lead">{{ 'SMS_PACKS.STOCK' | translate }}</div>
+                        <app-circle-progress
+                            subtitle="{{ 'SMS_PACKS.SMS' | translate }}"
+                            [title]="quota" 
+                            backgroundColor="#0cb3c2"
+                            backgroundOpacity=1
+                            backgroundStroke="#000000"
+                            backgroundPadding="7"
+                            radius=33
+                            space=-3
+                            maxPercent=100
+                            unitsColor="#ffffff"
+                            outerStrokeWidth=3
+                            outerStrokeColor="#ffffff"
+                            innerStrokeColor="#ffdf72"
+                            innerStrokeWidth=3
+                            titleColor="#ffffff"
+                            titleFontSize="18"
+                            subtitleColor="#ffffff"
+                            subtitleFontSize=13
+                            animationDuration=0
+                            [showUnits]=false
+                            percent="100">
+                        </app-circle-progress>
+                    </div>
+                    <form class="form" #form="ngForm" (ngSubmit)="form.valid && openModal()" novalidate>
+                        <div class="form-group">
+                            <label for="stock">{{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }}</label>
+                            <input type="number" id="stock" name="stock" class="form-control mx-sm-3" min="1" max="10000" 
+                                    [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
+                            <h2>{{ 'COMMON.OF' | translate }} <b>{{ smsPack?.smsNumber }} {{ 'SMS_PACKS.SMS' | translate }}</b></h2>
+                            <h2 class="cyan">{{ 'COMMON.FOR' | translate }} <b>{{ packNumber * smsPack.price }}{{ currency }}</b></h2>
+                        </div>
+                        <app-submit-button value="{{ 'SMS_PACKS.BUY' | translate }}" [form]="form" 
+                            buttonClass="btn btn-primary btn-lg">
+                        </app-submit-button>
+                    </form>
+                    <!-- <p class="text-muted">
+                        {{ 'SMS_PACKS.INVOICE_NOTICE' | translate }}
+                    </p> -->
+                    <!-- <button type="button" class="btn btn-success btn-lg" (click)="openModal()">Buy!</button>           -->
+                </div>
+                <div class="col-12 col-lg-6">
+                    <p class="lead theme-color bold">{{ 'SMS_PACKS.NEW_STOCK' | translate }}</p>                                            
+                    <app-circle-progress 
+                        subtitle="{{ 'SMS_PACKS.SMS' | translate }}"
+                        [title]="(packNumber * 500) + quota" 
+                        backgroundColor="#fdbc00"
+                        backgroundOpacity=1
+                        backgroundStroke="#000000"
+                        backgroundPadding="14"
+                        radius=70
+                        space=-9
+                        maxPercent=100
+                        unitsColor="#ffffff"
+                        outerStrokeWidth=9
+                        outerStrokeColor="#ffffff"
+                        innerStrokeColor="#ffdf72"
+                        innerStrokeWidth=9
+                        titleColor="#ffffff"
+                        titleFontSize="35"
+                        subtitleColor="#ffffff"
+                        subtitleFontSize=17
+                        animationDuration=0
+                        [showUnits]="false"
+                        percent="80">
+                    </app-circle-progress>
+                </div>
             </div>
         </div>
-    </form>
-    <p class="lead">{{ 'SMS_PACKS.NEW_STOCK' | translate }}<span class="quota">{{ packNumber * 500 }} {{ 'SMS_PACKS.SMS' | translate }}</span></p>
-    <div>
-            <h1>{{ 'COMMON.AMOUNT' | translate }}: {{ packNumber * packPrice }} AED</h1>
-            <p class="text-muted">
-                {{ 'SMS_PACKS.INVOICE_NOTICE' | translate }}
-            </p>
-            <button type="button" class="btn btn-success btn-lg" (click)="openModal()">Buy!</button>            
     </div>
-        <!-- Buy 
-        <input type="number" min="1" max="10000" step="1" 
-        [(ngModel)]="packNumber" (keypress)="onInputChange($event)" />    
-     -->
-    <!-- <div class="row">
-        <div class="col">
-            <p class="lead">{{ 'SMS_PACKS.STOCK' | translate }}</p><span class="quota">{{ quota }} SMS</span>
-        </div>
-        <div class="col">
-            <h1>+</h1>
-        </div>
-        <div class="col">
-            <input type="number" min="1" max="10000" step="1" 
-                   [(ngModel)]="packNumber" (keypress)="onInputChange($event)" />
-            <h2>X 500 {{ 'SMS_PACKS.SMS' | translate }}</h2>
-        </div>
-        <div class="col">
-            <h1>=</h1>
-        </div>
-        <div class="col">
-            <p class="lead">{{ 'SMS_PACKS.NEW_STOCK' | translate }}</p>
-            <h2>{{ packNumber * 500 }} {{ 'SMS_PACKS.SMS' | translate }}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h1>{{ 'COMMON.AMOUNT' | translate }}: {{ packNumber * 50 }} AED</h1>
-            <p>
-                {{ 'SMS_PACKS.CC_NOTICE' | translate }}
-                <br />
-                {{ 'SMS_PACKS.INVOICE_NOTICE' | translate }}
-            </p>
-        </div>
-    </div> -->
 </div>

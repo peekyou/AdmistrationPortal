@@ -7,6 +7,7 @@
     public static UserManagement = "A286EC8A5D96488192701BB16F41CB9D";
     public static Bills = "18AAF22415A44D4089F93D27CBDC8108";
     public static Statistics = "C8221455BF4B4EFCAD2F31C1B9F62E27";
+    public static Email = "7DB7AC9CBC0549EEAE071BFD07740FC7";
 }
 
 export class Claims {

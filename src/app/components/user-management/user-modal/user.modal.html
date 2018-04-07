@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
+    </app-alert>
+    <!-- <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateSearch($event)"
+        [submitSubscription]="saveSubscription" modal="true">
+    </app-customer-form> -->
+
+    <app-user-form *ngIf="!isEdit" (onSubmit)="create($event)"></app-user-form>
+    <app-user-form *ngIf="isEdit" (onPopulate)="setUser($event)" (onSubmit)="edit($event)"></app-user-form>
+</div>

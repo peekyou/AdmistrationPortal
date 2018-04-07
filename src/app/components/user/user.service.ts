@@ -18,7 +18,7 @@ export class UserService {
     private userId: string;
     private countryCode: string;
     private systemCustomerId: string;
-    private accessibleMerchants: MerchantInfo;
+    private accessibleMerchants: MerchantInfo[];
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -109,6 +109,21 @@ export class UserService {
         if (userId) {
             return this.http.get(this.api + '/users/' + userId + '/preferences');
         }
+    }
+
+    getCurrency(merchantId: string = null) {
+        this.getAccessibleMerchants();
+        if (this.accessibleMerchants && this.accessibleMerchants.length > 0) {
+            if (!merchantId) {
+                return this.accessibleMerchants[0].currency;
+            }
+            for (var i = 0; i < this.accessibleMerchants.length; i++) {
+                if (this.accessibleMerchants[i].merchantId == merchantId) {
+                    return this.accessibleMerchants[i].currency;
+                }
+            }
+        }
+        return null;
     }
 
     getAccessibleMerchants() {

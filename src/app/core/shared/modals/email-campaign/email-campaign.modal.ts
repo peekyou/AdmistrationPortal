@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { PromotionService } from '../../../../components/promotion/promotion.service';
+import { EmailCampaignService } from '../../../../components/email-campaign/email-campaign.service';
 
 @Component({
     templateUrl: './email-campaign.modal.html'
@@ -10,7 +10,7 @@ export class EmailCampaignModal {
     error: boolean;
     sending = false;
 
-    constructor(public activeModal: NgbActiveModal, private service: PromotionService) { }
+    constructor(public activeModal: NgbActiveModal, private service: EmailCampaignService) { }
 
     sendEmail() {
         this.sending = true;

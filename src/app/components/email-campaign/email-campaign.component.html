@@ -1,0 +1,39 @@
+<div class="container email-container">
+    <div class="card">
+        <h5 class="card-header">{{ 'EMAIL_CAMPAIGNS.TITLE' | translate }}</h5>                
+        <div class="card-body">
+            <p class="cyan bold lead">
+                {{ 'EMAIL_CAMPAIGNS.CURRENT_EMAILS_1' | translate }}
+                <app-circle-progress
+                    subtitle="{{ 'EMAIL_CAMPAIGNS.EMAILS_CAP' | translate }}"
+                    [title]="emailCount || '...'" 
+                    backgroundColor="#0cb3c2"
+                    backgroundOpacity=1
+                    backgroundStroke="#000000"
+                    backgroundPadding="5"
+                    radius=33
+                    space=-3
+                    maxPercent=100
+                    unitsColor="#ffffff"
+                    outerStrokeWidth=3
+                    outerStrokeColor="#ffffff"
+                    innerStrokeColor="#ffdf72"
+                    innerStrokeWidth=3
+                    titleColor="#ffffff"
+                    titleFontSize="18"
+                    subtitleColor="#ffffff"
+                    subtitleFontSize=13
+                    animationDuration=0
+                    [showUnits]=false
+                    percent="100">
+                </app-circle-progress>            
+                {{ 'EMAIL_CAMPAIGNS.CURRENT_EMAILS_2' | translate }}
+            </p> 
+
+            <p class="bold">{{ 'EMAIL_CAMPAIGNS.USE_EMAILS' | translate }}</p>
+
+            <p class="tool-desc">{{ 'EMAIL_CAMPAIGNS.TOOL_DESCRIPTION' | translate }}</p>
+            <button class="btn btn-primary btn-lg" (click)="openEmailModal()">{{ 'EMAIL_CAMPAIGNS.SUSCRIBE_BUTTON' | translate }}</button>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,7 @@ export const routes: Routes = [
     { path: 'reviews', loadChildren: './components/review#ReviewModule' },
     // { path: 'mobile-preview', loadChildren: './components/mobile-preview#MobilePreviewModule' },
     { path: 'sms', loadChildren: './components/sms#SmsModule' },
+    { path: 'email', loadChildren: './components/email-campaign#EmailCampaignModule' },
     { path: 'billing', loadChildren: './components/billing#BillingModule' },
     { path: 'dashboard', loadChildren: './components/stats#StatsModule' },
     { path: 'about', component: AboutComponent },

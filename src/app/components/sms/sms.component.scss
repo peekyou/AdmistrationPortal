@@ -3,23 +3,30 @@
 }
 
 .sms-container {
-    max-width: 50%;
-    background-color: white;
+    width: 65%;
     text-align: center;
-    padding-bottom: 1em;
-    // border: 1px solid #dedede;
-    border-radius: 5px;
-    box-shadow: 1px 2px 6px #CCC;
+    max-width: 800px;
+    
+    .card {
+        padding-bottom: 1em;
+        border-radius: 5px;
+        box-shadow: 1px 2px 6px #CCC;
+        border: none;
 
-    form {
-        margin-left: 25%;
+        .card-header {
+            text-align: left;
+        }
+
+        input {
+            // width: 70%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            padding: 0.2rem 0.75rem;
+        }
     }
-
-    .text-muted {
-        font-size: .9em;
+    
+    .col-12, .col-lg-6 {
+        margin-top: 1rem;
     }
-}
-
-.quota {
-    font-size: 1.5em;
 }

@@ -29,7 +29,10 @@
         "UNSELECT_ALL": "Unselect all",
         "HOME": "Home",
         "FROM": "From",
-        "TO": "To",        
+        "TO": "To",
+        "OF": "of",
+        "FOR": "for",
+        "CONFIRMATION_QUESTION": "Do you confirm?",
         "DELETE": "Delete",
         "CANCEL": "Cancel",
         "DATE": "Date",
@@ -145,6 +148,7 @@
     },
     "REVIEWS": {
         "NO_REVIEW": "No review",
+        "AVERAGE": "Average",
         "AVERAGE_RATING": "Average rating"
     },
     "PROMOTIONS": {
@@ -170,27 +174,44 @@
         "RECIPIENTS": "Recipients",
         "SEND_CAMPAIGN_BUTTON": "Send the campaign",
         "SENT_ON": "Sent on",
+        "INSUFICIENT_QUOTA": "Your SMS quota is not sufficient",
         "REMAINING_CHARACTERS": "remaining characters in the current SMS",
         "SMS_NUMBER_SENT": "SMS will be sent for each customer."
     },
     "EMAIL_CAMPAIGNS": {
-        "GET_EMAIL_TOOL": "Get email campaign tool",
-        "EMAIL_TOOL_MODAL": "An email will be sent an you will be contacted afterwards."
+        "TITLE": "Email campaigns",
+        "EMAILS_CAP": "EMAILS",
+        "EMAIL_TOOL_MODAL": "Our team will contact you shortly to setup the tool",
+        "CURRENT_EMAILS_1": "You currently have",
+        "CURRENT_EMAILS_2": "in your database",
+        "USE_EMAILS": "It's time to use it!",
+        "TOOL_DESCRIPTION": "Suscribe to our email campaigns program to access our powerful and feature-packed tool to create beautiful email marketing campaigns with pictures.",
+        "SUSCRIBE_BUTTON": "Suscribe"
     },
     "SMS_PACKS": {
         "SMS": "SMS",
-        "STOCK": "Your current stock is: ",
-        "NEW_STOCK": "New stock will be: ",
+        "STOCK": "Your current stock is",
+        "BUY": "Buy the pack",
+        "MODAL_TITLE": "Buy SMS",
+        "MODAL_SENTENCE": "You are about to get {{smsNumber}} SMS for {{price}}{{currency}}",
+        "NEW_STOCK": "Your new SMS stock will be",
         "CC_NOTICE": "The amount of this purchase has to be paid by credit card.",
-        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice"
+        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice",
+        "ADD_SMS_LABEL": "Add SMS pack to your account"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "No user",
         "CREATE_NEW": "Create new user",
+        "ADD": "Add this new user",
         "NEW": "New user",
         "EDIT": "Edit user",
         "LAST_LOGIN": "Last login",
         "PERMISSIONS": "Permissions"
+    },
+    "PRODUCTS": {
+        "ADD": "Add a new product",
+        "OUR": "Our products",
+        "NAME": "Product name"
     },
     "BILLS": {
         "NO_BILL": "You don't have any bill"

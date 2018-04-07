@@ -10,6 +10,7 @@ import { Lookup } from '../../core/models/lookup';
 @Injectable()
 export class PromotionService {
     private api: string;
+    public nbRecipients: number;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
         this.api = config.ApiEndpoint + '/promotions';
@@ -29,9 +30,5 @@ export class PromotionService {
 
     customerCount(filter: PromotionFilter): Observable<number> {
         return this.http.post(this.api + '/customers/count', filter);
-    }
-
-    requestEmailTool(): Observable<boolean> {
-        return this.http.post(this.config.ApiEndpoint + '/merchants/emailtool', {});
     }
 }
