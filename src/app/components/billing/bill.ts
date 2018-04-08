@@ -1,6 +1,7 @@
 export class Bill {
     id: string;
-    clientId: string;
+    createdDate: Date;
+    reference: string;
     amount: number;
     paid: boolean
 }   

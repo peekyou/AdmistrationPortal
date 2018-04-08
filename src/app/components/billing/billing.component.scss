@@ -1,3 +1,29 @@
 :host {
     display: block;
 }
+
+.bills-container {
+    width: 80%;
+    
+    .bills {
+        font-size: 13px;
+
+        table, th, td, td {
+            margin-top: 0;
+            border: none;
+        }
+
+        th {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .fa {
+            cursor: pointer;
+        }
+
+        button {
+            line-height: 1rem;
+        }
+    }
+}

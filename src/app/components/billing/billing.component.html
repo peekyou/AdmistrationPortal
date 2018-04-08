@@ -1,6 +1,43 @@
-<div class="no-result">
+<div *ngIf="bills && bills.paging.itemsCount === 0" class="no-result">
     <span class="icon"></span>
     <h2>{{ 'BILLS.NO_BILL' | translate }}</h2>
 </div>
+
+<div class="container bills-container" *ngIf="bills && bills.paging.itemsCount > 0">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="card">
+                <h5 class="card-header">{{ 'BILLS.HISTORY' | translate }}</h5>                
+                <div class="card-body bills">
+                    <table class="table table-sm text-align-center">
+                        <thead>
+                            <tr>
+                                <th>{{ 'COMMON.DATE' | translate }}</th>
+                                <th>{{ 'COMMON.AMOUNT' | translate }}</th>
+                                <th>{{ 'COMMON.DOWNLOAD' | translate }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let bill of bills.data">
+                                <td>{{bill.createdDate | date: 'dd-MM-yyyy'}}</td>
+                                <td class="cyan"><b>{{bill.amount}}</b><small>{{user.getCurrency()}}</small></td>
+                                <td>
+                                    <i class="fa fa-download theme-color"  title="{{ 'COMMON.DOWNLOAD' | translate }}"></i>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">
+                                        {{ 'BILLS.PAY' | translate }}
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

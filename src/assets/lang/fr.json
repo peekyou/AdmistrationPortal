@@ -12,7 +12,7 @@
         "SMS_PACKS": "Packs SMS",
         "SMS_CAMPAIGNS": "Campagnes SMS",
         "EMAIL_CAMPAIGNS": "Campagnes email",
-        "USER_MANAGEMENT": "Gestion utilisateurs",
+        "USER_MANAGEMENT": "Gestion backoffice",
         "BILLS": "Factures",
         "MOBILE_PREVIEW": "Aperçu mobile",
         "STATISTICS": "Dashboard",
@@ -27,6 +27,7 @@
         "SERVER_ERROR": "Une erreur est survenue, essayez plus tard",
         "SELECT_ALL": "Tout sélectionner",
         "UNSELECT_ALL": "Tout désélectionner",
+        "DOWNLOAD": "Télécharger",
         "HOME": "Accueil",
         "FROM": "De",
         "TO": "À",   
@@ -209,7 +210,9 @@
         "NAME": "Nom du produit"
     },
     "BILLS": {
-        "NO_BILL": "Vous n'avez pas de facture"
+        "NO_BILL": "Vous n'avez pas de facture",
+        "HISTORY": "Historique factures",
+        "PAY": "Payer"
     },
     "STATS": {
         "TITLE": "Dashboard",

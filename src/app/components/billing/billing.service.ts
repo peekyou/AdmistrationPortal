@@ -1,16 +1,22 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
+import { PagingResponse } from '../../core/models/paging';
 import { Bill } from './bill';
 
 @Injectable()
 
 export class BillingService {
-    private api = '/billing.json';
-    customers: Bill[] = [];
+    private api: string;
+    
+    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
+        this.api = config.ApiEndpoint + '/bills';
+    }
 
-    constructor(private http: AuthHttpService) {
+    getBills(page: number, count: number): Observable<PagingResponse<Bill>> {
+        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count);
     }
 }
 

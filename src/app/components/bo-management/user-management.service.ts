@@ -7,7 +7,6 @@ import { AuthHttpService } from '../../core/services/auth-http.service';
 import { User, Permission } from '../user/user';
 import { PagingResponse } from '../../core/models/paging';
 
-
 @Injectable()
 export class UserManagementService {
     private api: string;

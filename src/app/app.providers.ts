@@ -12,7 +12,8 @@ import { ReviewService } from './components/review/review.service';
 import { SmsService } from './components/sms/sms.service';
 import { EmailCampaignService } from './components/email-campaign/email-campaign.service';
 import { BillingService } from './components/billing/billing.service';
-import { UserManagementService } from './components/user-management/user-management.service';
+import { UserManagementService } from './components/bo-management/user-management.service';
+import { ProductService } from './components/bo-management/product/product.service';
 import { StatsService } from './components/stats/stats.service';
 import { MobilePreviewService } from './components/mobile-preview/mobile-preview.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -35,6 +36,7 @@ export const APP_PROVIDERS = [
     EmailCampaignService,
     BillingService,
     UserManagementService,
+    ProductService,
     StatsService,
     MobilePreviewService,
     AuthGuard,

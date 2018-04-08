@@ -33,7 +33,7 @@ import { ReviewModule } from './components/review';
 import { SmsModule } from './components/sms';
 import { EmailCampaignModule } from './components/email-campaign';
 import { BillingModule } from './components/billing';
-import { UserManagementModule } from './components/user-management'
+import { BackOfficeManagementModule } from './components/bo-management'
 import { MobilePreviewModule } from './components/mobile-preview';
 import { StatsModule } from './components/stats';
 import { AboutComponent } from './components/about';
@@ -96,7 +96,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         EmailCampaignModule,
         BillingModule,
         MobilePreviewModule,
-        UserManagementModule,
+        BackOfficeManagementModule,
         UserModule,
         StatsModule,
         AgmCoreModule.forRoot({ 

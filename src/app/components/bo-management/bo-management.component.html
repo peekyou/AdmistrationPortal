@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: users?.paging?.totalCount }"
+                <tr *ngFor="let user of users.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: users?.paging?.totalCount, id: 'pg-users' }"
                     (click)="openUserModal(user)">
                     <td class="bold">{{user?.username}}</td>
                     <td>{{user?.firstname}} {{user?.lastname}}</td>
@@ -31,7 +31,7 @@
     </div>
 
     <pagination-controls *ngIf="users && users.paging.itemsCount > 0" (pageChange)="pageChanged($event)" 
-        autoHide="true" directionLinks="true"
+        autoHide="true" directionLinks="true" id="pg-users"
         previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
     </pagination-controls>
 
@@ -45,7 +45,7 @@
             <div class="card">
                 <h5 class="card-header">{{ 'PRODUCTS.ADD' | translate }}</h5>                
                 <div class="card-body">
-                    <form [formGroup]="productForm" class="form text-align-center" (ngSubmit)="productForm.valid && addProduct()" novalidate>
+                    <form [formGroup]="productForm" class="form text-align-center" (ngSubmit)="productForm.valid && createProduct()" novalidate>
                         <div class="form-group">
                             <input type="text" class="form-control" formControlName="name"
                                 placeholder="{{ 'PRODUCTS.NAME' | translate }}" required>
@@ -58,11 +58,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-7">
+        <div class="col-md-6 col-lg-7" *ngIf="products && products.paging.itemsCount > 0">
             <div class="card">
                 <h5 class="card-header">{{ 'PRODUCTS.OUR' | translate }}</h5>                
                 <div class="card-body">
                     
+                    <div *ngFor="let product of products.data | paginate: { itemsPerPage: itemsPerPage, currentPage: productCurrentPage, totalItems: products?.paging?.totalCount, id: 'pg-products' }; index as i"
+                         class="row product-row">
+                         <div class="col">{{ product.name }}</div>
+                         <div class="col">
+                             <button class="btn btn-danger btn-sm" (click)="openDeleteModal(product)">{{ 'COMMON.DELETE' | translate }}</button>
+                         </div>
+                    </div>
+
+                    <pagination-controls *ngIf="products && products.paging.itemsCount > 0" (pageChange)="productsPageChanged($event)" 
+                        autoHide="true" directionLinks="true" id="pg-products"
+                        previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+                    </pagination-controls>
                 </div>
             </div>
         </div>

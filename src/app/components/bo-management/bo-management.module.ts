@@ -2,10 +2,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { UserManagementComponent } from './user-management.component';
+import { BackOfficeManagementComponent } from './bo-management.component';
 import { UserModal } from './user-modal/user.modal';
 import { UserForm } from './+user-form/user.form';
-import { routes } from './user-management.routes';
+import { routes } from './bo-management.routes';
 
 @NgModule({
     imports: [
@@ -13,7 +13,7 @@ import { routes } from './user-management.routes';
         RouterModule.forChild(routes)
     ],
     declarations: [
-        UserManagementComponent,
+        BackOfficeManagementComponent,
         UserForm,
         UserModal
     ],
@@ -21,4 +21,4 @@ import { routes } from './user-management.routes';
         UserModal
     ]
 })
-export class UserManagementModule { }
+export class BackOfficeManagementModule { }

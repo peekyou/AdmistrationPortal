@@ -12,7 +12,7 @@
         "SMS_CAMPAIGNS": "SMS Campaigns",
         "EMAIL_CAMPAIGNS": "Email Campaigns",
         "SMS_PACKS": "SMS Packs",
-        "USER_MANAGEMENT": "User accounts",
+        "USER_MANAGEMENT": "BO Management",
         "BILLS": "Bills",
         "MOBILE_PREVIEW": "Mobile preview",
         "STATISTICS": "Dashboard",
@@ -27,6 +27,7 @@
         "SERVER_ERROR": "An error occured, please try later",
         "SELECT_ALL": "Select all",
         "UNSELECT_ALL": "Unselect all",
+        "DOWNLOAD": "Download",
         "HOME": "Home",
         "FROM": "From",
         "TO": "To",
@@ -214,7 +215,9 @@
         "NAME": "Product name"
     },
     "BILLS": {
-        "NO_BILL": "You don't have any bill"
+        "NO_BILL": "You don't have any bill",
+        "HISTORY": "Bills history",
+        "PAY": "Pay now"
     },
     "STATS": {
         "TITLE": "Dashboard",
