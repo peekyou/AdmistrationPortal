@@ -2,20 +2,7 @@
     <!-- <customer-search></customer-search> -->
         
     <div class="row" *ngIf="customer">
-        <div class="col-12 col-lg-7">
-            <div class="card">
-                <div class="card-header customer-form">
-                    <span>{{customer.firstname}} {{customer.lastname}}</span>
-                    <span class="pull-right">Card no {{customer.cardNumber}}</span>
-                </div>
-                <div class="card-body">
-                    <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
-                                        [submitSubscription]="saveSubscription" isEdit="true">
-                    </app-customer-form>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-6">
             <div class="card">
                 <h5 class="card-header">{{customer.firstname}} {{customer.lastname}} {{ 'CUSTOMERS.POINTS_BALANCE' | translate }}</h5>
                 <div class="card-body text-align-center">
@@ -31,7 +18,7 @@
                         </form>
                     </div>
                     <div *ngIf="customer.discountAmount != null && !useDiscountLater" class="entry-form">
-                        <div class="card-text">Eligible for a discount: {{ customer.discountAmount }} AED</div>
+                        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' }} {{ customer.discountAmount }} {{ currency }}</div>
                         <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
                             <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
                                             loadingValue="{{ 'COMMON.LOADING' | translate }}"
@@ -46,19 +33,19 @@
                         backgroundColor="#fdbc00"
                         backgroundOpacity=1
                         backgroundStroke="#000000"
-                        backgroundPadding="14"
-                        radius=77
-                        space=-9
+                        backgroundPadding="12"
+                        radius=67
+                        space=-7
                         maxPercent=100
                         unitsColor="#ffffff"
-                        outerStrokeWidth=9
+                        outerStrokeWidth=7
                         outerStrokeColor="#ffffff"
                         innerStrokeColor="#ffdf72"
-                        innerStrokeWidth=9
+                        innerStrokeWidth=7
                         titleColor="#ffffff"
-                        titleFontSize="45"
+                        titleFontSize="40"
                         subtitleColor="#ffffff"
-                        subtitleFontSize=13
+                        subtitleFontSize=12
                         animationDuration=500
                         [showUnits]=false
                         [percent]="(customer.currentPoints / (customer.currentPoints + customer.pointsToDiscount)) * 100">
@@ -70,17 +57,17 @@
                                 backgroundColor="#0cb3c2"
                                 backgroundOpacity=1
                                 backgroundStroke="#000000"
-                                backgroundPadding="10"
-                                radius=40
-                                space=-5
+                                backgroundPadding="7"
+                                radius=34
+                                space=-4
                                 maxPercent=100
                                 unitsColor="#ffffff"
-                                outerStrokeWidth=5
+                                outerStrokeWidth=4
                                 outerStrokeColor="#ffffff"
                                 innerStrokeColor="#ffdf72"
-                                innerStrokeWidth=5
+                                innerStrokeWidth=4
                                 titleColor="#ffffff"
-                                titleFontSize="25"
+                                titleFontSize="20"
                                 animationDuration=0
                                 [showUnits]=false
                                 percent="100">
@@ -90,24 +77,12 @@
                             <span>{{ 'CUSTOMERS.POINTS_USED' | translate }}</span>
                         </div>
                     </div>
-                    <button (click)="sendApplicationSms()" class="btn btn-primary">Send Application SMS</button>
+                    <button (click)="sendApplicationSms()" class="btn btn-primary">{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row" *ngIf="customer">
-        <div class="col-12 col-lg-7" *ngIf="customer.expenses && customer.expenses.length > 1">
+        <div class="col-12 col-lg-6">
             <div class="card">
-                <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
-                <div class="card-body">
-                    <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
-                                    [dataSubscription]="getExpensesSubscription">
-                    </app-line-chart>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-5">
-            <div class="card" *ngIf="customer.points && customer.points.length > 0">
                 <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
                 <div class="card-body points-detail">
                     <table class="table table-sm">
@@ -138,6 +113,32 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row" *ngIf="customer">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
+                <div class="card-body">
+                    <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
+                                    [dataSubscription]="getExpensesSubscription">
+                    </app-line-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header customer-form">
+                    <span>{{customer.firstname}} {{customer.lastname}}</span>
+                    <span class="pull-right">Card no {{customer.cardNumber}}</span>
+                </div>
+                <div class="card-body">
+                    <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
+                                        [submitSubscription]="saveSubscription" isEdit="true">
+                    </app-customer-form>
                 </div>
             </div>
         </div>

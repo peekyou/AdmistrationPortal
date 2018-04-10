@@ -36,7 +36,10 @@ export class CustomerNewModal {
     }
 
     populateSearch(form: FormGroup = null) {  
-        if (isMobileNumber(this.service.searchTerm)) {          
+        if (isMobileNumber(this.service.searchTerm)) {
+            if (this.service.searchTerm.startsWith('0')) {
+                this.service.searchTerm = this.service.searchTerm.removeAt(0);
+            }
             form.patchValue({
                 mobile: this.service.searchTerm
             });

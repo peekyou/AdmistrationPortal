@@ -3,6 +3,7 @@
  */
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from 'environments/environment';
+import { registerSw } from './app/core/helpers/utils';
 
 /**
  * App Module
@@ -17,6 +18,7 @@ export function main(): Promise<any> {
   return platformBrowserDynamic()
     .bootstrapModule(AppModule)
     .then(environment.decorateModuleRef)
+    .then(registerSw)
     .catch((err) => console.error(err));
 }
 

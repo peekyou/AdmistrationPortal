@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { LineChartData } from './line-chart';
 import { ngbDateStructToDate, dateToNgbDateStruct } from '../../../helpers/utils';
+import { UserService } from '../../../../components/user/user.service';
 
 @Component({
     selector: 'app-line-chart',
@@ -65,7 +66,8 @@ export class LineChartComponent implements OnInit {
         // });
     }
 
-    constructor(private fb: FormBuilder, element: ElementRef, d3Service: D3Service) { 
+    constructor(private fb: FormBuilder, element: ElementRef, d3Service: D3Service, user: UserService) {
+        this.currency = user.getCurrency(); 
         this.d3 = d3Service.getD3();
         this.parentNativeElement = element.nativeElement;
         this.form = this.fb.group({
@@ -75,7 +77,6 @@ export class LineChartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currency = "AED";
     }
 
     initChart() {

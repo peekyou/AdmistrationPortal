@@ -10,6 +10,16 @@ export function guid() {
     });
 }
 
+export function registerSw() {
+    if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function (err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
+}
+
 export function ngbDateStructToDate(date: NgbDateStruct): Date {
     if (!date) return null;
     return new Date(Date.UTC(date.year, date.month - 1, date.day));

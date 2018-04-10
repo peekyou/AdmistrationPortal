@@ -7,7 +7,7 @@
                 <th scope="col">{{ 'COMMON.EMAIL' | translate }}</th>
                 <th scope="col" *ngIf="!small">{{ 'COMMON.BIRTHDATE' | translate }}</th>
                 <th scope="col" *ngIf="!small">{{ 'COMMON.CITY' | translate }}</th>
-                <th scope="col" *ngIf="!small">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</th>
+                <th scope="col">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</th>
                 <th scope="col">{{ 'CUSTOMERS.TOTAL_SPENT' | translate }}</th>
             </tr>
         </thead>
@@ -33,7 +33,11 @@
                 <td *ngIf="!small">
                     <span *ngIf="customer.address">{{ customer.address.city }}</span>
                 </td>
-                <td *ngIf="!small"></td>
+                <td>
+                    <div *ngFor="let favoriteProduct of customer.favoriteProducts">
+                        {{ favoriteProduct.name }}
+                    </div>
+                </td>
                 <td>
                     <div *ngFor="let totalExpense of customer.totalExpenses" class="cyan">
                         <span class="currency">{{ totalExpense.currency }}</span>

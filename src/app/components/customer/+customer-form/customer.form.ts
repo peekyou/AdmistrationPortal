@@ -6,6 +6,8 @@ import { NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
 import { UserService } from '../../user/user.service';
+import { ProductService } from '../../bo-management/product/product.service';
+import { Product } from '../../bo-management/product/product';
 import { ngbDateStructToDate } from '../../../core/helpers/utils';
 
 @Component({
@@ -16,6 +18,7 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 })
 export class CustomerForm implements OnInit {
     form: FormGroup;
+    products: Product[];
     @Input() modal: boolean;
     @Input() isEdit: boolean;
     @Input() submitSubscription;
@@ -26,11 +29,18 @@ export class CustomerForm implements OnInit {
         private fb: FormBuilder, 
         private service: CustomerService, 
         private location: Location,
-        private user: UserService,
+        public user: UserService,
+        private productService: ProductService,
         config: NgbDatepickerConfig) {
             var currentDate = new Date();
             config.minDate = {year: 1900, month: 1, day: 1};
             config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
+
+            productService.getProducts(null, null)
+                .subscribe(
+                    res => this.products = res.data,
+                    err => console.log(err)
+                );
     }
     
     ngOnInit() {
@@ -46,6 +56,7 @@ export class CustomerForm implements OnInit {
             email: [null, this.customEmailValidator],
             birthdate: [null],
             languages: this.fb.array([]),
+            favoriteProducts: this.fb.array([]),
             address: this.fb.group({
                 country: [null],
                 addressLine1: [null],
@@ -59,22 +70,25 @@ export class CustomerForm implements OnInit {
             }),
             receiveSms: [true],
             comment: [null],
-            amount: [null, (c) => this.AmountValidator(c)]
+            amount: [null, (c) => this.amountValidator(c)]
         });
 
         var languagesControl = <FormArray>this.form.controls.languages;
         languagesControl.push(new FormControl());
+        
+        var favProductsControl = <FormArray>this.form.controls.favoriteProducts;
+        favProductsControl.push(new FormControl());
         this.onPopulate.emit(this.form);
     }
 
-    addLanguage() {
-        const arrayControl = <FormArray>this.form.controls.languages;
-        let newLanguage = new FormControl();
-        arrayControl.push(newLanguage);
+    addArrayControl(control: string) {
+        const arrayControl = <FormArray>this.form.controls[control];
+        let newControl = new FormControl();
+        arrayControl.push(newControl);
     }
 
-    removeLanguage(index: number) {
-        const arrayControl = <FormArray>this.form.controls.languages;
+    removeControl(index: number, control: string) {
+        const arrayControl = <FormArray>this.form.controls[control];
         arrayControl.removeAt(index);
     }
     
@@ -82,6 +96,7 @@ export class CustomerForm implements OnInit {
         var customer: Customer = {
             gender: this.form.value.gender,
             languages: this.form.value.languages,
+            favoriteProducts: this.form.value.favoriteProducts,
             email: this.form.value.email,
             birthdate: ngbDateStructToDate(this.form.value.birthdate),
             mobileNumber: this.form.value.mobile,
@@ -107,10 +122,10 @@ export class CustomerForm implements OnInit {
         this.onSubmit.emit(customer);
     }
 
-    anyLanguageEmpty(): boolean {
-        var languages = this.form.value.languages;
-        for (let i = 0; languages && i < languages.length; i++) {
-            if (languages[i] == null || languages[i] == '') {
+    anyControlEmpty(control: string): boolean {
+        var arrayControl = this.form.value[control];
+        for (let i = 0; arrayControl && i < arrayControl.length; i++) {
+            if (arrayControl[i] == null || arrayControl[i] == '') {
                 return true;
             }
         }
@@ -124,7 +139,7 @@ export class CustomerForm implements OnInit {
         return Validators.email(control);
     }
 
-    private AmountValidator(control: AbstractControl): ValidationErrors {
+    private amountValidator(control: AbstractControl): ValidationErrors {
         if (this.isEdit) {
             return null;
         }

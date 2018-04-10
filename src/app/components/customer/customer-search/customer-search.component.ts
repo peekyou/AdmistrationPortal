@@ -40,8 +40,8 @@ export class CustomerSearchComponent {
     }
 
     searchCustomer() {
-        this.loading = true;
         if (this.searchTerm) {
+            this.loading = true;
             this.service
                 .get(null, null, this.searchTerm.toLowerCase())
                 .subscribe(customers => {
@@ -63,6 +63,9 @@ export class CustomerSearchComponent {
                     console.log(err); 
                 }
             );
+        }
+        else {
+            this.openNewCustomerModal();
         }
     }
 

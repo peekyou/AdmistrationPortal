@@ -2,6 +2,9 @@
     <form *ngIf="router.url === '/dashboard'" class="form-inline" [formGroup]="form" 
         (ngSubmit)="form.valid && submit()" novalidate>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary today" (click)="submit('day')">
+                {{ 'TOOLBAR.TODAY' | translate }}
+            </button>
             <button type="button" class="btn btn-secondary week" (click)="submit('week')">
                 {{ 'TOOLBAR.WEEK' | translate }}
             </button>

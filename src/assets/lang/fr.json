@@ -1,10 +1,11 @@
 {
     "TOOLBAR": {
+        "TODAY": "Aujourd'hui",
         "WEEK": "Semaine",
         "MONTH": "Mois",
         "YEAR": "Année",
         "EVER": "Depuis toujours",
-        "PERSONALIZE": "ou personalisé:",        
+        "PERSONALIZE": "ou:",        
         "CUSTOMERS": "Clients",
         "CONTENT": "Contenus",
         "REVIEWS": "Avis",
@@ -80,7 +81,6 @@
         "FILTERS": "Filtres",
         "SUBMIT": "Envoyer",
         "ADDRESS": "Adresse",
-        "CONFIRMATION_QUESTION": "Confirmer ?",
         "SEND_EMAIL_SUCCESS": "Email envoyé",
         "SEND_EMAIL_ERROR": "Une erreur est survenue lors de l'envoi, essayez plus tard",
         "SINCE": "Depuis",
@@ -114,7 +114,9 @@
         "FAVORITE_PRODUCTS": "Produits favoris",
         "POINTS_BALANCE": "",
         "POINTS_USED": "Points déjà utilisé",
-        "MOBILE_PLACEHOLDER": "Numéro de télépone"
+        "MOBILE_PLACEHOLDER": "Numéro de télépone",
+        "ELIGIBLE_DISCOUNT": "Eligible pour une réduction :",
+        "SEND_APPLICATION_SMS": "Renvoyer SMS application"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",

@@ -6,6 +6,10 @@
     max-height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
+
+    form {
+        padding: 0 .4rem;
+    }
 }
 
 .card-languages {

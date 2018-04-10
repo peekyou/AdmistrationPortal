@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ViewEncapsulation, ElementRef, HostListener }
 import { D3Service, D3, Selection, BaseType, ScaleBand, ScaleLinear, ScaleOrdinal } from 'd3-ng2-service';
 import { BarChartData, GroupBarChartData, ChartData } from './group-bar-chart';
 
+import { UserService } from '../../../../components/user/user.service';
+
 @Component({
     selector: 'app-group-bar-chart',
     encapsulation: ViewEncapsulation.None,
@@ -46,13 +48,13 @@ export class GroupBarChartComponent implements OnInit {
     onResize(event) {
     }
 
-    constructor(element: ElementRef, d3Service: D3Service) { 
+    constructor(element: ElementRef, d3Service: D3Service, user: UserService) {
+        this.currency = user.getCurrency();
         this.d3 = d3Service.getD3();
         this.parentNativeElement = element.nativeElement;
     }
 
     ngOnInit() {
-        this.currency = "AED";
         if (this.parentNativeElement !== null) {
             this.initChart();
             this.drawChart();        

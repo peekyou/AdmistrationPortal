@@ -22,6 +22,8 @@ import { Lookup } from '../../../models/lookup';
     ]
 })
 export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Validator {
+    values: Lookup[] = [];    
+    private _source: any = [];
     private _selectedValue: any = '';
     private _onTouchedCallback: () => {};
     private _onChangeCallback: (_:any) => {};
@@ -49,9 +51,29 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
 
     @Input() openOnFocus: boolean = false;
     @Input() small: boolean = false;
-    @Input() source: string;
     @Output() onChange: EventEmitter<Lookup> = new EventEmitter(); 
-    values: Lookup[] = [];
+    
+    @Input() 
+    set source(source: any) {
+        this._source = source;
+        switch(source) {
+            case 'countries': this.lookupService.fetchCountries().subscribe(res => {
+                    this.values = res
+                    this.checkValue();
+                });
+                break;
+            case 'languages': this.lookupService.fetchLanguages().subscribe(res => {
+                    this.values = res;
+                    this.checkValue();
+                });
+                break;
+            default: this.values = source || [];
+        }
+    }
+
+    get source(): any {
+        return this._source;
+    }
     
     @ViewChild('instance') instance: NgbTypeahead;
     focus$ = new Subject<string>();
@@ -76,19 +98,6 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
               text$
                 .debounceTime(200).distinctUntilChanged()
                 .map(term => (term === '' ? this.values : this.values.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10));
-        }
-        
-        switch(this.source) {
-            case 'countries': this.lookupService.fetchCountries().subscribe(res => {
-                    this.values = res
-                    this.checkValue();
-                });
-                break;
-            case 'languages': this.lookupService.fetchLanguages().subscribe(res => {
-                    this.values = res;
-                    this.checkValue();
-                });
-                break;
         }
     }
 

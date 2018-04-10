@@ -64,7 +64,9 @@ export class CustomerDetailComponent implements OnInit {
         if (this.customerForm) {
             this.customerForm.reset();
             const languagesControl = <FormArray>this.customerForm.controls['languages'];
+            const favoriteProductsControl = <FormArray>this.customerForm.controls['favoriteProducts'];
             this.clearFormArray(languagesControl);
+            this.clearFormArray(favoriteProductsControl);
             this.customerForm.patchValue({
                 gender: this.customer.gender,
                 firstname: this.customer.firstname,
@@ -89,7 +91,7 @@ export class CustomerDetailComponent implements OnInit {
                     }
                 });
             }
-
+            
             // Set languages
             for (let i = 0; this.customer.languages && i < this.customer.languages.length; i++) {
                 let newLanguage = new FormControl(this.customer.languages[i]);
@@ -98,6 +100,15 @@ export class CustomerDetailComponent implements OnInit {
             // If there is no language, add an empty control
             if (languagesControl.length == 0 ) {
                 languagesControl.push(new FormControl());                
+            }
+            
+            // Set fav products
+            for (let i = 0; this.customer.favoriteProducts && i < this.customer.favoriteProducts.length; i++) {
+                let newProduct = new FormControl(this.customer.favoriteProducts[i]);
+                favoriteProductsControl.push(newProduct);
+            }
+            if (favoriteProductsControl.length == 0 ) {
+                favoriteProductsControl.push(new FormControl());                
             }
         }
     }

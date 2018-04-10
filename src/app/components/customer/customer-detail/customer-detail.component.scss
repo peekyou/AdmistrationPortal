@@ -7,7 +7,6 @@
 
 .content-container {
     width: 95%;
-    margin-top: 5rem;
 }
 
 .form-inline {
@@ -16,13 +15,14 @@
 }
 
 .points-detail {
-    max-height: 30em;
+    max-height: 377px;
     overflow-y: scroll;
     font-size: 13px;
 
     table, th, td, td {
         margin-top: 0;
         border: none;
+        padding: 0.2rem 0.3rem;
     }
 
     th {
@@ -46,6 +46,6 @@
 
 @include media-breakpoint-up(sm) {
     .points-used {
-        line-height: 110px;
+        line-height: 90px;
     }
 }

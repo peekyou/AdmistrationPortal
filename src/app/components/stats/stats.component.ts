@@ -6,6 +6,7 @@ import { SearchService } from '../../core/services/search.service';
 import { SegmentationStatistics, DataType } from './segmentation-statistics';
 import { StatsService } from './stats.service';
 import { CustomerService } from '../customer/customer.service';
+import { UserService } from '../user/user.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 import { PieChartData } from '../../core/shared/components/pie-chart/pie-chart';
 import { Customer, CustomerExpense } from '../customer/customer';
@@ -53,7 +54,8 @@ export class StatsComponent implements OnInit {
         private translation: TranslationService,
         private searchService: SearchService,
         private customerService: CustomerService,
-        private reviewService: ReviewService) { 
+        private reviewService: ReviewService,
+        public user: UserService) { 
 
             searchService.searchFilter$.subscribe(
                 searchFilter => { 

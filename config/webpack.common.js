@@ -233,7 +233,7 @@ module.exports = function (options) {
       */
       new HtmlWebpackPlugin({
         template: 'src/index.html',
-        filename: isProd ? 'customer/index.html' : 'index.html',        
+        filename: isProd ? METADATA.merchant + '/index.html' : 'index.html',        
         title: METADATA.title,
         chunksSortMode: function (a, b) {
           const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];
@@ -323,7 +323,7 @@ module.exports = function (options) {
             console.log(message);
         },
         minify: false,
-        cacheId: 'AppWards',
+        cacheId: 'AppWardsBO',
         // For unknown URLs, fallback to the index page
         // navigateFallback: helpers.publicUrl + '/index.html',
         // Ignores URLs starting from /__ (useful for Firebase):

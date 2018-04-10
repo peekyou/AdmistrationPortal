@@ -27,7 +27,7 @@
                        formControlName="addressLine2" />
             </div>
             <div class="form-group" *ngIf="isUAE()">
-                <label for="state">Emirate</label>
+                <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
                 <select formControlName="state" id="state" class="form-control form-control-sm" 
                     (change)="onStateChange($event.target.value)">
                     <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>

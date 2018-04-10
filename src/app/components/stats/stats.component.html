@@ -15,7 +15,7 @@
                     <div class="card card-stats">
                         <div class="card-body">
                             <div class="card-title">{{ 'STATS.REVENUES' | translate }}</div>
-                            <h2 class="cyan">{{totalExpenses}} AED</h2>
+                            <h2 class="cyan">{{totalExpenses}} {{ user.getCurrency() }}</h2>
                         </div>
                     </div>
                     <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

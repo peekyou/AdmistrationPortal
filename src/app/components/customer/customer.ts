@@ -23,6 +23,7 @@ export class Customer {
     pointsToDiscount?: number;
     purchaseData?: PurchaseData;
     languages?: Lookup[];
+    favoriteProducts?: Lookup[];
     address?: Address; 
 }
 

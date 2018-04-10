@@ -1,18 +1,19 @@
 <div class="row">
     <div class="col col-md-9">
         <form class="form" #f="ngForm" (ngSubmit)="f.valid && searchCustomer()" novalidate>
-            <div class="input-group inner-addon right-addon">
-                <i class="fa fa-search fa-lg"></i>
+            <div class="input-group">
                 <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
                     placeholder="{{ 'CUSTOMERS.SEARCH_PLACEHOLDER' | translate }}">
-                <!-- <div class="input-group-append">
-                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                </div> -->
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i> {{ 'CUSTOMERS.SEARCH' | translate }}
+                    </button>
+                </div>
                 <ngx-loading [show]="loading"></ngx-loading>        
             </div>
         </form>
     </div>
-    <div class="col col-md-3">    
+    <!-- <div class="col col-md-3">    
         <button class="btn btn-primary" (click)="openNewCustomerModal()">{{ 'CUSTOMERS.ADD' | translate }}</button>
-    </div>
+    </div> -->
 </div>

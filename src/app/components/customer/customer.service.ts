@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
+import { UserService } from '../user/user.service';
 import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
 import { PagingResponse } from '../../core/models/paging';
 import { Lookup } from '../../core/models/lookup';
@@ -14,12 +15,12 @@ export class CustomerService {
     customerSearched: Customer;
     searchTerm: string;
 
-    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService) {
+    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService, private user: UserService) {
         this.api = config.ApiEndpoint + '/customers';
     }
 
     get(page: number, count: number, searchTerm: string = ''): Observable<PagingResponse<Customer>> {
-        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count + '&searchTerm=' + searchTerm);
+        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count + '&searchTerm=' + encodeURIComponent(searchTerm));
     }
     
     getCustomerCities(): Observable<Lookup[]> {
@@ -58,7 +59,7 @@ export class CustomerService {
         });
 
         purchaseData.remainder = remainder;
-        purchaseData.currentPurchaseAmountString = purchaseData.currentPurchaseAmount + " AED";
+        purchaseData.currentPurchaseAmountString = purchaseData.currentPurchaseAmount + " " + this.user.getCurrency();
         return purchaseData;
     }
 
