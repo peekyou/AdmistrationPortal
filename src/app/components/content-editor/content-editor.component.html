@@ -51,6 +51,11 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
+                                    <label for="backgroundImageSize">{{ 'CONTENT.BACKGROUND_IMAGE_SIZE' | translate }}</label>
+                                    <select [(ngModel)]="design.backgroundImageSize" name="backgroundImageSize"
+                                            class="form-control form-control-sm" id="backgroundImageSize">
+                                        <option *ngFor="let size of service.getBackgroundImageSizes() | async" [ngValue]="size.id">{{ size.name }}</option>
+                                    </select>
                                     <!-- <label class="form-control-sm" for="menu-color">{{ 'CONTENT.MENU_BACKGROUND_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.menuBackgroundColor" [value]="design.menuBackgroundColor"
                                         [style.background]="design.menuBackgroundColor" cpPosition="bottom" cpOutputFormat="rgba"
@@ -171,7 +176,7 @@
                 <h5 class="card-header">{{ 'CONTENT.LOCATION' | translate }}</h5>                    
                 <div class="card-body">
                     <form *ngIf="locationPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(locationPage)" novalidate>
-                        <app-address [(ngModel)]="locationPage.address" name="address" showMap="true"></app-address>                            
+                        <app-address [(ngModel)]="locationPage.address" name="address" showMap="true" required="true"></app-address>                            
                         <div class="button">
                             <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" 
                                                 loadingValue="{{ 'COMMON.SAVING' | translate }}"

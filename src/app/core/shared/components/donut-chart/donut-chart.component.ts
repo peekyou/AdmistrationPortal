@@ -96,7 +96,7 @@ export class DonutChartComponent implements OnInit {
         if (this.data.name.toLowerCase() == 'gender') {
             color = <any>d3.scaleOrdinal()
                 .domain(["Female", "Male", "Unknown"])
-                .range(["#FF69B4", "6f6fff" , "#aaa"]);
+                .range(["#ca34a2", "3ac1cd" , "#aaa"]);
         }
 
         var arc = d3.arc<PieArcDatum<PieChartDetail>>()

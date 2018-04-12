@@ -12,6 +12,7 @@ export class MerchantDesign {
     backgroundImage?: Picture;
     headerImageSrc?: string;
     headerImage?: Picture;
+    backgroundImageSize?: string;
 
     constructor() {
         this.logo = null;

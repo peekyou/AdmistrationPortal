@@ -1,6 +1,6 @@
 <div id="sidebar" class="sidebar-collapse in" *ngIf="user.isAuthenticated()">
         <div class="logo">
-            <img src="assets/icon/Godiva_Header.png" />
+            <img *ngIf="logo" [src]="logo"/>
         </div>
         <div class="list-group panel">
            <div>

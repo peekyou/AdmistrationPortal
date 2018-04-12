@@ -1,3 +1,7 @@
 <input type="text" class="form-control" [ngClass]="{'form-control-sm': small}" [(ngModel)]="selectedValue" [ngbTypeahead]="search"
-       (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" 
+       (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" [required]="required" 
        [resultFormatter]="formatMatches" [inputFormatter]="formatMatches"  #instance="ngbTypeahead"/>
+    
+<!-- <div [hidden]="title.valid || (title.pristine && !f.submitted)" class="alert-sm alert-danger">
+    Title is required
+</div> -->

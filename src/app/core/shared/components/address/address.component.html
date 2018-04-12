@@ -11,7 +11,7 @@
         <ng-container *ngIf="addressForm" [formGroup]="addressForm" class="address">
             <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
                 <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
-                <app-autocomplete source="countries" name="country" id="country" 
+                <app-autocomplete source="countries" name="country" id="country" [required]="required"
                     formControlName="country" small="true" (onChange)="countryChanged($event)">
                 </app-autocomplete>
             </div>
@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
                         <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
-                        <app-autocomplete source="countries" name="country" id="country" 
+                        <app-autocomplete source="countries" name="country" id="country" [required]="required"
                             [(ngModel)]="address.country" small="true" (onChange)="countryChanged($event)">
                         </app-autocomplete>
                     </div>

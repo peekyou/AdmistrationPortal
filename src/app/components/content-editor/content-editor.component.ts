@@ -75,7 +75,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
 
     constructor(
         private fb: FormBuilder,
-        private service: ContentEditorService, 
+        public service: ContentEditorService, 
         private notifier: PageNotifierService,
         private modalService: NgbModal
     ) {

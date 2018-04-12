@@ -139,6 +139,7 @@
         "DROP_ZONE_BROWSE": "browse",
         "LOGO": "Logo",
         "BACKGROUND_IMAGE": "Background",
+        "BACKGROUND_IMAGE_SIZE": "Background image size",
         "HEADER_IMAGE": "Header",
         "REWARDS_WHEEL_COLOR": "Rewards wheel color",
         "TITLES_COLOR": "Titles color",

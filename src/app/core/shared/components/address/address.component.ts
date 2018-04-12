@@ -40,6 +40,7 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         this._onTouchedCallback();
     }
     
+    @Input() required = false;
     @Input() showMap = false;
     @Input() hideCountry = false;
     @Input() cardPadding = null;

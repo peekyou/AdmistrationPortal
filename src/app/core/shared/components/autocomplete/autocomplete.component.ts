@@ -49,6 +49,7 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
         this._onTouchedCallback();
     }
 
+    @Input() required: boolean = false;
     @Input() openOnFocus: boolean = false;
     @Input() small: boolean = false;
     @Output() onChange: EventEmitter<Lookup> = new EventEmitter(); 
@@ -130,12 +131,11 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
     // validates the form, returns null when valid else the validation object
     // in this case we're checking if the json parsing has passed or failed from the onChange method
     validate(control: FormControl) {
-        // The [required] validator will check presence
-        if (!control.value || !this.values || this.values.length === 0) {
-            return null;
-        }
         var isValid = false;
-        if (control.value.id) {
+        if ((!control.value || !this.values || this.values.length === 0) && !this.required) {
+            isValid = true;
+        }
+        else if (control && control.value && control.value.id) {
             isValid = this.findLookupById(control.value.id) != null;
         }
         if (!isValid) {

@@ -139,6 +139,7 @@
         "DROP_ZONE_BROWSE": "parcourir",
         "LOGO": "Logo",
         "BACKGROUND_IMAGE": "Arrière plan",
+        "BACKGROUND_IMAGE_SIZE": "Taille image arrière plan",
         "HEADER_IMAGE": "Entête",
         "REWARDS_WHEEL_COLOR": "Couleur cercle fidélité",
         "TITLES_COLOR": "Couleur des titres",

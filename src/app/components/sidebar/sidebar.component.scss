@@ -17,11 +17,13 @@
     overflow-y: auto;
     height: 100%;
 
-    .logo {
+    .logo {    
+        height: 82px;
         margin: 2rem 0;
         text-align: center;
 
         img {
+            max-height: 90px;
             max-width: 150px;
         }
     }

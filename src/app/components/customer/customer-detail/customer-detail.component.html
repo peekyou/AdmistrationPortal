@@ -18,7 +18,7 @@
                         </form>
                     </div>
                     <div *ngIf="customer.discountAmount != null && !useDiscountLater" class="entry-form">
-                        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' }} {{ customer.discountAmount }} {{ currency }}</div>
+                        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ customer.discountAmount }} {{ currency }}</div>
                         <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
                             <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
                                             loadingValue="{{ 'COMMON.LOADING' | translate }}"
