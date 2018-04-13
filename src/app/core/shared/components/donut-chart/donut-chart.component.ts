@@ -7,7 +7,7 @@ import { PieChartData, PieChartDetail } from '../pie-chart/pie-chart';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./donut-chart.component.scss'],
     //template: ``
-    template: `<svg width="100%" height="200"></svg>`
+    template: `<svg width="100%" height="170"></svg>`
 })
 export class DonutChartComponent implements OnInit {
     private initialized: boolean = false;
@@ -87,15 +87,17 @@ export class DonutChartComponent implements OnInit {
         if (!this.data) {
             return;
         }
-        
         let d3 = this.d3;
         // var color = d3.scaleOrdinal()
         // .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         if (this.data.name.toLowerCase() == 'gender') {
+            var female = this.data.details.find(e => { return e.key == 'F' });
+            var male = this.data.details.find(e => { return e.key == 'M' });
+            var ukn = this.data.details.find(e => { return e.key == 'U' });
             color = <any>d3.scaleOrdinal()
-                .domain(["Female", "Male", "Unknown"])
+                .domain([female ? female.label : null, male ? male.label : null, ukn ? ukn.label : null])
                 .range(["#ca34a2", "3ac1cd" , "#aaa"]);
         }
 
@@ -180,7 +182,7 @@ export class DonutChartComponent implements OnInit {
             .attr("class", "label")
             .attr("text-anchor", "middle")
             .text(function(d){
-                return d.data.percentage +"%";
+                return d.data.percentage.toFixed(0) +"%";
             })
             .style("fill", "#fff")
             .style("font-size", "10px");

@@ -14,8 +14,17 @@
     display: inline-block;
 }
 
+h5 {
+    font-size: 1.3rem;
+    height: 52px;
+    vertical-align: middle;
+    line-height: 34px;
+    color: #fdbc00 !important;
+}
+
 .points-detail {
     max-height: 410px;
+    height: 410px;
     overflow-y: scroll;
     font-size: 13px;
 
@@ -36,7 +45,7 @@
 }
 
 .card-header.customer-form {
-    font-size: 22px;
+    font-size: 20px;
     color: $theme-color;
 }
 

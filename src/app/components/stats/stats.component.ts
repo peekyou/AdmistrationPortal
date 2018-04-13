@@ -183,6 +183,7 @@ export class StatsComponent implements OnInit {
         data.forEach(d => {
             var key = this.translationMapping[d.label];
             if (key) {
+                d.key = d.label ? d.label : "U";
                 d.label = this.staticStrings[key];
             }
         });

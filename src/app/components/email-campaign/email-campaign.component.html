@@ -1,8 +1,8 @@
 <div class="container email-container">
     <div class="card">
-        <h5 class="card-header">{{ 'EMAIL_CAMPAIGNS.TITLE' | translate }}</h5>                
+        <h6 class="card-header">{{ 'EMAIL_CAMPAIGNS.TITLE' | translate }}</h6>                
         <div class="card-body">
-            <p class="cyan bold lead">
+            <p class="cyan bold lead mb-0">
                 {{ 'EMAIL_CAMPAIGNS.CURRENT_EMAILS_1' | translate }}
                 <app-circle-progress
                     subtitle="{{ 'EMAIL_CAMPAIGNS.EMAILS_CAP' | translate }}"
@@ -30,9 +30,7 @@
                 {{ 'EMAIL_CAMPAIGNS.CURRENT_EMAILS_2' | translate }}
             </p> 
 
-            <p class="bold">{{ 'EMAIL_CAMPAIGNS.USE_EMAILS' | translate }}</p>
-
-            <p class="tool-desc">{{ 'EMAIL_CAMPAIGNS.TOOL_DESCRIPTION' | translate }}</p>
+            <p class="bold" style="margin-bottom: 2.5rem;">{{ 'EMAIL_CAMPAIGNS.USE_EMAILS' | translate }}</p>
             <button class="btn btn-primary btn-lg" (click)="openEmailModal()">{{ 'EMAIL_CAMPAIGNS.SUSCRIBE_BUTTON' | translate }}</button>
         </div>
     </div>

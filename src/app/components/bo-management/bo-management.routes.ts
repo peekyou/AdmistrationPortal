@@ -7,7 +7,7 @@ import { Permissions } from '../../core/helpers/permissions';
 
 export const routes: Routes = [
     {
-        path: 'management', data: { permission: Permissions.UserManagement }, canActivate: [AuthGuard, PermissionGuard], children: [
+        path: 'management', data: { permission: Permissions.Management }, canActivate: [AuthGuard, PermissionGuard], children: [
             { path: '', component: BackOfficeManagementComponent }
         ]
     },

@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-md-6 col-lg-5">
             <div class="card">
-                <h5 class="card-header">{{ 'PRODUCTS.ADD' | translate }}</h5>                
+                <h6 class="card-header">{{ 'PRODUCTS.ADD' | translate }}</h6>                
                 <div class="card-body">
                     <form [formGroup]="productForm" class="form text-align-center" (ngSubmit)="productForm.valid && createProduct()" novalidate>
                         <div class="form-group">
@@ -60,7 +60,7 @@
         </div>
         <div class="col-md-6 col-lg-7" *ngIf="products && products.paging.itemsCount > 0">
             <div class="card">
-                <h5 class="card-header">{{ 'PRODUCTS.OUR' | translate }}</h5>                
+                <h6 class="card-header">{{ 'PRODUCTS.OUR' | translate }}</h6>                
                 <div class="card-body">
                     
                     <div *ngFor="let product of products.data | paginate: { itemsPerPage: itemsPerPage, currentPage: productCurrentPage, totalItems: products?.paging?.totalCount, id: 'pg-products' }; index as i"

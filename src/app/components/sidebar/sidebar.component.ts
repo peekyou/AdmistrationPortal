@@ -20,7 +20,7 @@ export class SidebarComponent {
     public promotionsPermission = Permissions.Promotions;
     public smsPermission = Permissions.SMS;
     public emailPermission = Permissions.Email;
-    public userManagementPermission = Permissions.UserManagement;
+    public userManagementPermission = Permissions.Management;
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
 

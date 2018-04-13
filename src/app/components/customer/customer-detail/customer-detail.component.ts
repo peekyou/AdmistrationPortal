@@ -74,7 +74,7 @@ export class CustomerDetailComponent implements OnInit {
                 mobile: this.customer.mobileNumber,
                 email: this.customer.email,
                 // languages: this.customer.languages,
-                birthdate: this.customer.birthdate,
+                birthdate: dateToNgbDateStruct(this.customer.birthdate),
                 comment: this.customer.comment
             });
 

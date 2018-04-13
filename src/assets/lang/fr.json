@@ -4,8 +4,8 @@
         "WEEK": "Semaine",
         "MONTH": "Mois",
         "YEAR": "Année",
-        "EVER": "Depuis toujours",
-        "PERSONALIZE": "ou:",        
+        "EVER": "Tout",
+        "PERSONALIZE": "",        
         "CUSTOMERS": "Clients",
         "CONTENT": "Contenus",
         "REVIEWS": "Avis",
@@ -13,10 +13,10 @@
         "SMS_PACKS": "Packs SMS",
         "SMS_CAMPAIGNS": "Campagnes SMS",
         "EMAIL_CAMPAIGNS": "Campagnes email",
-        "USER_MANAGEMENT": "Gestion backoffice",
+        "USER_MANAGEMENT": "Gestion",
         "BILLS": "Factures",
         "MOBILE_PREVIEW": "Aperçu mobile",
-        "STATISTICS": "Dashboard",
+        "STATISTICS": "Tableau de bord",
         "LOGOUT": "Déconnexion"
     },
     "FORM": {
@@ -52,7 +52,7 @@
         "LASTNAME": "Nom",
         "GENDER": "Sexe",
         "AGE": "Age",
-        "STATUS": "Status",
+        "STATUS": "Statut",
         "ACTIONS": "Actions",
         "NAME": "Nom",
         "MOBILE_NO": "No téléphone",
@@ -74,10 +74,10 @@
         "AUTOCOMPLETE_PLACEHOLDER": "Rechercher ou sélectionner",
         "APPLY_CHANGES": "Sauvegarder",
         "LANGUAGES": "Langues",
-        "ADD_LANGUAGE": "Ajouer langue",
+        "ADD_LANGUAGE": "Ajouter langue",
         "GENDER_F": "Femme",
         "GENDER_M": "Homme",
-        "UNKNOWN": "Non renseigné",
+        "UNKNOWN": "Inconnu",
         "FILTERS": "Filtres",
         "SUBMIT": "Envoyer",
         "ADDRESS": "Adresse",
@@ -97,7 +97,7 @@
         "COUNT": "Vous avez {{count}} clients",
         "SEARCH": "Recherchez client",
         "SEARCH_PLACEHOLDER": "Nom, tel, no carte",
-        "SAVE_ENTRY_LABEL": "Nouvelle dépense en {{currency}}",
+        "SAVE_ENTRY_LABEL": "Nouvelle dépense",
         "SAVE_ENTRY_BUTTON": "Sauvegarder dépense",
         "GIVE_DISCOUNT_BUTTON": "Accorder remise",
         "KEEP_DISCOUNT_BUTTON": "Utiliser plus tard",
@@ -109,7 +109,7 @@
         "CURRENT_POINTS_DETAIL": "Détail points en cours",
         "EDIT_INFOS": "Modifier informations",
         "CUSTOMER_INFOS": "Informations client",
-        "EXPENSES_CHART": "Graphe des dépenses",
+        "EXPENSES_CHART": "Revenus",
         "TOTAL_SPENT": "Total dépensé",
         "FAVORITE_PRODUCTS": "Produits favoris",
         "POINTS_BALANCE": "",
@@ -159,11 +159,11 @@
         "NO_PROMOTION": "Aucune promotion",
         "PROMOTION": "Promotion",
         "PERIOD": "Période",
-        "CREATE_NEW": "Envoyer une nouvelle campagne SMS",
+        "CREATE_NEW": "Nouvelle campagne SMS",
         "TARGET": "Cibler",
-        "HISTORY": "Historique des campagnes",
+        "HISTORY": "Campagnes",
         "MESSAGE": "Message",
-        "TOTAL_RECIPIENTS": "Total des destinataires",
+        "TOTAL_RECIPIENTS": "Total envoyés",
         "TOTAL_RECEIVED": "Total reçus",
         "CAMPAIGN_NAME": "Nom de la campagne",
         "PERCENTAGE": "Pourcentage",
@@ -185,18 +185,19 @@
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Campagnes email",
         "EMAILS_CAP": "EMAILS",
-        "EMAIL_TOOL_MODAL": "Motre équipe vous contactera pour mettre l'outil à votre disposition"
+        "EMAIL_TOOL_MODAL": "Notre équipe vous contactera pour mettre l'outil à votre disposition"
     },
     "SMS_PACKS": {
         "SMS": "SMS",
         "STOCK": "Votre stock",
-        "BUY": "Acheter le pack",
+        "BUY": "Acheter",
+        "BUY_BTN": "Acheter",
         "MODAL_TITLE": "Achat SMS",
         "MODAL_SENTENCE": "Vous achetez {{smsNumber}} SMS pour {{price}}{{currency}}",
         "NEW_STOCK": "Votre nouveau stock",
         "CC_NOTICE": "Le montant de cet achat est à régler par carte bancaire.",
-        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture (disponible le 1er de chaque mois).",
-        "ADD_SMS_LABEL": "Ajouter les SMS à votre compte"
+        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture",
+        "ADD_SMS_LABEL": "SMS pour"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "Aucun utilisateur",
@@ -218,14 +219,14 @@
         "PAY": "Payer"
     },
     "STATS": {
-        "TITLE": "Dashboard",
-        "GENDER_PIE": "Gender segmentation",
-        "AGE_PIE": "Age segmentation",
-        "GROUP_BAR_CHART": "Graphe des dépenses segmenté",
-        "EXPENSES_LINE_CHART": "Graphe des dépenses",
+        "TITLE": "Tableau de bord",
+        "GENDER_PIE": "Segmentation H/F",
+        "AGE_PIE": "Segmentation par Age",
+        "GROUP_BAR_CHART": "Revenus détaillés",
+        "EXPENSES_LINE_CHART": "Revenus",
         "BEST_CUSTOMERS": "Meilleurs clients",
         "REGISTERED_CUSTOMERS": "Clients enregistrés",
         "REVENUES": "Revenus",
-        "USING_APPLICATION": "Utilisent l'application"
+        "USING_APPLICATION": "Utilisateurs"
     }
 }

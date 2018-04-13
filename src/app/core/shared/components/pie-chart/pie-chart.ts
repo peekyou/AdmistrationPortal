@@ -5,6 +5,7 @@ export class PieChartData {
 
 export class PieChartDetail {
     count: number;
+    key: string;
     label: string;
     percentage?: number;
 }

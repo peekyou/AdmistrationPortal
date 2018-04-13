@@ -1,6 +1,6 @@
 <div class="container sms-container">
     <div class="card">
-        <h5 class="card-header">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</h5>                
+        <h6 class="card-header">{{ 'TOOLBAR.SMS_PACKS' | translate }}</h6>                
         <div class="card-body">
             <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             <div class="row" *ngIf="smsPack">
@@ -33,13 +33,11 @@
                     </div>
                     <form class="form" #form="ngForm" (ngSubmit)="form.valid && openModal()" novalidate>
                         <div class="form-group">
-                            <label for="stock">{{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }}</label>
+                            <label for="stock" class="cyan sms-label">{{ 'SMS_PACKS.BUY' | translate }} {{ packNumber * smsPack.smsNumber }} {{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }} {{ packNumber * smsPack.price }}{{ currency }}</label>
                             <input type="number" id="stock" name="stock" class="form-control mx-sm-3" min="1" max="10000" 
                                     [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
-                            <h2>{{ 'COMMON.OF' | translate }} <b>{{ smsPack?.smsNumber }} {{ 'SMS_PACKS.SMS' | translate }}</b></h2>
-                            <h2 class="cyan">{{ 'COMMON.FOR' | translate }} <b>{{ packNumber * smsPack.price }}{{ currency }}</b></h2>
                         </div>
-                        <app-submit-button value="{{ 'SMS_PACKS.BUY' | translate }}" [form]="form" 
+                        <app-submit-button value="{{ 'SMS_PACKS.BUY_BTN' | translate }}" [form]="form" 
                             buttonClass="btn btn-primary btn-lg">
                         </app-submit-button>
                     </form>
@@ -52,7 +50,7 @@
                     <p class="lead theme-color bold">{{ 'SMS_PACKS.NEW_STOCK' | translate }}</p>                                            
                     <app-circle-progress 
                         subtitle="{{ 'SMS_PACKS.SMS' | translate }}"
-                        [title]="(packNumber * 500) + quota" 
+                        [title]="(packNumber * smsPack.smsNumber) + quota" 
                         backgroundColor="#fdbc00"
                         backgroundOpacity=1
                         backgroundStroke="#000000"

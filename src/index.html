@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" id="viewport" />
-  <meta name="apple-mobile-web-app-title" content="<%= htmlWebpackPlugin.options.metadata.merchant %>" />
+  <meta name="apple-mobile-web-app-title" content="<%= htmlWebpackPlugin.options.title %>" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -103,11 +103,11 @@
   
   <script>
       window.AppConfig = {
-          ApiEndpoint: 'http://localhost/SoApp/SoAppService.svc/json',
-          GroupId: '852EB3C1775F401A976F9CC43AB5631E', 
+          // ApiEndpoint: 'http://localhost/SoApp/SoAppService.svc/json',
+          // GroupId: '852EB3C1775F401A976F9CC43AB5631E', 
           Lang: 'en',
-          // ApiEndpoint: 'https://api.app-wards.com/SoAppService.svc/json',
-          // GroupId: 'B759313D190F4873B8F452F5F7498669'
+          ApiEndpoint: 'https://api.app-wards.com/SoAppService.svc/json',
+          GroupId: 'B759313D190F4873B8F452F5F7498669'
       }
   </script>
   

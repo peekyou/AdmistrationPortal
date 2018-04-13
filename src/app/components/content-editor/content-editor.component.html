@@ -2,7 +2,7 @@
     <div class="row content-editor">
         <div class="col">
             <div class="card">
-                <h5 class="card-header">{{ 'CONTENT.DESIGN' | translate }}</h5>                    
+                <h6 class="card-header">{{ 'CONTENT.DESIGN' | translate }}</h6>                    
                 <div class="card-body">
                     <form class="form" #designF="ngForm" (ngSubmit)="designF.valid && saveDesign()" novalidate>                                
                         <div class="row images">
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="card">
-                <h5 class="card-header">{{ 'CONTENT.SHOP' | translate }}</h5>                    
+                <h6 class="card-header">{{ 'CONTENT.SHOP' | translate }}</h6>                    
                 <div class="card-body">
                     <div dnd-sortable-container [sortableData]="customPages">
                         <div *ngFor="let page of customPages; let i = index" class="section"
@@ -122,9 +122,14 @@
                 </div>
             </div>
             <div class="card">
-                <h5 class="card-header">{{ 'CONTENT.CONTACT' | translate }}</h5>                    
+                <h6 class="card-header">{{ 'CONTENT.CONTACT' | translate }}</h6>                    
                 <div class="card-body">
                     <form *ngIf="contactPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(contactPage)" novalidate>
+                        <div class="form-group">
+                            <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
+                            <input type="text" [(ngModel)]="contactPage.data2" class="form-control" 
+                                   #email="ngModel" id="email" name="email" />
+                        </div>
                         <div class="form-group">
                             <label for="phone">{{ 'COMMON.PHONE' | translate }}*</label>
                             <input type="text" [(ngModel)]="contactPage.data1" class="form-control" 
@@ -173,7 +178,7 @@
                 </div>
             </div>
             <div class="card">
-                <h5 class="card-header">{{ 'CONTENT.LOCATION' | translate }}</h5>                    
+                <h6 class="card-header">{{ 'CONTENT.LOCATION' | translate }}</h6>                    
                 <div class="card-body">
                     <form *ngIf="locationPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(locationPage)" novalidate>
                         <app-address [(ngModel)]="locationPage.address" name="address" showMap="true" required="true"></app-address>                            

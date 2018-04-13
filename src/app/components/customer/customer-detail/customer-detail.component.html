@@ -4,7 +4,9 @@
     <div class="row" *ngIf="customer">
         <div class="col-12 col-lg-6">
             <div class="card">
-                <h5 class="card-header">{{customer.firstname}} {{customer.lastname}} {{ 'CUSTOMERS.POINTS_BALANCE' | translate }}</h5>
+                <div class="card-header customer-form">
+                    <span>{{customer.cardNumber}}. {{customer.firstname}} {{customer.lastname}}</span>
+                </div>
                 <div class="card-body text-align-center">
                     <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
                         <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
@@ -121,7 +123,7 @@
     <div class="row" *ngIf="customer">
         <div class="col-12 col-lg-6">
             <div class="card">
-                <h5 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h5>
+                <h6 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h6>
                 <div class="card-body">
                     <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
                                     [dataSubscription]="getExpensesSubscription">
@@ -131,10 +133,7 @@
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="card-header customer-form">
-                    <span>{{customer.firstname}} {{customer.lastname}}</span>
-                    <span class="pull-right">Card no {{customer.cardNumber}}</span>
-                </div>
+                <h6 class="card-header">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</h6>
                 <div class="card-body">
                     <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
                                         [submitSubscription]="saveSubscription" isEdit="true">

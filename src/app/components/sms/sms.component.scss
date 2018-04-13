@@ -25,6 +25,15 @@
             padding: 0.2rem 0.75rem;
         }
     }
+
+    .form-group {
+        margin-bottom: 3rem;
+        
+        .sms-label {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
     
     .col-12, .col-lg-6 {
         margin-top: 1rem;

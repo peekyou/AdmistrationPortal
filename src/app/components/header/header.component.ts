@@ -24,7 +24,7 @@ export class HeaderComponent {
     public reviewsPermission = Permissions.Reviews;
     public promotionsPermission = Permissions.Promotions;
     public smsPermission = Permissions.SMS;
-    public userManagementPermission = Permissions.UserManagement;
+    public userManagementPermission = Permissions.Management;
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
     form: FormGroup;
