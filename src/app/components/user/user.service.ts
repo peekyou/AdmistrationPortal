@@ -12,6 +12,7 @@ import { UserPreferences } from './user';
 
 @Injectable()
 export class UserService {
+    private tokenKey = 'token';
     private api: string;
     private permissions: string[];
     private username: string;
@@ -22,8 +23,11 @@ export class UserService {
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
+        if (config.GroupId) {
+            this.tokenKey = this.tokenKey + '-' + config.GroupId; 
+        }
         this.api = config.ApiEndpoint;        
-        this.token = localStorage.getItem('token');
+        this.token = localStorage.getItem(this.tokenKey);
         this.setPermissions();
     }
 
@@ -35,7 +39,7 @@ export class UserService {
                 let token = response.token; 
                 if (token) {
                     this.token = token;
-                    localStorage.setItem('token', token);
+                    localStorage.setItem(this.tokenKey, token);
                     this.setPermissions();
                     return true;
                 } else {
@@ -62,7 +66,7 @@ export class UserService {
         this.systemCustomerId = null;
         this.accessibleMerchants = [];
         this.permissions = [];
-        localStorage.removeItem('token');
+        localStorage.removeItem(this.tokenKey);
     }
 
     isAuthenticated(): boolean {

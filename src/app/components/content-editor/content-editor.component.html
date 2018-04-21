@@ -126,13 +126,13 @@
                 <div class="card-body">
                     <form *ngIf="contactPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(contactPage)" novalidate>
                         <div class="form-group">
-                            <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
-                            <input type="text" [(ngModel)]="contactPage.data2" class="form-control" 
+                            <label for="email">{{ 'COMMON.EMAIL' | translate }}</label>
+                            <input type="text" [(ngModel)]="contactPage.data2" class="form-control form-control-sm" 
                                    #email="ngModel" id="email" name="email" />
                         </div>
                         <div class="form-group">
                             <label for="phone">{{ 'COMMON.PHONE' | translate }}*</label>
-                            <input type="text" [(ngModel)]="contactPage.data1" class="form-control" 
+                            <input type="text" [(ngModel)]="contactPage.data1" class="form-control form-control-sm" 
                                     #phone="ngModel" id="phone" name="phone" />
                             <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="invalid-field">
                                 {{ 'FORM.REQUIRED' | translate }}

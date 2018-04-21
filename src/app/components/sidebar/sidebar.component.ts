@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from '../user/user.service';
-import { ContentEditorService } from '../content-editor/content-editor.service';
 import { Permissions } from '../../core/helpers/permissions';
-import { MerchantDesign } from '../../core/models/merchantDesign';
 
 @Component({
     selector: 'app-sidebar',
@@ -25,13 +23,7 @@ export class SidebarComponent {
     public statisticsPermission = Permissions.Statistics;
 
     constructor(
-        public user: UserService, 
-        public translate: TranslateService, 
-        content: ContentEditorService) { 
-            content.getDesign()
-                   .subscribe(
-                       res => this.logo = res && res.logo ? res.logo.src : null
-                   );
+        public user: UserService, public translate: TranslateService) { 
         }
 
     showMenu(): boolean {

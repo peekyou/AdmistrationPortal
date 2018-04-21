@@ -4,14 +4,15 @@
     RouterStateSnapshot,
     CanActivateChild } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { UserService } from '../../app/components/user/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private user: UserService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('token')) {
+        if (this.user.isAuthenticated()) {
             return true;
         }
         this.router.navigate(['/login']);

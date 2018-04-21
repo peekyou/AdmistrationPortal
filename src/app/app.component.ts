@@ -37,7 +37,7 @@ constructor(
   public user: UserService, 
   public lookup: LookupService) {
 
-  translate.addLangs(["en", "fr"]);
+  // translate.addLangs(["en", "fr"]);
   translate.setDefaultLang('en');
 
   // let browserLang = translate.getBrowserLang();

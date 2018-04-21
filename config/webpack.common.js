@@ -218,6 +218,7 @@ module.exports = function (options) {
        */
       new CopyWebpackPlugin([
         { from: 'src/assets', to: 'assets' },
+        { from: 'src/customer-assets', to:  METADATA.merchant },
         { from: 'src/meta'}
       ],
         isProd ? { ignore: [ 'mock-data/**/*' ] } : undefined
@@ -285,9 +286,9 @@ module.exports = function (options) {
        *
        * Dependencies: HtmlWebpackPlugin
        */
-      new HtmlElementsPlugin({
-        headTags: require('./head-config.common')
-      }),
+      // new HtmlElementsPlugin({
+      //   headTags: require('./head-config.common')
+      // }),
 
       /**
        * Plugin LoaderOptionsPlugin (experimental)

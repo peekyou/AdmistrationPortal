@@ -96,8 +96,12 @@ export class DonutChartComponent implements OnInit {
             var female = this.data.details.find(e => { return e.key == 'F' });
             var male = this.data.details.find(e => { return e.key == 'M' });
             var ukn = this.data.details.find(e => { return e.key == 'U' });
+            var domain = [];
+            if (female) domain.push(female.label);
+            if (male) domain.push(male.label);
+            if (ukn) domain.push(ukn.label);
             color = <any>d3.scaleOrdinal()
-                .domain([female ? female.label : null, male ? male.label : null, ukn ? ukn.label : null])
+                .domain(domain)
                 .range(["#ca34a2", "3ac1cd" , "#aaa"]);
         }
 
@@ -182,7 +186,7 @@ export class DonutChartComponent implements OnInit {
             .attr("class", "label")
             .attr("text-anchor", "middle")
             .text(function(d){
-                return d.data.percentage.toFixed(0) +"%";
+                return d.data.percentage == 0 ? '' : d.data.percentage.toFixed(0) +'%';
             })
             .style("fill", "#fff")
             .style("font-size", "10px");
