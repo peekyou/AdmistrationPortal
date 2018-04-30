@@ -3,7 +3,7 @@
             <!-- <img src="./icon/sidebar-icon.png"/> -->
         </div>
         <div class="list-group panel">
-           <div>
+           <div *ngIf="user.hasPermission(statisticsPermission)">
                 <a class="list-group-item" data-parent="#sidebar"
                     routerLink="dashboard" routerLinkActive="active">
                     <i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>

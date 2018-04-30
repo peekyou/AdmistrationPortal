@@ -6,7 +6,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './delete.modal.html'
 })
 export class DeleteModal {
-    @Input() data: string;
+    @Input() data: string = '';
 
     constructor(public activeModal: NgbActiveModal) { }
  }

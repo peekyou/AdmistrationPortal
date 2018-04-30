@@ -37,6 +37,8 @@ export class CustomerExpense {
     id?: string;
     date: Date;
     amount: number;
+    correspondingPoints: number;
+    isRedeemed?: boolean;
 }
 
 export class CustomerPoint {

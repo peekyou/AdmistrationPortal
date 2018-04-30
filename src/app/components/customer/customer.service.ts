@@ -87,6 +87,10 @@ export class CustomerService {
         return this.http.delete(this.api + '/points/' + point.id);
     }
 
+    deleteExpense(expense: CustomerExpense): Observable<Customer> {
+        return this.http.delete(this.api + '/expenses/' + expense.id);
+    }
+
     getExpenses(customerId: string, from: Date, to: Date): Observable<CustomerExpense[]> {
         return this.http.post(this.api + '/' + customerId + '/expenses', {
             from: from,

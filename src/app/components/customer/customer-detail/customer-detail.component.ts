@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import { Customer, CustomerPoint } from '../customer';
+import { Customer, CustomerExpense } from '../customer';
 import { CustomerService } from '../customer.service';
 import { UserService } from '../../user/user.service';
 import { DeleteModal } from '../../../core/shared/modals/delete.modal';
@@ -148,30 +148,23 @@ export class CustomerDetailComponent implements OnInit {
         );
     }
 
-    openDeleteModal(point: CustomerPoint) {
+    openDeleteModal(expense: CustomerExpense) {
         const modalRef = this.modalService.open(DeleteModal);
-        modalRef.componentInstance.data = 'these points';
+        // modalRef.componentInstance.data = 'these points';
 
         modalRef.result.then((result) => {
             if (result === 'Y') {
-                this.deletePoints(point);
+                this.deleteExpense(expense);
             }
         });
     }
 
-    deletePoints(point: CustomerPoint) {
+    deleteExpense(expense: CustomerExpense) {
         this.service
-            .deletePoints(point)
+            .deleteExpense(expense)
             .subscribe(
-                r => {
-                    var index = this.customer.points.indexOf(point);
-                    if (index > -1) {
-                        this.customer.points.splice(index, 1);
-                        this.customer.points = this.customer.points.slice();
-                        this.customer.purchaseData = this.service.calculatePurchaseData(this.customer.points);
-                        this.customer.totalPoints -= r;
-                        this.customer.currentPoints -= r;
-                    }
+                res => {
+                    this.customer = res;
                 },
                 err => { console.log(err); }
             );

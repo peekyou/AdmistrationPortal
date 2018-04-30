@@ -97,22 +97,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let point of customer.points | currentPoints">
-                                <td>{{point.date | date: 'dd-MM-yyyy'}}</td>
-                                <td class="cyan"><small>{{point.currency}}</small><b>{{point.correspondingAmount}}</b></td>
-                                <td class="points"><b>1</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
+                            <tr *ngFor="let expense of customer.expenses | currentPoints">
+                                <td>{{expense.date | date: 'dd-MM-yyyy'}}</td>
+                                <td class="cyan"><small>{{expense.currency}}</small><b>{{expense.amount}}</b></td>
+                                <td class="points"><b>{{expense.correspondingPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="openDeleteModal(point)"
+                                    <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="openDeleteModal(expense)"
                                             title="{{ 'COMMON.DELETE' | translate }}">
-                                            {{ 'COMMON.DELETE' | translate }}
+                                           {{ 'COMMON.DELETE' | translate }}
                                     </button>
                                 </td>
                             </tr>
-                            <tr *ngIf="customer.purchaseData?.remainder">
+                            <!-- <tr *ngIf="customer.purchaseData?.remainder">
                                 <th scope="row">{{ 'COMMON.REMAINDER' | translate }}</th>
                                 <td></td>
                                 <td>{{customer.purchaseData?.remainder}}</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>

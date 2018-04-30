@@ -19,5 +19,5 @@ export const routes: Routes = [
     // { path: 'billing', loadChildren: './components/billing#BillingModule' },
     // { path: 'dashboard', loadChildren: './components/stats#StatsModule' },
     // { path: 'about', component: AboutComponent },
-    // { path: '**',    component: NoContentComponent }
+    { path: '**',    component: NoContentComponent }
 ];

@@ -53,9 +53,7 @@ export class HeaderComponent {
 
         if (param != null && param !== 'all') {
             from = moment().startOf(<any>param).toDate();
-            console.log(from);
             to = moment().utc().endOf(<any>param).toDate();
-            console.log(to);
         }
         else if (param !== 'all') {
             from = ngbDateStructToDate(this.dateFrom.value);
