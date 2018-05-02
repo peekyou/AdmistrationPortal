@@ -45,7 +45,9 @@
         <div class="row review-row" [ngClass]="{'border-bottom': i < reviews.data.length - 1 }"
              *ngFor="let review of reviews.data; let i = index">
             <div class="col">
-                <div class="bold">Anonymous</div>
+                <div class="bold">
+                    <span *ngIf="!review.anonymousReviews">{{ review.createdBy }}</span>
+                </div>
                 <!-- <div class="review-block-name"><a href="#">{{review.createdBy}}</a></div> -->
                 <div class="review-block-date">{{review.createdDate | date: 'dd-MM-yyyy'}}</div>
             </div>

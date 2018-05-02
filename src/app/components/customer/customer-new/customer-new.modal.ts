@@ -13,7 +13,7 @@ import { isMobileNumber } from '../../../core/helpers/utils';
     templateUrl: './customer-new.modal.html'
 })
 export class CustomerNewModal {
-    error: boolean;
+    error: boolean | string;
     saveSubscription: Subscription;    
 
     constructor(public activeModal: NgbActiveModal, private router: Router, private service: CustomerService) { }
@@ -28,9 +28,8 @@ export class CustomerNewModal {
                         this.router.navigate(['/customers', id]);
                     }
                 },
-                err => { 
-                    this.error = true;
-                    console.log(err); 
+                err => {
+                    this.error = err.error && err.error.errorCode ? err.error.errorCode : true;
                 }
             );
     }

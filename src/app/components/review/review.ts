@@ -9,6 +9,7 @@
     rating2: number;
     rating3Label: string;
     rating3: number;
+    anonymousReviews: boolean;
 }
 
 export class ReviewsAverage

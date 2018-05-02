@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operator/debounceTime';
 
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
     selector: 'app-alert',
@@ -11,27 +12,45 @@ export class AlertComponent implements OnInit {
     message: string;
     private _serverStatus = new Subject<string>();
 
-    _error: boolean;
-    @Output() errorChange: EventEmitter<boolean> = new EventEmitter();
+    _error: boolean | string;
+    _errorObject: any;
+    @Output() errorChange: EventEmitter<boolean | string> = new EventEmitter();
     @Input() successMessage: string;
     @Input() errorMessage: string;
 
     @Input() 
-    get error(): boolean {
+    get error(): boolean | string {
         return this._error;
     }
 
-    set error(value: boolean) {
+    set error(value: boolean | string) {
         this._error = value;
-        if (this._error === true) {
-            this._serverStatus.next(this.errorMessage);
+        if (typeof value === 'string') {
+            this.getErrorMessageTranslation(value);
         }
-        else if (this._error === false) {
-            this._serverStatus.next(this.successMessage);
+        else {
+            if (this._error === true) {
+                this._serverStatus.next(this.errorMessage);
+            }
+            else if (this._error === false) {
+                this._serverStatus.next(this.successMessage);
+            }
         }
     }
-   
-    constructor() { }
+    
+    // @Input() 
+    // get errorObject(): any {
+    //     return this._errorObject;
+    // }
+
+    // set errorObject(value: any) {
+    //     this._errorObject = value;
+    //     if (this._errorObject && this._errorObject.errorCode) {
+    //     }
+    // }
+
+    constructor(private translation: TranslationService) {
+     }
 
     ngOnInit() {
         this._serverStatus.subscribe((message) => this.message = message);
@@ -42,5 +61,12 @@ export class AlertComponent implements OnInit {
         this.message = null
         this._error = null;
         this.errorChange.emit(this._error);
+    }
+
+    getErrorMessageTranslation(messageKey: string) {
+        this.translation.get('ERRORS.' + messageKey, x => {
+            this.errorMessage = x;
+            this.error = true;
+        });
     }
 }

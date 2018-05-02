@@ -6,6 +6,7 @@ import { } from '@types/googlemaps';
 
 import { Address } from './address';
 import { Lookup } from '../../../models/lookup';
+import { UserService } from '../../../../components/user/user.service';
 
 @Component({
     selector: 'app-address',
@@ -21,7 +22,9 @@ import { Lookup } from '../../../models/lookup';
 })
 export class AddressComponent implements OnInit, ControlValueAccessor {
     states = ['Abu Dhabi','Ajman','Dubai','Fujairah','Ras al-Khaimah','Sharjah','Umm al-Quwain'];
-
+    minimalCountries = ['fr'];
+    
+    public minimal: boolean = false;
     public latitude: number;
     public longitude: number;
     public searchControl: FormControl;
@@ -51,9 +54,13 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     public searchElementRef: ElementRef;
 
     constructor(
+        private user: UserService,
         private ngZone: NgZone,
         private mapsAPILoader: MapsAPILoader,
         public controlContainer: ControlContainer) {
+
+        var cc = user.getCountryCode().toLowerCase();
+        this.minimal = this.minimalCountries.indexOf(cc) > -1;
     }
 
     ngOnInit() {
@@ -122,26 +129,28 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     }
 
     private loadAutocomplete() {
-        this.mapsAPILoader.load().then(() => {
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-              types: ["address"]
-            });
-            
-            autocomplete.addListener("place_changed", () => {
-                this.ngZone.run(() => {
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                    console.log(place);
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-                    this.latitude = place.geometry.location.lat();
-                    this.longitude = place.geometry.location.lng();
-                    this.zoom = 15;
-                    this.fillInAddress(place);
-                    this.setFormLatLong();
+        if (this.searchElementRef) {
+            this.mapsAPILoader.load().then(() => {
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+                });
+                
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                        console.log(place);
+                        if (place.geometry === undefined || place.geometry === null) {
+                            return;
+                        }
+                        this.latitude = place.geometry.location.lat();
+                        this.longitude = place.geometry.location.lng();
+                        this.zoom = 15;
+                        this.fillInAddress(place);
+                        this.setFormLatLong();
+                    });
                 });
             });
-        });
+        }
     }
 
     private fillInAddress(place: google.maps.places.PlaceResult) {

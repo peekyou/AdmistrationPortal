@@ -19,6 +19,7 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 export class CustomerForm implements OnInit {
     form: FormGroup;
     products: Product[];
+    hideLanguages: boolean = false;
     @Input() modal: boolean;
     @Input() isEdit: boolean;
     @Input() submitSubscription;
@@ -35,7 +36,11 @@ export class CustomerForm implements OnInit {
             var currentDate = new Date();
             config.minDate = {year: 1900, month: 1, day: 1};
             config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
-
+            
+            var cc = user.getCountryCode().toLowerCase();
+            var hideLanguageCountries = ['fr'];
+            this.hideLanguages = hideLanguageCountries.indexOf(cc) > -1;
+               
             productService.getProducts(null, null)
                 .subscribe(
                     res => this.products = res.data,

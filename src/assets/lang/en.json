@@ -237,5 +237,9 @@
         "REGISTERED_CUSTOMERS": "Registered customers",
         "REVENUES": "Revenues from customers",
         "USING_APPLICATION": "Using application"
+    },
+    "ERRORS": {
+        "InternalServerError": "An error occured, please try later",
+        "InvalidPhoneNumber": "Invalid phone number"
     }
 }

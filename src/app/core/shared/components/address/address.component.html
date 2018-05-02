@@ -1,7 +1,7 @@
 <div class="card card-address">
     <div class="card-body" [style.padding]="cardPadding">
         
-        <div class="form-group">
+        <div *ngIf="!minimal" class="form-group">
             <label for="address">{{ 'COMMON.ADDRESS' | translate }}</label>
             <input placeholder="{{ 'COMMON.SEARCH_LOCATION' | translate }}" autocorrect="off" 
                 autocapitalize="off" spellcheck="off" type="text" class="form-control  form-control-sm" 
@@ -9,41 +9,41 @@
         </div>
 
         <ng-container *ngIf="addressForm" [formGroup]="addressForm" class="address">
-            <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
+            <div *ngIf="!minimal" class="form-group country" [ngClass]="{'hidden': hideCountry}">
                 <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
                 <app-autocomplete source="countries" name="country" id="country" [required]="required"
                     formControlName="country" small="true" (onChange)="countryChanged($event)">
                 </app-autocomplete>
             </div>
 
-            <div class="form-group">
+            <div *ngIf="!minimal" class="form-group">
                 <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="addressLine1" 
                        formControlName="addressLine1" />
             </div>
-            <div class="form-group">
+            <div *ngIf="!minimal" class="form-group">
                 <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="addressLine2" 
                        formControlName="addressLine2" />
             </div>
-            <div class="form-group" *ngIf="isUAE()">
+            <div *ngIf="isUAE()" class="form-group">
                 <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
                 <select formControlName="state" id="state" class="form-control form-control-sm" 
                     (change)="onStateChange($event.target.value)">
                     <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div *ngIf="!minimal" class="form-group">
                 <label for="city">{{ 'COMMON.CITY' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="city"
                        formControlName="city" />
             </div>
-            <div class="form-group" *ngIf="isUAE()">
+            <div *ngIf="isUAE()" class="form-group">
                 <label for="area">{{ 'COMMON.AREA' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="area"
                       formControlName="area" />
             </div>
-            <div class="form-group" *ngIf="!isUAE()">
+            <div *ngIf="!isUAE()" class="form-group">
                 <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="zip"
                        formControlName="zipCode" />
@@ -52,7 +52,7 @@
 
         <div *ngIf="!addressForm" class="address">
             <div class="row">
-                <div class="col">
+                <div *ngIf="!minimal" class="col">
                     <div class="form-group country" [ngClass]="{'hidden': hideCountry}">
                         <label for="country">{{ 'COMMON.COUNTRY' | translate }}</label>
                         <app-autocomplete source="countries" name="country" id="country" [required]="required"
@@ -60,7 +60,7 @@
                         </app-autocomplete>
                     </div>
                 </div>
-                <div class="col">
+                <div *ngIf="!minimal" class="col">
                     <div class="form-group">
                         <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="addressLine1" 
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div *ngIf="!minimal" class="col">
                     <div class="form-group">
                         <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="addressLine2" 
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div *ngIf="!minimal" class="col">
                     <div class="form-group">
                         <label for="city">{{ 'COMMON.CITY' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="city"

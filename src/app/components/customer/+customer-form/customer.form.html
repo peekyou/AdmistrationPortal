@@ -69,7 +69,7 @@
                         {{ 'FORM.INVALID_DATE' | translate }}
                     </div>
                 </div>  
-                <div class="card card-languages">
+                <div *ngIf="!hideLanguages" class="card card-languages">
                     <div class="card-body">
                         <label for="languages">{{ 'COMMON.LANGUAGES' | translate }}</label>
                         <div formArrayName="languages">
@@ -94,11 +94,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group" *ngIf="isEdit">
+                <div class="form-group" *ngIf="isEdit && !hideLanguages">
                     <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
                     <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
                 </div>      
-                <div class="form-group" *ngIf="!isEdit">
+                <div class="form-group" *ngIf="!isEdit && !hideLanguages">
                     <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
                             [placeholder]="user.getCurrency()" formControlName="amount" required>
@@ -108,35 +108,48 @@
                 </div>    
             </div>
             <div class="col-7">
-                    <div class="card card-languages">
-                        <div class="card-body">
-                            <label for="favoriteProducts">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</label>
-                            <div formArrayName="favoriteProducts">
-                                <div *ngFor="let favoriteProduct of form.controls.favoriteProducts.controls; let i = index">
-                                    <div class="row language-control">
-                                        <app-autocomplete class="language-picker col-9" small="true"
-                                            [source]="products" [formControl]="favoriteProduct">
-                                        </app-autocomplete>
-                                        <!-- <select [formControl]="favoriteProduct" class="form-control form-control-sm language-picker col-9">
-                                            <option *ngFor="let favoriteProduct of favoriteProducts" [ngValue]="favoriteProduct.id">{{favoriteProducts.name}}</option>
-                                        </select> -->
-                                        <div class="action-btn col">
-                                            <button type="button" class="btn btn-danger btn-xs" 
-                                                    (click)="removeControl(i, 'favoriteProducts')" *ngIf="i > 0">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                            <button *ngIf="i == form.controls.favoriteProducts.controls.length - 1"
-                                                    type="button" class="btn btn-success btn-xs" 
-                                                    (click)="addArrayControl('favoriteProducts')" [disabled]="anyControlEmpty('favoriteProducts')">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
+                <div class="card card-languages">
+                    <div class="card-body">
+                        <label for="favoriteProducts">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</label>
+                        <div formArrayName="favoriteProducts">
+                            <div *ngFor="let favoriteProduct of form.controls.favoriteProducts.controls; let i = index">
+                                <div class="row language-control">
+                                    <app-autocomplete class="language-picker col-9" small="true"
+                                        [source]="products" [formControl]="favoriteProduct">
+                                    </app-autocomplete>
+                                    <!-- <select [formControl]="favoriteProduct" class="form-control form-control-sm language-picker col-9">
+                                        <option *ngFor="let favoriteProduct of favoriteProducts" [ngValue]="favoriteProduct.id">{{favoriteProducts.name}}</option>
+                                    </select> -->
+                                    <div class="action-btn col">
+                                        <button type="button" class="btn btn-danger btn-xs" 
+                                                (click)="removeControl(i, 'favoriteProducts')" *ngIf="i > 0">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                        <button *ngIf="i == form.controls.favoriteProducts.controls.length - 1"
+                                                type="button" class="btn btn-success btn-xs" 
+                                                (click)="addArrayControl('favoriteProducts')" [disabled]="anyControlEmpty('favoriteProducts')">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <app-address [group]="form.controls.address" hideCountry="true" cardPadding=".85rem"></app-address>
+
+                <div class="form-group" *ngIf="isEdit && hideLanguages">
+                    <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
+                    <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
+                </div>      
+                <div class="form-group" *ngIf="!isEdit && hideLanguages">
+                    <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+                    <input type="number" min="0" class="form-control form-control-sm" id="amount"
+                            [placeholder]="user.getCurrency()" formControlName="amount" required>
+                    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>  
             </div>
         </div>
         <div class="text-align-center">

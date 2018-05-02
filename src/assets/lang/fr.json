@@ -62,7 +62,7 @@
         "MOBILE_NO": "No téléphone",
         "EMAIL": "Email",
         "PHONE": "Téléphone",
-        "BIRTHDATE": "Date de naissance",
+        "BIRTHDATE": "Date naissance",
         "CREATED": "Créé",
         "SENT": "Envoyés",
         "DETAILS": "Détails",
@@ -172,7 +172,7 @@
         "CAMPAIGN_NAME": "Nom de la campagne",
         "PERCENTAGE": "Pourcentage",
         "VALID_FROM": "Valide du",
-        "VALID_UNTIL": "Valide jusqu'au",
+        "VALID_UNTIL": "jusqu'au",
         "SELECT_CITIES": "Villes",
         "FAVORITE_PRODUCT": "Produit favori",
         "REGISTERED_SINCE": "Client depuis",
@@ -232,5 +232,9 @@
         "REGISTERED_CUSTOMERS": "Clients enregistrés",
         "REVENUES": "Revenus",
         "USING_APPLICATION": "Utilisateurs"
+    },
+    "ERRORS": {
+        "InternalServerError": "Une erreur est survenue, essayez plus tard",
+        "InvalidPhoneNumber": "Numéro de téléphone incorrect"
     }
 }
