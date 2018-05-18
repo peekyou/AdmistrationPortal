@@ -8,6 +8,7 @@ import { CustomerService } from '../customer.service';
 import { UserService } from '../../user/user.service';
 import { ProductService } from '../../bo-management/product/product.service';
 import { Product } from '../../bo-management/product/product';
+import { Lookup } from '../../../core/models/lookup';
 import { ngbDateStructToDate } from '../../../core/helpers/utils';
 
 @Component({
@@ -19,7 +20,8 @@ import { ngbDateStructToDate } from '../../../core/helpers/utils';
 export class CustomerForm implements OnInit {
     form: FormGroup;
     products: Product[];
-    hideLanguages: boolean = false;
+    showLanguageCountries = ['ae'];
+    showLanguages: boolean = false;
     @Input() modal: boolean;
     @Input() isEdit: boolean;
     @Input() submitSubscription;
@@ -38,8 +40,7 @@ export class CustomerForm implements OnInit {
             config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
             
             var cc = user.getCountryCode().toLowerCase();
-            var hideLanguageCountries = ['fr'];
-            this.hideLanguages = hideLanguageCountries.indexOf(cc) > -1;
+            this.showLanguages = this.showLanguageCountries.indexOf(cc) > -1;
                
             productService.getProducts(null, null)
                 .subscribe(
@@ -111,11 +112,11 @@ export class CustomerForm implements OnInit {
             address: {
                 addressLine1: this.form.value.address.addressLine1,
                 addressLine2: this.form.value.address.addressLine2,
-                city: this.form.value.address.city,
+                city: Lookup.getValue(this.form.value.address.city),
                 country: this.form.value.address.country,
-                area: this.form.value.address.area,
+                area: Lookup.getValue(this.form.value.address.area),
                 zipCode: this.form.value.address.zipCode,
-                state: this.form.value.address.state,
+                state: Lookup.getValue(this.form.value.address.state),
                 latitude: this.form.value.address.latitude,
                 longitude: this.form.value.address.longitude
             }
@@ -150,7 +151,7 @@ export class CustomerForm implements OnInit {
         }
         return Validators.required(control);
     }
-
+    
     get firstname() { return this.form.get('firstname'); }
     get lastname() { return this.form.get('lastname'); }
     get amount() { return this.form.get('amount'); }

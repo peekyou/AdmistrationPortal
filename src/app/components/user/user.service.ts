@@ -64,8 +64,8 @@ export class UserService {
         this.username = null;
         this.countryCode = null;
         this.systemCustomerId = null;
-        this.accessibleMerchants = [];
-        this.permissions = [];
+        this.accessibleMerchants = null;
+        this.permissions = null;
         localStorage.removeItem(this.tokenKey);
     }
 

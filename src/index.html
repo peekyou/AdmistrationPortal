@@ -12,26 +12,11 @@
   <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
   <!-- base url -->
   <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
-  
-  <link rel="apple-touch-icon" sizes="57x57" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/favicon-16x16.png">
-  <link rel="manifest" href="/<%= htmlWebpackPlugin.options.metadata.merchant %>/manifest.json">
-  
-  <meta name="msapplication-TileColor" content="#00bcd4">
-  <meta name="msapplication-TileImage" content="/<%= htmlWebpackPlugin.options.metadata.merchant %>/icon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#00bcd4">
 
+  <% if (webpackConfig.htmlElements.headTags) { %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %>
+  <% } %>
 
   <%= htmlWebpackPlugin.files.webpackManifest %>
 
@@ -40,9 +25,7 @@
   <script src="/webpack-dev-server.js"></script>
   <% } %>
     
-  <!-- CSS will be injected by webpack here -->
   <!-- Preload link tags will be injected by webpack here -->
-
 </head>
 
 <body>
@@ -120,14 +103,12 @@
       window.AppConfig = {
           ApiEndpoint: 'http://localhost/SoApp/SoAppService.svc/json',
           GroupId: '852EB3C1775F401A976F9CC43AB5631E', 
-          Lang: 'fr',
+          Lang: 'en',
           // ApiEndpoint: 'https://api.app-wards.com/SoAppService.svc/json',
           // GroupId: 'BCCF3531B2B3437FA48E5C80EC24B0A5'
       }
   </script>
-  
-  <!-- Scripts will be injected by webpack here -->
-  
+    
   <script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>
 
   <!-- Async Google Analytics: change UA-71073175-1 to be your site's ID -->
@@ -139,6 +120,6 @@
   <script async src="https://www.google-analytics.com/analytics.js"></script>
   <!-- End Google Analytics -->
 
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQkgT4ArGsST27EW2BESTmZfb9ujngarA&libraries=places&callback=initAutocomplete" async defer></script> -->
+  <!-- Scripts will be injected by webpack here -->
 </body>
 </html>

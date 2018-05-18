@@ -51,7 +51,7 @@ module.exports = function (env) {
   const supportES2015 = buildUtils.supportES2015(buildUtils.DEFAULT_METADATA.tsConfigPath);
   const METADATA = Object.assign({}, buildUtils.DEFAULT_METADATA, {
     merchant: env.merchant,
-    baseUrl: '/' + env.merchant,
+    baseUrl: '/' + env.merchant + '/',
     title: env.displayname + ' - ' + buildUtils.DEFAULT_METADATA.title,
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 8080,

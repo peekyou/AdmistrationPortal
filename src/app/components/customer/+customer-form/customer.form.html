@@ -32,6 +32,19 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}</label>
+                    <div class="input-group">
+                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="birthdate"
+                                id="birthdate" ngbDatepicker #birthdate="ngbDatepicker">
+                        <button class="input-group-addon" (click)="birthdate.toggle()" type="button">
+                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="invalid-field">
+                        {{ 'FORM.INVALID_DATE' | translate }}
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="mobile">{{ 'COMMON.MOBILE_NO' | translate }}*</label>
                     <!-- <input type="text" class="form-control form-control-sm" id="mobile" formControlName="mobile" required /> -->
                     <!-- <int-phone-prefix [locale]="'fr'" formControlName="mobile"></int-phone-prefix> -->
@@ -55,53 +68,15 @@
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
                         {{ 'FORM.INVALID_EMAIL' | translate }}
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}</label>
-                    <div class="input-group">
-                        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="birthdate"
-                                id="birthdate" ngbDatepicker #birthdate="ngbDatepicker">
-                        <button class="input-group-addon" (click)="birthdate.toggle()" type="button">
-                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="invalid-field">
-                        {{ 'FORM.INVALID_DATE' | translate }}
-                    </div>
-                </div>  
-                <div *ngIf="!hideLanguages" class="card card-languages">
-                    <div class="card-body">
-                        <label for="languages">{{ 'COMMON.LANGUAGES' | translate }}</label>
-                        <div formArrayName="languages">
-                            <div *ngFor="let language of form.controls.languages.controls; let i = index">
-                                <div class="row language-control">
-                                    <app-autocomplete class="language-picker col-9" small="true"
-                                                        source="languages" [formControl]="language">
-                                    </app-autocomplete>
-                                    <div class="action-btn col">
-                                        <button type="button" class="btn btn-danger btn-xs" 
-                                                (click)="removeControl(i, 'languages')" *ngIf="i > 0">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                        <button *ngIf="i == form.controls.languages.controls.length - 1"
-                                                type="button" class="btn btn-success btn-xs" 
-                                                (click)="addArrayControl('languages')" [disabled]="anyControlEmpty('languages')">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" *ngIf="isEdit && !hideLanguages">
+                </div> 
+                <div class="form-group" *ngIf="isEdit && showLanguages">
                     <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
                     <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
                 </div>      
-                <div class="form-group" *ngIf="!isEdit && !hideLanguages">
+                <div class="form-group" *ngIf="!isEdit && showLanguages">
                     <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
-                            [placeholder]="user.getCurrency()" formControlName="amount" required>
+                            [placeholder]="user.getCurrency() || ''" formControlName="amount" required>
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
@@ -136,16 +111,43 @@
                         </div>
                     </div>
                 </div>
-                <app-address [group]="form.controls.address" hideCountry="true" cardPadding=".85rem"></app-address>
+                
+                <app-address [group]="form.controls.address" hideCountry="true" minimal="true" cardPadding=".85rem"></app-address>
+                
+                <div *ngIf="showLanguages" class="card card-languages">
+                    <div class="card-body">
+                        <label for="languages">{{ 'COMMON.LANGUAGES' | translate }}</label>
+                        <div formArrayName="languages">
+                            <div *ngFor="let language of form.controls.languages.controls; let i = index">
+                                <div class="row language-control">
+                                    <app-autocomplete class="language-picker col-9" small="true"
+                                                        source="languages" [formControl]="language">
+                                    </app-autocomplete>
+                                    <div class="action-btn col">
+                                        <button type="button" class="btn btn-danger btn-xs" 
+                                                (click)="removeControl(i, 'languages')" *ngIf="i > 0">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                        <button *ngIf="i == form.controls.languages.controls.length - 1"
+                                                type="button" class="btn btn-success btn-xs" 
+                                                (click)="addArrayControl('languages')" [disabled]="anyControlEmpty('languages')">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="form-group" *ngIf="isEdit && hideLanguages">
+                <div class="form-group" *ngIf="isEdit && !showLanguages">
                     <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
                     <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
                 </div>      
-                <div class="form-group" *ngIf="!isEdit && hideLanguages">
+                <div class="form-group" *ngIf="!isEdit && !showLanguages">
                     <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
-                            [placeholder]="user.getCurrency()" formControlName="amount" required>
+                            [placeholder]="user.getCurrency() || ''" formControlName="amount" required>
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
@@ -160,3 +162,19 @@
         <!-- <pre>{{ form.value | json }}</pre> -->
     </form>
 </div>
+
+
+<!-- <ng-template #commentAmountFields>
+    <div class="form-group" *ngIf="isEdit">
+        <label for="comment">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</label>
+        <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
+    </div>      
+    <div class="form-group" *ngIf="!isEdit">
+        <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+        <input type="number" min="0" class="form-control form-control-sm" id="amount"
+                [placeholder]="user.getCurrency()" formControlName="amount" required>
+        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
+            {{ 'FORM.REQUIRED' | translate }}
+        </div>
+    </div>
+</ng-template> -->

@@ -21,10 +21,14 @@ import { UserService } from '../../../../components/user/user.service';
     ],    
 })
 export class AddressComponent implements OnInit, ControlValueAccessor {
-    states = ['Abu Dhabi','Ajman','Dubai','Fujairah','Ras al-Khaimah','Sharjah','Umm al-Quwain'];
-    minimalCountries = ['fr'];
+    countriesCombineCityZipCode = ['fr'];
+    countriesShowEmirateList = ['ae'];
+    countriesShowCityList = ['sa'];
+    countriesShowAreaList = ['ae','sa'];
     
-    public minimal: boolean = false;
+    public state: Lookup;
+    public city: Lookup;
+    public cityZipCode: Lookup = {};
     public latitude: number;
     public longitude: number;
     public searchControl: FormControl;
@@ -43,6 +47,7 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         this._onTouchedCallback();
     }
     
+    @Input() minimal = false;
     @Input() required = false;
     @Input() showMap = false;
     @Input() hideCountry = false;
@@ -58,36 +63,85 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         private ngZone: NgZone,
         private mapsAPILoader: MapsAPILoader,
         public controlContainer: ControlContainer) {
-
-        var cc = user.getCountryCode().toLowerCase();
-        this.minimal = this.minimalCountries.indexOf(cc) > -1;
     }
 
     ngOnInit() {
-        // this.addressForm = <any>this.controlContainer.control;
+        if (this.combineCityZipCode()) {
+            if (this.address) {
+                this.cityZipCode = {
+                    id: this.address.city,
+                    name: this.address.zipCode + ' - ' + this.address.city
+                }
+            }
+            if (this.addressForm) {
+                var value = null;
+                if (this.addressForm.controls['city'].value && this.addressForm.controls['city'].value) {
+                    value = {
+                        id: this.addressForm.controls['city'].value,
+                        name: this.addressForm.controls['zipCode'].value + ' - ' + this.addressForm.controls['city'].value
+                    }
+                }
+                this.addressForm.addControl('cityZipCode', new FormControl(value));
+            }
+        }
+        
         var input = document.getElementById('address');
         this.searchControl = new FormControl();
         this.setCurrentPosition();
         this.loadAutocomplete();
     }
 
-    onStateChange(value: string) {
-        if (value) {
-            var val = value.split(':');
-            if (val.length > 0) {
-                if (this.address) {
-                    this.address.city = val[1].trim();
-                }
-                else if (this.addressForm) {
-                    this.addressForm.controls['city'].setValue(val[1].trim());
-                }
+    onStateChange(value: Lookup) {
+        this.state = value;
+
+        if (this.address) {
+            this.address.city = null;
+            this.address.area = null;
+        }
+        if (this.addressForm) {
+            this.addressForm.controls['city'].setValue(null);
+            this.addressForm.controls['area'].setValue(null);
+        }
+
+        if (value && this.showArea() && !this.showCity()) {
+            if (this.address) {
+                this.address.city = value.name;
+            }
+            if (this.addressForm) {
+                this.addressForm.controls['city'].setValue(value.name);
             }
         }
     }
 
-    isUAE(): boolean {
-        var country = this.addressForm ? this.addressForm.controls['country'].value : this.address.country;
-        return country && country.id === 'AE';
+    onCityChange(value: Lookup) {
+        this.city = value;
+        if (this.address) {
+            this.address.area = null;
+        }
+        if (this.addressForm) {
+            this.addressForm.controls['area'].setValue(null);
+        }
+    }
+
+    isDefault() {
+        var combined = this.countriesCombineCityZipCode.concat(this.countriesShowAreaList).concat(this.countriesShowCityList).concat(this.countriesShowEmirateList);
+        return combined.indexOf(this.getCountryCode()) === -1;
+    }
+
+    showEmirate() {
+        return this.countriesShowEmirateList.indexOf(this.getCountryCode()) > -1;
+    }
+
+    showCity() {
+        return this.countriesShowCityList.indexOf(this.getCountryCode()) > -1;
+    }
+
+    showArea() {
+        return this.countriesShowAreaList.indexOf(this.getCountryCode()) > -1;
+    }
+
+    combineCityZipCode(): boolean {
+        return this.countriesCombineCityZipCode.indexOf(this.getCountryCode()) > -1;
     }
 
     countryChanged(value: Lookup) {
@@ -111,10 +165,33 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         }
     }
 
+    zipCodeCityChanged(value: Lookup) {
+        if (value && value.id) {
+            var city = value.id;
+            var zipCode = value.name.split(' - ')[0];
+            if (this.address) {
+                this.address.city = city;
+                this.address.zipCode = zipCode;
+            }
+            if (this.addressForm) {
+                this.addressForm.controls['city'].setValue(city);
+                this.addressForm.controls['zipCode'].setValue(zipCode);
+            }
+        }
+    }
+
     onChoseLocation(location) {
         this.latitude = location.coords.lat;
         this.longitude = location.coords.lng;
         this.setFormLatLong();
+    }
+
+    getCountryCode(): string {
+        var country = this.addressForm ? this.addressForm.controls['country'].value : this.address.country;        
+        if (country && country.id) {
+            return (<string>country.id).toLowerCase();
+        }
+        return this.user.getCountryCode().toLocaleLowerCase();
     }
 
     private setCurrentPosition() {
@@ -129,8 +206,8 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     }
 
     private loadAutocomplete() {
-        if (this.searchElementRef) {
-            this.mapsAPILoader.load().then(() => {
+        this.mapsAPILoader.load().then(() => {
+            if (this.searchElementRef) {
                 let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
                 });
@@ -138,7 +215,6 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
                 autocomplete.addListener("place_changed", () => {
                     this.ngZone.run(() => {
                         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                        console.log(place);
                         if (place.geometry === undefined || place.geometry === null) {
                             return;
                         }
@@ -149,8 +225,8 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
                         this.setFormLatLong();
                     });
                 });
-            });
-        }
+            }
+        });
     }
 
     private fillInAddress(place: google.maps.places.PlaceResult) {

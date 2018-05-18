@@ -26,27 +26,40 @@
                 <input type="text" class="form-control form-control-sm" id="addressLine2" 
                        formControlName="addressLine2" />
             </div>
-            <div *ngIf="isUAE()" class="form-group">
-                <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
-                <select formControlName="state" id="state" class="form-control form-control-sm" 
-                    (change)="onStateChange($event.target.value)">
-                    <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
-                </select>
+            <div class="form-group" *ngIf="combineCityZipCode()">
+                <label for="zipCodeCity">{{ 'COMMON.ZIP_CODE' | translate }}/{{ 'COMMON.CITY' | translate }}</label>
+                <app-autocomplete [source]="'cities-' + getCountryCode()" name="zipCodeCity" id="zipCodeCity"
+                    formControlName="cityZipCode" small="true" (onChange)="zipCodeCityChanged($event)">
+                </app-autocomplete>
             </div>
-            <div *ngIf="!minimal" class="form-group">
+            <div *ngIf="isDefault() && !combineCityZipCode()" class="form-group">
+                <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
+                <input type="text" class="form-control form-control-sm" id="zip"
+                       formControlName="zipCode" />
+            </div>
+            <div *ngIf="isDefault() && !combineCityZipCode()" class="form-group">
                 <label for="city">{{ 'COMMON.CITY' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="city"
                        formControlName="city" />
             </div>
-            <div *ngIf="isUAE()" class="form-group">
-                <label for="area">{{ 'COMMON.AREA' | translate }}</label>
-                <input type="text" class="form-control form-control-sm" id="area"
-                      formControlName="area" />
+            <div *ngIf="showEmirate()" class="form-group">
+                <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
+                <app-autocomplete [source]="'states-' + getCountryCode()" name="state" id="state"
+                    formControlName="state" small="true" (onChange)="onStateChange($event)" openOnFocus="true">
+                </app-autocomplete>
             </div>
-            <div *ngIf="!isUAE()" class="form-group">
-                <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
-                <input type="text" class="form-control form-control-sm" id="zip"
-                       formControlName="zipCode" />
+            <div *ngIf="showCity()" class="form-group">
+                <label for="city">{{ 'COMMON.CITY' | translate }}</label>
+                <app-autocomplete [source]="'cities-' + getCountryCode()" name="city" id="city"
+                    formControlName="city" small="true" (onChange)="onCityChange($event)" 
+                    openOnFocus="true" [parent]="state">
+                </app-autocomplete>
+            </div>
+            <div *ngIf="showArea()" class="form-group">
+                <label for="area">{{ 'COMMON.AREA' | translate }}</label>
+                <app-autocomplete [source]="'areas-' + getCountryCode()" name="area" id="area"
+                    formControlName="area" small="true" openOnFocus="true" limit="100" [parent]="city || state">
+                </app-autocomplete>
             </div>
         </ng-container>
 
@@ -69,7 +82,7 @@
                 </div>
             </div>
             <div class="row">
-                <div *ngIf="!minimal" class="col">
+                <div *ngIf="!minimal" [ngClass]="{'col-12': !showEmirate() && showArea(), 'col': showEmirate() || !showArea()}">
                     <div class="form-group">
                         <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="addressLine2" 
@@ -77,14 +90,13 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="form-group" *ngIf="isUAE()">
+                    <div class="form-group" *ngIf="showEmirate()">
                         <label for="state">{{ 'COMMON.EMIRATE' | translate }}</label>
-                        <select [(ngModel)]="address.state" id="state" class="form-control form-control-sm" 
-                            (change)="onStateChange($event.target.value)">
-                            <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
-                        </select>
+                        <app-autocomplete [source]="'states-' + getCountryCode()" name="state" id="state"
+                            [(ngModel)]="address.state" small="true" (onChange)="onStateChange($event)" openOnFocus="true">
+                        </app-autocomplete>
                     </div>
-                    <div class="form-group" *ngIf="!isUAE()">
+                    <div class="form-group" *ngIf="!showArea()">
                         <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="zip"
                             [(ngModel)]="address.zipCode" />
@@ -92,7 +104,7 @@
                 </div>
             </div>
             <div class="row">
-                <div *ngIf="!minimal" class="col">
+                <div class="col">
                     <div class="form-group">
                         <label for="city">{{ 'COMMON.CITY' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="city"
@@ -100,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="form-group" *ngIf="isUAE()">
+                    <div class="form-group" *ngIf="showArea()">
                         <label for="area">{{ 'COMMON.AREA' | translate }}</label>
                         <input type="text" class="form-control form-control-sm" id="area"
                             [(ngModel)]="address.area" />

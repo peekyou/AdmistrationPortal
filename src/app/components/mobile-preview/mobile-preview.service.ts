@@ -30,7 +30,7 @@ export class MobilePreviewService {
     }
 
     formatUrl(url: string) {
-        return url + '?t=0' + this.user.getSystemCustomerId();
+        return url + '/login?t=0' + this.user.getSystemCustomerId();
     }
 }
 

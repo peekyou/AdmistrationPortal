@@ -5,15 +5,15 @@
                 <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
                     placeholder="{{ 'CUSTOMERS.SEARCH_PLACEHOLDER' | translate }}">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fa fa-search"></i> {{ 'CUSTOMERS.SEARCH' | translate }}
+                    <button class="btn btn-primary" type="submit" [disabled]="!searchTerm">
+                        <i class="fa fa-search"></i> {{ 'CUSTOMERS.SEARCH_BTN' | translate }}
                     </button>
                 </div>
                 <ngx-loading [show]="loading"></ngx-loading>        
             </div>
         </form>
     </div>
-    <!-- <div class="col col-md-3">    
+    <div class="col col-md-3">    
         <button class="btn btn-primary" (click)="openNewCustomerModal()">{{ 'CUSTOMERS.ADD' | translate }}</button>
-    </div> -->
+    </div>
 </div>
