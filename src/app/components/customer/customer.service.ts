@@ -72,6 +72,12 @@ export class CustomerService {
     //}
     
     update(customer: Customer): Observable<number> {
+        // If all fields of address are empty except country, consider as null
+        if (customer.address && !customer.address.addressLine1 && !customer.address.addressLine2 &&
+        !customer.address.area && !customer.address.city && !customer.address.state && !customer.address.zipCode) {
+            customer.address = null;
+        }
+
         return this.http.put(this.api + '/' + customer.id, customer);
     }
 

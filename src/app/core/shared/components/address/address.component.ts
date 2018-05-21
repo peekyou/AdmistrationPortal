@@ -21,11 +21,6 @@ import { UserService } from '../../../../components/user/user.service';
     ],    
 })
 export class AddressComponent implements OnInit, ControlValueAccessor {
-    countriesCombineCityZipCode = ['fr'];
-    countriesShowEmirateList = ['ae'];
-    countriesShowCityList = ['sa'];
-    countriesShowAreaList = ['ae','sa'];
-    
     public state: Lookup;
     public city: Lookup;
     public cityZipCode: Lookup = {};
@@ -124,24 +119,23 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     }
 
     isDefault() {
-        var combined = this.countriesCombineCityZipCode.concat(this.countriesShowAreaList).concat(this.countriesShowCityList).concat(this.countriesShowEmirateList);
-        return combined.indexOf(this.getCountryCode()) === -1;
+        return Address.isDefault(this.getCountryCode());
     }
 
     showEmirate() {
-        return this.countriesShowEmirateList.indexOf(this.getCountryCode()) > -1;
+        return Address.showEmirate(this.getCountryCode());
     }
 
     showCity() {
-        return this.countriesShowCityList.indexOf(this.getCountryCode()) > -1;
+        return Address.showCity(this.getCountryCode());
     }
 
     showArea() {
-        return this.countriesShowAreaList.indexOf(this.getCountryCode()) > -1;
+        return Address.showArea(this.getCountryCode());
     }
 
     combineCityZipCode(): boolean {
-        return this.countriesCombineCityZipCode.indexOf(this.getCountryCode()) > -1;
+        return Address.combineCityZipCode(this.getCountryCode());
     }
 
     countryChanged(value: Lookup) {
@@ -166,9 +160,15 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     }
 
     zipCodeCityChanged(value: Lookup) {
+        var city = null;
+        var zipCode = null;
         if (value && value.id) {
-            var city = value.id;
-            var zipCode = value.name.split(' - ')[0];
+            city = value.id;
+            zipCode = value.name.split(' - ')[0];
+        }
+
+        // Set the value if control is emptied or if lookup is set
+        if ((value && value.id) || !value) {
             if (this.address) {
                 this.address.city = city;
                 this.address.zipCode = zipCode;

@@ -30,6 +30,7 @@ import { CustomerTableComponent } from './components/customer-table/customer-tab
 import { CircleProgressComponent } from './components/circle-progress/circle-progress.component';
 import { EtiquetteCardComponent } from './components/etiquette-card/etiquette-card.component';
 import { PhoneNumberComponent } from './components/intl-phone-number/intl-phone-number.component';
+import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.component';
 
 import { AppModal } from './modals/modal';
 import { DeleteModal } from './modals/delete.modal';
@@ -78,6 +79,7 @@ const DECLARATIONS = [
     CircleProgressComponent,
     EtiquetteCardComponent,
     PhoneNumberComponent,
+    DynamicFieldComponent,
     OnlyNumberDirective
 ];
 

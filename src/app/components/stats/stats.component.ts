@@ -13,6 +13,7 @@ import { Customer, CustomerExpense } from '../customer/customer';
 import { SearchFilter } from '../../core/models/search-filter';
 import { ReviewService } from '../review/review.service';
 import { ReviewsAverage } from '../review/review';
+import { Address } from '../../core/shared/components/address/address';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -138,8 +139,12 @@ export class StatsComponent implements OnInit {
             );
     }
 
-    public hasDataType(type: DataType) {
+    hasDataType(type: DataType) {
         return this.groupChartDataTypes.indexOf(type) !== -1;
+    }
+
+    showArea() {
+        return Address.showArea(this.user.getCountryCode().toLocaleLowerCase());
     }
 
     private loadGeneralStats(searchFilter: SearchFilter = null) {

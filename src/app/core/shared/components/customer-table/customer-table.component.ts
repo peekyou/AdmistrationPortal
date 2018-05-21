@@ -61,7 +61,6 @@ export class CustomerTableComponent {
         // Call get by id before going to detail page, to avoid two loading
         this.service.getById(customer.id)
                     .subscribe(c => {
-                        console.log(c);
                         this.service.customerSearched = c;
                         this.loading = false;
                         this.router.navigate(['/customers', customer.id]);

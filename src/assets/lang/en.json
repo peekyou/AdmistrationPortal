@@ -157,7 +157,10 @@
         "FILE_UPLOAD_MAX_SIZE": "Max image size: 5Mo",
         "FILE_UPLOAD_FORMATS": "Accepted formats: JPG, PNG",
         "FILE_UPLOAD_TEXT": "Max image size: 5Mo<br />Accepted formats: JPG, PNG<br />Optimal images size is 800px large and 380px high. If size is different:<ul><li>Pictures less than 600px large will be rejected</li><li>Pictures greater than 800px large will be resized</li><li>Pictures greater than 380px height will be cropped on top and bottom to maintain visual center</li></ul>",
-        "FILE_UPLOAD_AVAILABLE_SIZE": "Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo."
+        "FILE_UPLOAD_AVAILABLE_SIZE": "Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo.",
+        "LOGO_SIZE_RECOMMENDED": "Minimum height 90px",
+        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Recommended 400x800 px",
+        "HEADER_IMAGE_SIZE_RECOMMENDED": "Recommended 350x150 px"
     },
     "REVIEWS": {
         "NO_REVIEW": "No review",
@@ -198,7 +201,6 @@
         "CURRENT_EMAILS_1": "You currently have",
         "CURRENT_EMAILS_2": "in your database",
         "USE_EMAILS": "It's time to use it!",
-        "TOOL_DESCRIPTION": "Suscribe to our email campaigns program to access our powerful and feature-packed tool to create beautiful email marketing campaigns with pictures.",
         "SUSCRIBE_BUTTON": "Suscribe"
     },
     "SMS_PACKS": {

@@ -84,6 +84,11 @@ export class CustomerForm implements OnInit {
         
         var favProductsControl = <FormArray>this.form.controls.favoriteProducts;
         favProductsControl.push(new FormControl());
+
+        // Add the custom controls before populating the form
+        for (var i = 1; i <= 3; i++) {
+            this.showCustomControl(i);
+        }
         this.onPopulate.emit(this.form);
     }
 
@@ -119,7 +124,10 @@ export class CustomerForm implements OnInit {
                 state: Lookup.getValue(this.form.value.address.state),
                 latitude: this.form.value.address.latitude,
                 longitude: this.form.value.address.longitude
-            }
+            },
+            customField1: Lookup.getValue(this.form.value.customField1),
+            customField2: Lookup.getValue(this.form.value.customField2),
+            customField3: Lookup.getValue(this.form.value.customField3)
         };
 
         if (!this.isEdit && this.form.value.amount) {
@@ -151,6 +159,39 @@ export class CustomerForm implements OnInit {
         }
         return Validators.required(control);
     }
+
+    showCustomControl(index: number) {
+        if (this.user.customerCustomFields) { 
+            switch(index) {
+                case 1: 
+                    if (this.user.customerCustomFields.field1ResourceKey) {
+                        if (!this.customField1) {
+                            this.form.addControl('customField1', new FormControl(null, Validators.required));
+                        }
+                        return true;
+                    }
+                break;
+                case 2: 
+                    if (this.user.customerCustomFields.field2ResourceKey) {
+                        if (!this.customField2) {
+                            this.form.addControl('customField2', new FormControl(null, Validators.required));
+                        }
+                        return true;
+                    }
+                break;
+                case 3: 
+                    if (this.user.customerCustomFields.field3ResourceKey) {
+                        if (!this.customField3) {
+                            this.form.addControl('customField3', new FormControl(null, Validators.required));
+                        }
+                        return true;
+                    }
+                break;
+            }
+        }
+        return false;
+    }
+    
     
     get firstname() { return this.form.get('firstname'); }
     get lastname() { return this.form.get('lastname'); }
@@ -160,4 +201,7 @@ export class CustomerForm implements OnInit {
     get birthdate() { return this.form.get('birthdate'); }
     get gender() { return this.form.get('gender'); }
     get comment() { return this.form.get('comment'); }
+    get customField1() { return this.form.get('customField1'); }
+    get customField2() { return this.form.get('customField2'); }
+    get customField3() { return this.form.get('customField3'); }
 }

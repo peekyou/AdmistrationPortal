@@ -25,6 +25,9 @@ export class Customer {
     languages?: Lookup[];
     favoriteProducts?: Lookup[];
     address?: Address; 
+    customField1?: string;
+    customField2?: string;
+    customField3?: string;
 }
 
 export class PurchaseData {

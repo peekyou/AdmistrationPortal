@@ -12,5 +12,6 @@ export enum DataType {
     Languages,
     City,
     Country,
-    Nationality
+    Nationality,
+    Area
 }

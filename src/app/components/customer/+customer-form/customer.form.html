@@ -18,7 +18,7 @@
                 </div>
         
                 <div class="form-group">
-                    <label for="name">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
+                    <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="firstname" formControlName="firstname" required />
                     <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
@@ -80,7 +80,13 @@
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
-                </div>    
+                </div>
+                
+                <div class="form-group" *ngIf="showCustomControl(2)">
+                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field2ResourceKey" 
+                        [values]="user.customerCustomFields.field2List" [formControl]="customField2">
+                    </app-dynamic-field>
+                </div>
             </div>
             <div class="col-7">
                 <div class="card card-languages">
@@ -151,7 +157,18 @@
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
-                </div>  
+                </div>
+                
+                <div class="form-group" *ngIf="showCustomControl(1)">
+                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field1ResourceKey" 
+                       [values]="user.customerCustomFields.field1List" [formControl]="customField1">
+                    </app-dynamic-field>
+                </div>
+                <div class="form-group" *ngIf="showCustomControl(3)">
+                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field3ResourceKey" 
+                        [values]="user.customerCustomFields.field3List" [formControl]="customField3">
+                    </app-dynamic-field>
+                </div>
             </div>
         </div>
         <div class="text-align-center">

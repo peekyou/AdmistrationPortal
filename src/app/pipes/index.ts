@@ -7,6 +7,7 @@ import { IncrementPipe } from './increment';
 import { CurrentPointsPipe } from './current-points';
 import { ExpensesChartPipe } from './expenses-chart';
 import { GroupBarChartPipe } from './group-bar-chart';
+import { LookupPipe } from './lookup';
 import { CountryPipe } from '../core/shared/components/intl-phone-number/country.pipe';
 
 const PIPES = [
@@ -16,6 +17,7 @@ const PIPES = [
     CurrentPointsPipe,
     ExpensesChartPipe,
     GroupBarChartPipe,
+    LookupPipe,
     CountryPipe
 ];
 

@@ -1,0 +1,10 @@
+<label for="customField1">{{ resourceKey }}*</label>
+<input type="text" class="form-control form-control-sm" id="customField1" [(ngModel)]="value" 
+       *ngIf="!values || values.length == 0" (blur)="onBlur()" required />
+
+<app-autocomplete *ngIf="values && values.length > 0" [source]="values | lookup" name="customField1" id="customField1" 
+    required="true" [(ngModel)]="value" small="true" openOnFocus="true">
+</app-autocomplete>
+<div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="invalid-field">
+    {{ 'FORM.REQUIRED' | translate }}
+</div>

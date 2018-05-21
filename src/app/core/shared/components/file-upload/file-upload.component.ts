@@ -20,6 +20,7 @@ export class FileUploadComponent implements OnInit {
 
     @Input() simple: boolean = false;
     @Input() browseLabel: string;
+    @Input() recommendedText: string;
     @Input() files: Picture[];
     @Input() totalFileSize: number;
     @Input() fileHolder: any;

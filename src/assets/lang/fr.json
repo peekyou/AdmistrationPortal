@@ -157,7 +157,10 @@
         "FILE_UPLOAD_MAX_SIZE": "Taille max image: 5Mo",
         "FILE_UPLOAD_FORMATS": "Formats acceptés: JPG, PNG",
         "FILE_UPLOAD_TEXT": "La taille optimale des images est 800px de large et 380px de haut. Si ce format n'est pas respecté:<ul><li>Les images inférieures à 600px de large seront refusées</li><li>Les images supérieures à 800px de large seront redimensionnées</li><li>Les images supérieures à 380px de haut seront rognées en haut et en bas pour conserver le centre du visuel</li></ul>",        
-        "FILE_UPLOAD_AVAILABLE_SIZE": "Espace disponible restant : {{availableSpace}} Mo / {{totalSpace}} Mo."
+        "FILE_UPLOAD_AVAILABLE_SIZE": "Espace disponible restant : {{availableSpace}} Mo / {{totalSpace}} Mo.",
+        "LOGO_SIZE_RECOMMENDED": "Hauteur minimale 90px",
+        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Taille conseillé 400x800 px",
+        "HEADER_IMAGE_SIZE_RECOMMENDED": "Taille conseillé 350x150 px"
     },
     "REVIEWS": {
         "NO_REVIEW": "Aucun avis",

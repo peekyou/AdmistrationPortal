@@ -13,6 +13,7 @@ export class CustomerComponent implements OnInit {
     customersCount: number;
     itemsPerPage: number = 20;
     loading = false;
+    loadingCustomers = false;
 
     constructor(private service: CustomerService) { }
 
@@ -32,8 +33,10 @@ export class CustomerComponent implements OnInit {
     }
 
     public getCustomersPage(page: number) {
+        this.loadingCustomers = true;
         this.service.get(page, this.itemsPerPage)
             .subscribe(customers => {
+                this.loadingCustomers = false;
                 this.customers = customers;
             });
     }

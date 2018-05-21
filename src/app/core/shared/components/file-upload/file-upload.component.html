@@ -36,6 +36,7 @@
     </button>
     <input class="issue-drop-zone__file" type="file" (change)="onFileChanged($event)" 
             accept="image/*" #fileInput>
+    <small *ngIf="recommendedText" class="recommended-size text-muted">{{ recommendedText }}</small>
 
     <ng-container *ngTemplateOutlet="thumbnails"></ng-container>            
 </span>

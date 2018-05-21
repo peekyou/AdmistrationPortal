@@ -2,17 +2,20 @@
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import 'rxjs/add/observable/of';
 
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { HttpService } from '../../core/services/http.service';
 import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
 import { MerchantInfo } from '../../core/models/merchantInfo';
+import { CustomerCustomFields } from '../../core/models/customerCustomFields';
 import { UserPreferences } from './user';
 
 @Injectable()
 export class UserService {
     private tokenKey = 'token';
+    private customFieldsKey = 'customfields';
     private api: string;
     private permissions: string[];
     private username: string;
@@ -20,6 +23,7 @@ export class UserService {
     private countryCode: string;
     private systemCustomerId: string;
     private accessibleMerchants: MerchantInfo[];
+    public customerCustomFields: CustomerCustomFields;
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -28,6 +32,7 @@ export class UserService {
         }
         this.api = config.ApiEndpoint;        
         this.token = localStorage.getItem(this.tokenKey);
+        this.customerCustomFields = JSON.parse(localStorage.getItem(this.customFieldsKey));
         this.setPermissions();
     }
 
@@ -41,6 +46,7 @@ export class UserService {
                     this.token = token;
                     localStorage.setItem(this.tokenKey, token);
                     this.setPermissions();
+                    this.setCustomerCustomFields();
                     return true;
                 } else {
                     return false;
@@ -66,6 +72,7 @@ export class UserService {
         this.systemCustomerId = null;
         this.accessibleMerchants = null;
         this.permissions = null;
+        this.customerCustomFields = null;
         localStorage.removeItem(this.tokenKey);
     }
 
@@ -150,5 +157,14 @@ export class UserService {
                 lang: null
             });
         }
+    }
+
+    private setCustomerCustomFields() {
+        this.http
+            .get(this.api + '/merchants/customfields', this.token)
+            .subscribe(response => {
+                this.customerCustomFields = response;
+                localStorage.setItem(this.customFieldsKey, JSON.stringify(this.customerCustomFields));
+            });
     }
 }

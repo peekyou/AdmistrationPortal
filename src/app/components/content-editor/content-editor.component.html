@@ -8,17 +8,20 @@
                         <div class="row images">
                             <div class="col">
                                 <file-upload [simple]="true" browseLabel="{{ 'CONTENT.LOGO' | translate }}"
-                                    [(file)]="design.logo" [totalFileSize]="totalFileSize">
+                                    [(file)]="design.logo" [totalFileSize]="totalFileSize" 
+                                    recommendedText="{{ 'CONTENT.LOGO_SIZE_RECOMMENDED' | translate }}">
                                 </file-upload>
                             </div>
                             <div class="col">
                                 <file-upload [simple]="true" browseLabel="{{ 'CONTENT.BACKGROUND_IMAGE' | translate }}" 
-                                    [(file)]="design.backgroundImage" [totalFileSize]="totalFileSize">
+                                    [(file)]="design.backgroundImage" [totalFileSize]="totalFileSize"
+                                    recommendedText="{{ 'CONTENT.BACKGROUND_IMAGE_SIZE_RECOMMENDED' | translate }}">
                                 </file-upload>
                             </div>
                             <div class="col">
                                 <file-upload [simple]="true" browseLabel="{{ 'CONTENT.HEADER_IMAGE' | translate }}"
-                                    [(file)]="design.headerImage" [totalFileSize]="totalFileSize">
+                                    [(file)]="design.headerImage" [totalFileSize]="totalFileSize"
+                                    recommendedText="{{ 'CONTENT.HEADER_IMAGE_SIZE_RECOMMENDED' | translate }}">
                                 </file-upload>
                             </div>
                         </div>

@@ -12,4 +12,5 @@
     <app-customer-table [customers]="customers" title="{{ 'TOOLBAR.CUSTOMERS' | translate }}"
                         (onPageChanged)="getCustomersPage($event)" [itemsPerPage]="itemsPerPage">
     </app-customer-table>
+    <ngx-loading [show]="loadingCustomers" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
 </div>

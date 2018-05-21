@@ -17,7 +17,11 @@ export class HttpService {
         };
     }
 
-    get(url: string): Observable<any> {
+    get(url: string, token: string = null): Observable<any> {
+        if (token) {
+            this.headers['Authorization'] = 'Bearer ' + token;
+        }
+
         return this.http.get(url, { headers: this.headers })
             .catch(this.handleError);
     }

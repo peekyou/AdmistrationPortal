@@ -65,26 +65,32 @@
                             <div class="col form-inline">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="genderGroup" 
+                                        <input class="form-check-input" type="checkbox" 
                                                 (change)="selectDataType(DataType.Gender)" 
-                                                [checked]="hasDataType(DataType.Gender)" value="genderGroup">
+                                                [checked]="hasDataType(DataType.Gender)">
                                         {{ 'COMMON.GENDER' | translate }}
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                        <input class="form-check-input" type="checkbox" 
                                                 (change)="selectDataType(DataType.Age)" 
-                                                [checked]="hasDataType(DataType.Age)" value="ageGroup">
+                                                [checked]="hasDataType(DataType.Age)">
                                         {{ 'COMMON.AGE' | translate }}
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" id="ageGroup" 
+                                        <label class="form-check-label" *ngIf="!showArea()">
+                                            <input class="form-check-input" type="checkbox" 
                                                     (change)="selectDataType(DataType.City)" 
-                                                    [checked]="hasDataType(DataType.City)" value="ageGroup">
+                                                    [checked]="hasDataType(DataType.City)">
                                             {{ 'COMMON.CITY' | translate }}
+                                        </label>
+                                        <label class="form-check-label" *ngIf="showArea()">
+                                            <input class="form-check-input" type="checkbox" 
+                                                    (change)="selectDataType(DataType.Area)" 
+                                                    [checked]="hasDataType(DataType.Area)">
+                                            {{ 'COMMON.AREA' | translate }}
                                         </label>
                                     </div>
                             </div>
