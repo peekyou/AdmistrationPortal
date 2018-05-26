@@ -1,5 +1,5 @@
 ﻿import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import * as moment from 'moment';
 
@@ -64,4 +64,15 @@ export function isMobileNumber(searchTerm: string): boolean {
         return /^[\d]+$/.test(cleaned);
     }
     return false;
+}
+
+export function validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+        if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
 }

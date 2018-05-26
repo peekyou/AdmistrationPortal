@@ -24,7 +24,7 @@ export class GroupBarChartComponent implements OnInit {
     private x1: ScaleBand<string>;
     private y: ScaleLinear<number, number>;
     private z: ScaleOrdinal<string, {}>;
-    private margin = {top: 20, right: 20, bottom: 20, left: 40};
+    private margin = {top: 20, right: 20, bottom: 100, left: 40};
     private dataKeys: string[] = [];
 
     private _data: ChartData[];
@@ -209,7 +209,13 @@ export class GroupBarChartComponent implements OnInit {
                 .attr("fill", <any>function(d) { return z(d.label); });
         }
 
-        this.g.select(".axis--x").call(d3.axisBottom(x0));
+        this.g.select(".axis--x").call(d3.axisBottom(x0))
+        .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");
+
         this.g.select(".axis--y").call(d3.axisLeft(y));
         
         if (this.isGroupedChart()) {
@@ -245,7 +251,6 @@ export class GroupBarChartComponent implements OnInit {
                     .style("opacity", .9)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
-                    console.log(d3.event.pageX);
                     
                     tooltip.select("strong").text(d.label); 
                     tooltip.select("#value").text(d.value + " " + this.currency);                    

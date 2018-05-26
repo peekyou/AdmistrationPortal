@@ -9,7 +9,7 @@ import { UserService } from '../../user/user.service';
 import { ProductService } from '../../bo-management/product/product.service';
 import { Product } from '../../bo-management/product/product';
 import { Lookup } from '../../../core/models/lookup';
-import { ngbDateStructToDate } from '../../../core/helpers/utils';
+import { ngbDateStructToDate, validateAllFormFields } from '../../../core/helpers/utils';
 
 @Component({
     selector: 'app-customer-form',
@@ -104,36 +104,41 @@ export class CustomerForm implements OnInit {
     }
     
     submit() {
-        var customer: Customer = {
-            gender: this.form.value.gender,
-            languages: this.form.value.languages,
-            favoriteProducts: this.form.value.favoriteProducts,
-            email: this.form.value.email,
-            birthdate: ngbDateStructToDate(this.form.value.birthdate),
-            mobileNumber: this.form.value.mobile,
-            firstname: this.form.value.firstname,
-            lastname: this.form.value.lastname,
-            comment: this.form.value.comment,
-            address: {
-                addressLine1: this.form.value.address.addressLine1,
-                addressLine2: this.form.value.address.addressLine2,
-                city: Lookup.getValue(this.form.value.address.city),
-                country: this.form.value.address.country,
-                area: Lookup.getValue(this.form.value.address.area),
-                zipCode: this.form.value.address.zipCode,
-                state: Lookup.getValue(this.form.value.address.state),
-                latitude: this.form.value.address.latitude,
-                longitude: this.form.value.address.longitude
-            },
-            customField1: Lookup.getValue(this.form.value.customField1),
-            customField2: Lookup.getValue(this.form.value.customField2),
-            customField3: Lookup.getValue(this.form.value.customField3)
-        };
-
-        if (!this.isEdit && this.form.value.amount) {
-            customer.expenses = [{ date: new Date(), amount: this.form.value.amount }];
+        if (this.form.valid) {
+            var customer: Customer = {
+                gender: this.form.value.gender,
+                languages: this.form.value.languages,
+                favoriteProducts: this.form.value.favoriteProducts,
+                email: this.form.value.email,
+                birthdate: ngbDateStructToDate(this.form.value.birthdate),
+                mobileNumber: this.form.value.mobile,
+                firstname: this.form.value.firstname,
+                lastname: this.form.value.lastname,
+                comment: this.form.value.comment,
+                address: {
+                    addressLine1: this.form.value.address.addressLine1,
+                    addressLine2: this.form.value.address.addressLine2,
+                    city: Lookup.getValue(this.form.value.address.city),
+                    country: this.form.value.address.country,
+                    area: Lookup.getValue(this.form.value.address.area),
+                    zipCode: this.form.value.address.zipCode,
+                    state: Lookup.getValue(this.form.value.address.state),
+                    latitude: this.form.value.address.latitude,
+                    longitude: this.form.value.address.longitude
+                },
+                customField1: Lookup.getValue(this.form.value.customField1),
+                customField2: Lookup.getValue(this.form.value.customField2),
+                customField3: Lookup.getValue(this.form.value.customField3)
+            };
+    
+            if (!this.isEdit && this.form.value.amount) {
+                customer.expenses = [{ date: new Date(), amount: this.form.value.amount }];
+            }
+            this.onSubmit.emit(customer);
         }
-        this.onSubmit.emit(customer);
+        else {
+            validateAllFormFields(this.form);
+        }
     }
 
     anyControlEmpty(control: string): boolean {

@@ -1,5 +1,5 @@
 <div *ngIf="form" [ngClass]="{'small-height': modal}">
-    <form [formGroup]="form" class="form" (ngSubmit)="form.valid && submit()" novalidate>
+    <form [formGroup]="form" class="form" (ngSubmit)="submit()" novalidate>
         <div class="row">
             <div class="col-5">
                 <div class="form-group">
@@ -14,6 +14,9 @@
                         <input type="radio" name="gender" id="genderF" value="F"
                             formControlName="gender" class="form-check-input" required>
                         <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
+                    </div>
+                    <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
                     </div>
                 </div>
         
@@ -172,7 +175,7 @@
             </div>
         </div>
         <div class="text-align-center">
-            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="form" buttonClass="btn btn-primary w-30"
+            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" buttonClass="btn btn-primary w-30"
                 loadingValue="{{ 'COMMON.SAVING' | translate }}" [subscription]="submitSubscription">
             </app-submit-button>
         </div>
