@@ -312,4 +312,10 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
     registerOnTouched(fn: any) {
         this._onTouchedCallback = fn;
     }
+
+    
+    get cityZipCodeControl() { return this.addressForm.get('cityZipCode'); }
+    get cityControl() { return this.addressForm.get('city'); }
+    get stateControl() { return this.addressForm.get('state'); }
+    get areaControl() { return this.addressForm.get('area'); }
 }

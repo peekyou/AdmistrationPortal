@@ -206,7 +206,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         this.savePageSubscription = this.service
             .savePage(page)
             .subscribe(id => {    
-                // this.selectedPage.id = id;
+                page.id = id;
                 // this.selectedPage.editing = this.error = false;
                 this.oldSelectedPage = null;
                 this.error = false;

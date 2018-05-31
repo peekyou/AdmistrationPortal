@@ -3,8 +3,14 @@
        *ngIf="!values || values.length == 0" (blur)="onBlur()" required />
 
 <app-autocomplete *ngIf="values && values.length > 0" [source]="values | lookup" name="customField1" id="customField1" 
-    required="true" [(ngModel)]="value" small="true" openOnFocus="true">
+    required="true" [formControl]="formControl" small="true" openOnFocus="true">
 </app-autocomplete>
+
 <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="invalid-field">
-    {{ 'FORM.REQUIRED' | translate }}
+    <div *ngIf="formControl.errors.required">
+        {{ 'FORM.REQUIRED' | translate }}
+    </div>
+    <div *ngIf="!formControl.errors.required && formControl.errors.selectedValue">
+        {{ 'FORM.INVALID_VALUE' | translate }}
+    </div>
 </div>

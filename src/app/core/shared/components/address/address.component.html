@@ -31,6 +31,9 @@
                 <app-autocomplete [source]="'cities-' + getCountryCode()" name="zipCodeCity" id="zipCodeCity"
                     formControlName="cityZipCode" small="true" (onChange)="zipCodeCityChanged($event)">
                 </app-autocomplete>
+                <div *ngIf="cityZipCodeControl.invalid && (cityZipCodeControl.dirty || cityZipCodeControl.touched)" class="invalid-field">
+                    {{ 'FORM.INVALID_VALUE' | translate }}
+                </div>
             </div>
             <div *ngIf="isDefault() && !combineCityZipCode()" class="form-group">
                 <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}</label>
@@ -47,6 +50,9 @@
                 <app-autocomplete [source]="'states-' + getCountryCode()" name="state" id="state"
                     formControlName="state" small="true" (onChange)="onStateChange($event)" openOnFocus="true">
                 </app-autocomplete>
+                <div *ngIf="stateControl.invalid && (stateControl.dirty || stateControl.touched)" class="invalid-field">
+                    {{ 'FORM.INVALID_VALUE' | translate }}
+                </div>
             </div>
             <div *ngIf="showCity()" class="form-group">
                 <label for="city">{{ 'COMMON.CITY' | translate }}</label>
@@ -54,12 +60,18 @@
                     formControlName="city" small="true" (onChange)="onCityChange($event)" 
                     openOnFocus="true" [parent]="state">
                 </app-autocomplete>
+                <div *ngIf="cityControl.invalid && (cityControl.dirty || cityControl.touched)" class="invalid-field">
+                    {{ 'FORM.INVALID_VALUE' | translate }}
+                </div>
             </div>
             <div *ngIf="showArea()" class="form-group">
                 <label for="area">{{ 'COMMON.AREA' | translate }}</label>
                 <app-autocomplete [source]="'areas-' + getCountryCode()" name="area" id="area"
                     formControlName="area" small="true" openOnFocus="true" limit="100" [parent]="city || state">
                 </app-autocomplete>
+                <div *ngIf="areaControl.invalid && (areaControl.dirty || areaControl.touched)" class="invalid-field">
+                    {{ 'FORM.INVALID_VALUE' | translate }}
+                </div>
             </div>
         </ng-container>
 

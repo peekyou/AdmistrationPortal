@@ -24,7 +24,7 @@ export class GroupBarChartComponent implements OnInit {
     private x1: ScaleBand<string>;
     private y: ScaleLinear<number, number>;
     private z: ScaleOrdinal<string, {}>;
-    private margin = {top: 20, right: 20, bottom: 100, left: 40};
+    private margin = {top: 20, right: 20, bottom: 80, left: 40};
     private dataKeys: string[] = [];
 
     private _data: ChartData[];
@@ -210,11 +210,12 @@ export class GroupBarChartComponent implements OnInit {
         }
 
         this.g.select(".axis--x").call(d3.axisBottom(x0))
-        .selectAll("text")	
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", "rotate(-65)");
+            .selectAll("text")	
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)")
+            .text((d: string) => this.cutWords(d));
 
         this.g.select(".axis--y").call(d3.axisLeft(y));
         
@@ -240,7 +241,7 @@ export class GroupBarChartComponent implements OnInit {
                 .attr("y", 9.5)
                 .attr("dy", "0.32em")
                 .attr("font-size", "0.6em")
-                .text(function(d) { return d; });
+                .text((d: string) => this.cutWords(d));
         }
 
         if (!tooltip.empty()) {
@@ -279,5 +280,12 @@ export class GroupBarChartComponent implements OnInit {
 
     isGroupedChart(): boolean {
         return this._data && this._data.length > 0 && this._data[0] instanceof GroupBarChartData;
+    }
+
+    private cutWords(s: string) {
+        if (s && s.length > 13) {
+            return s.substring(0, 11) + '...';
+        }
+        return s;
     }
 }

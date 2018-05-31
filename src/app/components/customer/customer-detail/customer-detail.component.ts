@@ -13,6 +13,7 @@ import { CustomerService } from '../customer.service';
 import { UserService } from '../../user/user.service';
 import { DeleteModal } from '../../../core/shared/modals/delete.modal';
 import { dateToNgbDateStruct } from '../../../core/helpers/utils';
+import { NotificationService } from '../../../core/shared/components/notifcations/notification.service';
 
 @Component({
     styleUrls: ['./customer-detail.component.scss'],
@@ -28,6 +29,7 @@ export class CustomerDetailComponent implements OnInit {
     saveSubscription: Subscription;
     giveDiscountSubscription: Subscription;
     getExpensesSubscription: Subscription;
+    sendSmsSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute,
@@ -35,6 +37,7 @@ export class CustomerDetailComponent implements OnInit {
         private location: Location,
         private service: CustomerService,
         private modalService: NgbModal,
+        private notifications: NotificationService,
         user: UserService
     ) {
         this.currency = user.getCurrency();        
@@ -187,9 +190,9 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     sendApplicationSms() {
-        this.service.sendApplicationSms(this.customer.id)
+        this.sendSmsSubscription = this.service.sendApplicationSms(this.customer.id)
         .subscribe(
-            res => {  },
+            res => { this.notifications.getApplicationSmsStatus(this.customer.mobileNumber, this.customer.firstname + ' ' + this.customer.lastname) },
             err => { console.log(err); }
         );
     }

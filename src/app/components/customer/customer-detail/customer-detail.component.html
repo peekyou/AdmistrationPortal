@@ -79,7 +79,13 @@
                             <span>{{ 'CUSTOMERS.POINTS_USED' | translate }}</span>
                         </div>
                     </div>
-                    <button (click)="sendApplicationSms()" class="btn btn-primary">{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}</button>
+                    <form (ngSubmit)="sendApplicationSms()" novalidate>
+                        <app-submit-button value="{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}" 
+                            loadingValue="{{ 'COMMON.SENDING' | translate }}"
+                            [subscription]="sendSmsSubscription">
+                        </app-submit-button>
+                    </form>
+                    <!-- <button (click)="sendApplicationSms()" class="btn btn-primary">{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}</button> -->
                 </div>
             </div>
         </div>

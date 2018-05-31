@@ -21,6 +21,7 @@
     },
     "FORM": {
         "REQUIRED": "Champs obligatoire",
+        "INVALID_VALUE": "Valeur incorrecte",
         "INVALID_EMAIL": "Email incorrect",
         "INVALID_DATE": "Date incorrecte"
     },
@@ -90,7 +91,8 @@
         "SINCE": "Depuis",
         "PREVIOUS": "Précédente",
         "NEXT": "Suivante",
-        "CLOSED": "Fermé"
+        "CLOSED": "Fermé",
+        "SENDING": "En cours..."
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -125,7 +127,8 @@
         "SEND_APPLICATION_SMS": "Renvoyer SMS application",
         "NOT_FOUND": "Client inexistant",
         "NOT_EXISTING_SENTENCE": "Le client recherché n'est pas enregistré",
-        "CONFIRMATION_CREATION": "Voulez-vous l'enregistrer ?"
+        "CONFIRMATION_CREATION": "Voulez-vous l'enregistrer ?",
+        "REGISTRATION_SMS_UNDELIVERED": "Le SMS d'inscription n'a pas pu être envoyé à"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",

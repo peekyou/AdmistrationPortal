@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Customer, CustomerExpense } from '../customer';
 import { CustomerService } from '../customer.service';
+import { NotificationService } from '../../../core/shared/components/notifcations/notification.service';
 import { isMobileNumber } from '../../../core/helpers/utils';
 
 @Component({
@@ -16,7 +17,11 @@ export class CustomerNewModal {
     error: boolean | string;
     saveSubscription: Subscription;    
 
-    constructor(public activeModal: NgbActiveModal, private router: Router, private service: CustomerService) { }
+    constructor(
+        public activeModal: NgbActiveModal, 
+        private router: Router, 
+        private service: CustomerService,
+        private notifications: NotificationService) { }
 
     saveCustomer(customer: Customer) {
         this.saveSubscription = this.service
@@ -24,6 +29,7 @@ export class CustomerNewModal {
             .subscribe(
                 id => {
                     if (id) {
+                        this.notifications.getApplicationSmsStatus(customer.mobileNumber, customer.firstname + ' ' + customer.lastname);
                         this.activeModal.close();
                         this.router.navigate(['/customers', id]);
                     }

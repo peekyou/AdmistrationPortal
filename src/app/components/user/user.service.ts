@@ -29,6 +29,7 @@ export class UserService {
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
         if (config.GroupId) {
             this.tokenKey = this.tokenKey + '-' + config.GroupId; 
+            this.customFieldsKey = this.customFieldsKey + '-' + config.GroupId;
         }
         this.api = config.ApiEndpoint;        
         this.token = localStorage.getItem(this.tokenKey);

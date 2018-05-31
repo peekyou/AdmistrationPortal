@@ -38,13 +38,13 @@
                     <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}</label>
                     <div class="input-group">
                         <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="birthdate"
-                                id="birthdate" ngbDatepicker #birthdate="ngbDatepicker">
-                        <button class="input-group-addon" (click)="birthdate.toggle()" type="button">
+                                id="birthdate" ngbDatepicker #ngBirthdate="ngbDatepicker">
+                        <button class="input-group-addon" (click)="ngBirthdate.toggle()" type="button">
                             <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
                         </button>
                     </div>
                     <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="invalid-field">
-                        {{ 'FORM.INVALID_DATE' | translate }}
+                        {{ 'FORM.INVALID_DATE' | translate }} (ex: 1900-12-31)
                     </div>
                 </div>
                 <div class="form-group">
@@ -101,9 +101,6 @@
                                     <app-autocomplete class="language-picker col-9" small="true"
                                         [source]="products" [formControl]="favoriteProduct">
                                     </app-autocomplete>
-                                    <!-- <select [formControl]="favoriteProduct" class="form-control form-control-sm language-picker col-9">
-                                        <option *ngFor="let favoriteProduct of favoriteProducts" [ngValue]="favoriteProduct.id">{{favoriteProducts.name}}</option>
-                                    </select> -->
                                     <div class="action-btn col">
                                         <button type="button" class="btn btn-danger btn-xs" 
                                                 (click)="removeControl(i, 'favoriteProducts')" *ngIf="i > 0">
@@ -111,10 +108,14 @@
                                         </button>
                                         <button *ngIf="i == form.controls.favoriteProducts.controls.length - 1"
                                                 type="button" class="btn btn-success btn-xs" 
-                                                (click)="addArrayControl('favoriteProducts')" [disabled]="anyControlEmpty('favoriteProducts')">
+                                                (click)="addArrayControl('favoriteProducts')" 
+                                                [disabled]="anyControlEmpty('favoriteProducts') || favoriteProduct.invalid">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
+                                </div>
+                                <div class="row" *ngIf="favoriteProduct.invalid && (favoriteProduct.dirty || favoriteProduct.touched)" class="invalid-field">
+                                        {{ 'FORM.INVALID_VALUE' | translate }}
                                 </div>
                             </div>
                         </div>
@@ -139,10 +140,14 @@
                                         </button>
                                         <button *ngIf="i == form.controls.languages.controls.length - 1"
                                                 type="button" class="btn btn-success btn-xs" 
-                                                (click)="addArrayControl('languages')" [disabled]="anyControlEmpty('languages')">
+                                                (click)="addArrayControl('languages')" 
+                                                [disabled]="anyControlEmpty('languages') || language.invalid">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
+                                </div>
+                                <div class="row" *ngIf="language.invalid && (language.dirty || language.touched)" class="invalid-field">
+                                    {{ 'FORM.INVALID_VALUE' | translate }}
                                 </div>
                             </div>
                         </div>

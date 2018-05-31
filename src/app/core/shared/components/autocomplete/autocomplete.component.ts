@@ -224,4 +224,10 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
             this._selectedValue = this.findLookupById(this._selectedValue.id);
         }
     }
+
+    onBlur() {
+        if (this._onTouchedCallback) {
+            this._onTouchedCallback();
+        }
+    }
 }

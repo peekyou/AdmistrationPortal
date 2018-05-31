@@ -21,6 +21,7 @@
     },
     "FORM": {
         "REQUIRED": "Required field",
+        "INVALID_VALUE": "Invalid value",
         "INVALID_EMAIL": "Invalid email",
         "INVALID_DATE": "Invalid date"
     },
@@ -90,7 +91,8 @@
         "SINCE": "Since",
         "PREVIOUS": "Previous",
         "NEXT": "Next",
-        "CLOSED": "Closed"
+        "CLOSED": "Closed",
+        "SENDING": "Sending..."
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -125,7 +127,8 @@
         "SEND_APPLICATION_SMS": "Resend application SMS",
         "NOT_FOUND": "Customer not found",
         "NOT_EXISTING_SENTENCE": "The customer searched is not registered.",
-        "CONFIRMATION_CREATION": "Do you want to create it?"
+        "CONFIRMATION_CREATION": "Do you want to create it?",
+        "REGISTRATION_SMS_UNDELIVERED": "The registration SMS could not been sent to"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section saved successfully",

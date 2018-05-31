@@ -150,6 +150,12 @@ small.smaller {
     }
 }
 
+app-notifications {
+    position: fixed;
+    width: 80%;
+    z-index: 9999;
+}
+
 .no-result {
     width: 70%;
     padding: 1em;

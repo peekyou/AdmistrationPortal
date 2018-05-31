@@ -16,6 +16,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
 // import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
 import { AlertComponent } from './components/alert/alert.component';
+import { NotificationsComponent } from './components/notifcations/notifications.component';
 import { AddressComponent } from './components/address/address.component';
 import { AutoCompleteComponent } from './components/autocomplete/autocomplete.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -65,6 +66,7 @@ const IMPORTS = [
 
 const DECLARATIONS = [
     AlertComponent,
+    NotificationsComponent,
     AddressComponent,
     AutoCompleteComponent,
     FileUploadComponent,

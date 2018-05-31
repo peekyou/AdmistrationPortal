@@ -17,6 +17,7 @@ import { APP_CONFIG, AppConfig } from './app.config';
     <div id="parent" [ngClass]="{'sidebar-margin': user.isAuthenticated()}">
       <app-sidebar *ngIf="user.isAuthenticated()"></app-sidebar>
       <main>
+        <app-notifications></app-notifications>
         <router-outlet></router-outlet>
       </main>
 
