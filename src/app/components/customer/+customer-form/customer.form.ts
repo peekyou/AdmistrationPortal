@@ -59,8 +59,8 @@ export class CustomerForm implements OnInit {
             lastname: [null, Validators.required],
             gender: [null, Validators.required],
             mobile: [null, Validators.required],
-            email: [null, this.customEmailValidator],
-            birthdate: [null],
+            email: [null, Validators.email],
+            birthdate: [null, Validators.required],
             languages: this.fb.array([]),
             favoriteProducts: this.fb.array([]),
             address: this.fb.group({

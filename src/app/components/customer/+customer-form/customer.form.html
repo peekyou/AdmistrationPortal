@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}</label>
+                    <label for="birthdate">{{ 'COMMON.BIRTHDATE' | translate }}*</label>
                     <div class="input-group">
                         <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="birthdate"
                                 id="birthdate" ngbDatepicker #ngBirthdate="ngbDatepicker">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">{{ 'COMMON.EMAIL' | translate }}</label>
+                    <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email" />
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
                         {{ 'FORM.INVALID_EMAIL' | translate }}
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 
-                <app-address [group]="form.controls.address" hideCountry="true" minimal="true" cardPadding=".85rem"></app-address>
+                <app-address [group]="form.controls.address" hideCountry="true" minimal="true" required="true" cardPadding=".85rem"></app-address>
                 
                 <div *ngIf="showLanguages" class="card card-languages">
                     <div class="card-body">

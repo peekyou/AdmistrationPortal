@@ -33,7 +33,7 @@ export class NotificationService {
                         });
 
                     }
-        }), 2000);
+        }), 6000);
 
     }
 
