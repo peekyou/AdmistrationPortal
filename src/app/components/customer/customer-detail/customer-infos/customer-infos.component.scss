@@ -1,0 +1,14 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import '../../../../../styles/_variables';
+
+:host {
+    display:block;
+}
+
+h5 {
+    font-size: 1.3rem;
+    height: 52px;
+    vertical-align: middle;
+    line-height: 34px;
+    color: #fdbc00 !important;
+}

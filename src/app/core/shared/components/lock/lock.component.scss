@@ -1,0 +1,24 @@
+@import '../../../../../styles/_variables';
+
+:host {
+    display: block;
+}
+
+.lock-block {
+    z-index: 77;
+    position: absolute;
+    text-align: center;
+    left: calc(50% + 90px);
+    top: 7rem;
+
+    h2 {
+        color: #fff;
+        background: #f8b500 ; /* Old browsers */
+        background: -moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        padding: 1rem;
+        border-radius: 7px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+}

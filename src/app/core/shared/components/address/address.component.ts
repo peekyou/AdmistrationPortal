@@ -122,6 +122,10 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
         return Address.isDefault(this.getCountryCode());
     }
 
+    showAddressLine1(): boolean {
+        return this.user.getShowCustomerAddressLine();
+    }
+
     showEmirate() {
         return Address.showEmirate(this.getCountryCode());
     }

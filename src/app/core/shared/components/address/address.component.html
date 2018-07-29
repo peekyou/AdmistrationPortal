@@ -16,13 +16,13 @@
                 </app-autocomplete>
             </div>
 
-            <div *ngIf="!minimal" class="form-group">
+            <div *ngIf="!minimal || showAddressLine1()" class="form-group">
                 <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}<span *ngIf="required">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="addressLine1" 
                        formControlName="addressLine1"  [required]="required"/>
             </div>
             <div *ngIf="!minimal" class="form-group">
-                <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
+                <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
                 <input type="text" class="form-control form-control-sm" id="addressLine2" 
                        formControlName="addressLine2"/>
             </div>
@@ -85,7 +85,7 @@
                         </app-autocomplete>
                     </div>
                 </div>
-                <div *ngIf="!minimal" class="col">
+                <div *ngIf="!minimal || showAddressLine1()" class="col">
                     <div class="form-group">
                         <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}<span *ngIf="required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="addressLine1" 

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user.isAuthenticated()">
-    <form *ngIf="router.url === '/dashboard'" class="form-inline" [formGroup]="form" 
+    <form *ngIf="router.url === '/dashboard' && user.getPackage() >= 3" class="form-inline" [formGroup]="form" 
         (ngSubmit)="form.valid && submit()" novalidate>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary today" (click)="submit('day')">

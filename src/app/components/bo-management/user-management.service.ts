@@ -21,9 +21,9 @@ export class UserManagementService {
     }
 
     getPermissions(): Observable<Permission[]> {
-        if (this.permissions) {
-            return Observable.of(this.permissions);
-        }
+        // if (this.permissions) {
+        //     return Observable.of(this.permissions);
+        // }
         return this.http.get(this.config.ApiEndpoint + '/permissions')
                         .map(res => this.permissions = res);
     }

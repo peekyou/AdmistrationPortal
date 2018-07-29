@@ -6,7 +6,7 @@
                     <th>{{ 'COMMON.USERNAME' | translate }}</th>
                     <th>{{ 'COMMON.NAME' | translate }}</th>
                     <th>{{ 'COMMON.STATUS' | translate }}</th>
-                    <th *ngFor="let permission of permissions">{{ permission.resourceKey }}</th>
+                    <th *ngFor="let permission of permissions | packagePermission">{{ permission.resourceKey }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,7 +15,7 @@
                     <td class="bold">{{user?.username}}</td>
                     <td>{{user?.firstname}} {{user?.lastname}}</td>
                     <td>{{user?.status}}</td>
-                    <td *ngFor="let permission of permissions" class="text-align-center">
+                    <td *ngFor="let permission of permissions | packagePermission" class="text-align-center">
                         <i *ngIf="user.permissions && user.permissions.indexOf(permission.id) > -1" 
                         class="fa fa-check theme-color"></i>
                     </td>

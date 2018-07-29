@@ -171,7 +171,7 @@ export class CustomerForm implements OnInit {
                 case 1: 
                     if (this.user.customerCustomFields.field1ResourceKey) {
                         if (!this.customField1) {
-                            this.form.addControl('customField1', new FormControl(null, Validators.required));
+                            this.form.addControl('customField1', new FormControl(null/*, Validators.required*/));
                         }
                         return true;
                     }
@@ -179,7 +179,7 @@ export class CustomerForm implements OnInit {
                 case 2: 
                     if (this.user.customerCustomFields.field2ResourceKey) {
                         if (!this.customField2) {
-                            this.form.addControl('customField2', new FormControl(null, Validators.required));
+                            this.form.addControl('customField2', new FormControl(null/*, Validators.required*/));
                         }
                         return true;
                     }
@@ -187,7 +187,7 @@ export class CustomerForm implements OnInit {
                 case 3: 
                     if (this.user.customerCustomFields.field3ResourceKey) {
                         if (!this.customField3) {
-                            this.form.addControl('customField3', new FormControl(null, Validators.required));
+                            this.form.addControl('customField3', new FormControl(null/*, Validators.required*/));
                         }
                         return true;
                     }

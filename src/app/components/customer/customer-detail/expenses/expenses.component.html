@@ -1,0 +1,6 @@
+<h6 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h6>
+<div class="card-body">
+    <app-line-chart [data]="c.customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
+                    [dataSubscription]="getExpensesSubscription">
+    </app-line-chart>
+</div>

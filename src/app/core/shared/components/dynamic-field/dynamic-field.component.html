@@ -1,9 +1,21 @@
-<label for="customField1">{{ resourceKey }}*</label>
+<label for="customField1">{{ resourceKey }}</label>
 <input type="text" class="form-control form-control-sm" id="customField1" [(ngModel)]="value" 
-       *ngIf="!values || values.length == 0" (blur)="onBlur()" required />
+       *ngIf="!values || values.length == 0" (blur)="onBlur()" />
 
-<app-autocomplete *ngIf="values && values.length > 0" [source]="values | lookup" name="customField1" id="customField1" 
-    required="true" [formControl]="formControl" small="true" openOnFocus="true">
+<div *ngIf="values && values.length == 2">
+    <div class="form-check form-check-inline">
+        <input type="radio" name="customField1" id="value1" [value]="values[0]"
+            [formControl]="formControl" class="form-check-input">
+        <label for="value1" class="form-check-label">{{ values[0] }}</label>
+    </div>
+    <div class="form-check-inline">
+        <input type="radio" name="customField1" id="value2" [value]="values[1]"
+            [formControl]="formControl" class="form-check-input">
+        <label for="value2" class="form-check-label">{{ values[1] }}</label>
+    </div>
+</div>
+<app-autocomplete *ngIf="values && values.length > 2" [source]="values | lookup" name="customField1" id="customField1" 
+    [formControl]="formControl" small="true" openOnFocus="true">
 </app-autocomplete>
 
 <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="invalid-field">

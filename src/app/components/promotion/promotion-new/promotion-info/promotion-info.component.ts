@@ -5,6 +5,7 @@ import { Promotion } from '../../promotion';
 import { PromotionService } from '../../promotion.service';
 import { SmsCounter } from '../../../../core/helpers/smsCounter';
 import { SmsService } from '../../../sms/sms.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 
 @Component({
     selector: 'promotion-info',
@@ -14,9 +15,9 @@ import { SmsService } from '../../../sms/sms.service';
 export class PromotionInfoComponent implements OnInit {
     smsQuota: number;    
     smsTemplate: string = '{0}{1}{2}{3}';
-    smsSentence: string = 'Your store is pleased to propose a promotion';
-    smsPercentageTemplate: string = ' of {0}%';
-    smsDateTemplate: string = ' from {0} to {1}';
+    smsSentence: string = '';
+    smsPercentageTemplate: string = '';
+    smsDateTemplate: string = '';
     promotion: Promotion = new Promotion();
 
     form: any;
@@ -25,12 +26,21 @@ export class PromotionInfoComponent implements OnInit {
     private stepName: string = 'stepInfo';
     private formGroup: FormGroup;
 
-    constructor(private smsService: SmsService, private service: PromotionService) {
+    constructor(private smsService: SmsService, private service: PromotionService, private translation: TranslationService) {
         this.smsService.getQuota()
             .subscribe(
                 res => this.smsQuota = res,
                 err => console.log(err)
             );
+
+        this.translation.getMultiple([
+                'PROMOTIONS.SMS_DEFAULT_TEMPLATE',
+                'PROMOTIONS.SMS_PERCENTAGE_TEMAPLTE',
+                'PROMOTIONS.SMS_DATES_TEMPLATE'], x => {
+                    this.smsSentence = x['PROMOTIONS.SMS_DEFAULT_TEMPLATE'];
+                    this.smsPercentageTemplate = x['PROMOTIONS.SMS_PERCENTAGE_TEMAPLTE'];
+                    this.smsDateTemplate = x['PROMOTIONS.SMS_DATES_TEMPLATE'];
+            });
     }
     
     ngOnInit() {

@@ -25,7 +25,7 @@ export class SmsComponent {
         private service: SmsService,
         private modalService: NgbModal,
         private translation: TranslationService,
-        user: UserService) {
+        public user: UserService) {
 
         this.currency = user.getCurrency();
         this.loading = true;

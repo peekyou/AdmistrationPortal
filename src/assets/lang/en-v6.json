@@ -27,8 +27,11 @@
     },
     "COMMON": {
         "SERVER_ERROR": "An error occured, please try later",
-        "SELECT_ALL": "Select all",
-        "UNSELECT_ALL": "Unselect all",
+        "SELECT": "Select",
+        "SELECT_ALL": "Check all",
+        "UNSELECT_ALL": "Uncheck all",
+        "ALL_SELECTED": "All selected",
+        "ITEMS_SELECTED": "items selected",
         "DELETE_CONFIRMATION": "Are you sure you want to delete {{data}}?",
         "DELETE_MSG": "This action is irreversible",
         "YES": "Yes",
@@ -92,7 +95,8 @@
         "PREVIOUS": "Previous",
         "NEXT": "Next",
         "CLOSED": "Closed",
-        "SENDING": "Sending..."
+        "SENDING": "Sending...",
+        "SAVE_SUCCESS": "Successfully saved"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -128,7 +132,9 @@
         "NOT_FOUND": "Customer not found",
         "NOT_EXISTING_SENTENCE": "The customer searched is not registered.",
         "CONFIRMATION_CREATION": "Do you want to create it?",
-        "REGISTRATION_SMS_UNDELIVERED": "The registration SMS could not been sent to"
+        "REGISTRATION_SMS_UNDELIVERED": "The registration SMS could not been sent to",
+        "REDEEMED_POINTS": "Redeemed",
+        "SCAN": "Scan"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section saved successfully",
@@ -184,7 +190,7 @@
         "PERCENTAGE": "Percentage",
         "VALID_FROM": "Valid from",
         "VALID_UNTIL": "Valid until",
-        "SELECT_CITIES": "Select cities",
+        "SELECT_LOCATION": "Select location",
         "FAVORITE_PRODUCT": "Favorite product",
         "REGISTERED_SINCE": "Registered since",
         "RECEIVED": "Promotion received",
@@ -195,7 +201,10 @@
         "SENT_ON": "Sent on",
         "INSUFICIENT_QUOTA": "Your SMS quota is not sufficient",
         "REMAINING_CHARACTERS": "remaining characters in the current SMS",
-        "SMS_NUMBER_SENT": "SMS will be sent for each customer."
+        "SMS_NUMBER_SENT": "SMS will be sent for each customer.",
+        "SMS_DEFAULT_TEMPLATE": "Your merchant is pleased to propose a promotion",
+        "SMS_PERCENTAGE_TEMAPLTE": " of {0}%",
+        "SMS_DATES_TEMPLATE": " from {0} to {1}"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Email campaigns",
@@ -247,6 +256,13 @@
         "REGISTERED_CUSTOMERS": "Registered customers",
         "REVENUES": "Revenues from customers",
         "USING_APPLICATION": "Using application"
+    },
+    "PACKAGES": {
+        "SUSCRIBE": "Suscribe to package",
+        "SUSCRIBE_SILVER": "Suscribe to silver package",
+        "SUSCRIBE_GOLD": "Suscribe to gold package",
+        "MODAL_SILVER": "Suscribe to silver package for {{price}} {{currency}} per month. You will need to login again after suscribing.",
+        "MODAL_GOLD": "Suscribe to gold package for {{price}} {{currency}} per month. You will need to login again after suscribing."
     },
     "ERRORS": {
         "InternalServerError": "An error occured, please try later",

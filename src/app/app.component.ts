@@ -5,6 +5,7 @@ import { AppState } from './app.service';
 import { UserService } from './components/user/user.service';
 import { LookupService } from './core/services/lookup.service';
 import { APP_CONFIG, AppConfig } from './app.config';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app',
@@ -44,6 +45,7 @@ constructor(
   // let browserLang = translate.getBrowserLang();
   // translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   translate.use(config.Lang ? config.Lang : 'en');
+  moment.locale(config.Lang);
 }
 
   ngOnInit() {

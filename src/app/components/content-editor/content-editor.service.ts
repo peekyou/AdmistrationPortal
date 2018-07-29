@@ -1,6 +1,7 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import * as moment from 'moment';
 
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
@@ -12,20 +13,15 @@ import { MerchantDesign } from '../../core/models/merchantDesign';
 @Injectable()
 export class ContentEditorService {
     private api: string;
-    private weekDays: WeekDay[];
+    private weekDays: WeekDay[] = [];
     private backgroundImageSizes: Lookup[];
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
         this.api = config.ApiEndpoint + '/pages';
-        this.weekDays = [
-            { id: 1, name: 'Sunday' },
-            { id: 2, name: 'Monday' },
-            { id: 3, name: 'Tuesday' },
-            { id: 4, name: 'Wednesday' },
-            { id: 5, name: 'Thursday' },
-            { id: 6, name: 'Friday' },
-            { id: 7, name: 'Saturday' }
-        ];
+        var days = moment.weekdays();
+        for (var i = 0; i < days.length; i++) { 
+            this.weekDays.push({ id: i + 1, name: days[i] });
+        }
 
         this.backgroundImageSizes = [
             { id: '100% 100%', name: '100% width and height' },

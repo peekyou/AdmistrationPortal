@@ -11,6 +11,7 @@ import { ComponentCanDeactivate } from '../../guards/pending-changes.guard';
 import { Page, CallOption, WeekDay } from './page';
 import { ContentEditorService } from './content-editor.service';
 import { PageNotifierService } from './page-notifier.service';
+import { NotificationService } from '../../core/shared/components/notifcations/notification.service';
 
 @Component({
     templateUrl: './content-editor.component.html',
@@ -31,7 +32,6 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     savePageSubscription: Subscription;
     saveDesignSubscription: Subscription;
     totalFileSize: number = 0;
-    error: boolean = null;
     
     @ViewChild("mobile", { read: ElementRef })
     public mobileElementRef: ElementRef;
@@ -77,6 +77,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         private fb: FormBuilder,
         public service: ContentEditorService, 
         private notifier: PageNotifierService,
+        private notifications: NotificationService,
         private modalService: NgbModal
     ) {
         // notifier.onEditSource.subscribe(page => this.editContent(page));
@@ -163,10 +164,10 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
         this.saveDesignSubscription = this.service
             .saveDesign(this.design)
             .subscribe(res => {    
-                this.error = false;
+                this.notifications.setSuccessfulNotification();
             },
             err => { 
-                this.error = true;
+                this.notifications.setErrorNotification();
                 console.log(err); 
             });
     }
@@ -207,13 +208,12 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
             .savePage(page)
             .subscribe(id => {    
                 page.id = id;
-                // this.selectedPage.editing = this.error = false;
                 this.oldSelectedPage = null;
-                this.error = false;
+                this.notifications.setSuccessfulNotification();
             },
             err => { 
-                this.error = true;
                 console.log(err); 
+                this.notifications.setErrorNotification();
             });
     }
 

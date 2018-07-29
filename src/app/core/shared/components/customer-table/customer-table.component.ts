@@ -5,9 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { Address } from '../address/address';
 import { Customer } from '../../../../components/customer/customer';
 import { CustomerService } from '../../../../components/customer/customer.service';
 import { CustomerNewModal } from '../../../../components/customer/customer-new/customer-new.modal';
+import { UserService } from '../../../../components/user/user.service';
 import { PagingResponse } from '../../../models/paging';
 
 @Component({
@@ -41,6 +43,7 @@ export class CustomerTableComponent {
         private route: ActivatedRoute, 
         private router: Router, 
         private service: CustomerService,
+        private user: UserService,
         private modalService: NgbModal) {
     }
         
@@ -73,6 +76,10 @@ export class CustomerTableComponent {
     pageChanged(page) {
         this.currentPage = page;
         this.onPageChanged.emit(this.currentPage);
+    }
+
+    showArea() {
+        return Address.showArea(this.user.getCountryCode().toLocaleLowerCase());
     }
 
     anyCustomer(): boolean {

@@ -5,9 +5,11 @@ import { TranslationService } from './core/services/translation.service';
 import { SearchService } from './core/services/search.service';
 import { CountryService } from './core/shared/components/intl-phone-number/intl-phone-number.service';
 import { NotificationService } from './core/shared/components/notifcations/notification.service';
+import { LockService } from './core/shared/components/lock/lock.service';
 import { UserService } from './components/user/user.service';
 import { ContentEditorService } from './components/content-editor/content-editor.service'
 import { CustomerService } from './components/customer/customer.service';
+import { CustomerDetailService } from './components/customer/customer-detail/customer-detail.service';
 import { PromotionService } from './components/promotion/promotion.service';
 import { ReviewService } from './components/review/review.service';
 import { SmsService } from './components/sms/sms.service';
@@ -30,8 +32,10 @@ export const APP_PROVIDERS = [
     UserService,
     CountryService,
     NotificationService,
+    LockService,
     ContentEditorService,
     CustomerService,
+    CustomerDetailService,
     PromotionService,
     ReviewService,
     SmsService,

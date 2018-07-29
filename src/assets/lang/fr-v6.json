@@ -27,8 +27,11 @@
     },
     "COMMON": {
         "SERVER_ERROR": "Une erreur est survenue, essayez plus tard",
-        "SELECT_ALL": "Tout sélectionner",
-        "UNSELECT_ALL": "Tout désélectionner",
+        "SELECT": "Sélectionner",
+        "SELECT_ALL": "Tout cocher",
+        "UNSELECT_ALL": "Tout décocher",
+        "ALL_SELECTED": "Tout sélectionné",
+        "ITEMS_SELECTED": "sélectionnés",
         "DELETE_CONFIRMATION": "Etes-vous sûr de vouloir supprimer {{data}}?",
         "DELETE_MSG": "Cette action est irreversible",
         "YES": "Oui",
@@ -92,7 +95,8 @@
         "PREVIOUS": "Précédente",
         "NEXT": "Suivante",
         "CLOSED": "Fermé",
-        "SENDING": "En cours..."
+        "SENDING": "En cours...",
+        "SAVE_SUCCESS": "Enregistré avec succès"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -128,7 +132,9 @@
         "NOT_FOUND": "Client inexistant",
         "NOT_EXISTING_SENTENCE": "Le client recherché n'est pas enregistré",
         "CONFIRMATION_CREATION": "Voulez-vous l'enregistrer ?",
-        "REGISTRATION_SMS_UNDELIVERED": "Le SMS d'inscription n'a pas pu être envoyé à"
+        "REGISTRATION_SMS_UNDELIVERED": "Le SMS d'inscription n'a pas pu être envoyé à",
+        "REDEEMED_POINTS": "Utilisés",
+        "SCAN": "Scanner"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",
@@ -184,7 +190,7 @@
         "PERCENTAGE": "Pourcentage",
         "VALID_FROM": "Valide du",
         "VALID_UNTIL": "jusqu'au",
-        "SELECT_CITIES": "Villes",
+        "SELECT_LOCATION": "Sélectionner villes",
         "FAVORITE_PRODUCT": "Produit favori",
         "REGISTERED_SINCE": "Client depuis",
         "RECEIVED": "Promotion reçue",
@@ -195,7 +201,10 @@
         "SENT_ON": "Envoyée le",
         "INSUFICIENT_QUOTA": "Votre quota SMS est insufisant",
         "REMAINING_CHARACTERS": "caractères restant dans ce SMS",
-        "SMS_NUMBER_SENT": "SMS seront envoyés par client."
+        "SMS_NUMBER_SENT": "SMS seront envoyés par client.",
+        "SMS_DEFAULT_TEMPLATE": "Promotion dans votre magasin",
+        "SMS_PERCENTAGE_TEMAPLTE": " de {0}%",
+        "SMS_DATES_TEMPLATE": " du {0} au {1}"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Campagnes email",
@@ -247,6 +256,13 @@
         "REGISTERED_CUSTOMERS": "Clients enregistrés",
         "REVENUES": "Revenus",
         "USING_APPLICATION": "Utilisateurs"
+    },
+    "PACKAGES": {
+        "SUSCRIBE": "Souscription",
+        "SUSCRIBE_SILVER": "Souscrire à l'offre Silver",
+        "SUSCRIBE_GOLD": "Souscrire à l'offre Gold",
+        "MODAL_SILVER": "Souscrire à l'offre Silver pour {{price}} {{currency}} par mois. Vous devrez vous reconnecter après la souscription.",
+        "MODAL_GOLD": "Souscrire à l'offre Gold pour {{price}} {{currency}} par mois. Vous devrez vous reconnecter après la souscription."
     },
     "ERRORS": {
         "InternalServerError": "Une erreur est survenue, essayez plus tard",

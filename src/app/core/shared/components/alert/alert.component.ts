@@ -38,17 +38,6 @@ export class AlertComponent implements OnInit {
         }
     }
     
-    // @Input() 
-    // get errorObject(): any {
-    //     return this._errorObject;
-    // }
-
-    // set errorObject(value: any) {
-    //     this._errorObject = value;
-    //     if (this._errorObject && this._errorObject.errorCode) {
-    //     }
-    // }
-
     constructor(private translation: TranslationService) {
      }
 

@@ -1,4 +1,6 @@
-<div class="container">
+<app-lock package="3"></app-lock>
+
+<div class="container" *ngIf="user.getPackage() >= 3">
     <div class="statistics">
         <div class="row">
             <div class="col col-lg-4">
@@ -17,7 +19,7 @@
                             <div class="card-title">{{ 'STATS.REVENUES' | translate }}</div>
                             <h2 class="cyan">{{totalExpenses}} {{ user.getCurrency() }}</h2>
                         </div>
-                    </div>
+                    </div> 
                     <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
                 </app-etiquette-card>
             </div>

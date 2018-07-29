@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 import { TranslationService } from '../../../../core/services/translation.service';
 import { Promotion, PromotionFilter } from '../../promotion';
@@ -29,10 +30,14 @@ export class PromotionFilterComponent implements OnInit {
         private translation: TranslationService) {
 
         customerService.getCount()
-        .subscribe(
-            res => this.totalNbCustomers = res,
-            err => console.log(err)
-        );
+            .subscribe(
+                res => this.totalNbCustomers = res,
+                err => console.log(err)
+            );
+
+        this.getCities();
+        this.getPromotions();
+        this.filterCustomers(null);
     }
         
     ngOnInit() {
@@ -41,36 +46,25 @@ export class PromotionFilterComponent implements OnInit {
             this.filterCustomers(data);
         });
 
-        this.getCities();
-        this.getPromotions();
-        this.filterCustomers(null);
-
-        // this.dropdownList = [
-        //     {"id":1,"name":"India"},
-        //     {"id":2,"itemName":"Singapore"},
-        //     {"id":3,"itemName":"Australia"},
-        //     {"id":4,"itemName":"Canada"},
-        //     {"id":5,"itemName":"South Korea"},
-        //     {"id":6,"itemName":"Germany"},
-        //     {"id":7,"itemName":"France"},
-        //     {"id":8,"itemName":"Russia"},
-        //     {"id":9,"itemName":"Italy"},
-        //     {"id":10,"itemName":"Sweden"}
-        //   ];
-
         this.translation.getMultiple([
-            'PROMOTIONS.SELECT_CITIES',
+            'CUSTOMERS.SEARCH_BTN',
+            'PROMOTIONS.SELECT_LOCATION',
             'COMMON.SELECT_ALL',
-            'COMMON.UNSELECT_ALL'], x => {
-                this.dropdownSettings = { 
-                    singleSelection: false, 
-                    text: x['PROMOTIONS.SELECT_CITIES'],
-                    selectAllText: x['COMMON.SELECT_ALL'],
-                    unSelectAllText: x['COMMON.UNSELECT_ALL'],
-                    enableSearchFilter: true,
-                    labelKey: "name",
-                    classes: "multi-drop-down-sm"
-                };      
+            'COMMON.UNSELECT_ALL',
+            'COMMON.ALL_SELECTED',
+            'COMMON.ITEMS_SELECTED'], x => {
+                
+                this.multiSelectTexts = {
+                    checkAll: x['COMMON.SELECT_ALL'],
+                    uncheckAll: x['COMMON.UNSELECT_ALL'],
+                    checked: x['COMMON.ITEMS_SELECTED'],
+                    checkedPlural: x['COMMON.ITEMS_SELECTED'],
+                    searchPlaceholder: x['CUSTOMERS.SEARCH_BTN'],
+                    searchEmptyResult: 'Nothing found...',
+                    searchNoRenderText: 'Type in search box to see results...',
+                    defaultTitle: x['PROMOTIONS.SELECT_LOCATION'],
+                    allSelected: x['COMMON.ALL_SELECTED'],
+                }; 
         });
     }
 
@@ -91,7 +85,11 @@ export class PromotionFilterComponent implements OnInit {
     getCities() {
         this.customerService.getCustomerCities()
             .subscribe(
-                cities => this.citiesList = cities,
+                cities => {
+                    this.locations = <IMultiSelectOption[]>cities;
+                    // Issue of the dropdown module. If parent is null, unchek does not work properly
+                    this.locations.forEach(x => x.parentId = x.parentId ? x.parentId : undefined);
+                },
                 err => { console.log(err); 
             });
     }
@@ -107,20 +105,18 @@ export class PromotionFilterComponent implements OnInit {
     }
 
     // Cities multi select
-    citiesList: Lookup[] = [];
-    selectedCities = [];
-    dropdownSettings = {};
-
-    onItemSelect(item:any){
-        console.log(item);
-    }
-    OnItemDeSelect(item:any){
-        console.log(item);
-    }
-    onSelectAll(items: any){
-        console.log(items);
-    }
-    onDeSelectAll(items: any){
-        console.log(items);
-    }
+    multiSelectSettings: IMultiSelectSettings = {
+        enableSearch: false,
+        ignoreLabels: true,
+        checkedStyle: 'checkboxes',
+        buttonClasses: 'multi-form-control multi-form-control-sm',
+        dynamicTitleMaxItems: 3,
+        displayAllSelectedText: true,
+        showCheckAll: true,
+        showUncheckAll: true
+    };
+    
+    // Text configuration
+    multiSelectTexts: IMultiSelectTexts; 
+    locations: IMultiSelectOption[] = [];
 }

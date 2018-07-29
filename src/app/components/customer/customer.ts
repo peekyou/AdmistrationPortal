@@ -41,6 +41,7 @@ export class CustomerExpense {
     date: Date;
     amount: number;
     correspondingPoints?: number;
+    redeemedPoints?: number;
     isRedeemed?: boolean;
 }
 

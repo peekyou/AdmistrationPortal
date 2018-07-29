@@ -1,0 +1,16 @@
+<div class="lock-block" *ngIf="user.getPackage() < package">
+    <div style="position: relative; left: -50%;">
+        <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+        <div *ngIf="!loading">
+            <button *ngIf="package == 3" class="btn btn-large btn-primary" 
+                    [disabled]="!packages || loading" (click)="openModal()">
+                {{ 'PACKAGES.SUSCRIBE_GOLD' | translate }}
+            </button>
+            <button *ngIf="package == 2" class="btn btn-large btn-primary" 
+                    [disabled]="!packages || loading" (click)="openModal()">
+                {{ 'PACKAGES.SUSCRIBE_SILVER' | translate }}
+            </button>
+            <!-- <img class="lock-icon" src="/assets/images/lock-icon.png"/> -->
+        </div>
+    </div>
+</div>

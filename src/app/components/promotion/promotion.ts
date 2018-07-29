@@ -34,6 +34,7 @@ export class PromotionFilter {
     lastEntryTo: Date;
     receivedPromotionId: string;
     didntReceivePromotionId: string;
+    location: string[];
 
     static createFromForm(form: any): PromotionFilter {
         if (!form) return null;
@@ -52,7 +53,8 @@ export class PromotionFilter {
             lastEntryTo: ngbDateStructToDate(form.lastEntryTo),
             purchaseAmountMax: form.purchaseAmountMax,
             purchaseAmountMin: form.purchaseAmountMin,
-            receivedPromotionId: form.receivedPromotion
+            receivedPromotionId: form.receivedPromotion,
+            location: form.location
         };
     }
 

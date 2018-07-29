@@ -11,10 +11,12 @@ import { NgAutoCompleteModule } from "ng-auto-complete";
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 // import { InternationalPhoneModule } from 'ng4-intl-phone';
 // import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
+import { LockComponent } from './components/lock/lock.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { NotificationsComponent } from './components/notifcations/notifications.component';
 import { AddressComponent } from './components/address/address.component';
@@ -59,12 +61,14 @@ const IMPORTS = [
     PipesModule,
     NgxPaginationModule,
     AgmCoreModule,
-    AngularMultiSelectModule,
+    MultiselectDropdownModule,
+    ZXingScannerModule
     // InternationalPhoneModule,
     // InternationalPhoneNumberModule
 ];
 
 const DECLARATIONS = [
+    LockComponent,
     AlertComponent,
     NotificationsComponent,
     AddressComponent,

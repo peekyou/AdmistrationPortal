@@ -10,6 +10,7 @@ import { TranslationService } from '../../../core/services/translation.service';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
 import { CustomerNewModal } from '../customer-new/customer-new.modal';
+import { CustomerScanModal } from '../customer-scan/customer-scan.modal';
 
 @Component({
     selector: 'customer-search',

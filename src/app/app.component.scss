@@ -75,6 +75,12 @@ html, body {
     line-height: 1.3em;
 }
 
+.btn-xxs {
+    @extend .btn-xs;
+    line-height: 1em;
+    font-size: 11.5px;
+}
+
 a {
     cursor: pointer;
 }
@@ -152,7 +158,8 @@ small.smaller {
 
 app-notifications {
     position: fixed;
-    width: 80%;
+    width: 42%;
+    left: 195px;
     z-index: 9999;
 }
 
@@ -245,7 +252,7 @@ app-login {
     margin-left: -1.35rem !important;
 }
 
-// Multiselect dropdown component
+// Multiselect dropdown component (cuppalabs)
 .selected-list .c-btn {
     box-shadow: none !important;
 }
@@ -264,6 +271,35 @@ app-login {
     label {
         font-size: 12px !important;
     }
+}
+
+// Multiselect (softsimon)
+.multi-form-control {
+    background: none;
+    width: 100%;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+}
+
+.multi-form-control-sm {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.2rem !important;
+}
+
+.dropdown-menu {
+    font-size: 12px;
+
+    .check-control-uncheck {
+        border-bottom: 1px solid #ccc;
+    }
+
+    input {
+        vertical-align: middle;
+    }     
 }
 
 // ng-bootstrap typehead component

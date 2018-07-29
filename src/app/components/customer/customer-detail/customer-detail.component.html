@@ -1,150 +1,25 @@
 <div class="container content-container">
-    <!-- <customer-search></customer-search> -->
-        
-    <div class="row" *ngIf="customer">
+    <div class="row" *ngIf="c.customer" style="margin-top:6rem">
         <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-header customer-form">
-                    <span>{{customer.cardNumber}}. {{customer.firstname}} {{customer.lastname}}</span>
-                </div>
-                <div class="card-body text-align-center">
-                    <div *ngIf="customer.discountAmount == null || useDiscountLater" class="entry-form">
-                        <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
-                            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
-                            <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;"
-                                placeholder="{{ 'COMMON.AMOUNT' | translate }}" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
-                            <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
-                                loadingValue="{{ 'COMMON.LOADING' | translate }}" 
-                                [form]="entryF.form" [subscription]="saveEntrySubscription">
-                            </app-submit-button>
-                        </form>
-                    </div>
-                    <div *ngIf="customer.discountAmount != null && !useDiscountLater" class="entry-form">
-                        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ customer.discountAmount }} {{ currency }}</div>
-                        <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
-                            <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
-                                            loadingValue="{{ 'COMMON.LOADING' | translate }}"
-                                            [subscription]="giveDiscountSubscription">
-                            </app-submit-button>
-                            <input type="button" class="btn btn-secondary" (click)="useDiscountLater = true"
-                                    value="{{ 'CUSTOMERS.KEEP_DISCOUNT_BUTTON' | translate }}" />
-                        </form>
-                    </div>
-                    <app-circle-progress subtitle="{{ 'CUSTOMERS.WHEEL_POINTS_SUBTITLE' | translate }}"
-                        [title]="customer.currentPoints" 
-                        backgroundColor="#fdbc00"
-                        backgroundOpacity=1
-                        backgroundStroke="#000000"
-                        backgroundPadding="12"
-                        radius=67
-                        space=-7
-                        maxPercent=100
-                        unitsColor="#ffffff"
-                        outerStrokeWidth=7
-                        outerStrokeColor="#ffffff"
-                        innerStrokeColor="#ffdf72"
-                        innerStrokeWidth=7
-                        titleColor="#ffffff"
-                        titleFontSize="40"
-                        subtitleColor="#ffffff"
-                        subtitleFontSize=12
-                        animationDuration=500
-                        [showUnits]=false
-                        [percent]="(customer.currentPoints / (customer.currentPoints + customer.pointsToDiscount)) * 100">
-                    </app-circle-progress>
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <app-circle-progress [showSubtitle]="false"
-                                [title]="(customer.totalPoints - customer.currentPoints)" 
-                                backgroundColor="#0cb3c2"
-                                backgroundOpacity=1
-                                backgroundStroke="#000000"
-                                backgroundPadding="7"
-                                radius=34
-                                space=-4
-                                maxPercent=100
-                                unitsColor="#ffffff"
-                                outerStrokeWidth=4
-                                outerStrokeColor="#ffffff"
-                                innerStrokeColor="#ffdf72"
-                                innerStrokeWidth=4
-                                titleColor="#ffffff"
-                                titleFontSize="20"
-                                animationDuration=0
-                                [showUnits]=false
-                                percent="100">
-                            </app-circle-progress>
-                        </div>
-                        <div class="col-12 col-sm-8 text-align-left cyan points-used">
-                            <span>{{ 'CUSTOMERS.POINTS_USED' | translate }}</span>
-                        </div>
-                    </div>
-                    <form (ngSubmit)="sendApplicationSms()" novalidate>
-                        <app-submit-button value="{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}" 
-                            loadingValue="{{ 'COMMON.SENDING' | translate }}"
-                            [subscription]="sendSmsSubscription">
-                        </app-submit-button>
-                    </form>
-                    <!-- <button (click)="sendApplicationSms()" class="btn btn-primary">{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}</button> -->
-                </div>
+            <div class="card h-100">
+                <app-dynamic-card [index]="topLeftCardIndex"></app-dynamic-card>
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="card">
-                <h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
-                <div class="card-body points-detail">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>{{ 'COMMON.DATE' | translate }}</th>
-                                <th>{{ 'COMMON.AMOUNT' | translate }}</th>
-                                <th>{{ 'COMMON.POINTS' | translate }}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let expense of customer.expenses | currentPoints">
-                                <td>{{expense.date | date: 'dd-MM-yyyy'}}</td>
-                                <td class="cyan"><small>{{expense.currency}}</small><b>{{expense.amount}}</b></td>
-                                <td class="points"><b>{{expense.correspondingPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
-                                <td>
-                                    <button class="btn btn-danger btn-xs" aria-label="Delete" (click)="openDeleteModal(expense)"
-                                            title="{{ 'COMMON.DELETE' | translate }}">
-                                           {{ 'COMMON.DELETE' | translate }}
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- <tr *ngIf="customer.purchaseData?.remainder">
-                                <th scope="row">{{ 'COMMON.REMAINDER' | translate }}</th>
-                                <td></td>
-                                <td>{{customer.purchaseData?.remainder}}</td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="card h-100">
+                <app-dynamic-card [index]="topRightCardIndex"></app-dynamic-card>
             </div>
-            
         </div>
     </div>
-    <div class="row" *ngIf="customer">
+    <div class="row" *ngIf="c.customer" style="margin-top:2rem">
         <div class="col-12 col-lg-6">
-            <div class="card">
-                <h6 class="card-header">{{ 'CUSTOMERS.EXPENSES_CHART' | translate }}</h6>
-                <div class="card-body">
-                    <app-line-chart [data]="customer.expenses | expensesChart" (onSearch)="getExpenses($event)"
-                                    [dataSubscription]="getExpensesSubscription">
-                    </app-line-chart>
-                </div>
+            <div class="card h-100">
+                <app-dynamic-card [index]="bottomLeftCardIndex"></app-dynamic-card>
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="card">
-                <h6 class="card-header">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</h6>
-                <div class="card-body">
-                    <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
-                                        [submitSubscription]="saveSubscription" isEdit="true">
-                    </app-customer-form>
-                </div>
+            <div class="card h-100">
+                <app-dynamic-card [index]="bottomRightCardIndex"></app-dynamic-card>
             </div>
         </div>
     </div>

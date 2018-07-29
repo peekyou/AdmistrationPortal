@@ -72,8 +72,8 @@
                                                 [subscription]="saveDesignSubscription">
                             </app-submit-button>
                         </div>
-                        <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
-                        </app-alert>
+                        <!-- <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
+                        </app-alert> -->
                     </form>
                 </div>
             </div>
@@ -113,9 +113,9 @@
                                     <!-- <input type="button" class="btn btn-secondary" (click)="cancelPageEdition(page)" value="{{ 'COMMON.CANCEL' | translate }}"/> -->
                                     <input type="button" class="btn btn-danger" (click)="openDeleteModal(page)" value="{{ 'COMMON.DELETE' | translate }}"/>
                                 </div>
-                                <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}"
+                                <!-- <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}"
                                     successMessage="{{ 'CONTENT.SAVE_PAGE_SUCCESS' | translate }}">
-                                </app-alert>
+                                </app-alert> -->
                             </form>
                         </div>
                     </div>

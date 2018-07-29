@@ -16,15 +16,12 @@
                                 <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="city">{{ 'COMMON.CITY' | translate }}</label>
-                            <angular2-multiselect [data]="citiesList" [(ngModel)]="selectedCities" 
-                                [settings]="dropdownSettings"
-                                (onSelect)="onItemSelect($event)" 
-                                (onDeSelect)="OnItemDeSelect($event)"
-                                (onSelectAll)="onSelectAll($event)"
-                                (onDeSelectAll)="onDeSelectAll($event)" formControlName="cities"></angular2-multiselect>
-                        </div> -->
+                        <div class="form-group">
+                            <label for="location">{{ 'CONTENT.LOCATION' | translate }}</label>
+                            <ss-multiselect-dropdown formControlName="location"
+                                [options]="locations" [texts]="multiSelectTexts" [settings]="multiSelectSettings">
+                            </ss-multiselect-dropdown>
+                        </div>
                         <!-- <div class="form-group">
                             <label for="fav-product">{{ 'PROMOTIONS.FAVORITE_PRODUCT' | translate }}</label>
                             <select class="form-control form-control-sm" id="fav-product">

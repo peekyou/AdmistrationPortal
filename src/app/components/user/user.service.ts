@@ -10,6 +10,7 @@ import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
 import { MerchantInfo } from '../../core/models/merchantInfo';
 import { CustomerCustomFields } from '../../core/models/customerCustomFields';
+import { AppwardsPackage } from '../../core/models/appwardsPackage';
 import { UserPreferences } from './user';
 
 @Injectable()
@@ -21,6 +22,9 @@ export class UserService {
     private username: string;
     private userId: string;
     private countryCode: string;
+    private package: number;
+    private showCustomerAddressLine: boolean;
+    private customerCardsOrder: string;
     private systemCustomerId: string;
     private accessibleMerchants: MerchantInfo[];
     public customerCustomFields: CustomerCustomFields;
@@ -70,6 +74,9 @@ export class UserService {
         this.userId = null;
         this.username = null;
         this.countryCode = null;
+        this.package = null;
+        this.showCustomerAddressLine = null;
+        this.customerCardsOrder = null;
         this.systemCustomerId = null;
         this.accessibleMerchants = null;
         this.permissions = null;
@@ -113,6 +120,33 @@ export class UserService {
         return this.countryCode;
     }
 
+    getPackage(): number {
+        if (this.token && !this.package) {
+            var claims = parseJwt(this.token);
+            this.package = claims[Claims.Profile + '/Package'];
+        }
+        return this.package;
+    }
+
+    getShowCustomerAddressLine(): boolean {
+        if (this.token && !this.showCustomerAddressLine) {
+            var claims = parseJwt(this.token);
+            this.showCustomerAddressLine = claims[Claims.Profile + '/ShowCustomerAddressLine'].toLowerCase() == 'true';
+        }
+        return this.showCustomerAddressLine;
+    }
+
+    getCustomerCardsOrder(): number[] {
+        if (this.token && !this.customerCardsOrder) {
+            var claims = parseJwt(this.token);
+            this.customerCardsOrder = claims[Claims.Profile + '/CustomerCardsOrder'];
+        }
+        if (this.customerCardsOrder) {
+            return this.customerCardsOrder.split(';').map(Number);
+        }
+        return [1,2,3,4];
+    }
+
     hasPermission(permission: string): boolean {
         if (!permission || !this.permissions) {
             return false;
@@ -124,6 +158,10 @@ export class UserService {
         if (userId) {
             return this.http.get(this.api + '/users/' + userId + '/preferences');
         }
+    }
+
+    getPackagesPrice(): Observable<AppwardsPackage[]> {
+        return this.http.get(this.api + '/packages/' + this.getCountryCode());
     }
 
     getCurrency(merchantId: string = null) {

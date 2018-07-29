@@ -6,9 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Promotion, PromotionFilter } from './promotion';
+import { UserService } from '../user/user.service';
 import { PromotionService } from './promotion.service';
 import { ngbDateStructToDate, dateToNgbDateStruct, dateLessThanValidation } from '../../core/helpers/utils';
 import { PagingResponse } from '../../core/models/paging';
+import { NotificationService } from '../../core/shared/components/notifcations/notification.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'promotion',
@@ -19,18 +22,26 @@ export class PromotionComponent {
     reload = false;
 
     // New promotion fields
-    smsSentence: string = 'Your store is pleased to propose a promotion';
+    smsSentence: string = '';
     topLevelForm: FormGroup;
     submitSubscription: Subscription;
 
     constructor(
         private modalService: NgbModal, 
-        private service: PromotionService, 
+        private service: PromotionService,
+        private notifications: NotificationService,
+        private translation: TranslationService,
+        public user: UserService,
         private fb: FormBuilder) { 
         this.init();
     }
 
     init() {
+        // this.translation.get('PROMOTIONS.SMS_DEFAULT_TEMPLATE', x => {
+        //     this.smsSentence = x;
+        //     this.topLevelForm.value['stepInfo'].get('details').patchValue(x)
+        // });
+
         var firstForm = this.fb.group({
             name: ['', Validators.required],
             dateFrom: [dateToNgbDateStruct(new Date()), Validators.required],
@@ -50,7 +61,7 @@ export class PromotionComponent {
             customerName: [''],
             customerGenderMale: [true],
             customerGenderFemale: [true],
-            cities: [[]],
+            location: [[]],
             customerAgeFrom: [null],
             customerAgeTo: [null],
             customerSince: [null],
@@ -87,7 +98,10 @@ export class PromotionComponent {
                     this.reload = true;
                     this.reset();
                 },
-                err => { console.log(err); }
+                err => { 
+                    console.log(err);
+                    this.notifications.setErrorNotification();
+                 }
             );
     }
 

@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EmailCampaignService } from './email-campaign.service';
 import { EmailCampaignModal } from '../../core/shared/modals/email-campaign/email-campaign.modal';
+import { UserService } from '../user/user.service';
 
 @Component({
     styleUrls: ['./email-campaign.component.scss'],
@@ -11,7 +12,7 @@ import { EmailCampaignModal } from '../../core/shared/modals/email-campaign/emai
 export class EmailCampaignComponent {
     emailCount: number = null;
 
-    constructor(service: EmailCampaignService, private modalService: NgbModal) {
+    constructor(service: EmailCampaignService, private modalService: NgbModal, public user: UserService) {
         service.getEmailCount()
             .subscribe(
                 c => this.emailCount = c,

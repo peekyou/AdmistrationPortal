@@ -21,14 +21,14 @@ export class NotificationService {
     
     getApplicationSmsStatus(mobileNumber: string, customerName: string) {
         setTimeout(
-            this.http.get(this.api + '/customers/sms/' + mobileNumber.replace('+', '') + '/status')
+            () => this.http.get(this.api + '/customers/sms/' + mobileNumber.replace('+', '') + '/status')
             .subscribe(
                 res => {
                     if (!res || res == 'Undelivered') {
                         this.translation.get('CUSTOMERS.REGISTRATION_SMS_UNDELIVERED', x => {
                             if (x) {
                                 var errorMessage = x + ' ' + mobileNumber + ' (' + customerName + ')';
-                                this.setNotification(errorMessage, true);
+                                this.setNotification(true, errorMessage);
                             }              
                         });
 
@@ -37,7 +37,19 @@ export class NotificationService {
 
     }
 
-    setNotification(message: string, error: boolean) {
+    setErrorNotification() {
+        this.translation.get('ERRORS.InternalServerError', errorMessage => {
+            this.setNotification(true, errorMessage);
+        });
+    }
+
+    setSuccessfulNotification() {
+        this.translation.get('COMMON.SAVE_SUCCESS', successfulMessage => {
+            this.setNotification(false, successfulMessage);
+        });
+    }
+
+    setNotification(error: boolean, message: string) {
         if (!this.notification1.message) {
             this.notification1 = { error: error, message: message };
         }

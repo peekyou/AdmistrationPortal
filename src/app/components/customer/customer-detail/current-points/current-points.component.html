@@ -1,0 +1,34 @@
+<h5 class="card-header">{{ 'CUSTOMERS.CURRENT_POINTS_DETAIL' | translate }}</h5>
+<div class="card-body points-detail">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>{{ 'COMMON.DATE' | translate }}</th>
+                <th>{{ 'COMMON.AMOUNT' | translate }}</th>
+                 <th>{{ 'COMMON.POINTS' | translate }}</th>
+                <th>{{ 'CUSTOMERS.REDEEMED_POINTS' | translate }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let expense of c.customer.expenses | currentPoints">
+                <td>{{expense.date | date: 'dd-MM-yyyy'}}</td>
+                <td class="cyan"><small>{{expense.currency}}</small><b>{{expense.amount}}</b></td>
+                <td class="points"><b>{{expense.correspondingPoints - expense.redeemedPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
+                <td class="points"><b>{{expense.redeemedPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
+                <td>
+                    <button class="btn btn-danger btn-xxs" *ngIf="!expense.redeemedPoints"
+                        aria-label="Delete" (click)="openDeleteModal(expense)"
+                        title="{{ 'COMMON.DELETE' | translate }}">
+                           {{ 'COMMON.DELETE' | translate }}
+                    </button>
+                </td>
+            </tr>
+            <!-- <tr *ngIf="c.customer.purchaseData?.remainder">
+                <th scope="row">{{ 'COMMON.REMAINDER' | translate }}</th>
+                <td></td>
+                <td>{{c.customer.purchaseData?.remainder}}</td>
+            </tr> -->
+        </tbody>
+    </table>
+</div>

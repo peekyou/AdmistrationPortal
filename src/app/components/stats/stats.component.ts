@@ -66,15 +66,17 @@ export class StatsComponent implements OnInit {
         }
 
     ngOnInit() {
-        this.loadGeneralStats();
-        
-        this.loadingPies = true;
-        this.translation.getMultiple(this.translationKeys, x => {
-            this.staticStrings = x;
-            this.loadSegmentationCharts();
-            this.loadGroupedBarChart();
-            this.getExpenses();
-        });
+        if (this.user.getPackage() >= 3) {
+            this.loadGeneralStats();
+            
+            this.loadingPies = true;
+            this.translation.getMultiple(this.translationKeys, x => {
+                this.staticStrings = x;
+                this.loadSegmentationCharts();
+                this.loadGroupedBarChart();
+                this.getExpenses();
+            });
+        }
     }
 
     reload(searchFilter: SearchFilter) {
@@ -109,7 +111,10 @@ export class StatsComponent implements OnInit {
                 this.agePieChartData = stats.ageSegmentation;
                 this.loadingPies = false;
             },
-            err => { console.log(err); }
+            err => { 
+                console.log(err);
+                this.loadingPies = false; 
+            }
         );
     }
 

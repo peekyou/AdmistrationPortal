@@ -8,6 +8,7 @@ import { CurrentPointsPipe } from './current-points';
 import { ExpensesChartPipe } from './expenses-chart';
 import { GroupBarChartPipe } from './group-bar-chart';
 import { LookupPipe } from './lookup';
+import { PackagePermissionPipe } from './package-permission';
 import { CountryPipe } from '../core/shared/components/intl-phone-number/country.pipe';
 
 const PIPES = [
@@ -18,6 +19,7 @@ const PIPES = [
     ExpensesChartPipe,
     GroupBarChartPipe,
     LookupPipe,
+    PackagePermissionPipe,
     CountryPipe
 ];
 

@@ -1,0 +1,84 @@
+<div class="card-header customer-form" *ngIf="c.customer">
+    <span>{{c.customer.cardNumber}}. {{c.customer.firstname}} {{c.customer.lastname}}</span>
+</div>
+
+<div class="card-body text-align-center" *ngIf="c.customer">
+    <div *ngIf="c.customer.discountAmount == null || useDiscountLater" class="entry-form">
+        <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
+            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
+            <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;"
+                placeholder="{{ 'COMMON.AMOUNT' | translate }}" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
+            <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
+                loadingValue="{{ 'COMMON.LOADING' | translate }}" 
+                [form]="entryF.form" [subscription]="saveEntrySubscription">
+            </app-submit-button>
+        </form>
+    </div>
+    <div *ngIf="c.customer.discountAmount != null && !useDiscountLater" class="entry-form">
+        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ c.customer.discountAmount }} {{ currency }}</div>
+        <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
+            <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
+                            loadingValue="{{ 'COMMON.LOADING' | translate }}"
+                            [subscription]="giveDiscountSubscription">
+            </app-submit-button>
+            <input type="button" class="btn btn-secondary" (click)="useDiscountLater = true"
+                    value="{{ 'CUSTOMERS.KEEP_DISCOUNT_BUTTON' | translate }}" />
+        </form>
+    </div>
+    <app-circle-progress subtitle="{{ 'CUSTOMERS.WHEEL_POINTS_SUBTITLE' | translate }}"
+        [title]="c.customer.currentPoints" 
+        backgroundColor="#fdbc00"
+        backgroundOpacity=1
+        backgroundStroke="#000000"
+        backgroundPadding="12"
+        radius=67
+        space=-7
+        maxPercent=100
+        unitsColor="#ffffff"
+        outerStrokeWidth=7
+        outerStrokeColor="#ffffff"
+        innerStrokeColor="#ffdf72"
+        innerStrokeWidth=7
+        titleColor="#ffffff"
+        titleFontSize="40"
+        subtitleColor="#ffffff"
+        subtitleFontSize=12
+        animationDuration=500
+        [showUnits]=false
+        [percent]="(c.customer.currentPoints / (c.customer.currentPoints + c.customer.pointsToDiscount)) * 100">
+    </app-circle-progress>
+    <div class="row">
+        <div class="col-12 col-sm-4">
+            <app-circle-progress [showSubtitle]="false"
+                [title]="(c.customer.totalPoints - c.customer.currentPoints)" 
+                backgroundColor="#0cb3c2"
+                backgroundOpacity=1
+                backgroundStroke="#000000"
+                backgroundPadding="7"
+                radius=34
+                space=-4
+                maxPercent=100
+                unitsColor="#ffffff"
+                outerStrokeWidth=4
+                outerStrokeColor="#ffffff"
+                innerStrokeColor="#ffdf72"
+                innerStrokeWidth=4
+                titleColor="#ffffff"
+                titleFontSize="20"
+                animationDuration=0
+                [showUnits]=false
+                percent="100">
+            </app-circle-progress>
+        </div>
+        <div class="col-12 col-sm-8 text-align-left cyan points-used">
+            <span>{{ 'CUSTOMERS.POINTS_USED' | translate }}</span>
+        </div>
+    </div>
+    <form (ngSubmit)="sendApplicationSms()" novalidate>
+        <app-submit-button value="{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}" 
+            loadingValue="{{ 'COMMON.SENDING' | translate }}"
+            [subscription]="sendSmsSubscription">
+        </app-submit-button>
+    </form>
+    <!-- <button (click)="sendApplicationSms()" class="btn btn-primary">{{ 'CUSTOMERS.SEND_APPLICATION_SMS' | translate }}</button> -->
+</div>

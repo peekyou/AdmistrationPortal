@@ -12,6 +12,7 @@ export class User {
 export class Permission {
     id: string;
     resourceKey: string;
+    appwardsPackage?: number;
 }
 
 export class UserPreferences {
