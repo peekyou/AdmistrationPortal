@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="name">{{ 'COMMON.USERNAME' | translate }}*</label>
+                    <label for="username">{{ 'COMMON.USERNAME' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="username" formControlName="username" 
                             required [readonly]="isEdit" />
                     <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-field">
@@ -13,35 +13,30 @@
                 <div class="form-group">
                     <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="firstname" formControlName="firstname" />
+                    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="lastname" formControlName="lastname" />
+                    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
+                    <input type="text" class="form-control form-control-sm" id="email" formControlName="email" />
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
+                        {{ 'FORM.INVALID_EMAIL' | translate }}
+                    </div>
+                </div> 
                 <div class="form-group">
                     <label for="status">{{ 'COMMON.STATUS' | translate }}</label>
                     <input type="text" class="form-control form-control-sm" id="status" formControlName="status" />
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="password">{{ 'COMMON.PASSWORD' | translate }}<span *ngIf="!isEdit">*</span></label>
-                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password" 
-                            [required]="!isEdit" />
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-field">
-                        {{ 'FORM.REQUIRED' | translate }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}<span *ngIf="!isEdit">*</span></label>
-                    <input type="password" class="form-control form-control-sm" id="password-confirmation" 
-                            formControlName="passwordConfirmation" [required]="!isEdit" />
-                    <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="invalid-field">
-                        {{ 'FORM.REQUIRED' | translate }}
-                    </div>
-                </div>
-                <div class="row invalid-field" *ngIf="form.errors">{{ form.errors?.passwords | json }}</div>
-                
                 <label>{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</label>
                 <div formArrayName="permissions">
                     <div class="form-check" *ngFor="let permission of permissions; let i = index">
@@ -56,12 +51,13 @@
         </div>
         
         <div class="buttons text-align-center">
-            <button type="submit" class="btn btn-primary w-50" [disabled]="form.invalid">
-                {{ 'COMMON.SAVE' | translate }}
+            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" buttonClass="btn btn-primary w-50"
+                loadingValue="{{ 'COMMON.SAVING' | translate }}" [form]="form"
+                [subscription]="submitSubscription">
+            </app-submit-button>
+            <button type="button" (click)="openDeleteModal()" class="btn btn-danger">
+                {{ 'COMMON.DELETE' | translate }}
             </button>
         </div>
-        <!-- <a class="btn btn-secondary" routerLink="/usermanagement">
-            {{ 'COMMON.CANCEL' | translate }}
-        </a> -->
     </form>
 </div>

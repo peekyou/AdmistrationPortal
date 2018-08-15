@@ -18,6 +18,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { LockComponent } from './components/lock/lock.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ServerErrorMessageComponent } from './components/server-error-message/server-error-message.component';
 import { NotificationsComponent } from './components/notifcations/notifications.component';
 import { AddressComponent } from './components/address/address.component';
 import { AutoCompleteComponent } from './components/autocomplete/autocomplete.component';
@@ -70,6 +71,7 @@ const IMPORTS = [
 const DECLARATIONS = [
     LockComponent,
     AlertComponent,
+    ServerErrorMessageComponent,
     NotificationsComponent,
     AddressComponent,
     AutoCompleteComponent,

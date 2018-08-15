@@ -96,12 +96,24 @@
         "NEXT": "Next",
         "CLOSED": "Closed",
         "SENDING": "Sending...",
-        "SAVE_SUCCESS": "Successfully saved"
+        "SAVE_SUCCESS": "Successfully saved",
+        "PASSWORD_MATCH_ERROR": "Passwords must match"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
         "SIGNIN": "Sign in",
-        "INVALID_CREDENTIALS": "Invalid credentials"
+        "INVALID_CREDENTIALS": "Invalid credentials",
+        "FORGOT_PASSWORD": "Forgot password?"
+    },
+    "SET_PASSWORD": {
+        "TITLE": "Set password",
+        "BUTTON": "Set password",
+        "PASSWORD_CRITERIA": "Password length must be at least 8 characters",
+        "REDIRECT_MESSAGE": "The password has been set successfully, you will be redirected to login page"
+    },
+    "FORGET_PASSWORD": {
+        "TITLE": "Get password",
+        "SUCCESS_MESSAGE": "An email has been sent to reset your password"
     },
     "CUSTOMERS": {
         "ADD": "Add a new customer",
@@ -267,6 +279,12 @@
     "ERRORS": {
         "InternalServerError": "An error occured, please try later",
         "InvalidPhoneNumber": "Invalid phone number",
-        "DuplicatePhoneNumber": "This phone number is already registered"
+        "DuplicatePhoneNumber": "This phone number is already registered",
+        "DuplicateUsername": "A user with the same username already exists",
+        "DuplicateEmail": "A user with the same email already exists",
+        "UserInactive": "User is not activated, please activate it from the activation email",
+        "LoginFailed": "Invalid credentials",
+        "TokenExpired": "Invalid token",
+        "TokenMismatch": "Invalid token"
     }
 }

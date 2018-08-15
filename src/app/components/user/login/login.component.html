@@ -1,4 +1,4 @@
-<div class="postLogin login-panel">
+<div class="login-panel">
     <!--<app-error-msg *ngIf="error$ | async">{{ error$ | async | translate }}</app-error-msg>-->
 
     <h2 class="login-heading">{{ 'LOGIN.TITLE' | translate }}</h2>
@@ -20,7 +20,11 @@
             </app-submit-button>
         </div>        
         <div class="col">
-            <span *ngIf="error" class="invalid-field">{{ 'LOGIN.INVALID_CREDENTIALS' | translate }}</span>
+            <app-server-error-message [(error)]="error" defaultMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
+            </app-server-error-message>
+        </div>
+        <div>
+            <a routerLink="/forgetpassword"><small>{{ 'LOGIN.FORGOT_PASSWORD' | translate }}</small></a>
         </div>
     </form>
 </div>

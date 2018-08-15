@@ -31,7 +31,7 @@ export class BackOfficeManagementComponent {
     productCurrentPage: number = 1;
     saveProductSubscription;
 
-    @Input() itemsPerPage: number = 20;
+    @Input() itemsPerPage: number = 10;
 
     constructor(
         private fb: FormBuilder,

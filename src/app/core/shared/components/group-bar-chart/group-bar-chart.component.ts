@@ -24,7 +24,7 @@ export class GroupBarChartComponent implements OnInit {
     private x1: ScaleBand<string>;
     private y: ScaleLinear<number, number>;
     private z: ScaleOrdinal<string, {}>;
-    private margin = {top: 20, right: 20, bottom: 80, left: 40};
+    private margin = {top: 20, right: 20, bottom: 100, left: 40};
     private dataKeys: string[] = [];
 
     private _data: ChartData[];

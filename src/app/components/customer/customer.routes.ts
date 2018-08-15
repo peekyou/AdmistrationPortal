@@ -12,5 +12,10 @@ export const routes: Routes = [
             { path: '', component: CustomerComponent },
             { path: ':id', component: CustomerDetailComponent }
         ]
-    },
+
+        // path: '', children: [
+        //     { path: '', component: CustomerComponent },
+        //     { path: ':id', component: CustomerDetailComponent }
+        // ]
+    }
 ];

@@ -11,7 +11,7 @@ export class CustomerDetailService {
     set customer(customer: Customer) {
         this._customer = customer;
     }
-    
+     
     get customer(): Customer {
         return this._customer;
     }

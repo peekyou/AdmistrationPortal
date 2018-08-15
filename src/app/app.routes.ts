@@ -9,7 +9,7 @@ import { DataResolver } from './app.resolver';
 export const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     // { path: 'auth', loadChildren: './components/user#UserModule' },
-    // { path: 'customers', loadChildren: './components/customer#CustomerModule' },
+    // { path: 'customers', loadChildren: './components/customer/customer.module#CustomerModule' },
     // { path: 'content', loadChildren: './components/content-editor#ContentEditorModule' },
     // { path: 'promotions', loadChildren: './components/promotion#PromotionModule'},
     // { path: 'reviews', loadChildren: './components/review#ReviewModule' },

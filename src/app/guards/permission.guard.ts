@@ -17,7 +17,7 @@ export class PermissionGuard implements CanActivate, CanActivateChild {
         if (this.user.hasPermission(permission)) {
             return true;
         }
-        this.router.navigate(['/nocontent']);
+        this.router.navigate(['/customers']);
         return false;
     }
 

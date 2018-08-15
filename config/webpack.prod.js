@@ -24,7 +24,6 @@ const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenat
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
-
 function getUglifyOptions (supportES2015) {
   const uglifyCompressOptions = {
     pure_getters: true, /* buildOptimizer */

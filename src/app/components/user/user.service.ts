@@ -59,6 +59,14 @@ export class UserService {
             });
     }
 
+    setPassword(password: string, token: string, code: string): Observable<boolean> {
+        return this.http.put(this.api + '/users/password', { token: token, password: password, code: code });
+    }
+
+    forgetPassword(email: string): Observable<boolean> {
+        return this.http.post(this.api + '/users/password/forget', { email: email, groupId: this.config.GroupId });
+    }
+
     setPermissions() {
         if (this.token) {
             var claims = parseJwt(this.token);
@@ -131,7 +139,8 @@ export class UserService {
     getShowCustomerAddressLine(): boolean {
         if (this.token && !this.showCustomerAddressLine) {
             var claims = parseJwt(this.token);
-            this.showCustomerAddressLine = claims[Claims.Profile + '/ShowCustomerAddressLine'].toLowerCase() == 'true';
+            var showAddress = claims[Claims.Profile + '/ShowCustomerAddressLine'];
+            this.showCustomerAddressLine = showAddress ? showAddress.toLowerCase() == 'true' : false;
         }
         return this.showCustomerAddressLine;
     }

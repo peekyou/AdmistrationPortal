@@ -96,12 +96,24 @@
         "NEXT": "Suivante",
         "CLOSED": "Fermé",
         "SENDING": "En cours...",
-        "SAVE_SUCCESS": "Enregistré avec succès"
+        "SAVE_SUCCESS": "Enregistré avec succès",
+        "PASSWORD_MATCH_ERROR": "Les mots de passe ne correspondent pas"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
         "SIGNIN": "Se connecter",
-        "INVALID_CREDENTIALS": "Echec connexion"
+        "INVALID_CREDENTIALS": "Echec connexion",
+        "FORGOT_PASSWORD": "Mot de passe oublié ?"
+    },
+    "SET_PASSWORD": {
+        "TITLE": "Définir mot de passe",
+        "BUTTON": "Envoyer",
+        "PASSWORD_CRITERIA": "Le mot de passe doit contenir 8 caractères minimum",
+        "REDIRECT_MESSAGE": "Le mot de passe a été mis à jour. Vous allez être redirigé vers la page de connexion"
+    },
+    "FORGET_PASSWORD": {
+        "TITLE": "Récupérer mot de passe",
+        "SUCCESS_MESSAGE": "Un email a été envoyé pour réinitialiser votre mot de passe"
     },
     "CUSTOMERS": {
         "ADD": "Ajouter un client",        
@@ -267,6 +279,10 @@
     "ERRORS": {
         "InternalServerError": "Une erreur est survenue, essayez plus tard",
         "InvalidPhoneNumber": "Numéro de téléphone incorrect",
-        "DuplicatePhoneNumber": "Ce numéro de téléphone est déjà enregistré"
+        "DuplicatePhoneNumber": "Ce numéro de téléphone est déjà enregistré",
+        "UserInactive": "Cet utilisateur est inactif. Veuillez l'activer grâce à l'email d'activation",
+        "LoginFailed": "Mot de passe ou utilisateur incorrect",
+        "TokenExpired": "Token invalide",
+        "TokenMismatch": "Token invalide"
     }
 }

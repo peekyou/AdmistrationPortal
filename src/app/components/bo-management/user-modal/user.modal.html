@@ -8,5 +8,7 @@
     <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
     </app-alert>
     <app-user-form *ngIf="!isEdit" (onSubmit)="create($event)"></app-user-form>
-    <app-user-form *ngIf="isEdit" (onPopulate)="setUser($event)" (onSubmit)="edit($event)"></app-user-form>
+    <app-user-form *ngIf="isEdit" (onPopulate)="setUser($event)" (onSubmit)="edit($event)" 
+                    (onDelete)="delete()">
+    </app-user-form>
 </div>

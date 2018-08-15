@@ -12,7 +12,7 @@ import { UserManagementService } from '../user-management.service'
     templateUrl: './user.modal.html'
 })
 export class UserModal {
-    error: boolean;
+    error: boolean | string;
     saveSubscription: Subscription;
     @Input() title: string;
     @Input() isEdit: boolean;
@@ -29,6 +29,7 @@ export class UserModal {
             username: form.value.username,
             password: form.value.password,
             firstname: form.value.firstname,
+            email: form.value.email,
             lastname: form.value.lastname,
             status: form.value.status,
             permissions: form.value.userPermissions
@@ -40,8 +41,8 @@ export class UserModal {
                 id => { 
                     this.activeModal.close('Y');
                 },
-                err => { 
-                    this.error = true;
+                err => {
+                    this.error = err.error && err.error.errorCode ? err.error.errorCode : true;
                     console.log(err); 
                 }
             );
@@ -53,6 +54,7 @@ export class UserModal {
                 username: this.user.username,
                 firstname: this.user.firstname,
                 lastname: this.user.lastname,
+                email: this.user.email,
                 status: this.user.status
             })
             this.setPermissionsControls(<FormArray>form.controls.permissions,
@@ -81,12 +83,25 @@ export class UserModal {
             password: form.value.password,
             firstname: form.value.firstname,
             lastname: form.value.lastname,
+            email: form.value.email,
             status: form.value.status,
             permissions: form.value.userPermissions
         };
 
         this.service
             .editUser(newUser)
+            .subscribe(
+                id => this.activeModal.close('Y'),
+                err => {
+                    this.error = err.error && err.error.errorCode ? err.error.errorCode : true;
+                    console.log(err); 
+                }
+            );
+    }
+
+    delete() {
+        this.service
+            .deleteUser(this.user)
             .subscribe(
                 id => this.activeModal.close('Y'),
                 err => { console.log(err); }

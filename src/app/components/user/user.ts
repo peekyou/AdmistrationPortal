@@ -4,6 +4,7 @@ export class User {
     password: string;
     firstname?: string;
     lastname?: string;
+    email?: string;
     lastLogin?: Date;
     status?: string;
     permissions: string[];

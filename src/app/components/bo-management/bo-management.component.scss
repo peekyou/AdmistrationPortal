@@ -6,7 +6,7 @@
   width: 88%;
 }
 
-.table-responsive {
+.table-responsive {    
   background-color: #fff;
   padding-bottom: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -14,6 +14,7 @@
 
   .table {
     white-space: nowrap;
+    margin-top: 0;
 
     tr {
       cursor: pointer;

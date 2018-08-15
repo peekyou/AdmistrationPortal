@@ -6,7 +6,7 @@
                 <th scope="col">{{ 'COMMON.PHONE' | translate }}</th>
                 <th scope="col">{{ 'COMMON.EMAIL' | translate }}</th>
                 <th scope="col" *ngIf="!small">{{ 'COMMON.BIRTHDATE' | translate }}</th>
-                <th scope="col" *ngIf="!small">
+                <th scope="col" *ngIf="!small" class="column-location">
                     <span *ngIf="!showArea()">{{ 'COMMON.CITY' | translate }}</span>
                     <span *ngIf="showArea()">{{ 'COMMON.AREA' | translate }}</span>
                 </th>
@@ -33,7 +33,7 @@
                 <td>{{ customer.mobileNumber }}</td>
                 <td>{{ customer.email }}</td>
                 <td *ngIf="!small">{{ customer.birthdate | date: 'dd-MM-yyyy' }}</td>
-                <td *ngIf="!small">
+                <td *ngIf="!small" class="column-location">
                     <span *ngIf="customer.address && !showArea()">{{ customer.address.city }}</span>
                     <span *ngIf="customer.address && showArea()">{{ customer.address.area }}</span>
                 </td>

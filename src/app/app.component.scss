@@ -208,7 +208,7 @@ app-notifications {
   display: none;
 }
 
-app-login {
+app-login, app-set-password, app-forget-password {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -216,17 +216,17 @@ app-login {
 }
 
 @include media-breakpoint-up(md) {
-  app-login {
+  app-login, app-set-password, app-forget-password {
     width: 360px;
   }
 }
 @include media-breakpoint-up(lg) {
-  app-login {
+  app-login, app-set-password, app-forget-password {
     width: 400px;
   }
 }
 @include media-breakpoint-up(xl) {
-  app-login {
+  app-login, app-set-password, app-forget-password {
     width: 450px;
   }
 }
@@ -308,3 +308,5 @@ app-login {
     overflow: scroll;
     overflow-x: hidden;
 }
+
+.modal-backdrop { z-index:1050; }
