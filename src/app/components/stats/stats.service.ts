@@ -5,7 +5,7 @@ import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { SegmentationStatistics } from './segmentation-statistics';
 import { GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
-import { SearchFilter } from '../../core/models/search-filter';
+import { SearchFilter } from '../../core/models/searchFilter';
 import { Customer, CustomerExpense } from '../customer/customer';
 
 @Injectable()

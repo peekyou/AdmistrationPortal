@@ -28,11 +28,30 @@
 .focus circle {
   fill: #F1F3F3;
   stroke: #ffaa00;
-  stroke-width: 3px;
+  stroke-width: 1.5px;
 }
   
 .hover-line {
   stroke: #F1F3F3;
   stroke-width: 1.5px;
   stroke-dasharray: 3,3;
+}
+
+.legend-back {
+  fill: #efefef;
+  stroke: #aaa;
+  opacity: 0.9;
+}
+
+.legend-date, .legend-amount {
+  font-size: 12px;
+  fill: #444;
+}
+
+.legend-amount {
+  font-weight: bold;
+}
+
+.legend-date {
+  font-size: 10.5px;
 }

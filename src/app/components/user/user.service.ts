@@ -1,4 +1,5 @@
 ﻿import { Injectable, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
@@ -27,7 +28,7 @@ export class UserService {
     private customerCardsOrder: string;
     private systemCustomerId: string;
     private accessibleMerchants: MerchantInfo[];
-    public customerCustomFields: CustomerCustomFields;
+    public customerCustomFields: CustomerCustomFields[];
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -37,8 +38,12 @@ export class UserService {
         }
         this.api = config.ApiEndpoint;        
         this.token = localStorage.getItem(this.tokenKey);
-        this.customerCustomFields = JSON.parse(localStorage.getItem(this.customFieldsKey));
+        // var customFields = localStorage.getItem(this.customFieldsKey);
+        // if (customFields) {
+        //     this.customerCustomFields = JSON.parse(customFields);
+        // }
         this.setPermissions();
+        this.setCustomerCustomFields();
     }
 
     login(username: string, password: string): Observable<boolean> {
@@ -207,12 +212,32 @@ export class UserService {
         }
     }
 
+    showCustomControl(index: number, form: FormGroup = null, isSearch = false) {
+        if (this.customerCustomFields && this.customerCustomFields.length > index - 1) {
+            var field = this.customerCustomFields[index - 1];
+            if (!form) {
+                return field != null;
+            }
+            var control = form.get('customField' + index);
+            if (!control && field) {
+                form.addControl('customField' + index, new FormControl(field.multiselect && !isSearch ? [] : field.fieldType == 'checkbox' && !isSearch ? false : null, field.mandatory && !isSearch ? Validators.required : null));
+                return true;
+            }
+            else if (control) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private setCustomerCustomFields() {
         this.http
             .get(this.api + '/merchants/customfields', this.token)
             .subscribe(response => {
-                this.customerCustomFields = response;
-                localStorage.setItem(this.customFieldsKey, JSON.stringify(this.customerCustomFields));
+                if (response) {
+                    this.customerCustomFields = response;
+                    localStorage.setItem(this.customFieldsKey, JSON.stringify(this.customerCustomFields));
+                }
             });
     }
 }

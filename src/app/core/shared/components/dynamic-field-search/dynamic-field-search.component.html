@@ -1,0 +1,36 @@
+<label [for]="fieldName" [ngClass]="{'m-b-2': (field.fieldType == 'radio' && !showMultiSelect()) || field.fieldType == 'checkbox'}">{{ field.resourceKey }}</label>
+
+<input type="text" class="form-control form-control-sm" [id]="fieldName" [(ngModel)]="value" 
+       *ngIf="field.fieldType == 'text'" (blur)="onBlur()"/>
+
+<div *ngIf="field.fieldType == 'checkbox'">
+    <div class="form-check form-check-inline">
+        <input type="radio" [name]="fieldName" [id]="fieldName + 'Y'" 
+            value="true" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName + 'Y'" class="form-check-label">{{ 'COMMON.YES' | translate }}</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="radio" [name]="fieldName" [id]="fieldName + 'N'" 
+            value="false" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName + 'N'" class="form-check-label">{{ 'COMMON.NO' | translate }}</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="radio" [name]="fieldName" [id]="fieldName + 'U'" 
+            value="" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName + 'U'" class="form-check-label">{{ 'COMMON.UNDEFINED' | translate }}</label>
+    </div>
+</div>
+
+<div *ngIf="showMultiSelect()">
+    <ss-multiselect-dropdown [formControl]="formControl"
+        [options]="options" [texts]="multiSelectTexts" [settings]="multiSelectSettings">
+    </ss-multiselect-dropdown>
+</div>
+
+<div *ngIf="field.fieldType == 'radio' && !showMultiSelect()">
+    <div class="form-check form-check-inline" *ngFor="let val of field.valuesList; let i = index">
+        <input type="checkbox" [name]="fieldName" [id]="fieldName + i" 
+            [value]="val" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName + i" class="form-check-label">{{ val }}</label>
+    </div>
+</div>

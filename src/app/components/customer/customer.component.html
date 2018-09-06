@@ -16,8 +16,7 @@
         </div>
     </div>
     <customer-search (onSearch)="updateCustomers($event)"></customer-search>
-    <app-customer-table [customers]="customers" title="{{ 'TOOLBAR.CUSTOMERS' | translate }}"
-                        (onPageChanged)="getCustomersPage($event)" [itemsPerPage]="itemsPerPage">
+    <app-customer-table [customers]="customers" [sortable]="true" [filterable]="false" 
+        title="{{ 'TOOLBAR.CUSTOMERS' | translate }}">
     </app-customer-table>
-    <ngx-loading [show]="loadingCustomers" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
 </div>

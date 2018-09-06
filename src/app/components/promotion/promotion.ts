@@ -1,4 +1,5 @@
 import { ngbDateStructToDate } from '../../core/helpers/utils';
+import { CustomerCustomFields } from '../../core/models/customerCustomFields';
 
 export class Promotion {
     id?: string;
@@ -35,6 +36,10 @@ export class PromotionFilter {
     receivedPromotionId: string;
     didntReceivePromotionId: string;
     location: string[];
+    customField1: string;
+    customField2: string;
+    customField3: string;
+    customField4: string;
 
     static createFromForm(form: any): PromotionFilter {
         if (!form) return null;
@@ -54,7 +59,11 @@ export class PromotionFilter {
             purchaseAmountMax: form.purchaseAmountMax,
             purchaseAmountMin: form.purchaseAmountMin,
             receivedPromotionId: form.receivedPromotion,
-            location: form.location
+            location: form.location,
+            customField1: CustomerCustomFields.getValue(form.customField1),
+            customField2: CustomerCustomFields.getValue(form.customField2),
+            customField3: CustomerCustomFields.getValue(form.customField3),
+            customField4: CustomerCustomFields.getValue(form.customField4)
         };
     }
 

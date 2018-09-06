@@ -7,13 +7,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-4">
+        <div class="col-12" [ngClass]="{'col-lg-12': user.showCustomControl(1), 'col-lg-4': !user.showCustomControl(1) }">
             <div class="form-group">
                 <label for="percentage">{{ 'PROMOTIONS.PERCENTAGE' | translate }}</label>
                 <input type="number" class="form-control form-control-sm" min="0" max="100" id="percentage" formControlName="percentage" />
             </div>
         </div>
-        <div class="col-12 col-lg-8">
+        <div class="col-12" [ngClass]="{'col-lg-12': user.showCustomControl(1), 'col-lg-8': !user.showCustomControl(1) }">
             <div class="form-group valid-dates">
                 <div class="row">
                     <div class="col pl-0">

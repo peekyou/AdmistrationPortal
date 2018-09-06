@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { UserService } from '../user/user.service';
 import { SearchService } from '../../core/services/search.service';
-import { SearchFilter } from '../../core/models/search-filter';
+import { SearchFilter } from '../../core/models/searchFilter';
 import { Permissions } from '../../core/helpers/permissions';
 import { dateLessThanValidation, ngbDateStructToDate } from '../../core/helpers/utils';
 

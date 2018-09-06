@@ -1,5 +1,5 @@
 <div *ngIf="form" [ngClass]="{'small-height': modal}">
-    <form [formGroup]="form" class="form" (ngSubmit)="submit()" novalidate>
+    <form [formGroup]="form" class="form" novalidate>
         <div class="row">
             <div class="col-5">
                 <div class="form-group">
@@ -85,9 +85,12 @@
                     </div>
                 </div>
                 
-                <div class="form-group" *ngIf="showCustomControl(2)">
-                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field2ResourceKey" 
-                        [values]="user.customerCustomFields.field2List" [formControl]="customField2">
+                <div class="form-group" *ngIf="user.showCustomControl(2, form)">
+                    <app-dynamic-field [field]="user.customerCustomFields[1]" [formControl]="customField2">
+                    </app-dynamic-field>
+                </div>
+                <div class="form-group" *ngIf="user.showCustomControl(4, form)">
+                    <app-dynamic-field [field]="user.customerCustomFields[3]" [formControl]="customField4">
                     </app-dynamic-field>
                 </div>
             </div>
@@ -99,7 +102,7 @@
                             <div *ngFor="let favoriteProduct of form.controls.favoriteProducts.controls; let i = index">
                                 <div class="row language-control">
                                     <app-autocomplete class="language-picker col-9" small="true"
-                                        [source]="products" [formControl]="favoriteProduct">
+                                        [source]="products" [formControl]="favoriteProduct" openOnFocus="true">
                                     </app-autocomplete>
                                     <div class="action-btn col">
                                         <button type="button" class="btn btn-danger btn-xs" 
@@ -130,8 +133,8 @@
                         <div formArrayName="languages">
                             <div *ngFor="let language of form.controls.languages.controls; let i = index">
                                 <div class="row language-control">
-                                    <app-autocomplete class="language-picker col-9" small="true"
-                                                        source="languages" [formControl]="language">
+                                    <app-autocomplete class="language-picker col-9" small="true" openOnFocus="true"
+                                                      source="languages" [formControl]="language">
                                     </app-autocomplete>
                                     <div class="action-btn col">
                                         <button type="button" class="btn btn-danger btn-xs" 
@@ -159,28 +162,37 @@
                     <textarea class="form-control form-control-sm" id="comment" name="comment"  rows="4" formControlName="comment"></textarea>
                 </div>      
                 <div class="form-group" *ngIf="!isEdit && !showLanguages">
-                    <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+                    <label *ngIf="!showCurrentPoints || isEdit" for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
+                    <label *ngIf="!isEdit && showCurrentPoints" for="amount">Historique en montant*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
                             [placeholder]="user.getCurrency() || ''" formControlName="amount" required>
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
                 </div>
+
+                <div class="form-group" *ngIf="!isEdit && showCurrentPoints">
+                    <label for="currentPoints">Points en cours*</label>
+                    <input type="number" min="0" class="form-control form-control-sm" id="currentPoints"
+                            formControlName="currentPoints" required>
+                    <div *ngIf="currentPoints.invalid && (currentPoints.dirty || currentPoints.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
                 
-                <div class="form-group" *ngIf="showCustomControl(1)">
-                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field1ResourceKey" 
-                       [values]="user.customerCustomFields.field1List" [formControl]="customField1">
+                <div class="form-group" *ngIf="user.showCustomControl(1, form)">
+                    <app-dynamic-field [field]="user.customerCustomFields[0]" [formControl]="customField1">
                     </app-dynamic-field>
                 </div>
-                <div class="form-group" *ngIf="showCustomControl(3)">
-                    <app-dynamic-field [resourceKey]="user.customerCustomFields.field3ResourceKey" 
-                        [values]="user.customerCustomFields.field3List" [formControl]="customField3">
+                <div class="form-group" *ngIf="user.showCustomControl(3, form)">
+                    <app-dynamic-field [field]="user.customerCustomFields[2]" [formControl]="customField3">
                     </app-dynamic-field>
                 </div>
             </div>
         </div>
         <div class="text-align-center">
-            <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" buttonClass="btn btn-primary w-30"
+            <app-submit-button (click)="submit()" value="{{ 'COMMON.SAVE' | translate }}" 
+                buttonClass="btn btn-primary w-30" buttonType="button"
                 loadingValue="{{ 'COMMON.SAVING' | translate }}" [subscription]="submitSubscription">
             </app-submit-button>
         </div>

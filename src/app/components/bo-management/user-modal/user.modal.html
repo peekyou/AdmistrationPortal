@@ -7,8 +7,8 @@
 <div class="modal-body">
     <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
     </app-alert>
-    <app-user-form *ngIf="!isEdit" (onSubmit)="create($event)"></app-user-form>
+    <app-user-form *ngIf="!isEdit" (onSubmit)="create($event)" [submitSubscription]="saveSubscription"></app-user-form>
     <app-user-form *ngIf="isEdit" (onPopulate)="setUser($event)" (onSubmit)="edit($event)" 
-                    (onDelete)="delete()">
+                    (onDelete)="delete()" [submitSubscription]="saveSubscription">
     </app-user-form>
 </div>

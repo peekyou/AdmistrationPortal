@@ -1,5 +1,5 @@
-<input *ngIf="!subscription || subscription.closed" type="submit" [ngClass]="buttonClass" 
+<input *ngIf="!subscription || subscription.closed" [type]="buttonType" [ngClass]="buttonClass" 
        value="{{value}}" [disabled]="form && form.invalid"/>
 
 <input *ngIf="subscription && !subscription.closed" 
-       type="submit" [ngClass]="buttonClass" value="{{loadingValue}}" disabled />
+[type]="buttonType" [ngClass]="buttonClass" value="{{loadingValue}}" disabled />

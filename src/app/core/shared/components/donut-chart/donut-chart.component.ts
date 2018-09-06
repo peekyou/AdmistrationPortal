@@ -136,20 +136,11 @@ export class DonutChartComponent implements OnInit {
             .style("fill", <any>function(d) {
                 return color(d.data.label); 
             })
-            .on("mouseover", function(d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9)
-                    .style("left", (d3.event.pageX - 34) + "px")
-                    .style("top", (d3.event.pageY - 12) + "px");;
-
-                tooltip.select("strong").text(d.data.label); 
-                tooltip.select("#value").text(d.data.percentage + "% (" + (<any>d).value + ")");                    
+            .on("mouseover", (d) => {
+                this.showTooltip(tooltip, d);                  
             })
-            .on("mouseout", function(d) {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
+            .on("mouseout", (d) => {
+                this.hideTooltip(tooltip);
             });
         
         // var path = arcContainer.append("path")
@@ -170,13 +161,20 @@ export class DonutChartComponent implements OnInit {
                 };
             });
 
-        setTimeout(this.setLegends(pie, arc, color), 1200);
+        setTimeout(this.setLegends(pie, arc, color, tooltip), 1200);
     }
 
-    private setLegends(pie: Pie<any, PieChartDetail>, arc, color) {
+    private setLegends(pie: Pie<any, PieChartDetail>, arc, color, tooltip) {
+        let d3 = this.d3;
         var text = this.g.selectAll('text')
             .data(pie(this.data.details))
             .enter().append("text")
+            .on("mouseover", (d) => {
+                this.showTooltip(tooltip, d);
+            })
+            .on("mouseout", (d) => {
+                this.hideTooltip(tooltip);
+            })
             .transition()
             .duration(200)
             .attr("transform", function (d) {
@@ -219,5 +217,22 @@ export class DonutChartComponent implements OnInit {
             .text(function(d: string) { return d; })
             .style("fill", "#929DAF")
             .style("font-size", "12px");
+    }
+
+    private showTooltip(tooltip, d) {
+        tooltip.transition()
+        .duration(200)
+        .style("opacity", .9)
+        .style("left", (this.d3.event.pageX - 34) + "px")
+        .style("top", (this.d3.event.pageY - 12) + "px");;
+
+        tooltip.select("strong").text(d.data.label); 
+        tooltip.select("#value").text(d.data.percentage + "% (" + (<any>d).value + ")");  
+    }
+
+    private hideTooltip(tooltip) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0); 
     }
 }

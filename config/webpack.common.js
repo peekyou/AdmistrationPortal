@@ -316,6 +316,7 @@ module.exports = function (options) {
         // If a URL is already hashed by Webpack, then there is no concern
         // about it being stale, and the cache-busting can be skipped.
         dontCacheBustUrlsMatching: /\.\w{8}\./,
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
         filename: 'service-worker.js',
         logger(message) {
             if (message.indexOf('Total precache size is') === 0) {
@@ -335,7 +336,7 @@ module.exports = function (options) {
         staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
       }),
 
-      new BundleAnalyzerPlugin(),
+      //new BundleAnalyzerPlugin(),
     ],
 
     /**

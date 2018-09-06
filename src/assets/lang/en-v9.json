@@ -36,6 +36,7 @@
         "DELETE_MSG": "This action is irreversible",
         "YES": "Yes",
         "NO": "No",
+        "UNDEFINED": "Undefined",
         "DOWNLOAD": "Download",
         "HOME": "Home",
         "FROM": "From",
@@ -263,6 +264,7 @@
         "GENDER_PIE": "Gender segmentation",
         "AGE_PIE": "Age segmentation",
         "GROUP_BAR_CHART": "Segmented expenses chart",
+        "AVERAGE_BASKET": "Average basket",
         "EXPENSES_LINE_CHART": "Revenue chart",
         "BEST_CUSTOMERS": "Best customers",
         "REGISTERED_CUSTOMERS": "Registered customers",
@@ -285,6 +287,7 @@
         "UserInactive": "User is not activated, please activate it from the activation email",
         "LoginFailed": "Invalid credentials",
         "TokenExpired": "Invalid token",
-        "TokenMismatch": "Invalid token"
+        "TokenMismatch": "Invalid token",
+        "InvalidCurrentPoints": "Total amount must cover customer current points"
     }
 }

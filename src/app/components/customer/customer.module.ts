@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { CustomerComponent } from './customer.component';
 import { DynamicCardComponent } from './customer-detail/dynamic-card.component';
-import { CustomerForm } from './+customer-form/customer.form';
+import { CustomerFormComponent } from './+customer-form/customer.form';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CustomerCurrentPointsComponent } from './customer-detail/current-points/current-points.component';
 import { CustomerInfosComponent } from './customer-detail/customer-infos/customer-infos.component';
@@ -23,7 +23,7 @@ import { routes } from './customer.routes';
     declarations: [
         CustomerComponent,
         DynamicCardComponent,
-        CustomerForm,
+        CustomerFormComponent,
         CustomerDetailComponent,
         CustomerCurrentPointsComponent,
         CustomerInfosComponent,

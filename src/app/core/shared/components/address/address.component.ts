@@ -70,7 +70,7 @@ export class AddressComponent implements OnInit, ControlValueAccessor {
             }
             if (this.addressForm) {
                 var value = null;
-                if (this.addressForm.controls['city'].value && this.addressForm.controls['city'].value) {
+                if (this.addressForm.controls['city'].value && this.addressForm.controls['zipCode'].value) {
                     value = {
                         id: this.addressForm.controls['city'].value,
                         name: this.addressForm.controls['zipCode'].value + ' - ' + this.addressForm.controls['city'].value

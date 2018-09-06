@@ -9,6 +9,7 @@ import { UserService } from '../../user/user.service';
 import { ProductService } from '../../bo-management/product/product.service';
 import { Product } from '../../bo-management/product/product';
 import { Lookup } from '../../../core/models/lookup';
+import { CustomerCustomFields } from '../../../core/models/customerCustomFields';
 import { ngbDateStructToDate, validateAllFormFields } from '../../../core/helpers/utils';
 
 @Component({
@@ -17,11 +18,12 @@ import { ngbDateStructToDate, validateAllFormFields } from '../../../core/helper
     templateUrl: './customer.form.html',
     providers: [NgbDatepickerConfig]
 })
-export class CustomerForm implements OnInit {
+export class CustomerFormComponent implements OnInit {
     form: FormGroup;
     products: Product[];
     showLanguageCountries = ['ae'];
     showLanguages: boolean = false;
+    showCurrentPoints = false;
     @Input() modal: boolean;
     @Input() isEdit: boolean;
     @Input() submitSubscription;
@@ -29,12 +31,14 @@ export class CustomerForm implements OnInit {
     @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
     constructor(
+        public user: UserService,
         private fb: FormBuilder, 
         private service: CustomerService, 
         private location: Location,
-        public user: UserService,
         private productService: ProductService,
         config: NgbDatepickerConfig) {
+            // this.showCurrentPoints = service.config.GroupId == 'B759313D190F4873B8F452F5F7498669';
+            this.showCurrentPoints = true;
             var currentDate = new Date();
             config.minDate = {year: 1900, month: 1, day: 1};
             config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
@@ -76,6 +80,7 @@ export class CustomerForm implements OnInit {
             }),
             receiveSms: [true],
             comment: [null],
+            currentPoints: [null, (c) => this.currentPointsValidator(c)],
             amount: [null, (c) => this.amountValidator(c)]
         });
 
@@ -86,8 +91,8 @@ export class CustomerForm implements OnInit {
         favProductsControl.push(new FormControl());
 
         // Add the custom controls before populating the form
-        for (var i = 1; i <= 3; i++) {
-            this.showCustomControl(i);
+        for (var i = 1; this.user.customerCustomFields && i <= this.user.customerCustomFields.length; i++) {
+            this.user.showCustomControl(i, this.form);
         }
         this.onPopulate.emit(this.form);
     }
@@ -126,9 +131,11 @@ export class CustomerForm implements OnInit {
                     latitude: this.form.value.address.latitude,
                     longitude: this.form.value.address.longitude
                 },
-                customField1: Lookup.getValue(this.form.value.customField1),
-                customField2: Lookup.getValue(this.form.value.customField2),
-                customField3: Lookup.getValue(this.form.value.customField3)
+                customField1: CustomerCustomFields.getValue(this.form.value.customField1),
+                customField2: CustomerCustomFields.getValue(this.form.value.customField2),
+                customField3: CustomerCustomFields.getValue(this.form.value.customField3),
+                customField4: CustomerCustomFields.getValue(this.form.value.customField4),
+                currentPoints: this.form.value.currentPoints
             };
     
             if (!this.isEdit && this.form.value.amount) {
@@ -158,6 +165,13 @@ export class CustomerForm implements OnInit {
         return Validators.email(control);
     }
 
+    private currentPointsValidator(control: AbstractControl): ValidationErrors {
+        if (this.isEdit || !this.showCurrentPoints) {
+            return null;
+        }
+        return Validators.required(control);
+    }
+
     private amountValidator(control: AbstractControl): ValidationErrors {
         if (this.isEdit) {
             return null;
@@ -165,42 +179,25 @@ export class CustomerForm implements OnInit {
         return Validators.required(control);
     }
 
-    showCustomControl(index: number) {
-        if (this.user.customerCustomFields) { 
-            switch(index) {
-                case 1: 
-                    if (this.user.customerCustomFields.field1ResourceKey) {
-                        if (!this.customField1) {
-                            this.form.addControl('customField1', new FormControl(null/*, Validators.required*/));
-                        }
-                        return true;
-                    }
-                break;
-                case 2: 
-                    if (this.user.customerCustomFields.field2ResourceKey) {
-                        if (!this.customField2) {
-                            this.form.addControl('customField2', new FormControl(null/*, Validators.required*/));
-                        }
-                        return true;
-                    }
-                break;
-                case 3: 
-                    if (this.user.customerCustomFields.field3ResourceKey) {
-                        if (!this.customField3) {
-                            this.form.addControl('customField3', new FormControl(null/*, Validators.required*/));
-                        }
-                        return true;
-                    }
-                break;
-            }
-        }
-        return false;
-    }
-    
+    // showCustomControl(index: number) {
+    //     if (this.user.customerCustomFields && this.user.customerCustomFields.length > index - 1) {
+    //         var control = this.form.get('customField' + index);
+    //         var field = this.user.customerCustomFields[index - 1];
+    //         if (!control && field) {
+    //             this.form.addControl('customField' + index, new FormControl(field.multiselect ? [] : field.fieldType == 'checkbox' ? false : null, field.mandatory ? Validators.required : null));
+    //             return true;
+    //         }
+    //         else if (control) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
     
     get firstname() { return this.form.get('firstname'); }
     get lastname() { return this.form.get('lastname'); }
     get amount() { return this.form.get('amount'); }
+    get currentPoints() { return this.form.get('currentPoints'); }
     get mobile() { return this.form.get('mobile'); }
     get email() { return this.form.get('email'); }
     get birthdate() { return this.form.get('birthdate'); }
@@ -209,4 +206,5 @@ export class CustomerForm implements OnInit {
     get customField1() { return this.form.get('customField1'); }
     get customField2() { return this.form.get('customField2'); }
     get customField3() { return this.form.get('customField3'); }
+    get customField4() { return this.form.get('customField4'); }
 }

@@ -2,16 +2,51 @@
     <table class="table table-sm table-hover" *ngIf="customers && anyCustomer()">
         <thead class="thead-dark">
             <tr>
-                <th scope="col" class="column-name">{{ title }}</th>
-                <th scope="col">{{ 'COMMON.PHONE' | translate }}</th>
-                <th scope="col">{{ 'COMMON.EMAIL' | translate }}</th>
-                <th scope="col" *ngIf="!small">{{ 'COMMON.BIRTHDATE' | translate }}</th>
-                <th scope="col" *ngIf="!small" class="column-location">
+                <th scope="col" class="column-name"  [ngClass]="{'sortable': sortable}"
+                    (click)="sort(0, ['FirstName','LastName'])">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[0] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[0] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[0] == 3"></i>
+                    {{ title }}
+                    <i class="fa fa-filter" *ngIf="filterable"></i>
+                </th>
+                <th scope="col" [ngClass]="{'sortable': sortable}" (click)="sort(1, ['MobileNumber'])">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[1] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[1] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[1] == 3"></i>
+                    {{ 'COMMON.PHONE' | translate }}
+                    <i class="fa fa-filter" *ngIf="filterable"></i>
+                </th>
+                <th scope="col" class="column-email" [ngClass]="{'sortable': sortable}"
+                    (click)="sort(2, ['Email'])">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[2] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[2] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[2] == 3"></i>
+                    {{ 'COMMON.EMAIL' | translate }}
+                    <i class="fa fa-filter" *ngIf="filterable"></i>
+                </th>
+                <th scope="col" [ngClass]="{'sortable': sortable}" (click)="sort(3, ['BirthDate'])" *ngIf="!small">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[3] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[3] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[3] == 3"></i>
+                    {{ 'COMMON.BIRTHDATE' | translate }}
+                    <i class="fa fa-filter" *ngIf="filterable"></i>
+                </th>
+                <th scope="col" (click)="sort(4, ['Address'])" *ngIf="!small"
+                    class="column-location" [ngClass]="{'sortable': sortable}">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[4] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[4] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[4] == 3"></i>
                     <span *ngIf="!showArea()">{{ 'COMMON.CITY' | translate }}</span>
                     <span *ngIf="showArea()">{{ 'COMMON.AREA' | translate }}</span>
                 </th>
-                <th scope="col">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</th>
-                <th scope="col">{{ 'CUSTOMERS.TOTAL_SPENT' | translate }}</th>
+                <th scope="col" class="column-fav-products">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</th>
+                <th scope="col" [ngClass]="{'sortable': sortable}" (click)="sort(5, ['TotalPoints'])">
+                    <i class="fa fa-sort" *ngIf="sortable && sortTypes[5] == 1"></i>
+                    <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[5] == 2"></i>
+                    <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[5] == 3"></i>
+                    {{ 'CUSTOMERS.TOTAL_SPENT' | translate }}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -31,13 +66,13 @@
                     </div>
                 </th>
                 <td>{{ customer.mobileNumber }}</td>
-                <td>{{ customer.email }}</td>
+                <td class="column-email">{{ customer.email }}</td>
                 <td *ngIf="!small">{{ customer.birthdate | date: 'dd-MM-yyyy' }}</td>
                 <td *ngIf="!small" class="column-location">
                     <span *ngIf="customer.address && !showArea()">{{ customer.address.city }}</span>
                     <span *ngIf="customer.address && showArea()">{{ customer.address.area }}</span>
                 </td>
-                <td>
+                <td class="column-fav-products">
                     <div *ngFor="let favoriteProduct of customer.favoriteProducts">
                         {{ favoriteProduct.name }}
                     </div>
@@ -55,4 +90,7 @@
         autoHide="true" directionLinks="true"
         previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
     </pagination-controls>
+    <div [ngClass]="{'loading-container': loading}">
+        <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>    
+    </div>
 </div>

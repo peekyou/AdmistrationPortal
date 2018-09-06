@@ -19,6 +19,15 @@
             text-align: center;
         }
 
+        .sortable {
+            cursor: pointer;
+        }
+
+        .fa {
+            // float: right;
+            line-height: 20px;
+        }
+
         .column-name {
             text-align: left;
         }
@@ -50,9 +59,20 @@
 
     .column-name {
         max-width: 160px;
+        min-width: 160px;
         text-align: left;
         padding-left: 1rem;
         text-overflow: ellipsis;
+    }
+
+    .column-location {
+        max-width: 165px;
+        min-width: 165px;
+    }
+
+    .column-email, .column-fav-products {
+        max-width: 170px;
+        min-width: 170px;
     }
 
     .currency {

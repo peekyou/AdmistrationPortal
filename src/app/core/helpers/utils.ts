@@ -1,5 +1,5 @@
 ﻿import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 import * as moment from 'moment';
 
@@ -75,4 +75,10 @@ export function validateAllFormFields(formGroup: FormGroup) {
             validateAllFormFields(control);
         }
     });
+}
+
+export function clearFormArray(formArray: FormArray) {
+    while (formArray.length !== 0) {
+        formArray.removeAt(0)
+    }
 }

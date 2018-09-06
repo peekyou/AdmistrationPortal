@@ -28,6 +28,7 @@ export class Customer {
     customField1?: string;
     customField2?: string;
     customField3?: string;
+    customField4?: string;
 }
 
 export class PurchaseData {

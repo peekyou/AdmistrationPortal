@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class SubmitButtonComponent implements OnInit {
     @Input() buttonClass: string;
+    @Input() buttonType: string;
     @Input() form: FormGroup;
     @Input() value: string;
     @Input() loadingValue: string;
@@ -20,6 +21,10 @@ export class SubmitButtonComponent implements OnInit {
     ngOnInit() {
         if (!this.buttonClass) {
             this.buttonClass = 'btn btn-primary';
+        }
+        
+        if (!this.buttonType) {
+            this.buttonType = 'submit';
         }
     }
 }

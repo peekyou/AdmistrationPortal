@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col col-md-9">
-        <form class="form" #f="ngForm" (ngSubmit)="f.valid && searchCustomer()" novalidate>
+        <form class="form" (ngSubmit)="searchCustomer()" novalidate>
             <div class="input-group">
                 <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
                     placeholder="{{ 'CUSTOMERS.SEARCH_PLACEHOLDER' | translate }}">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit" [disabled]="!searchTerm">
+                    <button class="btn btn-primary" type="submit">
                         <i class="fa fa-search"></i> {{ 'CUSTOMERS.SEARCH_BTN' | translate }}
                     </button>
                 </div>

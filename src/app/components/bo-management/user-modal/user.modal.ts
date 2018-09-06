@@ -35,7 +35,7 @@ export class UserModal {
             permissions: form.value.userPermissions
         };
 
-        this.service
+        this.saveSubscription = this.service
             .createUser(newUser)
             .subscribe(
                 id => { 
@@ -88,7 +88,7 @@ export class UserModal {
             permissions: form.value.userPermissions
         };
 
-        this.service
+        this.saveSubscription = this.service
             .editUser(newUser)
             .subscribe(
                 id => this.activeModal.close('Y'),

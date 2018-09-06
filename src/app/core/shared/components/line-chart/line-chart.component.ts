@@ -116,6 +116,7 @@ export class LineChartComponent implements OnInit {
         g.selectAll(".line").remove().exit();
         g.selectAll(".circle").remove().exit();
         g.selectAll(".text").remove().exit();
+        g.selectAll(".focus").remove().exit();
         this.svg.selectAll(".overlay").remove().exit();
 
         if (!data || data.length <= 1) {
@@ -197,20 +198,35 @@ export class LineChartComponent implements OnInit {
     
         focus.append("circle")
             .attr("class", "circle")
-            .attr("r", 7.5);
+            .attr("r", 6);
     
+        focus.append("rect")
+            .attr("class", "legend-back")
+            .attr("width", 68)
+            .attr("height", 35)
+            .attr("x", 8)
+            .attr("y", -10)
+            .attr("rx", 5)
+            .attr("ry", 5);
         focus.append("text")
-            .attr("class", "text")
+            .attr("class", "legend-date")
             .attr("x", 12)
             .attr("dy", ".31em");
+        focus.append("text")
+            .attr("class", "legend-amount")
+            .attr("x", 12)
+            .attr("dy", "1.5em");
     
+        var _this = this;
         this.svg.append("rect")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .attr("class", "overlay")
             .attr("width", width)
             .attr("height", height)
             .on("mouseover", function() { focus.style("display", null); })
-            .on("mouseout", function() { focus.style("display", "none"); })
+            .on("mouseout", function() { 
+                focus.style("display", "none"); 
+            })
             .on("mousemove", function () {
                 var x0 = x.invert(d3.mouse(<any>this)[0]);
                 var i = bisectDate(data, x0, 1);
@@ -218,7 +234,8 @@ export class LineChartComponent implements OnInit {
                 var d1 = data[i];
                 var d = x0.valueOf() - d0.date.valueOf() > d1.date.valueOf() - x0.valueOf() ? d1 : d0;
                 focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-                focus.select("text").text(function() { return d.value; });
+                focus.select(".legend-date").text(function() { return d.date.toLocaleDateString(); });
+                focus.select(".legend-amount").text(function() { return d.value + " " + _this.currency; });
                 focus.select(".x-hover-line").attr("y2", height - y(d.value));
                 focus.select(".y-hover-line").attr("x2", width + width);
             });

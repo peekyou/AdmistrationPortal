@@ -3,6 +3,7 @@ import { D3Service, D3, Selection, BaseType, ScaleBand, ScaleLinear, ScaleOrdina
 import { BarChartData, GroupBarChartData, ChartData } from './group-bar-chart';
 
 import { UserService } from '../../../../components/user/user.service';
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
     selector: 'app-group-bar-chart',
@@ -14,6 +15,7 @@ export class GroupBarChartComponent implements OnInit {
     private initialized: boolean = false;
     private d3: D3;
     private parentNativeElement: any;
+    private averageBasketMessage: string = '';
     private currency: string;
     private maxBarWidth = 150;
     private width: number;
@@ -26,6 +28,7 @@ export class GroupBarChartComponent implements OnInit {
     private z: ScaleOrdinal<string, {}>;
     private margin = {top: 20, right: 20, bottom: 100, left: 40};
     private dataKeys: string[] = [];
+    private showLegend = true;
 
     private _data: ChartData[];
     
@@ -48,7 +51,7 @@ export class GroupBarChartComponent implements OnInit {
     onResize(event) {
     }
 
-    constructor(element: ElementRef, d3Service: D3Service, user: UserService) {
+    constructor(element: ElementRef, d3Service: D3Service, user: UserService, private translation: TranslationService) {
         this.currency = user.getCurrency();
         this.d3 = d3Service.getD3();
         this.parentNativeElement = element.nativeElement;
@@ -56,20 +59,27 @@ export class GroupBarChartComponent implements OnInit {
 
     ngOnInit() {
         if (this.parentNativeElement !== null) {
-            this.initChart();
-            this.drawChart();        
+            this.translation.get('STATS.AVERAGE_BASKET', x => {
+                this.averageBasketMessage = x;
+                this.initChart();
+                this.drawChart(); 
+            });    
         }
     }
 
     setDataKeys() {
         if (this.isGroupedChart()) {
             this.dataKeys = [];
+            this.showLegend = true;
             var data = <GroupBarChartData[]>this._data;
             data.forEach(d => {
-                d.details.forEach(s => { 
+                d.details.forEach(s => {
                     if (this.dataKeys.indexOf(s.label) === -1) {
                         this.dataKeys.push(s.label);
                     }
+                    if (d.details.length > 6) {
+                        this.showLegend = false;
+                    } 
                 });
             });
         }
@@ -111,13 +121,13 @@ export class GroupBarChartComponent implements OnInit {
             .attr("class", "axis--y")
             .call(d3.axisLeft(this.y).ticks(null, "s"))
             .append("text")
-            .attr("x", 2)
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
+            .attr("x", 115)
+            .attr("transform", "rotate(-360)")
+            .attr("y", 0)
+            .attr("dy", "-0.2em")
             .attr("fill", "#000")
             .attr("text-anchor", "end")
-            .text("Average expenses (" + this.currency + ")")
+            .text(this.averageBasketMessage + " (" + this.currency + ")")
             .attr("font-size", "1.2em");
 
         this.initialized = true;
@@ -219,7 +229,7 @@ export class GroupBarChartComponent implements OnInit {
 
         this.g.select(".axis--y").call(d3.axisLeft(y));
         
-        if (this.isGroupedChart()) {
+        if (this.showLegend && this.isGroupedChart()) {
             var legend = g.append("g")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "1.2em")

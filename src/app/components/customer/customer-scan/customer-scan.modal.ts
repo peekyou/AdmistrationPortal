@@ -24,7 +24,13 @@ export class CustomerScanModal {
 
     camerasFoundHandler($event) {
         if ($event && $event.length > 0) {
-            this.camera = $event[0];
+            if ($event.length == 2) {
+                this.camera = $event[1];
+                
+            }
+            else {
+                this.camera = $event[0];
+            }
         }
     }
     

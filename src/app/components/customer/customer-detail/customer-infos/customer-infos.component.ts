@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Customer } from '../../customer';
 import { CustomerService } from '../../customer.service';
 import { CustomerDetailService } from '../customer-detail.service';
-import { dateToNgbDateStruct } from '../../../../core/helpers/utils';
+import { dateToNgbDateStruct, clearFormArray } from '../../../../core/helpers/utils';
 import { NotificationService } from '../../../../core/shared/components/notifcations/notification.service';
+import { CustomerCustomFields } from '../../../../core/models/customerCustomFields';
 
 @Component({
     selector: 'app-customer-infos',
@@ -32,8 +33,8 @@ export class CustomerInfosComponent {
             this.customerForm.reset();
             const languagesControl = <FormArray>this.customerForm.controls['languages'];
             const favoriteProductsControl = <FormArray>this.customerForm.controls['favoriteProducts'];
-            this.clearFormArray(languagesControl);
-            this.clearFormArray(favoriteProductsControl);
+            clearFormArray(languagesControl);
+            clearFormArray(favoriteProductsControl);
             this.customerForm.patchValue({
                 gender: this.c.customer.gender,
                 firstname: this.c.customer.firstname,
@@ -43,9 +44,10 @@ export class CustomerInfosComponent {
                 // languages: this.c.customer.languages,
                 birthdate: dateToNgbDateStruct(this.c.customer.birthdate),
                 comment: this.c.customer.comment,
-                customField1: this.c.customer.customField1,
-                customField2: this.c.customer.customField2,
-                customField3: this.c.customer.customField3
+                customField1: CustomerCustomFields.setValue(this.c.customer.customField1),
+                customField2: CustomerCustomFields.setValue(this.c.customer.customField2),
+                customField3: CustomerCustomFields.setValue(this.c.customer.customField3),
+                customField4: CustomerCustomFields.setValue(this.c.customer.customField4)
             });
 
             if (this.c.customer.address) {
@@ -95,11 +97,5 @@ export class CustomerInfosComponent {
                     this.notifications.setErrorNotification();
                  }
         );
-    }
-
-    clearFormArray = (formArray: FormArray) => {
-        while (formArray.length !== 0) {
-            formArray.removeAt(0)
-        }
     }
 }

@@ -22,18 +22,12 @@
                                 [options]="locations" [texts]="multiSelectTexts" [settings]="multiSelectSettings">
                             </ss-multiselect-dropdown>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="fav-product">{{ 'PROMOTIONS.FAVORITE_PRODUCT' | translate }}</label>
-                            <select class="form-control form-control-sm" id="fav-product">
-                                <option></option>
-                            </select>
-                        </div> -->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
                                     <label for="customer-age-from">{{ 'COMMON.AGE' | translate }}</label>
                                     <input type="number" step="1" min="0" max="130" class="form-control form-control-sm" 
-                                           id="customer-age-from" formControlName="customerAgeFrom" />
+                                            id="customer-age-from" formControlName="customerAgeFrom" />
                                 </div>
                                 <div class="col">
                                     <label for="customer-age-to">{{ 'COMMON.TO' | translate }}</label>
@@ -46,7 +40,7 @@
                             <label for="customer-since">{{ 'PROMOTIONS.REGISTERED_SINCE' | translate }}</label>
                             <div class="input-group">
                                 <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" formControlName="customerSince"
-                                       id="customer-since" ngbDatepicker #since="ngbDatepicker">
+                                        id="customer-since" ngbDatepicker #since="ngbDatepicker">
                                 <button class="input-group-addon" (click)="since.toggle()" type="button">
                                     <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
                                 </button>
@@ -75,6 +69,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="{{ 'COMMON.DETAILS' | translate }}" *ngIf="user.showCustomControl(1)">
+                    <ng-template ngbTabContent>
+                        <div class="form-group" *ngIf="user.showCustomControl(1, form, true)">
+                            <app-dynamic-field-search [field]="user.customerCustomFields[0]" [formControl]="customField1">
+                            </app-dynamic-field-search>
+                        </div>
+                        <div class="form-group" *ngIf="user.showCustomControl(2, form, true)">
+                            <app-dynamic-field-search [field]="user.customerCustomFields[1]" [formControl]="customField2">
+                            </app-dynamic-field-search>
+                        </div>
+                        <div class="form-group" *ngIf="user.showCustomControl(3, form, true)">
+                            <app-dynamic-field-search [field]="user.customerCustomFields[2]" [formControl]="customField3">
+                            </app-dynamic-field-search>
+                        </div>
+                        <div class="form-group" *ngIf="user.showCustomControl(4, form, true)">
+                            <app-dynamic-field-search [field]="user.customerCustomFields[3]" [formControl]="customField4">
+                            </app-dynamic-field-search>
                         </div>
                     </ng-template>
                 </ngb-tab>
@@ -141,6 +155,7 @@
                 </ngb-tab>
             </ngb-tabset>
         </form>
+        <!-- <pre>{{ form.value | json }}</pre> -->
     </div>
     <div class="col col-lg-5">
         <div class="promotion-result">

@@ -23,7 +23,6 @@ export class CustomerSearchComponent {
     modalConfirmation: string;
     loading = false;
     searchTerm: string;
-    form: FormGroup;
     @Output() onSearch: EventEmitter<any> = new EventEmitter();
         
     constructor(
@@ -46,44 +45,35 @@ export class CustomerSearchComponent {
                 this.modalSentence = x['CUSTOMERS.NOT_EXISTING_SENTENCE'];
                 this.modalConfirmation = x['CUSTOMERS.CONFIRMATION_CREATION'];
         });
-
-        this.form = this.fb.group({
-            firstname: [null, Validators.required],
-            lastname: [null, Validators.required],
-            mobile: [null, Validators.required],
-            receiveSms: [],
-            amount: [null, Validators.required]
-        });
     }
 
     searchCustomer() {
-        if (this.searchTerm) {
-            this.loading = true;
-            this.service
-                .get(null, null, this.searchTerm.toLowerCase())
-                .subscribe(customers => {
-                    if (customers.paging.totalCount === 0) {
-                        this.loading = false;
-                        this.service.searchTerm = this.searchTerm;
-                        this.openConfirmationModal();
-                    }
-                    else if (customers.paging.totalCount === 1) {
-                        this.selectCustomer(customers.data[0]);
-                    }
-                    else {
-                        this.loading = false;
-                        this.onSearch.emit(customers);
-                    }
-                },
-                err => { 
+        this.loading = true;
+        this.service
+            .get({
+                pageNumber: null,
+                itemsCount: null,
+                searchTerm: this.searchTerm
+            })
+            .subscribe(customers => {
+                if (customers.paging.totalCount === 0) {
                     this.loading = false;
-                    console.log(err); 
+                    this.service.searchTerm = this.searchTerm;
+                    this.openConfirmationModal();
                 }
-            );
-        }
-        else {
-            this.openConfirmationModal();
-        }
+                else if (customers.paging.totalCount === 1) {
+                    this.selectCustomer(customers.data[0]);
+                }
+                else {
+                    this.loading = false;
+                    this.onSearch.emit(customers);
+                }
+            },
+            err => { 
+                this.loading = false;
+                console.log(err); 
+            }
+        );
     }
 
     openNewCustomerModal() {
@@ -125,9 +115,4 @@ export class CustomerSearchComponent {
             }
         }, (reason) => { });
     }
-    
-    get firstname() { return this.form.get('firstname'); }
-    get lastname() { return this.form.get('lastname'); }
-    get amount() { return this.form.get('amount'); }
-    get mobile() { return this.form.get('mobile'); }
 }

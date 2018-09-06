@@ -17,7 +17,7 @@
                 <td class="points"><b>{{expense.correspondingPoints - expense.redeemedPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
                 <td class="points"><b>{{expense.redeemedPoints}}</b><small>{{ 'COMMON.PTS' | translate }}</small></td>
                 <td>
-                    <button class="btn btn-danger btn-xxs" *ngIf="!expense.redeemedPoints"
+                    <button class="btn btn-danger btn-xxs" *ngIf="!expense.redeemedPoints && expense.date > limitDeletionDate"
                         aria-label="Delete" (click)="openDeleteModal(expense)"
                         title="{{ 'COMMON.DELETE' | translate }}">
                            {{ 'COMMON.DELETE' | translate }}

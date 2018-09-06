@@ -1,22 +1,40 @@
-<label for="customField1">{{ resourceKey }}</label>
-<input type="text" class="form-control form-control-sm" id="customField1" [(ngModel)]="value" 
-       *ngIf="!values || values.length == 0" (blur)="onBlur()" />
+<label *ngIf="field.fieldType != 'checkbox'" [for]="fieldName">{{ field.resourceKey }}<span *ngIf="field.mandatory">*</span>
+</label>
 
-<div *ngIf="values && values.length == 2">
-    <div class="form-check form-check-inline">
-        <input type="radio" name="customField1" id="value1" [value]="values[0]"
-            [formControl]="formControl" class="form-check-input">
-        <label for="value1" class="form-check-label">{{ values[0] }}</label>
-    </div>
-    <div class="form-check-inline">
-        <input type="radio" name="customField1" id="value2" [value]="values[1]"
-            [formControl]="formControl" class="form-check-input">
-        <label for="value2" class="form-check-label">{{ values[1] }}</label>
+<input type="text" class="form-control form-control-sm" [id]="fieldName" [(ngModel)]="value" 
+       *ngIf="field.fieldType == 'text'" (blur)="onBlur()" [required]="field.mandatory"/>
+       
+<app-autocomplete *ngIf="field.fieldType == 'autocomplete'" [source]="field.valuesList | lookup" 
+    name="customfield" [id]="fieldName" [formControl]="formControl" small="true" 
+    [required]="field.mandatory" openOnFocus="true">
+</app-autocomplete>
+
+<select *ngIf="field.fieldType == 'select' && !field.multiselect" [(ngModel)]="value" 
+    [name]="fieldName" class="form-control form-control-sm" [id]="fieldName">
+    <option *ngFor="let val of field.valuesList" [ngValue]="val">{{ val }}</option>
+</select>
+
+<div *ngIf="field.fieldType == 'radio'">
+    <div class="form-check form-check-inline" *ngFor="let val of field.valuesList; let i = index">
+        <input type="radio" [name]="fieldName" [id]="fieldName + i" 
+            [value]="val" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName + i" class="form-check-label">{{ val }}</label>
     </div>
 </div>
-<app-autocomplete *ngIf="values && values.length > 2" [source]="values | lookup" name="customField1" id="customField1" 
-    [formControl]="formControl" small="true" openOnFocus="true">
-</app-autocomplete>
+
+<div *ngIf="field.fieldType == 'checkbox'" style="padding-top: 1rem;">
+    <div class="form-check form-check-inline">
+        <input type="checkbox" [name]="fieldName" [id]="fieldName" (change)="checkboxValue = !checkboxValue"
+            [value]="checkboxValue" [formControl]="formControl" class="form-check-input">
+        <label [for]="fieldName" class="form-check-label">{{ field.resourceKey }}</label>
+    </div>
+</div>
+
+<div *ngIf="field.multiselect == true && field.valuesList.length > 0">
+    <ss-multiselect-dropdown [formControl]="formControl"
+        [options]="options" [texts]="multiSelectTexts" [settings]="multiSelectSettings">
+    </ss-multiselect-dropdown>
+</div>
 
 <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="invalid-field">
     <div *ngIf="formControl.errors.required">

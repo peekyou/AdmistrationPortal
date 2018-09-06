@@ -3,7 +3,7 @@
 <div class="container content-container" *ngIf="user.getPackage() >= 2">
     <form [formGroup]="topLevelForm" class="form" (ngSubmit)="topLevelForm.valid && submit()" novalidate>
     <div class="row">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6" [ngClass]="{'col-lg-5': !user.showCustomControl(1), 'col-lg-4': user.showCustomControl(1) }">
             <div class="card">
                 <h6 class="card-header">{{ 'PROMOTIONS.CREATE_NEW' | translate }}</h6>                
                 <div class="card-body">
@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-7">
+        <div class="col-md-6" [ngClass]="{'col-lg-7': !user.showCustomControl(1), 'col-lg-8': user.showCustomControl(1) }">
             <div class="card">
                 <h6 class="card-header">{{ 'PROMOTIONS.TARGET' | translate }}</h6>                
                 <div class="card-body">

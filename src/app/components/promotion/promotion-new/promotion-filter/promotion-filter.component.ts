@@ -6,6 +6,7 @@ import { TranslationService } from '../../../../core/services/translation.servic
 import { Promotion, PromotionFilter } from '../../promotion';
 import { PromotionService } from '../../promotion.service';
 import { CustomerService } from '../../../customer/customer.service';
+import { UserService } from '../../../user/user.service';
 import { Lookup } from '../../../../core/models/lookup';
 
 @Component({
@@ -19,6 +20,7 @@ export class PromotionFilterComponent implements OnInit {
     searchStr;
     nbRecipients: number;
     totalNbCustomers: number;
+    anyCustomField = false;
     @Input() topLevelForm: FormGroup;
 
     private stepName: string = 'stepFilter';
@@ -27,7 +29,8 @@ export class PromotionFilterComponent implements OnInit {
     constructor(
         private service: PromotionService, 
         private customerService: CustomerService,
-        private translation: TranslationService) {
+        private translation: TranslationService,
+        public user: UserService) {
 
         customerService.getCount()
             .subscribe(
@@ -103,6 +106,11 @@ export class PromotionFilterComponent implements OnInit {
             },
             err => { console.log(err); });
     }
+
+    get customField1() { return this.form.get('customField1'); }
+    get customField2() { return this.form.get('customField2'); }
+    get customField3() { return this.form.get('customField3'); }
+    get customField4() { return this.form.get('customField4'); }
 
     // Cities multi select
     multiSelectSettings: IMultiSelectSettings = {

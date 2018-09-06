@@ -8,24 +8,24 @@ import { Lookup } from '../../../models/lookup';
 import { UserService } from '../../../../components/user/user.service';
 
 @Component({
-    selector: 'app-dynamic-field',
-    templateUrl: './dynamic-field.component.html',
-    styleUrls: ['./dynamic-field.component.scss'],
+    selector: 'app-dynamic-field-search',
+    templateUrl: './dynamic-field-search.component.html',
+    styleUrls: ['./dynamic-field-search.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => DynamicFieldComponent),
+            useExisting: forwardRef(() => DynamicFieldSearchComponent),
             multi: true,
         }
     ],    
 })
-export class DynamicFieldComponent implements OnInit, ControlValueAccessor {
+export class DynamicFieldSearchComponent implements OnInit, ControlValueAccessor {
     multiSelectSettings: IMultiSelectSettings = {
         enableSearch: false,
         ignoreLabels: true,
         checkedStyle: 'checkboxes',
         buttonClasses: 'multi-form-control multi-form-control-sm',
-        dynamicTitleMaxItems: 2,
+        dynamicTitleMaxItems: 3,
         displayAllSelectedText: true,
         showCheckAll: true,
         showUncheckAll: true
@@ -33,8 +33,7 @@ export class DynamicFieldComponent implements OnInit, ControlValueAccessor {
     multiSelectTexts: IMultiSelectTexts; 
     options: IMultiSelectOption[] = [];
 
-    private checkboxValue = true;
-    private fieldName: string;
+    public fieldName: string;
     private _value: string;
     private _onTouchedCallback: () => {};    
     private _onChangeCallback: (_: any) => {};
@@ -63,21 +62,24 @@ export class DynamicFieldComponent implements OnInit, ControlValueAccessor {
             if (!this.fieldName) {
                 this.fieldName = 'customField' + this.field.order;
             }
+            if (this.field.fieldType == 'checkbox') {
+                // Set the undefined value by default
+                this.formControl.setValue('');
+            }
             if (this.field.valuesList && this.field.valuesList.length > 0) {
                 this.options = this.field.valuesList.map(option => {
                     return { id: option, name: option };
                 });
             }
         }
+    }
 
-        if (this.field.multiselect && this.formControl && this.formControl.value && this.formControl.value.split) {
-            var values = this.formControl.value.split(';');
-            // for (let i = 0; i < values.length; i++) {
-            //      var c = new FormControl(values[i]);
-            //      (<FormArray>this.formControl).push(c);
-            // }
-        }
-
+    showMultiSelect(): boolean {
+        return this.field.valuesList && this.field.valuesList.length > 0 &&
+            (this.field.multiselect ||
+            this.field.fieldType == 'select' ||
+            this.field.fieldType == 'autocomplete' ||
+            (this.field.fieldType == 'radio' /*&& this.field.valuesList && this.field.valuesList.length > 2*/));
     }
 
     onBlur() {

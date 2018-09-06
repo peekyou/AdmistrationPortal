@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { CustomerService } from '../../../../components/customer/customer.servic
 import { CustomerNewModal } from '../../../../components/customer/customer-new/customer-new.modal';
 import { UserService } from '../../../../components/user/user.service';
 import { PagingResponse } from '../../../models/paging';
+import { TableSearch, FieldSort, FieldFilter, SortType } from '../../../models/tableSearch';
 
 @Component({
     selector: 'app-customer-table',
@@ -18,20 +19,27 @@ import { PagingResponse } from '../../../models/paging';
     templateUrl: './customer-table.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class CustomerTableComponent {
+export class CustomerTableComponent implements OnInit {
     loading = false;
     searchTerm: string;
+    sortTypes: SortType[] = [SortType.None, SortType.None, SortType.None, SortType.None, SortType.None, SortType.None];  
     currentPage: number = 1;
+    sorts: FieldSort[] = [];
+    filters: FieldFilter[] = [];
     private _customers: PagingResponse<Customer> | Customer[];
     
     @Input() title: string;
     @Input() small: boolean;
-    @Input() itemsPerPage: number = 10;
-    @Output() onPageChanged: EventEmitter<number> = new EventEmitter();
+    @Input() sortable: boolean;
+    @Input() filterable: boolean;
+    @Input() itemsPerPage: number = 20;
+    // @Output() onPageChanged: EventEmitter<number> = new EventEmitter();
     
     @Input() 
     set customers(customers: PagingResponse<Customer> | Customer[]) {
-        this._customers = customers;
+        if (customers) {
+            this._customers = customers;
+        }
     }
 
     get customers(): PagingResponse<Customer> | Customer[] {
@@ -46,20 +54,13 @@ export class CustomerTableComponent {
         private user: UserService,
         private modalService: NgbModal) {
     }
-        
-    openNewCustomerModal() {
-        const modalRef = this.modalService.open(CustomerNewModal, { 
-            // size: 'lg', 
-            windowClass: 'customer-modal',
-            // container: 'test'
-        });
 
-        modalRef.result.then((result) => {
-            if (result === 'Y') {
-            }
-        }, (reason) => { });
+    ngOnInit() {
+        if (!this.small) {
+            this.getCustomersPage(this.currentPage);
+        }
     }
-
+            
     selectCustomer(customer: Customer) {
         // Call get by id before going to detail page, to avoid two loading
         this.service.getById(customer.id)
@@ -75,7 +76,69 @@ export class CustomerTableComponent {
 
     pageChanged(page) {
         this.currentPage = page;
-        this.onPageChanged.emit(this.currentPage);
+        this.getCustomersPage(page);
+        // this.onPageChanged.emit(this.currentPage);
+    }
+
+    sort(index: number, fields: string[]) {
+        if (!this.sortable) {
+            return;
+        }
+
+        if (index < this.sortTypes.length) {
+            this.sortTypes[index] = this.sortTypes[index] == SortType.Desc ? SortType.None : this.sortTypes[index] + 1;
+        }
+
+        // Reset other sort types
+        for (let i = 0; i < this.sortTypes.length; i++) {
+            if (i != index) {
+                this.sortTypes[i] = SortType.None;
+            }
+        }
+        
+        this.sorts = [];
+        fields.forEach(f => {
+            if (this.sortTypes[index] != SortType.None) {
+                var sort = this.sortTypes[index] == SortType.Asc ? 'ASC' : 'DESC';
+
+                if (f == 'Address') {
+                    f = this.showArea() ? 
+                    'Addresses.FirstOrDefault(EndVersion == null).Address.Area'
+                    :
+                    'Addresses.FirstOrDefault(EndVersion == null).Address.City';
+                }
+
+                this.sorts.push({ sortType: sort, fieldName: f });
+            }
+        });
+
+        this._customers = null;
+        this.loading = true;
+        window.scroll(0,0);
+        this.service.get({
+            pageNumber: this.currentPage,
+            itemsCount: this.itemsPerPage,
+            sorts: this.sorts
+        })
+        .subscribe(customers => {
+            this.loading = false;
+            this.customers = customers;
+        });
+    }
+
+    getCustomersPage(page: number) {
+        this._customers = null;
+        this.loading = true;
+        window.scroll(0,0);
+        this.service.get({
+            pageNumber: page,
+            itemsCount: this.itemsPerPage,
+            sorts: this.sorts
+        })
+        .subscribe(customers => {
+            this.loading = false;
+            this.customers = customers;
+        });
     }
 
     showArea() {
@@ -83,6 +146,9 @@ export class CustomerTableComponent {
     }
 
     anyCustomer(): boolean {
+        if (!this._customers) {
+            return false;
+        }
         if ((<PagingResponse<Customer>>this._customers).paging) {
             return (<PagingResponse<Customer>>this._customers).paging.totalCount > 0;
         }
@@ -92,6 +158,6 @@ export class CustomerTableComponent {
     }
 
     showPagination(): boolean {
-        return (<PagingResponse<Customer>>this._customers).paging != null;
+        return this._customers && (<PagingResponse<Customer>>this._customers).paging != null;
     }
 }

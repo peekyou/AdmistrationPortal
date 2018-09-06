@@ -36,6 +36,7 @@
         "DELETE_MSG": "Cette action est irreversible",
         "YES": "Oui",
         "NO": "Non",
+        "UNDEFINED": "Indifférent",
         "DOWNLOAD": "Télécharger",
         "HOME": "Accueil",
         "FROM": "De",
@@ -263,6 +264,7 @@
         "GENDER_PIE": "Segmentation H/F",
         "AGE_PIE": "Segmentation par Age",
         "GROUP_BAR_CHART": "Revenus détaillés",
+        "AVERAGE_BASKET": "Panier moyen",
         "EXPENSES_LINE_CHART": "Revenus",
         "BEST_CUSTOMERS": "Meilleurs clients",
         "REGISTERED_CUSTOMERS": "Clients enregistrés",
@@ -283,6 +285,7 @@
         "UserInactive": "Cet utilisateur est inactif. Veuillez l'activer grâce à l'email d'activation",
         "LoginFailed": "Mot de passe ou utilisateur incorrect",
         "TokenExpired": "Token invalide",
-        "TokenMismatch": "Token invalide"
+        "TokenMismatch": "Token invalide",
+        "InvalidCurrentPoints": "L'historique du montant est trop petit par rapport aux points en cours"
     }
 }

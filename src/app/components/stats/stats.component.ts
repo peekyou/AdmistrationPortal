@@ -10,7 +10,7 @@ import { UserService } from '../user/user.service';
 import { BarChartData, GroupBarChartData } from '../../core/shared/components/group-bar-chart/group-bar-chart';
 import { PieChartData } from '../../core/shared/components/pie-chart/pie-chart';
 import { Customer, CustomerExpense } from '../customer/customer';
-import { SearchFilter } from '../../core/models/search-filter';
+import { SearchFilter } from '../../core/models/searchFilter';
 import { ReviewService } from '../review/review.service';
 import { ReviewsAverage } from '../review/review';
 import { Address } from '../../core/shared/components/address/address';
@@ -75,7 +75,7 @@ export class StatsComponent implements OnInit {
                 this.loadSegmentationCharts();
                 this.loadGroupedBarChart();
                 this.getExpenses();
-            });
+            }); 
         }
     }
 

@@ -46,7 +46,6 @@ export class CustomerDetailComponent implements OnInit {
             .subscribe(customer => {
                 this.c.customer = customer;
                 this.c.customer.purchaseData = this.service.calculatePurchaseData(customer.points);
-                // this.populateUser();
             });
     }
 }

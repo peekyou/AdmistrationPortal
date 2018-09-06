@@ -6,6 +6,7 @@ import { PromotionService } from '../../promotion.service';
 import { SmsCounter } from '../../../../core/helpers/smsCounter';
 import { SmsService } from '../../../sms/sms.service';
 import { TranslationService } from '../../../../core/services/translation.service';
+import { UserService } from '../../../user/user.service';
 
 @Component({
     selector: 'promotion-info',
@@ -26,7 +27,12 @@ export class PromotionInfoComponent implements OnInit {
     private stepName: string = 'stepInfo';
     private formGroup: FormGroup;
 
-    constructor(private smsService: SmsService, private service: PromotionService, private translation: TranslationService) {
+    constructor(
+        private smsService: SmsService,
+        private service: PromotionService,
+        private translation: TranslationService,
+        public user: UserService) {
+
         this.smsService.getQuota()
             .subscribe(
                 res => this.smsQuota = res,

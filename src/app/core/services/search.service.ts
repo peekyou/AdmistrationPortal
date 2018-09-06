@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { SearchFilter } from '../models/search-filter';
+import { SearchFilter } from '../models/searchFilter';
 
 @Injectable()
 export class SearchService {

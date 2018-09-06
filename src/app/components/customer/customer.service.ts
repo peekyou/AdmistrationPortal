@@ -6,6 +6,7 @@ import { AuthHttpService } from '../../core/services/auth-http.service';
 import { UserService } from '../user/user.service';
 import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
 import { PagingResponse } from '../../core/models/paging';
+import { TableSearch } from '../../core/models/tableSearch';
 import { Lookup } from '../../core/models/lookup';
 
 @Injectable()
@@ -15,12 +16,14 @@ export class CustomerService {
     customerSearched: Customer;
     searchTerm: string;
 
-    constructor(@Inject(APP_CONFIG) config: AppConfig, private http: AuthHttpService, private user: UserService) {
+    constructor(@Inject(APP_CONFIG) public config: AppConfig, private http: AuthHttpService, private user: UserService) {
         this.api = config.ApiEndpoint + '/customers';
     }
 
-    get(page: number, count: number, searchTerm: string = ''): Observable<PagingResponse<Customer>> {
-        return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count + '&searchTerm=' + encodeURIComponent(searchTerm));
+    get(search: TableSearch): Observable<PagingResponse<Customer>> {
+        if (search.pageNumber) search.pageNumber = search.pageNumber.toString();
+        if (search.itemsCount) search.itemsCount = search.itemsCount.toString();
+        return this.http.post(this.api + '/search', search);
     }
     
     getCustomerCities(): Observable<Lookup[]> {
