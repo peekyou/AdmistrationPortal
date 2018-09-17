@@ -93,4 +93,7 @@
     <span class="icon"></span>
     <h2>{{ 'REVIEWS.NO_REVIEW' | translate }}</h2>
 </div>
-<ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
+
+<div [ngClass]="{'loading-container': loading}">
+    <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>    
+</div>

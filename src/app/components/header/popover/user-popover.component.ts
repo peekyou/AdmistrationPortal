@@ -30,14 +30,14 @@ export class UserPopoverComponent implements AfterViewInit {
         //  if (hierarchy) {
         //     this.init(hierarchy);
         //  }
-     }
+    }
    
-     ngAfterViewInit(): void {
+    ngAfterViewInit(): void {
         this.parentNode = this._element.nativeElement.parentNode;
-     }
+    }
    
-     @HostListener('document:click', ['$event.path'])
-     onClickOutside($event: Array<any>) {
+    @HostListener('document:click', ['$event.path'])
+    onClickOutside($event: Array<any>) {
         const elementRefInPath = $event.find(node => node === this.parentNode);
         if (!elementRefInPath) {
             this.closeEvent.emit();

@@ -59,7 +59,7 @@
 
     .column-name {
         max-width: 160px;
-        min-width: 160px;
+        min-width: 145px;
         text-align: left;
         padding-left: 1rem;
         text-overflow: ellipsis;
@@ -67,12 +67,12 @@
 
     .column-location {
         max-width: 165px;
-        min-width: 165px;
+        min-width: 155px;
     }
 
     .column-email, .column-fav-products {
         max-width: 170px;
-        min-width: 170px;
+        min-width: 150px;
     }
 
     .currency {

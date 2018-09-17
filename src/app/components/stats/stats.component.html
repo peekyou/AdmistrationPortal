@@ -3,7 +3,7 @@
 <div class="container" *ngIf="user.getPackage() >= 3">
     <div class="statistics">
         <div class="row">
-            <div class="col col-lg-4">
+            <div class="col-12 col-lg-4">
                 <app-etiquette-card image="/assets/images/customers.png" background="#fdbc00">
                     <div class="card card-stats">
                         <div class="card-body">
@@ -23,7 +23,7 @@
                     <ngx-loading [show]="loadingTotalExpenses" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
                 </app-etiquette-card>
             </div>
-            <div class="col col-lg-8">
+            <div class="col-12 col-lg-8">
                 <app-customer-table [customers]="bestCustomers" small="true" 
                     title="{{ 'STATS.BEST_CUSTOMERS' | translate }}"></app-customer-table>                    
                 <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
@@ -34,6 +34,7 @@
                 <div class="card">
                     <h5 class="card-header">{{ 'STATS.EXPENSES_LINE_CHART' | translate }}</h5>
                     <div class="card-body">
+                        <ngx-loading [show]="loadingLineChart" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                    
                         <app-line-chart [data]="expenses | expensesChart">
                         </app-line-chart>                            
                     </div>
@@ -41,16 +42,16 @@
             </div>
             <div class="col-12 col-lg-4">
                 <div class="card card-pie">
-                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
-                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>                    
+                        <h5 class="card-title">{{ 'STATS.GENDER_PIE' | translate }}</h5>   
+                        <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                         <app-donut-chart [data]="genderPieChartData"></app-donut-chart>
                     </div>
                 </div>
                 <div class="card card-pie">
-                    <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                     <div class="card-body">
-                        <h5 class="card-title">{{ 'STATS.AGE_PIE' | translate }}</h5>                    
+                        <h5 class="card-title">{{ 'STATS.AGE_PIE' | translate }}</h5>
+                        <ngx-loading [show]="loadingPies" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>           
                         <app-donut-chart [data]="agePieChartData"></app-donut-chart>                           
                     </div>
                 </div>
@@ -58,7 +59,7 @@
         </div>
 
         <div class="row">
-            <div class="col col-lg-8">
+            <div class="col-12 col-lg-8">
                 <div class="card">
                     <h5 class="card-header">{{ 'STATS.GROUP_BAR_CHART' | translate }}</h5>
                     <div class="card-body">
@@ -105,7 +106,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-lg-4">
+            <div class="col-12 col-lg-4">
                 <app-etiquette-card image="/assets/images/smartphone.png" background="#fdbc00" imageWidth="18">
                     <div class="card card-stats">
                         <div class="card-body">

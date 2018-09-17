@@ -28,22 +28,11 @@ export class CustomerComponent implements OnInit {
                 this.customersCount = c;
                 this.loading = false;
             });
-
-        // this.getCustomersPage(1);
     }
     
     public updateCustomers(customers: PagingResponse<Customer>) {
         this.customers = customers;
     }
-
-    // public getCustomersPage(page: number) {
-    //     this.loadingCustomers = true;
-    //     this.service.get(page, this.itemsPerPage)
-    //         .subscribe(customers => {
-    //             this.loadingCustomers = false;
-    //             this.customers = customers;
-    //         });
-    // }
 
     openScanner() {
         const modalRef = this.modalService.open(CustomerScanModal, { 

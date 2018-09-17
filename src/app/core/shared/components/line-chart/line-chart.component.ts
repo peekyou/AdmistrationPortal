@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LineChartData } from './line-chart';
 import { ngbDateStructToDate, dateToNgbDateStruct } from '../../../helpers/utils';
 import { UserService } from '../../../../components/user/user.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-line-chart',
@@ -25,22 +26,30 @@ export class LineChartComponent implements OnInit {
     private x: ScaleTime<number, number>;
     private y: ScaleLinear<number, number>;
     private svg: Selection<Element, {}, HTMLElement, any>;
-    private margin = {top: 20, right: 50, bottom: 30, left: 40};
+    private margin = {top: 20, right: 20, bottom: 50, left: 40};
     private _data: LineChartData[];
+    
+    // Establish the desired formatting options using locale.format():
+    // https://github.com/d3/d3-time-format/blob/master/README.md#locale_format
+    formatMillisecond;
+    formatSecond;
+    formatMinute;
+    formatHour;
+    formatDay;
+    formatWeek;
+    formatMonth;
+    formatYear;
 
     @Input() dataSubscription: Subscription;
     
     @Input() 
     set data(data: LineChartData[]) {
-        if (data != null) {
-            this._data = this.groupSameDay(data);
-            if (!this.initialized) {
-                this.initialized = true;
-                this.initForm();
-                this.initChart();
-            }
-            this.drawChart(); 
+        this._data = this.groupSameDay(data);
+        if (!this.initialized) {
+            this.initForm();
+            this.initChart();
         }
+        this.drawChart();
     }
     get data(): LineChartData[] {
         return this._data;
@@ -50,20 +59,19 @@ export class LineChartComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-        // this.drawChart();
-        
-        // var resizeTimer;
-        // var interval = Math.floor(1000 / 60 * 10);
+        var resizeTimer;
+        var interval = Math.floor(1000 / 60 * 10);
          
-        // window.addEventListener('resize', function (event) {
-        //     if (resizeTimer !== false) {
-        //         clearTimeout(resizeTimer);
-        //     }
-        //     resizeTimer = setTimeout(function () {
-        //         console.log('dd');
-        //         this.drawChart()
-        //     }, interval);
-        // });
+        window.addEventListener('resize', (event) => {
+            if (resizeTimer !== false) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(() => {
+                this.clear();
+                this.initChart();
+                this.drawChart();
+            }, interval);
+        });
     }
 
     constructor(private fb: FormBuilder, element: ElementRef, d3Service: D3Service, user: UserService) {
@@ -74,18 +82,29 @@ export class LineChartComponent implements OnInit {
             dateFrom: [null],
             dateTo: [null],
         }/*, { validator: this.dateLessThan('dateFrom', 'dateTo') }*/);
+
+        var formatMeridiem = this.d3.timeFormat("%p");
+        var useMeridiem = formatMeridiem(new Date) != "";
+        this.formatMillisecond = this.d3.timeFormat(".%L");
+        this.formatSecond = this.d3.timeFormat(":%S");
+        this.formatMinute = this.d3.timeFormat("%I:%M");
+        this.formatHour = useMeridiem ? this.d3.timeFormat("%I %p") : this.d3.timeFormat("%H:%M");
+        this.formatDay = this.d3.timeFormat("%a %d");
+        this.formatWeek = this.d3.timeFormat("%d %b");
+        this.formatMonth = this.d3.timeFormat("%B");
+        this.formatYear = this.d3.timeFormat("%Y");
+
     }
 
     ngOnInit() {
     }
 
     initChart() {
+        this.initialized = true;
         if (this.parentNativeElement != null) {
             let d3 = this.d3;
             let margin = this.margin;
             this.svg = this.d3.select(this.parentNativeElement).select("svg");
-            // var width = +this.svg.attr("width") - margin.left - margin.right;
-            // var height = +this.svg.attr("height") - margin.top - margin.bottom;
                 
             this.x = d3.scaleTime();
             this.y = d3.scaleLinear();
@@ -103,6 +122,7 @@ export class LineChartComponent implements OnInit {
 
     drawChart() {
         let d3 = this.d3;
+        let _this = this;
         let margin = this.margin;
         let data = this.data;
         let g = this.g;
@@ -135,7 +155,7 @@ export class LineChartComponent implements OnInit {
         y.range([height, 0]);
         
         var line = d3.line<LineChartData>()
-            // .curve(d3.curveBasis)
+            //.curve(d3.curveBasis)
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.value); });
 
@@ -145,12 +165,17 @@ export class LineChartComponent implements OnInit {
             .y0(height)
             .y1(function(d) { return y(d.value); });
             
-        x.domain(d3.extent(data, function(d) { return d.date; }));
+        x.domain(d3.extent(data, function(d) { return d.date;  }));
         y.domain([0, d3.max(data, function(d) { return d.value; })]);
     
         g.select(".axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(this.x));
+            .call(d3.axisBottom(this.x).tickFormat(function(d) { return _this.multiFormat(d) }))
+            .selectAll("text")	
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)");
 
         g.select(".axis--y")
             .call(d3.axisLeft(this.y).ticks(6).tickFormat(function(d) { return d.toString() }))
@@ -200,7 +225,10 @@ export class LineChartComponent implements OnInit {
             .attr("class", "circle")
             .attr("r", 6);
     
-        focus.append("rect")
+        var legendContainer = focus.append("g")
+             .attr("class", "legend-container");
+
+        legendContainer.append("rect")
             .attr("class", "legend-back")
             .attr("width", 68)
             .attr("height", 35)
@@ -208,16 +236,15 @@ export class LineChartComponent implements OnInit {
             .attr("y", -10)
             .attr("rx", 5)
             .attr("ry", 5);
-        focus.append("text")
+        legendContainer.append("text")
             .attr("class", "legend-date")
             .attr("x", 12)
             .attr("dy", ".31em");
-        focus.append("text")
+        legendContainer.append("text")
             .attr("class", "legend-amount")
             .attr("x", 12)
             .attr("dy", "1.5em");
     
-        var _this = this;
         this.svg.append("rect")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .attr("class", "overlay")
@@ -233,7 +260,10 @@ export class LineChartComponent implements OnInit {
                 var d0 = data[i - 1];
                 var d1 = data[i];
                 var d = x0.valueOf() - d0.date.valueOf() > d1.date.valueOf() - x0.valueOf() ? d1 : d0;
+
+                var legendOffset = width - x(d.date) < 60 ? -84 : 0;
                 focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+                focus.select(".legend-container").attr("transform", "translate(" + legendOffset + ")");
                 focus.select(".legend-date").text(function() { return d.date.toLocaleDateString(); });
                 focus.select(".legend-amount").text(function() { return d.value + " " + _this.currency; });
                 focus.select(".x-hover-line").attr("y2", height - y(d.value));
@@ -241,47 +271,21 @@ export class LineChartComponent implements OnInit {
             });
     }
 
-    // update(data) {
-    //     this.setSize(data);
-    //     this.drawChart(data, "AED");
-    // }
+    private clear() {
+        this.svg.select("g").remove();
+        this.initialized = false;
+    }
 
-    // setReSizeEvent() {
-    //     var resizeTimer;
-    //     var interval = Math.floor(1000 / 60 * 10);
-         
-    //     window.addEventListener('resize', function (event) {
-    //         if (resizeTimer !== false) {
-    //             clearTimeout(resizeTimer);
-    //         }
-    //         resizeTimer = setTimeout(function () {
-    //             console.log('dd');
-    //             this.drawChart()
-    //         }, interval);
-    //     });
-    // }
-
-    // setSize(data) {
-    //     width = document.querySelector("#graph").clientWidth
-    //     height = document.querySelector("#graph").clientHeight
-    
-    //     margin = {top:40, left:60, bottom:40, right:60 }
-        
-    //     chartWidth = width - (margin.left+margin.right)
-    //     chartHeight = height - (margin.top+margin.bottom)
-        
-    //     svg.attr("width", width).attr("height", height)
-    //     axisLayer.attr("width", width).attr("height", height)
-        
-    //     chartLayer
-    //         .attr("width", chartWidth)
-    //         .attr("height", chartHeight)
-    //         .attr("transform", "translate("+[margin.left, margin.top]+")")
-            
-    //     xScale.domain([new Date("2016/1/1"), new Date("2016/4/1")]).range([0, chartWidth])
-    //     yScale.domain([500, d3.max(data, function(d){ return d.value})]).range([chartHeight, 0])
-            
-    // }
+    // Define filter conditions
+    private multiFormat(date) {
+        return (this.d3.timeSecond(date) < date ? this.formatMillisecond
+        : this.d3.timeMinute(date) < date ? this.formatSecond
+        : this.d3.timeHour(date) < date ? this.formatMinute
+        : this.d3.timeDay(date) < date ? this.formatHour
+        : this.d3.timeMonth(date) < date ? (this.d3.timeWeek(date) < date ? this.formatDay : this.formatWeek)
+        : this.d3.timeYear(date) < date ? this.formatMonth
+        : this.formatYear)(date);
+    }
 
     groupSameDay(data: LineChartData[]): LineChartData[] {
         if (data && data.length > 0) {

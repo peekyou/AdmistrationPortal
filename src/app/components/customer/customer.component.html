@@ -15,8 +15,8 @@
             <span *ngIf="!loading">{{ 'CUSTOMERS.COUNT' | translate:{count: customersCount} }}</span>
         </div>
     </div>
-    <customer-search (onSearch)="updateCustomers($event)"></customer-search>
+    <customer-search (onSearch)="updateCustomers($event)" [itemsPerPage]="20"></customer-search>
     <app-customer-table [customers]="customers" [sortable]="true" [filterable]="false" 
-        title="{{ 'TOOLBAR.CUSTOMERS' | translate }}">
+        title="{{ 'TOOLBAR.CUSTOMERS' | translate }}" [itemsPerPage]="20">
     </app-customer-table>
 </div>

@@ -2,10 +2,22 @@
     display: block;
 }
 
+@media (max-width: 767.98px) {
+    .email-container {
+        width: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .email-container {
+        width: 55%;
+    }
+}
+
 .email-container {    
-    width: 55%;
     text-align: center;
     max-width: 650px;
+    margin-top: 5rem;
     
     .card {
         padding-bottom: 1em;

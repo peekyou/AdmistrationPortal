@@ -12,7 +12,7 @@ import { DeleteModal } from '../../../../core/shared/modals/delete.modal';
     templateUrl: './current-points.component.html'
 })
 export class CustomerCurrentPointsComponent {
-    limitDeletionDate = new Date(2018, 6 ,1);
+    limitDeletionDate = new Date(2018, 6 , 1);
     
     constructor(
         private service: CustomerService,
@@ -40,5 +40,9 @@ export class CustomerCurrentPointsComponent {
                 },
                 err => { console.log(err); }
             );
+    }
+
+    parseDate(date: string) {
+        return new Date(date);
     }
 }

@@ -23,7 +23,6 @@ export class DonutChartComponent implements OnInit {
     set data(data: PieChartData) {
         this._data = data;
         if (!this.initialized) {
-            this.initialized = true;
             this.initChart(this.svgClass);
         }
         this.drawChart(); 
@@ -35,20 +34,19 @@ export class DonutChartComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-        // this.drawChart();
-        
-        // var resizeTimer;
-        // var interval = Math.floor(1000 / 60 * 10);
+        var resizeTimer;
+        var interval = Math.floor(1000 / 60 * 10);
          
-        // window.addEventListener('resize', function (event) {
-        //     if (resizeTimer !== false) {
-        //         clearTimeout(resizeTimer);
-        //     }
-        //     resizeTimer = setTimeout(function () {
-        //         console.log('dd');
-        //         this.drawChart()
-        //     }, interval);
-        // });
+        window.addEventListener('resize', (event) => {
+            if (resizeTimer !== false) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(() => {
+                this.clear();
+                this.initChart(this.svgClass);
+                this.drawChart();
+            }, interval);
+        });
     }
 
     constructor(element: ElementRef, d3Service: D3Service) { 
@@ -60,6 +58,7 @@ export class DonutChartComponent implements OnInit {
     }
 
     private initChart(svgContainerClass: string) {
+        this.initialized = true;
         if (this.parentNativeElement != null) {
             let d3 = this.d3;
             // var width = 200;
@@ -84,6 +83,11 @@ export class DonutChartComponent implements OnInit {
     }
 
     private drawChart() {
+        this.svg.selectAll(".legend").remove().exit(); 
+        this.g.selectAll(".label").remove().exit(); 
+        this.g.selectAll(".path").remove().exit();
+        this.g.selectAll(".nodata").remove().exit();  
+
         if (!this.data) {
             return;
         }
@@ -113,11 +117,6 @@ export class DonutChartComponent implements OnInit {
         .sort(null)
         .value(function(d) { return d.count; })
         .padAngle(.03);
-
-        this.svg.selectAll(".legend").remove().exit(); 
-        this.g.selectAll(".label").remove().exit(); 
-        this.g.selectAll(".path").remove().exit();
-        this.g.selectAll(".nodata").remove().exit();    
 
         if (!this.data.details || this.data.details.length == 0) {
             this.g.append("text")
@@ -234,5 +233,10 @@ export class DonutChartComponent implements OnInit {
         tooltip.transition()
             .duration(500)
             .style("opacity", 0); 
+    }
+
+    private clear() {
+        this.svg.select("g").remove();
+        this.initialized = false;
     }
 }

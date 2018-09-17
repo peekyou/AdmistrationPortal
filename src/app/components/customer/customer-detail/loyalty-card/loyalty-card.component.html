@@ -5,16 +5,16 @@
 <div class="card-body text-align-center" *ngIf="c.customer">
     <div *ngIf="c.customer.discountAmount == null || useDiscountLater" class="entry-form">
         <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
-            <label for="amount">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
+            <label for="amount" class="col-12">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
             <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;"
                 placeholder="{{ 'COMMON.AMOUNT' | translate }}" [(ngModel)]="newEntryAmount" #amount="ngModel" required>
             <app-submit-button value="{{ 'CUSTOMERS.SAVE_ENTRY_BUTTON' | translate }}" 
-                loadingValue="{{ 'COMMON.LOADING' | translate }}" 
+                loadingValue="{{ 'COMMON.LOADING' | translate }}"
                 [form]="entryF.form" [subscription]="saveEntrySubscription">
             </app-submit-button>
         </form>
     </div>
-    <div *ngIf="c.customer.discountAmount != null && !useDiscountLater" class="entry-form">
+    <div *ngIf="c.customer.discountAmount != null && !useDiscountLater">
         <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ c.customer.discountAmount }} {{ currency }}</div>
         <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
             <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 

@@ -10,6 +10,12 @@
     display: inline-block;
 }
 
+@media (max-width: 767px) {
+    .entry-form .form-inline {
+        display: flex;
+    }
+}
+
 h5 {
     font-size: 1.3rem;
     height: 52px;

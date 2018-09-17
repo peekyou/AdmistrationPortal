@@ -6,7 +6,7 @@
         <div class="card-body">
             <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
             <div class="row" *ngIf="smsPack">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                     <div>
                         <div class="cyan bold lead">{{ 'SMS_PACKS.STOCK' | translate }}</div>
                         <app-circle-progress
@@ -48,7 +48,7 @@
                     </p> -->
                     <!-- <button type="button" class="btn btn-success btn-lg" (click)="openModal()">Buy!</button>           -->
                 </div>
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                     <p class="lead theme-color bold">{{ 'SMS_PACKS.NEW_STOCK' | translate }}</p>                                            
                     <app-circle-progress 
                         subtitle="{{ 'SMS_PACKS.SMS' | translate }}"

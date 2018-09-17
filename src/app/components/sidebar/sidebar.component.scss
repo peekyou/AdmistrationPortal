@@ -2,31 +2,65 @@
 @import '../../../styles/_variables';
 
 :host {
-    display: block;
+    // display: block;
+    // position: fixed;
+    // left: 0;
+    // bottom: 0;
+    // width: $sidebar-width;
+    // z-index: 999;
+}
+
+@media (max-width: 767.98px) {
+    #sidebar {
+        top: 48px;
+        
+        .logo {    
+            height: 41px;
+            margin: 1.2rem 0;
+            text-align: center;
+
+            img {
+                max-height: 45px;
+                max-width: 75px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #sidebar {        
+        top: 0;
+
+        .logo {    
+            height: 82px;
+            margin: 2rem 0;
+            text-align: center;
+
+            img {
+                max-height: 90px;
+                max-width: 150px;
+            }
+        }
+    }
+}
+
+.navbar-toggler {
     position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: $sidebar-width;
+    color: #fff;
+    top: 10px;
+    z-index: 1000;
 }
 
 #sidebar {
-    z-index: 1000;
+    z-index: 3000;
     height: calc(100vh - 4rem);
     background-color: #303030;
     overflow-y: auto;
     height: 100%;
-
-    .logo {    
-        height: 82px;
-        margin: 2rem 0;
-        text-align: center;
-
-        img {
-            max-height: 90px;
-            max-width: 150px;
-        }
-    }
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: $sidebar-width;
 }
 
 #sidebar .list-group-item {
@@ -74,35 +108,6 @@
 /* level 3*/
 #sidebar .list-group .sidebar-collapse > .sidebar-collapse > .sidebar-collapse .list-group-item {
   padding-left: 40px;
-}
-
-@media (max-width: 576px) {
-    /* overlay sub levels on small screens */
-    #sidebar {
-        position: sticky !important;
-    }
-
-    #sidebar .list-group .sidebar-collapse.in, #sidebar .list-group .collapsing {
-        position: absolute;
-        z-index: 1;
-        width: 190px;
-    }
-    #sidebar .list-group .list-group-item {
-        text-align: center;
-        padding-top: .75rem;
-        padding-bottom: .75rem;
-        padding-left: .5rem;
-        padding-right: 2rem;
-
-        span {
-            display: none;
-        }
-    }
-    /* hide caret icons of top level when collapsed */
-    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
-    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
-        display:none;
-    }
 }
 
 a.active {

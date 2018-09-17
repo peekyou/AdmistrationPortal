@@ -5,9 +5,28 @@
     height: 3.5em;
     position: fixed;
     top: 0;
-    left: $sidebar-width;
     right: 0;
     z-index: 999;
+}
+
+@media (max-width: 767.98px) {
+    :host {
+        left: 0;
+    }
+
+    .date-filter {
+        margin-left: 35px;
+    }
+}
+
+@media (min-width: 768px) {
+    :host {        
+        left: $sidebar-width;
+    }
+
+    .username {
+        margin-right: 1.5em;
+    }
 }
 
 .navbar {
@@ -15,10 +34,6 @@
 
     a, i {
         color: white;
-    }
-
-    .username {
-        margin-right: 1.5em;
     }
 
     input {

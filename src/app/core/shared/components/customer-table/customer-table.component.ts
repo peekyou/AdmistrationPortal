@@ -21,7 +21,6 @@ import { TableSearch, FieldSort, FieldFilter, SortType } from '../../../models/t
 })
 export class CustomerTableComponent implements OnInit {
     loading = false;
-    searchTerm: string;
     sortTypes: SortType[] = [SortType.None, SortType.None, SortType.None, SortType.None, SortType.None, SortType.None];  
     currentPage: number = 1;
     sorts: FieldSort[] = [];
@@ -32,13 +31,19 @@ export class CustomerTableComponent implements OnInit {
     @Input() small: boolean;
     @Input() sortable: boolean;
     @Input() filterable: boolean;
-    @Input() itemsPerPage: number = 20;
+    @Input() itemsPerPage: number;
     // @Output() onPageChanged: EventEmitter<number> = new EventEmitter();
     
     @Input() 
     set customers(customers: PagingResponse<Customer> | Customer[]) {
         if (customers) {
             this._customers = customers;
+            if (this.showPagination()) {
+                this.currentPage = (<PagingResponse<Customer>>this._customers).paging.pageNumber;
+            }
+        }
+        else {
+            this._customers = [];
         }
     }
 
@@ -118,6 +123,7 @@ export class CustomerTableComponent implements OnInit {
         this.service.get({
             pageNumber: this.currentPage,
             itemsCount: this.itemsPerPage,
+            searchTerm: this.service.searchTerm,
             sorts: this.sorts
         })
         .subscribe(customers => {
@@ -133,6 +139,7 @@ export class CustomerTableComponent implements OnInit {
         this.service.get({
             pageNumber: page,
             itemsCount: this.itemsPerPage,
+            searchTerm: this.service.searchTerm,
             sorts: this.sorts
         })
         .subscribe(customers => {

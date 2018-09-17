@@ -20,6 +20,7 @@ import { NotificationService } from '../../core/shared/components/notifcations/n
 })
 export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     loading = false;
+    loadingDesign = false;
     scrollOffset: string = "0px";
     ckeditorConfig: object;
     design: MerchantDesign = new MerchantDesign();
@@ -104,11 +105,18 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     public ngOnInit() {
         this.getPages();
 
+        this.loadingDesign = true;
         this.service
             .getDesign()
             .subscribe(
-                res => this.design = res || new MerchantDesign(),
-                err => { console.log(err); }
+                res => {
+                    this.design = res || new MerchantDesign();
+                    this.loadingDesign = false;
+                },
+                err => { 
+                    this.loadingDesign = false;
+                    console.log(err); 
+                }
         );
 
         this.service
@@ -136,7 +144,10 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                     }
                     this.loading = false;
                 },
-                err => { console.log(err); }
+                err => { 
+                    console.log(err);
+                    this.loading = false;
+                }
             );
     }
 

@@ -36,7 +36,7 @@ export class GroupBarChartComponent implements OnInit {
     set data(data: ChartData[]) {
         this._data = data;
         if (!data) {
-            this.clear();
+            this.clearData();
         }
         else if (this.initialized) {
             this.setDataKeys();
@@ -49,6 +49,19 @@ export class GroupBarChartComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
+        var resizeTimer;
+        var interval = Math.floor(1000 / 60 * 10);
+         
+        window.addEventListener('resize', (event) => {
+            if (resizeTimer !== false) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(() => {
+                this.clear();
+                this.initChart();
+                this.drawChart();
+            }, interval);
+        });
     }
 
     constructor(element: ElementRef, d3Service: D3Service, user: UserService, private translation: TranslationService) {
@@ -274,7 +287,7 @@ export class GroupBarChartComponent implements OnInit {
         }
     }
 
-    clear() {
+    clearData() {
         if (this.g) {
             this.g.selectAll(".bars")
                 .remove()
@@ -290,6 +303,11 @@ export class GroupBarChartComponent implements OnInit {
 
     isGroupedChart(): boolean {
         return this._data && this._data.length > 0 && this._data[0] instanceof GroupBarChartData;
+    }
+
+    private clear() {
+        this.svg.select("g").remove();
+        this.initialized = false;
     }
 
     private cutWords(s: string) {

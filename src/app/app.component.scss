@@ -20,10 +20,6 @@ html, body {
     margin-top: 3.5em;
 }
 
-.sidebar-margin {
-    margin-left: $sidebar-width;        
-}
-
 .container {
     margin-bottom: 2rem;
 }
@@ -209,8 +205,34 @@ app-notifications {
 }
 
 // General Responsive Classes
-.only-mobile {
-  display: none;
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+    .not-mobile {
+        display: none !important;
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+    .not-tablet {
+        display: none !important;
+    }
+}
+
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+    .only-mobile {
+        display: none !important;
+    }
+
+    #sidebar {
+        display: block !important;
+    }
+    
+    .sidebar-margin {
+        margin-left: $sidebar-width;        
+    }
 }
 
 app-login, app-set-password, app-forget-password {

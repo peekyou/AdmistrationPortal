@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { ContentEditorComponent } from './components/content-editor/content-editor.component';
-import { AboutComponent } from './components/about';
 import { NoContentComponent } from './components/no-content';
 
 import { DataResolver } from './app.resolver';

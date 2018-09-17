@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input, HostListener, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from '../user/user.service';
 import { Permissions } from '../../core/helpers/permissions';
+import { SearchService } from '../../core/services/search.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -21,10 +22,22 @@ export class SidebarComponent {
     public userManagementPermission = Permissions.Management;
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
+    isNavbarCollapsed = true;
+
+    @HostListener('document:click', ['$event.path'])
+    onClickOutside($event: Array<any>) {
+        const elementRefInPath = $event.find(node => node === this._element.nativeElement);
+        if (!elementRefInPath) {
+            this.isNavbarCollapsed = true;
+        }
+    }
 
     constructor(
-        public user: UserService, public translate: TranslateService) { 
-        }
+        private _element: ElementRef,
+        public user: UserService,
+        public translate: TranslateService,
+        public searchService: SearchService) { 
+    }
 
     showMenu(): boolean {
         return false;

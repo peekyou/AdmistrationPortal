@@ -72,7 +72,7 @@
                         </div>
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="{{ 'COMMON.DETAILS' | translate }}" *ngIf="user.showCustomControl(1)">
+                <ngb-tab title="{{ 'COMMON.FILTERS' | translate }}" *ngIf="user.showCustomControl(1)">
                     <ng-template ngbTabContent>
                         <div class="form-group" *ngIf="user.showCustomControl(1, form, true)">
                             <app-dynamic-field-search [field]="user.customerCustomFields[0]" [formControl]="customField1">

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { UserService } from '../user/user.service';
-import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData } from './customer';
+import { Customer, CustomerExpense, CustomerFilter, CustomerPoint, PurchaseData, CustomerExpenseSave } from './customer';
 import { PagingResponse } from '../../core/models/paging';
 import { TableSearch } from '../../core/models/tableSearch';
 import { Lookup } from '../../core/models/lookup';
@@ -84,8 +84,8 @@ export class CustomerService {
         return this.http.put(this.api + '/' + customer.id, customer);
     }
 
-    saveEntry(customerId: string, amount: number): Observable<Customer> {
-        return this.http.post(this.api + '/' + customerId + '/entry', amount);
+    saveExpense(expense: CustomerExpenseSave): Observable<Customer> {
+        return this.http.post(this.api + '/expense', expense);
     }
 
     giveDiscount(customerId: string): Observable<Customer> {

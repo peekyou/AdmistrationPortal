@@ -40,10 +40,18 @@ export class PurchaseData {
 export class CustomerExpense {
     id?: string;
     date: Date;
+    localDate?: string;
     amount: number;
     correspondingPoints?: number;
     redeemedPoints?: number;
     isRedeemed?: boolean;
+}
+
+export class CustomerExpenseSave {
+    customerId: string;
+    date: Date;
+    localDate: string;
+    amount: number;
 }
 
 export class CustomerPoint {

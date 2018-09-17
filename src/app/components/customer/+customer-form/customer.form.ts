@@ -11,6 +11,7 @@ import { Product } from '../../bo-management/product/product';
 import { Lookup } from '../../../core/models/lookup';
 import { CustomerCustomFields } from '../../../core/models/customerCustomFields';
 import { ngbDateStructToDate, validateAllFormFields } from '../../../core/helpers/utils';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-customer-form',
@@ -37,8 +38,7 @@ export class CustomerFormComponent implements OnInit {
         private location: Location,
         private productService: ProductService,
         config: NgbDatepickerConfig) {
-            // this.showCurrentPoints = service.config.GroupId == 'B759313D190F4873B8F452F5F7498669';
-            this.showCurrentPoints = true;
+            this.showCurrentPoints = service.config.GroupId == 'B759313D190F4873B8F452F5F7498669';
             var currentDate = new Date();
             config.minDate = {year: 1900, month: 1, day: 1};
             config.maxDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 2, day: currentDate.getDate() + 1};
@@ -139,7 +139,11 @@ export class CustomerFormComponent implements OnInit {
             };
     
             if (!this.isEdit && this.form.value.amount) {
-                customer.expenses = [{ date: new Date(), amount: this.form.value.amount }];
+                customer.expenses = [{
+                    date: new Date(),
+                    localDate: moment().format("DD-MM-YYYY HH:mm:ss Z"),
+                    amount: this.form.value.amount 
+                }];
             }
             this.onSubmit.emit(customer);
         }

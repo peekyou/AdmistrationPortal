@@ -40,7 +40,7 @@
     <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>
 
     <div class="row">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-12 col-lg-5">
             <div class="card">
                 <h6 class="card-header">{{ 'PRODUCTS.ADD' | translate }}</h6>                
                 <div class="card-body">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-7" *ngIf="products && products.paging.itemsCount > 0">
+        <div class="col-12 col-lg-7" *ngIf="products && products.paging.itemsCount > 0">
             <div class="card">
                 <h6 class="card-header">{{ 'PRODUCTS.OUR' | translate }}</h6>                
                 <div class="card-body">

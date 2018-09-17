@@ -28,11 +28,11 @@ export class HeaderComponent {
     public billsPermission = Permissions.Bills;
     public statisticsPermission = Permissions.Statistics;
     form: FormGroup;
-
+    
     constructor(
         @Inject(APP_CONFIG) config: AppConfig,
         private fb: FormBuilder,
-        private searchService: SearchService,
+        public searchService: SearchService,
         public user: UserService, 
         public translate: TranslateService,
         public router: Router) { 
@@ -52,8 +52,14 @@ export class HeaderComponent {
         var to: Date = null;
 
         if (param != null && param !== 'all') {
-            from = moment().startOf(<any>param).toDate();
-            to = moment().utc().endOf(<any>param).toDate();
+            if (param === 'day') {
+                from = moment().startOf(<any>param).toDate();
+                to = moment().endOf(<any>param).toDate();
+            }
+            else {
+                from = moment().subtract(1, <any>param).startOf('day').toDate();
+                to = moment().endOf('day').toDate();
+            } 
         }
         else if (param !== 'all') {
             from = ngbDateStructToDate(this.dateFrom.value);
@@ -64,7 +70,6 @@ export class HeaderComponent {
                 to.setUTCSeconds(59);
             }
         }
-
         this.searchService.searchFilter = new SearchFilter(from, to);
     }
     

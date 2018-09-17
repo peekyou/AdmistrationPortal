@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import * as moment from 'moment';
 
 import { Customer, CustomerExpense } from '../../customer';
 import { CustomerService } from '../../customer.service';
@@ -43,7 +44,12 @@ export class CustomerLoyaltyCardComponent implements OnInit {
 
     saveEntry() {
         this.saveEntrySubscription = this.service
-            .saveEntry(this.c.customer.id, this.newEntryAmount)
+            .saveExpense({
+                customerId: this.c.customer.id,
+                amount: this.newEntryAmount,
+                date: new Date(),
+                localDate: moment().format("DD-MM-YYYY HH:mm:ss Z"),
+            })
             .subscribe(
                 r => {
                     this.c.customer = r;

@@ -2,6 +2,7 @@
     <div class="row content-editor">
         <div class="col">
             <div class="card">
+                <ngx-loading [show]="loadingDesign"></ngx-loading>
                 <h6 class="card-header">{{ 'CONTENT.DESIGN' | translate }}</h6>                    
                 <div class="card-body">
                     <form class="form" #designF="ngForm" (ngSubmit)="designF.valid && saveDesign()" novalidate>                                
@@ -72,12 +73,11 @@
                                                 [subscription]="saveDesignSubscription">
                             </app-submit-button>
                         </div>
-                        <!-- <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
-                        </app-alert> -->
                     </form>
                 </div>
             </div>
             <div class="card">
+                <ngx-loading [show]="loading"></ngx-loading>                    
                 <h6 class="card-header">{{ 'CONTENT.SHOP' | translate }}</h6>                    
                 <div class="card-body">
                     <div dnd-sortable-container [sortableData]="customPages">
@@ -125,6 +125,7 @@
                 </div>
             </div>
             <div class="card">
+                <ngx-loading [show]="loading"></ngx-loading>
                 <h6 class="card-header">{{ 'CONTENT.CONTACT' | translate }}</h6>                    
                 <div class="card-body">
                     <form *ngIf="contactPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(contactPage)" novalidate>
@@ -181,6 +182,7 @@
                 </div>
             </div>
             <div class="card">
+                <ngx-loading [show]="loading"></ngx-loading>
                 <h6 class="card-header">{{ 'CONTENT.LOCATION' | translate }}</h6>                    
                 <div class="card-body">
                     <form *ngIf="locationPage" class="form" #f="ngForm" (ngSubmit)="f.valid && savePage(locationPage)" novalidate>
@@ -195,11 +197,8 @@
                 </div>
             </div>                    
         </div>
-        <div class="col">
+        <div class="col not-mobile">
             <app-mobile-preview #mobile [style.top]="scrollOffset"></app-mobile-preview>
         </div>
     </div>
-</div>
-<div>
-    <ngx-loading [show]="loading"></ngx-loading>
 </div>

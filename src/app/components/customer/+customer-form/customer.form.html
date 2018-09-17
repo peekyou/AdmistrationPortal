@@ -1,7 +1,7 @@
 <div *ngIf="form" [ngClass]="{'small-height': modal}">
     <form [formGroup]="form" class="form" novalidate>
         <div class="row">
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <div class="form-group">
                     <label for="gender">{{ 'COMMON.GENDER' | translate }}*</label>
                     <br />                        
@@ -94,7 +94,7 @@
                     </app-dynamic-field>
                 </div>
             </div>
-            <div class="col-7">
+            <div class="col-12 col-md-7">
                 <div class="card card-languages">
                     <div class="card-body">
                         <label for="favoriteProducts">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</label>

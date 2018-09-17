@@ -1,69 +1,72 @@
-<div id="sidebar" class="sidebar-collapse in" *ngIf="user.isAuthenticated()">
-        <div class="logo">
-            <img src="icon/sidebar-icon.png"/>
+<button class="navbar-toggler hidden-sm-up only-mobile" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+    &#9776;
+</button>
+<div id="sidebar" [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-toggleable-xs" *ngIf="user.isAuthenticated()">
+    <div class="logo">
+        <img src="icon/sidebar-icon.png"/>
+    </div>
+    <div class="list-group panel" (click)="isNavbarCollapsed = !isNavbarCollapsed">
+        <div *ngIf="user.hasPermission(statisticsPermission)">
+            <a class="list-group-item" routerLink="dashboard" routerLinkActive="active">
+                <i *ngIf="user.getPackage() >= 3" class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>
+                <i *ngIf="user.getPackage() < 3" class="fa fa-lock fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.STATISTICS' | translate }}</span>
+            </a>
         </div>
-        <div class="list-group panel">
-           <div *ngIf="user.hasPermission(statisticsPermission)">
-                <a class="list-group-item" routerLink="dashboard" routerLinkActive="active">
-                    <i *ngIf="user.getPackage() >= 3" class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>
-                    <i *ngIf="user.getPackage() < 3" class="fa fa-lock fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.STATISTICS' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(customersPermission)">
-                <a class="list-group-item" routerLink="customers" routerLinkActive="active">
-                    <i class="fa fa-users fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.CUSTOMERS' | translate }}</span>
-                </a>
-            </div>
+        <div *ngIf="user.hasPermission(customersPermission)">
+            <a class="list-group-item" routerLink="customers" routerLinkActive="active">
+                <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.CUSTOMERS' | translate }}</span>
+            </a>
+        </div>
 
-            <div *ngIf="user.hasPermission(contentPermission)">
-                <a class="list-group-item" routerLink="content" routerLinkActive="active">
-                    <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.CONTENT' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(reviewsPermission)">
-                <a class="list-group-item" data-parent="#sidebar"
-                    routerLink="reviews" routerLinkActive="active">
-                    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.REVIEWS' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(promotionsPermission)">
-                <a class="list-group-item" data-parent="#sidebar"
-                    routerLink="promotions" routerLinkActive="active">
-                    <i *ngIf="user.getPackage() >= 2" class="fa fa-comment fa-fw" aria-hidden="true"></i>
-                    <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
-                    <span>&nbsp;{{ 'TOOLBAR.SMS_CAMPAIGNS' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(emailPermission)">
-                <a class="list-group-item" data-parent="#sidebar"
-                    routerLink="email" routerLinkActive="active">
-                    <i *ngIf="user.getPackage() >= 2" class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
-                    <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
-                    <span>&nbsp;{{ 'TOOLBAR.EMAIL_CAMPAIGNS' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(smsPermission)">
-                <a class="list-group-item" routerLink="sms" routerLinkActive="active">
-                    <i *ngIf="user.getPackage() >= 2" class="fa fa-envelope fa-fw" aria-hidden="true"></i>
-                    <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
-                    <span>&nbsp;{{ 'TOOLBAR.SMS_PACKS' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(userManagementPermission)">
-                <a class="list-group-item" routerLink="management" routerLinkActive="active">
-                    <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.USER_MANAGEMENT' | translate }}</span>
-                </a>
-            </div>
-            <div *ngIf="user.hasPermission(billsPermission)">
-                <a class="list-group-item" routerLink="billing" routerLinkActive="active">
-                    <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
-                    <span>&nbsp;{{ 'TOOLBAR.BILLS' | translate }}</span>
-                </a>
-            </div>
+        <div *ngIf="user.hasPermission(contentPermission)">
+            <a class="list-group-item" routerLink="content" routerLinkActive="active">
+                <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.CONTENT' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(reviewsPermission)">
+            <a class="list-group-item"
+                routerLink="reviews" routerLinkActive="active">
+                <i class="fa fa-star fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.REVIEWS' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(promotionsPermission)">
+            <a class="list-group-item"
+                routerLink="promotions" routerLinkActive="active">
+                <i *ngIf="user.getPackage() >= 2" class="fa fa-comment fa-fw" aria-hidden="true"></i>
+                <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
+                <span>&nbsp;{{ 'TOOLBAR.SMS_CAMPAIGNS' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(emailPermission)">
+            <a class="list-group-item"
+                routerLink="email" routerLinkActive="active">
+                <i *ngIf="user.getPackage() >= 2" class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
+                <span>&nbsp;{{ 'TOOLBAR.EMAIL_CAMPAIGNS' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(smsPermission)">
+            <a class="list-group-item" routerLink="sms" routerLinkActive="active">
+                <i *ngIf="user.getPackage() >= 2" class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                <i *ngIf="user.getPackage() < 2" class="fa fa-lock fa-fw" aria-hidden="true"></i>                    
+                <span>&nbsp;{{ 'TOOLBAR.SMS_PACKS' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(userManagementPermission)">
+            <a class="list-group-item" routerLink="management" routerLinkActive="active">
+                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.USER_MANAGEMENT' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="user.hasPermission(billsPermission)">
+            <a class="list-group-item" routerLink="billing" routerLinkActive="active">
+                <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
+                <span>&nbsp;{{ 'TOOLBAR.BILLS' | translate }}</span>
+            </a>
         </div>
     </div>
+</div>

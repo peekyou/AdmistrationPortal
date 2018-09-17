@@ -22,7 +22,6 @@ import { ENV_PROVIDERS } from './environment';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { APP_PROVIDERS } from './app.providers';
-import { AppState, InternalStateType } from './app.service';
 import { HeaderModule } from './components/header';
 import { SidebarModule } from './components/sidebar';
 import { UserModule } from './components/user';
@@ -36,7 +35,6 @@ import { BillingModule } from './components/billing';
 import { BackOfficeManagementModule } from './components/bo-management'
 import { MobilePreviewModule } from './components/mobile-preview';
 import { StatsModule } from './components/stats';
-import { AboutComponent } from './components/about';
 import { NoContentComponent } from './components/no-content';
 import { routes } from './app.routes';
 
@@ -46,8 +44,7 @@ import '../styles/styles.scss';
 const PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...APP_PROVIDERS,
-    D3Service,
-    AppState
+    D3Service
 ];
 
 // AoT requires an exported function for factories
@@ -62,7 +59,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        AboutComponent,
         NoContentComponent
     ],
     /**

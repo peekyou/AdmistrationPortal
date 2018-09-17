@@ -1,17 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user.isAuthenticated()">
-    <form *ngIf="router.url === '/dashboard' && user.getPackage() >= 3" class="form-inline" [formGroup]="form" 
+<div class="navbar navbar-expand" *ngIf="user.isAuthenticated()">
+    <form *ngIf="router.url === '/dashboard' && user.getPackage() >= 3" class="form-inline date-filter" [formGroup]="form" 
         (ngSubmit)="form.valid && submit()" novalidate>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary today" (click)="submit('day')">
                 {{ 'TOOLBAR.TODAY' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary week" (click)="submit('week')">
+            <button type="button" class="btn btn-secondary week" (click)="submit('weeks')">
                 {{ 'TOOLBAR.WEEK' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary month" (click)="submit('month')">
+            <button type="button" class="btn btn-secondary month" (click)="submit('months')">
                     {{ 'TOOLBAR.MONTH' | translate }}
             </button>
-            <button type="button" class="btn btn-secondary year" (click)="submit('year')">
+            <button type="button" class="btn btn-secondary year" (click)="submit('years')">
                     {{ 'TOOLBAR.YEAR' | translate }}
             </button>
             <button type="button" class="btn btn-secondary all" (click)="submit('all')">
@@ -19,7 +19,7 @@
             </button>
         </div>    
     
-        <div class="form-group">
+        <div class="form-group not-tablet">
             <label for="from" class="form-control-sm">&nbsp;</label>
             <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" 
                     formControlName="dateFrom" id="from" ngbDatepicker #from="ngbDatepicker"
@@ -31,7 +31,7 @@
                     (click)="to.toggle()">
         </div>
         
-       <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" 
+       <app-submit-button [form]="form" value="{{ 'COMMON.SUBMIT' | translate }}" class="not-tablet"
             buttonClass="btn btn-secondary btn-sm" loadingValue="{{ 'COMMON.LOADING' | translate }}">
         </app-submit-button> 
     </form>
@@ -55,10 +55,11 @@
         </form> -->
     </div>
 
+    <div></div>
     <div *ngIf="user.isAuthenticated()" class="my-2 my-lg-0 username">
         <a (click)="showUserContainer = !showUserContainer">
-            <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i>&nbsp;{{ user.getUsername() }}
+            <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><span class="not-mobile">&nbsp;{{ user.getUsername() }}</span>
         </a>
     </div>
     <app-user-popover *ngIf="showUserContainer" (closeEvent)="showUserContainer = false"></app-user-popover>        
-</nav>
+</div>

@@ -48,7 +48,7 @@ export class CustomerNewModal {
             form.patchValue({
                 mobile: this.service.searchTerm
             });
-            this.service.searchTerm = null;
         }
+        this.service.searchTerm = null;
     }
  }

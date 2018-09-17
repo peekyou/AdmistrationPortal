@@ -9,7 +9,7 @@ import { SearchFilter } from '../models/searchFilter';
 export class SearchService {
     private _searchFilter: SearchFilter;
     private searchSubject: Subject<SearchFilter>;
-    searchFilter$: Observable<SearchFilter>;    
+    searchFilter$: Observable<SearchFilter>;
 
     constructor() { 
         this.searchSubject = new Subject<SearchFilter>();

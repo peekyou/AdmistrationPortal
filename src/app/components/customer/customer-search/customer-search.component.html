@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col col-md-9">
+    <div class="col-12 col-md-9 mb-2">
         <form class="form" (ngSubmit)="searchCustomer()" novalidate>
             <div class="input-group">
                 <input type="text" name="searchTerm" [(ngModel)]="searchTerm" class="form-control"
@@ -13,7 +13,7 @@
             </div>
         </form>
     </div>
-    <div class="col col-md-3">    
+    <div class="col-12 col-md-3 text-align-center">    
         <button class="btn btn-primary" (click)="openNewCustomerModal()">{{ 'CUSTOMERS.ADD' | translate }}</button>
     </div>
 </div>

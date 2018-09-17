@@ -41,7 +41,7 @@
                     <span *ngIf="showArea()">{{ 'COMMON.AREA' | translate }}</span>
                 </th>
                 <th scope="col" class="column-fav-products">{{ 'CUSTOMERS.FAVORITE_PRODUCTS' | translate }}</th>
-                <th scope="col" [ngClass]="{'sortable': sortable}" (click)="sort(5, ['TotalPoints'])">
+                <th scope="col" [ngClass]="{'sortable': sortable}" (click)="sort(5, ['ExpensesAmount'])">
                     <i class="fa fa-sort" *ngIf="sortable && sortTypes[5] == 1"></i>
                     <i class="fa fa-sort-desc" *ngIf="sortable && sortTypes[5] == 2"></i>
                     <i class="fa fa-sort-asc" *ngIf="sortable && sortTypes[5] == 3"></i>

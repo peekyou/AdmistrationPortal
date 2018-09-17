@@ -45,7 +45,8 @@ export class StatsComponent implements OnInit {
     customersHasApplicationCount: number;
     loadingCustomerHasApplicationCount: boolean = false;
     expenses: CustomerExpense[];
-    getExpensesSubscription: Subscription;
+    getExpensesSubscription: Subscription;    
+    loadingLineChart: boolean = false;
     reviewsAverage: ReviewsAverage;
     loadingReviewsAverage: boolean = false;
     
@@ -68,7 +69,7 @@ export class StatsComponent implements OnInit {
     ngOnInit() {
         if (this.user.getPackage() >= 3) {
             this.loadGeneralStats();
-            
+        
             this.loadingPies = true;
             this.translation.getMultiple(this.translationKeys, x => {
                 this.staticStrings = x;
@@ -81,7 +82,6 @@ export class StatsComponent implements OnInit {
 
     reload(searchFilter: SearchFilter) {
         this.loadGeneralStats(searchFilter);
-        this.loadingPies = true;
         this.loadSegmentationCharts(searchFilter);
         this.loadGroupedBarChart(searchFilter);
         this.getExpenses(searchFilter);
@@ -103,19 +103,21 @@ export class StatsComponent implements OnInit {
     }
 
     loadSegmentationCharts(searchFilter: SearchFilter = null) {
+        this.loadingPies = true;
+        this.genderPieChartData = this.agePieChartData = null;
         this.service.getSegmentationStatistics(searchFilter)
-        .subscribe(
-            stats => {
-                this.translateLabels(stats.genderSegmentation.details);
-                this.genderPieChartData = stats.genderSegmentation;
-                this.agePieChartData = stats.ageSegmentation;
-                this.loadingPies = false;
-            },
-            err => { 
-                console.log(err);
-                this.loadingPies = false; 
-            }
-        );
+            .subscribe(
+                stats => {
+                    this.translateLabels(stats.genderSegmentation.details);
+                    this.genderPieChartData = stats.genderSegmentation;
+                    this.agePieChartData = stats.ageSegmentation;
+                    this.loadingPies = false;
+                },
+                err => { 
+                    console.log(err);
+                    this.loadingPies = false; 
+                }
+            );
     }
 
     loadGroupedBarChart(searchFilter: SearchFilter = null) {
@@ -136,10 +138,15 @@ export class StatsComponent implements OnInit {
     }
 
     getExpenses(searchFilter: SearchFilter = null) {
+        this.loadingLineChart = true;
+        this.expenses = null;
         this.getExpensesSubscription = this.service
             .getExpenses(searchFilter)
             .subscribe(
-                res => { this.expenses = res },
+                res => { 
+                    this.expenses = res;
+                    this.loadingLineChart = false;
+                },
                 err => { console.log(err); }
             );
     }
@@ -158,6 +165,7 @@ export class StatsComponent implements OnInit {
         this.loadingBestCustomer = true;
         this.loadingCustomerHasApplicationCount = true;
         this.loadingReviewsAverage = true;
+        this.bestCustomers = null;
         this.customerService.getCount({ dateFilter: searchFilter })
             .subscribe(c => {
                 this.customersCount = c;
