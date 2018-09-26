@@ -16,15 +16,17 @@ import { Lookup } from '../../../../core/models/lookup';
 })
 export class PromotionFilterComponent implements OnInit {
     form: any;
+    infoForm: any;
     promotions: Promotion[];
     searchStr;
     nbRecipients: number;
     totalNbCustomers: number;
     anyCustomField = false;
+    promotionType: string = 'sms';
+    currentFilter: PromotionFilter;
     @Input() topLevelForm: FormGroup;
 
     private stepName: string = 'stepFilter';
-    private formGroup: FormGroup;
 
     constructor(
         private service: PromotionService, 
@@ -40,13 +42,16 @@ export class PromotionFilterComponent implements OnInit {
 
         this.getCities();
         this.getPromotions();
-        this.filterCustomers(null);
     }
         
     ngOnInit() {
+        this.infoForm = this.topLevelForm.controls['stepInfo'];
         this.form = this.topLevelForm.controls[this.stepName];
-        this.form.valueChanges.subscribe(data => {
-            this.filterCustomers(data);
+
+        this.form.valueChanges.subscribe(data => this.filterCustomers(data));
+        this.infoForm.controls['promotionType'].valueChanges.forEach(value => { 
+            this.promotionType = value;
+            this.filterCustomers(null);
         });
 
         this.translation.getMultiple([
@@ -98,9 +103,11 @@ export class PromotionFilterComponent implements OnInit {
     }
 
     filterCustomers(form: any) {
-        let filter = PromotionFilter.createFromForm(form);
+        if (form) {
+            this.currentFilter = PromotionFilter.createFromForm(form);
+        }
         this.service
-            .customerCount(filter).subscribe(c => {
+            .customerCount(this.currentFilter, this.promotionType).subscribe(c => {
                 this.nbRecipients = this.service.nbRecipients = c;
                 this.topLevelForm.get('stepInfo').get('nbRecipients').patchValue(c);
             },

@@ -109,7 +109,12 @@ export class PromotionInfoComponent implements OnInit {
         }
         return this.smsTemplate.format(name, this.smsSentence, percentageString, dateString);
     }
+
+    isSMSCampaign() {
+        return this.promotionType.value === 'sms';
+    }
     
+    get promotionType() { return this.form.get('promotionType'); }
     get name() { return this.form.get('name'); }
     get dateFrom() { return this.form.get('dateFrom'); }
     get dateTo() { return this.form.get('dateTo'); }

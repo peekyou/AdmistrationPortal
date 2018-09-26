@@ -13,6 +13,7 @@ export class Promotion {
     nbSmsSent?: number;
     nbRecipients?: number;
     filter?: PromotionFilter;
+    promotionType?: string;
 
     constructor() {
         this.filter = new PromotionFilter();

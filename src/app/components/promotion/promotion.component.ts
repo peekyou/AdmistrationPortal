@@ -43,6 +43,7 @@ export class PromotionComponent {
         // });
 
         var firstForm = this.fb.group({
+            promotionType: ['sms', Validators.required],
             name: ['', Validators.required],
             dateFrom: [dateToNgbDateStruct(new Date()), Validators.required],
             dateTo: [null, Validators.required],
@@ -88,6 +89,7 @@ export class PromotionComponent {
             createdDate: new Date(),
             details: promoInfo.details,
             name: promoInfo.name,
+            promotionType: promoInfo.promotionType,
             fromDate: ngbDateStructToDate(promoInfo.dateFrom),
             toDate: ngbDateStructToDate(promoInfo.dateTo),
             percentage: promoInfo.percentage,
@@ -100,7 +102,7 @@ export class PromotionComponent {
             .subscribe(
                 p => {
                     this.reload = true;
-                    this.reset();
+                    // this.reset();
                 },
                 err => { 
                     console.log(err);

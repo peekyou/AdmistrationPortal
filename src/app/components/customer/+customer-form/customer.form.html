@@ -101,7 +101,7 @@
                         <div formArrayName="favoriteProducts">
                             <div *ngFor="let favoriteProduct of form.controls.favoriteProducts.controls; let i = index">
                                 <div class="row language-control">
-                                    <app-autocomplete class="language-picker col-9" small="true"
+                                    <app-autocomplete class="language-picker col-9" small="true" [limit]="1000"
                                         [source]="products" [formControl]="favoriteProduct" openOnFocus="true">
                                     </app-autocomplete>
                                     <div class="action-btn col">

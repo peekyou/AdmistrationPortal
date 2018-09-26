@@ -82,3 +82,9 @@ export function clearFormArray(formArray: FormArray) {
         formArray.removeAt(0)
     }
 }
+
+export function uniqChars(str) {
+    return str.replace(/[A-Za-z](?=([A-Za-z]+))/g, function(c, s) {
+        return s.indexOf(c) + 1 ? '' : c;
+    });
+}

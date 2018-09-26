@@ -28,7 +28,7 @@ export class PromotionService {
         return this.http.post(this.api, promotion);
     }
 
-    customerCount(filter: PromotionFilter): Observable<number> {
-        return this.http.post(this.api + '/customers/count', filter);
+    customerCount(filter: PromotionFilter, promotionType: string): Observable<number> {
+        return this.http.post(this.api + '/' + promotionType + '/customers/count', filter);
     }
 }
