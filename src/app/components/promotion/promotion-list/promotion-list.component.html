@@ -10,12 +10,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let promotion of promotions.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: promotions?.paging?.totalCount }">
-                <th scope="row">
+                <th class="promotion-name" scope="row">
                     {{promotion?.name}}<br />
                     <small>{{ 'PROMOTIONS.SENT_ON' | translate }} <b>{{promotion?.createdDate | date:'dd-MM-yyyy'}}</b></small><br />
                     <small>{{ 'PROMOTIONS.VALID_UNTIL' | translate }} <b>{{promotion?.toDate | date:'dd-MM-yyyy'}}</b></small>
                 </th>
-                <td>{{promotion?.details}}</td>
+                <td class="promotion-details">{{promotion?.details}}</td>
                 <td class="text-align-center cyan bold">{{promotion?.nbRecipients}}</td>
                 <td class="text-align-center cyan bold">{{promotion?.nbSmsSent}}</td>
             </tr>

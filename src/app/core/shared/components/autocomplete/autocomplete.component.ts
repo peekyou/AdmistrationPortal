@@ -223,6 +223,12 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
         if (this._selectedValue && this._selectedValue.id && !this._selectedValue.name) {
             this._selectedValue = this.findLookupById(this._selectedValue.id);
         }
+
+        // Fires the validation again, because the control can be invalid while having a correct value
+        // In case the control is populated but the list of values is empty when Validate fires the first time
+        if (this._onChangeCallback) {
+            this._onChangeCallback(this._selectedValue);
+        }
     }
 
     onBlur() {

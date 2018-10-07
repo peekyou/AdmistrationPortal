@@ -80,7 +80,9 @@ export class PromotionInfoComponent implements OnInit {
         if (this.details.value == null) {
             this.details.patchValue('');
         }
-        return SmsCounter.count(this.details.value);
+        var counter = SmsCounter.count(this.details.value);
+        this.nbSmsPerCustomer.patchValue(counter.messages);
+        return counter;
     }
 
     smsQuotaValid() {
@@ -107,7 +109,7 @@ export class PromotionInfoComponent implements OnInit {
             let to: Date = new Date(dateTo.year, dateTo.month - 1, dateTo.day);
             dateString = this.smsDateTemplate.format(from.toLocaleDateString(), to.toLocaleDateString());
         }
-        return this.smsTemplate.format(name, this.smsSentence, percentageString, dateString);
+        return this.smsTemplate.format(this.isSMSCampaign() ? name : '', this.smsSentence, percentageString, dateString);
     }
 
     isSMSCampaign() {
@@ -120,4 +122,5 @@ export class PromotionInfoComponent implements OnInit {
     get dateTo() { return this.form.get('dateTo'); }
     get percentage() { return this.form.get('percentage'); }
     get details() { return this.form.get('details'); }
+    get nbSmsPerCustomer() { return this.form.get('nbSmsPerCustomer'); }
 }

@@ -1,26 +1,29 @@
 <form [formGroup]="form" class="form" (ngSubmit)="form.valid" novalidate>
-    <div class="form-group">
-        <label for="promotionType">Campaign type</label>
+    <!-- <div class="form-group">
+        <label for="promotionType">{{ 'PROMOTIONS.CAMPAIGN_TYPE' | translate }}</label>
         <br />                        
         <div class="form-check form-check-inline">
             <input type="radio" name="promotionType" id="smsCampaign" value="sms"
                 formControlName="promotionType" class="form-check-input" required>
-            <label for="smsCampaign" class="form-check-label">SMS</label>
+            <label for="smsCampaign" class="form-check-label">{{ 'COMMON.SMS' | translate }}</label>
         </div>
         <div class="form-check-inline">
             <input type="radio" name="promotionType" id="pushCampaign" value="push"
                 formControlName="promotionType" class="form-check-input" required>
-            <label for="pushCampaign" class="form-check-label">Push notifications</label>
+            <label for="pushCampaign" class="form-check-label">{{ 'COMMON.PUSH_NOTIFICATION' | translate }}</label>
         </div>
-    </div>
+    </div> -->
     <div class="form-group">
         <label for="name" *ngIf="isSMSCampaign()">{{ 'PROMOTIONS.CAMPAIGN_NAME' | translate }}*</label>
-        <label for="name" *ngIf="!isSMSCampaign()">Notification title*</label>
+        <label for="name" *ngIf="!isSMSCampaign()">{{ 'PROMOTIONS.NOTIFICATION_TITLE' | translate }}*</label>
         <input type="text" class="form-control" id="name" formControlName="name" required />
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-field">
             {{ 'FORM.REQUIRED' | translate }}
         </div>
-        <small class="form-text text-muted" *ngIf="!isSMSCampaign()"><b>40 characters maxixmum</b> recommended</small>
+        <div *ngIf="!isSMSCampaign()">
+            <small class="form-text text-muted"><b>{{ name.value.length }}</b> {{ 'PROMOTIONS.PUSH_CHARS' | translate }}</small>
+            <small class="form-text text-muted"><b>{{ 'PROMOTIONS.MAX_CHARS' | translate:{chars: '40'} }}</b> {{ 'PROMOTIONS.PUSH_CHARS_RECOMMENDED' | translate }}</small>
+        </div>
     </div>
     <div class="row">
         <div class="col-12" [ngClass]="{'col-lg-12': user.showCustomControl(1), 'col-lg-4': !user.showCustomControl(1) }">
@@ -81,8 +84,8 @@
             <small class="form-text text-danger" *ngIf="!smsQuotaValid()">{{ 'PROMOTIONS.INSUFICIENT_QUOTA' | translate }} ({{smsQuota}})</small>
         </div>
         <div *ngIf="!isSMSCampaign()">
-            <small class="form-text text-muted"><b>{{ details.value.length }}</b> characters</small>
-            <small class="form-text text-muted" *ngIf="!isSMSCampaign()"><b>100 characters maxixmum</b> recommended</small>
+            <small class="form-text text-muted"><b>{{ details.value.length }}</b> {{ 'PROMOTIONS.PUSH_CHARS' | translate }}</small>
+            <small class="form-text text-muted" *ngIf="!isSMSCampaign()"><b>{{ 'PROMOTIONS.MAX_CHARS' | translate:{chars: '100'} }}</b> {{ 'PROMOTIONS.PUSH_CHARS_RECOMMENDED' | translate }}</small>
         </div>
     </div>
 </form>

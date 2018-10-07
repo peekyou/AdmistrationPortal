@@ -14,12 +14,6 @@
                                 </file-upload>
                             </div>
                             <div class="col">
-                                <file-upload [simple]="true" browseLabel="{{ 'CONTENT.BACKGROUND_IMAGE' | translate }}" 
-                                    [(file)]="design.backgroundImage" [totalFileSize]="totalFileSize"
-                                    recommendedText="{{ 'CONTENT.BACKGROUND_IMAGE_SIZE_RECOMMENDED' | translate }}">
-                                </file-upload>
-                            </div>
-                            <div class="col">
                                 <file-upload [simple]="true" browseLabel="{{ 'CONTENT.HEADER_IMAGE' | translate }}"
                                     [(file)]="design.headerImage" [totalFileSize]="totalFileSize"
                                     recommendedText="{{ 'CONTENT.HEADER_IMAGE_SIZE_RECOMMENDED' | translate }}">
@@ -29,22 +23,12 @@
                         <div class="row color">
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="form-control-sm" for="rewards-color">{{ 'CONTENT.REWARDS_WHEEL_COLOR' | translate }}</label>                           
-                                    <input id="rewards-color" [value]="design.rewardsWheelColor"
-                                        [(colorPicker)]="design.rewardsWheelColor" cpPosition="bottom" cpOutputFormat="rgba"
-                                        [style.background]="design.rewardsWheelColor" class="form-control form-control-sm" /> 
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
                                     <label class="form-control-sm" for="titles-color">{{ 'CONTENT.TITLES_COLOR' | translate }}</label>                                
                                     <input [(colorPicker)]="design.titlesColor" [value]="design.titlesColor"
                                         [style.background]="design.titlesColor" cpPosition="bottom" cpOutputFormat="rgba"
                                         id="titles-color" class="form-control form-control-sm"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row color">
                             <div class="col">
                                 <div class="form-group">
                                     <label class="form-control-sm" for="buttons-color">{{ 'CONTENT.BUTTONS_COLOR' | translate }}</label>                                
@@ -53,20 +37,53 @@
                                         id="buttons-color" class="form-control form-control-sm"/>                                
                                 </div>
                             </div>
+                        </div>
+                        
+                        <hr />
+
+                        <div class="row color">
+                            <div class="col form-group text-align-center">
+                                <label for="rewardDesignType">{{ 'CONTENT.LOYALTY_CARD_DESIGN' | translate }}</label>
+                                <br />                        
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="rewardDesignType" id="rewardDesignColor" 
+                                        value="color" class="form-check-input" [(ngModel)]="rewardDesignType" required>
+                                    <label for="rewardDesignColor" class="form-check-label">{{ 'CONTENT.BACKGROUND_COLOR' | translate }}</label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="rewardDesignType" id="rewardDesignImage"
+                                        value="image" class="form-check-input" [(ngModel)]="rewardDesignType" required>
+                                    <label for="rewardDesignImage" class="form-check-label">{{ 'CONTENT.BACKGROUND_IMAGE' | translate }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row color" *ngIf="rewardDesignType == 'color'">
                             <div class="col">
+                                <div class="form-group" style="width:50%; margin:auto;">
+                                    <input id="rewards-color" [value]="design.rewardsWheelColor"
+                                        [(colorPicker)]="design.rewardsWheelColor" cpPosition="bottom" cpOutputFormat="rgba"
+                                        [style.background]="design.rewardsWheelColor" class="form-control form-control-sm" /> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row color" *ngIf="rewardDesignType == 'image'">
+                            <div class="col-12 col-sm-6">
+                                <file-upload [simple]="true" browseLabel="{{ 'CONTENT.BROWSE' | translate }}" 
+                                    [(file)]="design.backgroundImage" [totalFileSize]="totalFileSize"
+                                    recommendedText="{{ 'CONTENT.BACKGROUND_IMAGE_SIZE_RECOMMENDED' | translate }}">
+                                </file-upload>
+                            </div>
+                            <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="backgroundImageSize">{{ 'CONTENT.BACKGROUND_IMAGE_SIZE' | translate }}</label>
                                     <select [(ngModel)]="design.backgroundImageSize" name="backgroundImageSize"
                                             class="form-control form-control-sm" id="backgroundImageSize">
                                         <option *ngFor="let size of service.getBackgroundImageSizes() | async" [ngValue]="size.id">{{ size.name }}</option>
                                     </select>
-                                    <!-- <label class="form-control-sm" for="menu-color">{{ 'CONTENT.MENU_BACKGROUND_COLOR' | translate }}</label>                                
-                                    <input [(colorPicker)]="design.menuBackgroundColor" [value]="design.menuBackgroundColor"
-                                        [style.background]="design.menuBackgroundColor" cpPosition="bottom" cpOutputFormat="rgba"
-                                        id="menu-color" class="form-control form-control-sm"/> -->
                                 </div>
                             </div>
                         </div>
+                        <hr />
                         <div class="button">
                             <app-submit-button value="{{ 'COMMON.SAVE' | translate }}" [form]="designF.form"
                                                 loadingValue="{{ 'COMMON.SAVING' | translate }}"
@@ -98,8 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <ckeditor [(ngModel)]="page.content" [config]="ckeditorConfig"
-                                                name="content" debounce="500" (change)="onChange($event)">
+                                    <ckeditor [(ngModel)]="page.content" [config]="ckeditorConfig" name="content" debounce="500">
                                     </ckeditor>
                                 </div>
                                 <file-upload [files]="page.pictures" [fileHolder]="page" [totalFileSize]="totalFileSize"

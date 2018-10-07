@@ -15,7 +15,6 @@ export class FileUploadComponent implements OnInit {
     availableSpace: number;
     totalSpace = 20;
     dragging: boolean = false;
-    loaded: boolean = false;
     loading: boolean = false;
 
     @Input() simple: boolean = false;

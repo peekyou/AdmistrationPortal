@@ -33,6 +33,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     savePageSubscription: Subscription;
     saveDesignSubscription: Subscription;
     totalFileSize: number = 0;
+    rewardDesignType: string;
     
     @ViewChild("mobile", { read: ElementRef })
     public mobileElementRef: ElementRef;
@@ -104,20 +105,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     
     public ngOnInit() {
         this.getPages();
-
-        this.loadingDesign = true;
-        this.service
-            .getDesign()
-            .subscribe(
-                res => {
-                    this.design = res || new MerchantDesign();
-                    this.loadingDesign = false;
-                },
-                err => { 
-                    this.loadingDesign = false;
-                    console.log(err); 
-                }
-        );
+        this.getDesign();
 
         this.service
             .getFilesSize()
@@ -125,6 +113,28 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                 res => this.totalFileSize = res,
                 err => { console.log(err); }
             );
+    }
+
+    getDesign() {
+        this.loadingDesign = true;
+        this.service
+            .getDesign()
+            .subscribe(
+                res => {
+                    this.design = res || new MerchantDesign();
+                    if (this.design.backgroundImage != null) {
+                        this.rewardDesignType = 'image';
+                    }
+                    else {
+                        this.rewardDesignType = 'color';
+                    }
+                    this.loadingDesign = false;
+                },
+                err => { 
+                    this.loadingDesign = false;
+                    console.log(err); 
+                }
+        );
     }
 
     getPages() {
@@ -172,6 +182,13 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
     }
 
     saveDesign() {
+        if (this.rewardDesignType == 'color') {
+            this.design.backgroundImage = null;
+        }
+        else {
+            this.design.rewardsWheelColor = null;
+        }
+
         this.saveDesignSubscription = this.service
             .saveDesign(this.design)
             .subscribe(res => {    
@@ -287,10 +304,6 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                 },
                 err => { console.log(err); }
             );
-    }
-
-    onChange(event) {
-        //console.log(event);
     }
 
     openDeleteModal(page: Page) {

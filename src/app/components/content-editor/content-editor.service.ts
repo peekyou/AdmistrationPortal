@@ -24,10 +24,10 @@ export class ContentEditorService {
         }
 
         this.backgroundImageSizes = [
+            { id: 'auto', name: 'Auto' },
             { id: '100% 100%', name: '100% width and height' },
             { id: '100% auto', name: '100% width only' },
-            { id: 'auto 100%', name: '100% height only' },
-            { id: 'auto', name: 'Auto' }
+            { id: 'auto 100%', name: '100% height only' }
         ];
     }
 

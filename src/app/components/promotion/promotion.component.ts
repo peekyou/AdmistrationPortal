@@ -12,6 +12,7 @@ import { ngbDateStructToDate, dateToNgbDateStruct, dateLessThanValidation } from
 import { PagingResponse } from '../../core/models/paging';
 import { NotificationService } from '../../core/shared/components/notifcations/notification.service';
 import { TranslationService } from '../../core/services/translation.service';
+import { AppModal } from '../../core/shared/modals/modal';
 
 @Component({
     selector: 'promotion',
@@ -20,6 +21,9 @@ import { TranslationService } from '../../core/services/translation.service';
 })
 export class PromotionComponent {
     reload = false;
+    modalTitle: string;
+    modalSentence: string;
+    modalConfirmation: string;
 
     // New promotion fields
     smsSentence: string = '';
@@ -33,15 +37,20 @@ export class PromotionComponent {
         private translation: TranslationService,
         public user: UserService,
         private fb: FormBuilder) { 
-        this.init();
+            
+        this.initForm();
+
+        this.translation.getMultiple([
+            'PROMOTIONS.MODAL_TITLE',
+            'PROMOTIONS.MODAL_SENTENCE',
+            'COMMON.CONFIRMATION_QUESTION'], x => {
+                this.modalTitle = x['PROMOTIONS.MODAL_TITLE'];
+                this.modalSentence = x['PROMOTIONS.MODAL_SENTENCE'];
+                this.modalConfirmation = x['COMMON.CONFIRMATION_QUESTION'];
+        });
     }
 
-    init() {
-        // this.translation.get('PROMOTIONS.SMS_DEFAULT_TEMPLATE', x => {
-        //     this.smsSentence = x;
-        //     this.topLevelForm.value['stepInfo'].get('details').patchValue(x)
-        // });
-
+    initForm() {
         var firstForm = this.fb.group({
             promotionType: ['sms', Validators.required],
             name: ['', Validators.required],
@@ -49,7 +58,8 @@ export class PromotionComponent {
             dateTo: [null, Validators.required],
             percentage: [''],
             details: [this.smsSentence, Validators.required],
-            nbRecipients: [null]
+            nbRecipients: [null],
+            nbSmsPerCustomer: [null]
         }, { validator: dateLessThanValidation('dateFrom', 'dateTo') });
 
         var secondForm = this.fb.group({
@@ -80,6 +90,20 @@ export class PromotionComponent {
             stepInfo: firstForm,
             stepFilter: secondForm
         });
+    }
+
+    openModal() {
+        var promoInfo = this.topLevelForm.value['stepInfo'];
+        const modalRef = this.modalService.open(AppModal);
+        modalRef.componentInstance.title = this.modalTitle;
+        modalRef.componentInstance.text1 = this.modalSentence.replace('{{smsNumber}}', (promoInfo.nbRecipients * promoInfo.nbSmsPerCustomer).toString());
+        modalRef.componentInstance.text2 = this.modalConfirmation;
+        
+        modalRef.result.then((result) => {
+            if (result === 'Y') {
+                this.submit();
+            }
+        }, (reason) => { });
     }
     
     submit() {

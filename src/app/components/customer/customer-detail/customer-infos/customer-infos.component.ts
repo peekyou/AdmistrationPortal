@@ -93,8 +93,8 @@ export class CustomerInfosComponent {
             .subscribe(
                 id => { },
                 err => { 
-                    console.log(err);
-                    this.notifications.setErrorNotification();
+                    var e = err.error && err.error.errorCode ? err.error.errorCode : null;
+                    this.notifications.setErrorNotification(e);
                  }
         );
     }

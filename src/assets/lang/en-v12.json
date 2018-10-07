@@ -98,7 +98,9 @@
         "CLOSED": "Closed",
         "SENDING": "Sending...",
         "SAVE_SUCCESS": "Successfully saved",
-        "PASSWORD_MATCH_ERROR": "Passwords must match"
+        "PASSWORD_MATCH_ERROR": "Passwords must match",
+        "SMS": "SMS",
+        "PUSH_NOTIFICATION": "Push notifications"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -168,11 +170,13 @@
         "EMPTY_TIMES": "Empty fields will be replaced by mention \"Closed\"",
         "DROP_ZONE_LABEL": "Drop files to attach, or ",
         "DROP_ZONE_BROWSE": "browse",
+        "BROWSE": "Browse",
         "LOGO": "Logo",
-        "BACKGROUND_IMAGE": "Background",
+        "BACKGROUND_COLOR": "Background color",
+        "BACKGROUND_IMAGE": "Background image",
         "BACKGROUND_IMAGE_SIZE": "Background image size",
         "HEADER_IMAGE": "Header",
-        "REWARDS_WHEEL_COLOR": "Rewards wheel color",
+        "LOYALTY_CARD_DESIGN": "Loyalty card design",
         "TITLES_COLOR": "Titles color",
         "BUTTONS_COLOR": "Buttons color",
         "MENU_BACKGROUND_COLOR": "Menu background color",
@@ -181,7 +185,7 @@
         "FILE_UPLOAD_TEXT": "Max image size: 5Mo<br />Accepted formats: JPG, PNG<br />Optimal images size is 800px large and 380px high. If size is different:<ul><li>Pictures less than 600px large will be rejected</li><li>Pictures greater than 800px large will be resized</li><li>Pictures greater than 380px height will be cropped on top and bottom to maintain visual center</li></ul>",
         "FILE_UPLOAD_AVAILABLE_SIZE": "Available space disk : {{availableSpace}} Mo / {{totalSpace}} Mo.",
         "LOGO_SIZE_RECOMMENDED": "Minimum height 90px",
-        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Recommended 400x800 px",
+        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Recommended 400x400 px",
         "HEADER_IMAGE_SIZE_RECOMMENDED": "Recommended 350x150 px"
     },
     "REVIEWS": {
@@ -200,6 +204,8 @@
         "TOTAL_RECIPIENTS": "Total sent",
         "TOTAL_RECEIVED": "Total received",
         "CAMPAIGN_NAME": "Campaign name",
+        "CAMPAIGN_TYPE": "Campaign type",
+        "NOTIFICATION_TITLE": "Notification title",
         "PERCENTAGE": "Percentage",
         "VALID_FROM": "Valid from",
         "VALID_UNTIL": "Valid until",
@@ -217,7 +223,12 @@
         "SMS_NUMBER_SENT": "SMS will be sent for each customer.",
         "SMS_DEFAULT_TEMPLATE": "Your merchant is pleased to propose a promotion",
         "SMS_PERCENTAGE_TEMAPLTE": " of {0}%",
-        "SMS_DATES_TEMPLATE": " from {0} to {1}"
+        "SMS_DATES_TEMPLATE": " from {0} to {1}",
+        "MAX_CHARS": "{{chars}} characters maxixmum",
+        "PUSH_CHARS_RECOMMENDED": "recommended",
+        "PUSH_CHARS": "characters",
+        "MODAL_TITLE": "Send Campaign",
+        "MODAL_SENTENCE": "You are about to use {{smsNumber}} SMS from your SMS stock"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Email campaigns",

@@ -37,8 +37,8 @@ export class NotificationService {
 
     }
 
-    setErrorNotification() {
-        this.translation.get('ERRORS.InternalServerError', errorMessage => {
+    setErrorNotification(errorCode = null) {
+        this.translation.get(errorCode ? 'ERRORS.' + errorCode : 'ERRORS.InternalServerError', errorMessage => {
             this.setNotification(true, errorMessage);
         });
     }

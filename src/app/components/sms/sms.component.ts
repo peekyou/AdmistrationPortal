@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/switchMap';
 
 import { TranslationService } from '../../core/services/translation.service';
 import { SmsService } from './sms.service';
@@ -11,7 +15,7 @@ import { SmsPack } from './sms-pack';
     styleUrls: ['./sms.component.scss'],
     templateUrl: './sms.component.html'
 })
-export class SmsComponent {
+export class SmsComponent implements OnInit {
     loading: boolean;
     modalTitle: string;
     modalSentence: string;
@@ -22,6 +26,8 @@ export class SmsComponent {
     currency: string;
 
     constructor(
+        private route: ActivatedRoute,
+        private router: Router,
         private service: SmsService,
         private modalService: NgbModal,
         private translation: TranslationService,
@@ -40,6 +46,29 @@ export class SmsComponent {
                 this.modalSentence = x['SMS_PACKS.MODAL_SENTENCE'];
                 this.modalConfirmation = x['COMMON.CONFIRMATION_QUESTION'];
         });
+    }
+
+    public ngOnInit() {
+        this.route.queryParams
+            .switchMap(params => {
+                var payment = params['payment'];
+                var packCount = params['c'];
+                console.log(payment, packCount);
+                if (payment == 's' && packCount) {
+                    return Observable.of(packCount);
+                }
+                return Observable.of(0);
+            })
+            .subscribe(count => {
+                if (count > 0) {
+                    this.service.buySmsPack(count)
+                        .subscribe(
+                            res => this.quota += res,
+                            err => console.log(err)
+                        );
+                }
+            },
+            err => { });
     }
 
     onInputChange(event: KeyboardEvent) {

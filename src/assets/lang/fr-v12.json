@@ -98,7 +98,9 @@
         "CLOSED": "Fermé",
         "SENDING": "En cours...",
         "SAVE_SUCCESS": "Enregistré avec succès",
-        "PASSWORD_MATCH_ERROR": "Les mots de passe ne correspondent pas"
+        "PASSWORD_MATCH_ERROR": "Les mots de passe ne correspondent pas",
+        "SMS": "SMS",
+        "PUSH_NOTIFICATION": "Notifications push"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -168,11 +170,13 @@
         "EMPTY_TIMES": "Les champs vides seront remplacés par la mention \"fermé\"",
         "DROP_ZONE_LABEL": "Déposer des fichiers, ou ",
         "DROP_ZONE_BROWSE": "parcourir",
+        "BROWSE": "Parcourir",
         "LOGO": "Logo",
-        "BACKGROUND_IMAGE": "Arrière plan",
-        "BACKGROUND_IMAGE_SIZE": "Taille image arrière plan",
+        "BACKGROUND_COLOR": "Couleur de fond",
+        "BACKGROUND_IMAGE": "Image de fond",
+        "BACKGROUND_IMAGE_SIZE": "Taille image de fond",
         "HEADER_IMAGE": "Entête",
-        "REWARDS_WHEEL_COLOR": "Couleur cercle fidélité",
+        "LOYALTY_CARD_DESIGN": "Design carte de fidélité",
         "TITLES_COLOR": "Couleur des titres",
         "BUTTONS_COLOR": "Couleur des boutons",
         "MENU_BACKGROUND_COLOR": "Couleur du menu",
@@ -181,7 +185,7 @@
         "FILE_UPLOAD_TEXT": "La taille optimale des images est 800px de large et 380px de haut. Si ce format n'est pas respecté:<ul><li>Les images inférieures à 600px de large seront refusées</li><li>Les images supérieures à 800px de large seront redimensionnées</li><li>Les images supérieures à 380px de haut seront rognées en haut et en bas pour conserver le centre du visuel</li></ul>",        
         "FILE_UPLOAD_AVAILABLE_SIZE": "Espace disponible restant : {{availableSpace}} Mo / {{totalSpace}} Mo.",
         "LOGO_SIZE_RECOMMENDED": "Hauteur minimale 90px",
-        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Taille conseillé 400x800 px",
+        "BACKGROUND_IMAGE_SIZE_RECOMMENDED": "Taille conseillé 400x400 px",
         "HEADER_IMAGE_SIZE_RECOMMENDED": "Taille conseillé 350x150 px"
     },
     "REVIEWS": {
@@ -200,6 +204,8 @@
         "TOTAL_RECIPIENTS": "Total envoyés",
         "TOTAL_RECEIVED": "Total reçus",
         "CAMPAIGN_NAME": "Nom de la campagne",
+        "CAMPAIGN_TYPE": "Type de campagne",
+        "NOTIFICATION_TITLE": "Titre de la notification",
         "PERCENTAGE": "Pourcentage",
         "VALID_FROM": "Valide du",
         "VALID_UNTIL": "jusqu'au",
@@ -217,7 +223,12 @@
         "SMS_NUMBER_SENT": "SMS seront envoyés par client.",
         "SMS_DEFAULT_TEMPLATE": "Promotion dans votre magasin",
         "SMS_PERCENTAGE_TEMAPLTE": " de {0}%",
-        "SMS_DATES_TEMPLATE": " du {0} au {1}"
+        "SMS_DATES_TEMPLATE": " du {0} au {1}",
+        "MAX_CHARS": "{{chars}} caractères maxixmum",
+        "PUSH_CHARS_RECOMMENDED": "recommandés",
+        "PUSH_CHARS": "caractères",
+        "MODAL_TITLE": "Envoyer Campagne",
+        "MODAL_SENTENCE": "Vous allez utiliser {{smsNumber}} SMS de votre stock"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Campagnes email",

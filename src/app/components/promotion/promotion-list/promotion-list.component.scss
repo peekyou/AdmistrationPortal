@@ -7,7 +7,7 @@
 table {
     font-size: 13px;
     background-color: #fff;
-    max-width: 700px;
+    // max-width: 700px;
 
     th, td {
         padding: 0.65rem;
@@ -16,5 +16,16 @@ table {
 
     tbody th {
         color: $theme-color;
+    }
+
+    .promotion-name {
+        max-width: 160px;
+        text-overflow: ellipsis;
+    }
+    
+    .promotion-details {
+        white-space: pre-line;
+        // max-width: 150px;
+        // text-overflow: ellipsis;
     }
 }
