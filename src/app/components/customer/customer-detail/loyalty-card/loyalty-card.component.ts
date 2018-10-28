@@ -26,7 +26,8 @@ export class CustomerLoyaltyCardComponent implements OnInit {
     saveSubscription: Subscription;
     giveDiscountSubscription: Subscription;
     sendSmsSubscription: Subscription;
-
+    loading = false; 
+    
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -43,6 +44,7 @@ export class CustomerLoyaltyCardComponent implements OnInit {
     }
 
     saveEntry() {
+        this.loading = true;
         this.saveEntrySubscription = this.service
             .saveExpense({
                 customerId: this.c.customer.id,
@@ -53,10 +55,13 @@ export class CustomerLoyaltyCardComponent implements OnInit {
             .subscribe(
                 r => {
                     this.c.customer = r;
+                    this.newEntryAmount = null;
+                    this.loading = false;
                     this.c.customer.purchaseData = this.service.calculatePurchaseData(this.c.customer.points);
                 },
                 err => { 
                     console.log(err);
+                    this.loading = false;
                     this.notifications.setErrorNotification();
                 }
             );

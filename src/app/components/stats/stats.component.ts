@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import * as moment from 'moment';
 
 import { TranslationService } from '../../core/services/translation.service';
 import { SearchService } from '../../core/services/search.service';
@@ -60,7 +61,7 @@ export class StatsComponent implements OnInit {
         public user: UserService) { 
 
             searchService.searchFilter$.subscribe(
-                searchFilter => { 
+                searchFilter => {
                     this.reload(searchFilter);
                 }
             );
@@ -68,23 +69,24 @@ export class StatsComponent implements OnInit {
 
     ngOnInit() {
         if (this.user.getPackage() >= 3) {
-            this.loadGeneralStats();
-        
             this.loadingPies = true;
             this.translation.getMultiple(this.translationKeys, x => {
                 this.staticStrings = x;
-                this.loadSegmentationCharts();
-                this.loadGroupedBarChart();
-                this.getExpenses();
+                
+                var from = moment().subtract(1, 'months').startOf('day').toDate();
+                var to = moment().endOf('day').toDate();
+                this.reload(new SearchFilter(from, to));
             }); 
         }
     }
 
     reload(searchFilter: SearchFilter) {
-        this.loadGeneralStats(searchFilter);
-        this.loadSegmentationCharts(searchFilter);
-        this.loadGroupedBarChart(searchFilter);
-        this.getExpenses(searchFilter);
+        if (this.user.getPackage() >= 3) {
+            this.loadGeneralStats(searchFilter);
+            this.loadSegmentationCharts(searchFilter);
+            this.loadGroupedBarChart(searchFilter);
+            this.getExpenses(searchFilter);
+        }
     }
 
     selectDataType(type: DataType) {

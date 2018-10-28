@@ -1,4 +1,4 @@
-import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,7 +17,8 @@ import { dateLessThanValidation, ngbDateStructToDate } from '../../core/helpers/
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+    param = 'months';
     public showUserContainer: boolean = false;
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;
@@ -43,11 +44,15 @@ export class HeaderComponent {
             }, { validator: dateLessThanValidation('dateFrom', 'dateTo') });
     }
 
+    ngOnInit() {
+    }
+
     showMenu(): boolean {
         return false;
     }
 
     submit(param: string = null) {
+        this.param = param;
         var from: Date = null;
         var to: Date = null;
 

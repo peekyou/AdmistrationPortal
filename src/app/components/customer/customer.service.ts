@@ -74,7 +74,7 @@ export class CustomerService {
     //    return Observable.of(null);
     //}
     
-    update(customer: Customer): Observable<number> {
+    update(customer: Customer): Observable<Customer> {
         // If all fields of address are empty except country, consider as null
         if (customer.address && !customer.address.addressLine1 && !customer.address.addressLine2 &&
         !customer.address.area && !customer.address.city && !customer.address.state && !customer.address.zipCode) {

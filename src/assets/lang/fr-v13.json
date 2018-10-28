@@ -15,6 +15,7 @@
         "EMAIL_CAMPAIGNS": "Campagnes email",
         "USER_MANAGEMENT": "Gestion",
         "BILLS": "Factures",
+        "SPONSOR": "Parrainer",
         "MOBILE_PREVIEW": "Aperçu mobile",
         "STATISTICS": "Tableau de bord",
         "LOGOUT": "Déconnexion"
@@ -59,6 +60,7 @@
         "REMAINDER": "Reste",
         "FIRSTNAME": "Prénom",
         "LASTNAME": "Nom",
+        "FULLNAME": "Nom",
         "GENDER": "Sexe",
         "AGE": "Age",
         "STATUS": "Statut",
@@ -288,6 +290,19 @@
         "SUSCRIBE_GOLD": "Souscrire à l'offre Gold",
         "MODAL_SILVER": "Souscrire à l'offre Silver pour {{price}} {{currency}} par mois. Vous devrez vous reconnecter après la souscription.",
         "MODAL_GOLD": "Souscrire à l'offre Gold pour {{price}} {{currency}} par mois. Vous devrez vous reconnecter après la souscription."
+    },
+    "SPONSOR": {
+        "TITLE": "Parrainez un ami",
+        "FORM_TITLE": "Information du filleul",
+        "COMPANY_NAME": "Nom de l'entreprise",
+        "SPONSOR_GAIN": "Pour vous, c'est {{gain}} {{currency}} offerts",
+        "SPONSOREE_GAIN": "Pour votre filleul, c'est {{gain}} {{currency}} offerts",
+        "MODAL_SENTENCE": "Confirmer la demande de parrainage ?",
+        "SUCCESS_MESSAGE": "Votre demande de parrainage a été envoyée",
+        "SPONSOREES": "Vos parrainages",
+        "EXPIRY_DATE": "Date limite",
+        "COMPANY": "Entreprise",
+        "SUCCESSFUL": "Finalisé"
     },
     "ERRORS": {
         "InternalServerError": "Une erreur est survenue, essayez plus tard",

@@ -24,8 +24,7 @@
 </div>
 
 <pagination-controls *ngIf="promotions && promotions.paging.itemsCount > 0" (pageChange)="pageChanged($event)" 
-    autoHide="true" directionLinks="true"
-    previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+    autoHide="true" directionLinks="true" previousLabel="" nextLabel="" maxSize="5">
 </pagination-controls>
 
 <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>

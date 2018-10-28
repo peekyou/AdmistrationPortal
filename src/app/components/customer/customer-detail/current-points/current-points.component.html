@@ -10,7 +10,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="c.customer">
             <tr *ngFor="let expense of c.customer.expenses | currentPoints">
                 <td>{{expense.date | date: 'dd-MM-yyyy'}}</td>
                 <td class="cyan"><small>{{expense.currency}}</small><b>{{expense.amount}}</b></td>

@@ -20,6 +20,7 @@ export class CustomerDetailComponent implements OnInit {
     topRightCardIndex: number;
     bottomLeftCardIndex: number;
     bottomRightCardIndex: number;
+    loading = false;
     
     constructor(
         private route: ActivatedRoute,
@@ -41,9 +42,11 @@ export class CustomerDetailComponent implements OnInit {
                     this.service.customerSearched = null;                 
                     return Observable.of(clone);
                 }
+                this.loading = true;
                 return this.service.getById(params.get('id'));
             })
             .subscribe(customer => {
+                this.loading = false;
                 this.c.customer = customer;
                 this.c.customer.purchaseData = this.service.calculatePurchaseData(customer.points);
             });

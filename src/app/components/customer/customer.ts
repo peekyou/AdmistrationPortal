@@ -29,6 +29,15 @@ export class Customer {
     customField2?: string;
     customField3?: string;
     customField4?: string;
+
+    constructor() {
+        this.favoriteProducts = [];
+        this.languages = [];
+        this.points = [];
+        this.totalExpenses = [];
+        this.expenses = [];
+        this.address = {};
+    }
 }
 
 export class PurchaseData {

@@ -55,7 +55,7 @@
                 loadingValue="{{ 'COMMON.SAVING' | translate }}" [form]="form"
                 [subscription]="submitSubscription">
             </app-submit-button>
-            <button type="button" (click)="openDeleteModal()" class="btn btn-danger">
+            <button *ngIf="isEdit" type="button" (click)="openDeleteModal()" class="btn btn-danger">
                 {{ 'COMMON.DELETE' | translate }}
             </button>
         </div>

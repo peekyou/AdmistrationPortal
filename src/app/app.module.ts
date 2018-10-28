@@ -35,6 +35,7 @@ import { BillingModule } from './components/billing';
 import { BackOfficeManagementModule } from './components/bo-management'
 import { MobilePreviewModule } from './components/mobile-preview';
 import { StatsModule } from './components/stats';
+import { SponsorModule } from './components/sponsor';
 import { NoContentComponent } from './components/no-content';
 import { routes } from './app.routes';
 
@@ -49,7 +50,7 @@ const PROVIDERS = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, "/assets/lang/", "-v12.json");
+    return new TranslateHttpLoader(http, "/assets/lang/", "-v13.json");
 }
 
 /**
@@ -95,6 +96,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BackOfficeManagementModule,
         UserModule,
         StatsModule,
+        SponsorModule,
         AgmCoreModule.forRoot({ 
             apiKey: 'AIzaSyD2tHPV7C3ehD5O6CFPryF94GJfwj9ARoc',
             libraries: ["places"]

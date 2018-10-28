@@ -63,4 +63,21 @@
     .btn.all {
         background-color: #303030;
     }
+
+    .btn:hover {
+        background: #f6e6b4;
+        color: #555;
+    }
+
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .btn.active {
+        background: #f6e6b4; /* Old browsers */
+        background: -moz-linear-gradient(top, #f6e6b4 0%, #ed9017 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #f6e6b4 0%,#ed9017 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
 }

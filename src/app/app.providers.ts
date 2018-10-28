@@ -19,6 +19,7 @@ import { UserManagementService } from './components/bo-management/user-managemen
 import { ProductService } from './components/bo-management/product/product.service';
 import { StatsService } from './components/stats/stats.service';
 import { MobilePreviewService } from './components/mobile-preview/mobile-preview.service';
+import { SponsorService } from './components/sponsor/sponsor.service';
 import { AuthGuard } from './guards/auth.guard';
 import { PermissionGuard } from './guards/permission.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
@@ -45,6 +46,7 @@ export const APP_PROVIDERS = [
     ProductService,
     StatsService,
     MobilePreviewService,
+    SponsorService,
     AuthGuard,
     PermissionGuard,
     PendingChangesGuard

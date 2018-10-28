@@ -15,6 +15,7 @@
         "SMS_PACKS": "SMS Packs",
         "USER_MANAGEMENT": "Management",
         "BILLS": "Bills",
+        "SPONSOR": "Sponsor",
         "MOBILE_PREVIEW": "Mobile preview",
         "STATISTICS": "Dashboard",
         "LOGOUT": "Logout"
@@ -59,6 +60,7 @@
         "REMAINDER": "Remainder",
         "FIRSTNAME": "Firstname",
         "LASTNAME": "Lastname",
+        "FULLNAME": "Fullname",
         "GENDER": "Gender",
         "AGE": "Age",
         "STATUS": "Status",
@@ -288,6 +290,19 @@
         "SUSCRIBE_GOLD": "Suscribe to gold package",
         "MODAL_SILVER": "Suscribe to silver package for {{price}} {{currency}} per month. You will need to login again after suscribing.",
         "MODAL_GOLD": "Suscribe to gold package for {{price}} {{currency}} per month. You will need to login again after suscribing."
+    },
+    "SPONSOR": {
+        "TITLE": "Sponsor a friend",
+        "FORM_TITLE": "Sponsoree information",
+        "COMPANY_NAME": "Company name",
+        "SPONSOR_GAIN": "We will offer you {{gain}} {{currency}}",
+        "SPONSOREE_GAIN": "And to your friend, we will offer him {{gain}} {{currency}}",
+        "MODAL_SENTENCE": "Confirm sponsorship?",
+        "SUCCESS_MESSAGE": "Your sponsorship request has been successfully sent",
+        "SPONSOREES": "Your sponsorships",
+        "EXPIRY_DATE": "Expiry date",
+        "COMPANY": "Company",
+        "SUCCESSFUL": "Successful"
     },
     "ERRORS": {
         "InternalServerError": "An error occured, please try later",

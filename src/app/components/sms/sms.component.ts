@@ -53,7 +53,6 @@ export class SmsComponent implements OnInit {
             .switchMap(params => {
                 var payment = params['payment'];
                 var packCount = params['c'];
-                console.log(payment, packCount);
                 if (payment == 's' && packCount) {
                     return Observable.of(packCount);
                 }

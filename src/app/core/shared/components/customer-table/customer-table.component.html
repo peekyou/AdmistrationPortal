@@ -86,11 +86,10 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls *ngIf="customers && showPagination()" (pageChange)="pageChanged($event)" 
-        autoHide="true" directionLinks="true"
-        previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
-    </pagination-controls>
     <div [ngClass]="{'loading-container': loading}">
         <ngx-loading [show]="loading" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>    
     </div>
 </div>
+<pagination-controls *ngIf="customers && showPagination()" (pageChange)="pageChanged($event)" 
+    autoHide="true" directionLinks="true" previousLabel="" nextLabel="" maxSize="5">
+</pagination-controls>

@@ -1,6 +1,6 @@
 <h6 class="card-header">{{ 'CUSTOMERS.CUSTOMER_INFOS' | translate }}</h6>
 <div class="card-body">
-    <app-customer-form (onSubmit)="saveCustomer($event)" (onPopulate)="populateUser($event)"
-                        [submitSubscription]="saveSubscription" isEdit="true">
+    <app-customer-form (onSubmit)="saveCustomer($event)" [customer]="c.customer"
+        *ngIf="c.customer" [submitSubscription]="saveSubscription" [isEdit]="true">
     </app-customer-form>
 </div>

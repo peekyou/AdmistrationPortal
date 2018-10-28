@@ -10,7 +10,7 @@ import { ProductService } from '../../bo-management/product/product.service';
 import { Product } from '../../bo-management/product/product';
 import { Lookup } from '../../../core/models/lookup';
 import { CustomerCustomFields } from '../../../core/models/customerCustomFields';
-import { ngbDateStructToDate, validateAllFormFields } from '../../../core/helpers/utils';
+import { ngbDateStructToDate, validateAllFormFields, clearFormArray, dateToNgbDateStruct } from '../../../core/helpers/utils';
 import * as moment from 'moment';
 
 @Component({
@@ -27,8 +27,9 @@ export class CustomerFormComponent implements OnInit {
     showCurrentPoints = false;
     @Input() modal: boolean;
     @Input() isEdit: boolean;
+    @Input() customer: Customer = new Customer();
     @Input() submitSubscription;
-    @Output() onPopulate: EventEmitter<any> = new EventEmitter();
+    // @Output() onPopulate: EventEmitter<any> = new EventEmitter();
     @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -52,49 +53,54 @@ export class CustomerFormComponent implements OnInit {
                     err => console.log(err)
                 );
     }
-    
+
     ngOnInit() {
         this.init();
     }
     
     init() {
+        if (!this.customer.address) {
+            this.customer.address = {};
+        }
         this.form = this.fb.group({
-            firstname: [null, Validators.required],
-            lastname: [null, Validators.required],
-            gender: [null, Validators.required],
-            mobile: [null, Validators.required],
-            email: [null, Validators.email],
-            birthdate: [null, Validators.required],
-            languages: this.fb.array([]),
-            favoriteProducts: this.fb.array([]),
+            firstname: [this.customer.firstname, Validators.required],
+            lastname: [this.customer.lastname, Validators.required],
+            gender: [this.customer.gender, Validators.required],
+            mobile: [this.customer.mobileNumber, Validators.required],
+            email: [this.customer.email, Validators.email],
+            birthdate: [dateToNgbDateStruct(this.customer.birthdate), Validators.required],
+            languages: this.fb.array(this.customer.languages),
+            favoriteProducts: this.fb.array(this.customer.favoriteProducts),
             address: this.fb.group({
-                country: [null],
-                addressLine1: [null],
-                addressLine2: [null],
-                state: [null],
-                city: [null],
-                area: [null],
-                zipCode: [null],
-                latitude: [null],
-                longitude: [null]
+                country: [this.customer.address.country],
+                addressLine1: [this.customer.address.addressLine1],
+                addressLine2: [this.customer.address.addressLine2],
+                state: [this.customer.address.state],
+                city: [this.customer.address.city],
+                area: [this.customer.address.area],
+                zipCode: [this.customer.address.zipCode],
+                latitude: [this.customer.address.latitude],
+                longitude: [this.customer.address.longitude]
             }),
             receiveSms: [true],
-            comment: [null],
+            comment: [this.customer.comment],
             currentPoints: [null, (c) => this.currentPointsValidator(c)],
-            amount: [null, (c) => this.amountValidator(c)]
+            amount: [null, (c) => this.amountValidator(c)],
+            customField1: [CustomerCustomFields.setValue(this.customer.customField1), (c) => this.customFieldValidator(c, 1)],
+            customField2: [CustomerCustomFields.setValue(this.customer.customField2), (c) => this.customFieldValidator(c, 2)],
+            customField3: [CustomerCustomFields.setValue(this.customer.customField3), (c) => this.customFieldValidator(c, 3)],
+            customField4: [CustomerCustomFields.setValue(this.customer.customField4), (c) => this.customFieldValidator(c, 4)]
         });
 
         var languagesControl = <FormArray>this.form.controls.languages;
-        languagesControl.push(new FormControl());
+        if (languagesControl.controls.length == 0) {
+            languagesControl.push(new FormControl());
+        }
         
         var favProductsControl = <FormArray>this.form.controls.favoriteProducts;
-        favProductsControl.push(new FormControl());
-
-        // Add the custom controls before populating the form
-        for (var i = 1; this.user.customerCustomFields && i <= this.user.customerCustomFields.length; i++) {
-            this.user.showCustomControl(i, this.form);
+        if (favProductsControl.controls.length == 0) {
+            favProductsControl.push(new FormControl());
         }
-        this.onPopulate.emit(this.form);
     }
 
     addArrayControl(control: string) {
@@ -151,7 +157,7 @@ export class CustomerFormComponent implements OnInit {
             validateAllFormFields(this.form);
         }
     }
-
+    
     anyControlEmpty(control: string): boolean {
         var arrayControl = this.form.value[control];
         for (let i = 0; arrayControl && i < arrayControl.length; i++) {
@@ -183,20 +189,15 @@ export class CustomerFormComponent implements OnInit {
         return Validators.required(control);
     }
 
-    // showCustomControl(index: number) {
-    //     if (this.user.customerCustomFields && this.user.customerCustomFields.length > index - 1) {
-    //         var control = this.form.get('customField' + index);
-    //         var field = this.user.customerCustomFields[index - 1];
-    //         if (!control && field) {
-    //             this.form.addControl('customField' + index, new FormControl(field.multiselect ? [] : field.fieldType == 'checkbox' ? false : null, field.mandatory ? Validators.required : null));
-    //             return true;
-    //         }
-    //         else if (control) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+    private customFieldValidator(control: AbstractControl, index:  number): ValidationErrors {
+        if (this.user.customerCustomFields && this.user.customerCustomFields.length > index - 1) {
+            var field = this.user.customerCustomFields[index - 1];
+            if (field && field.mandatory) {
+                return Validators.required(control);
+            }
+        }
+        return null;
+    }
     
     get firstname() { return this.form.get('firstname'); }
     get lastname() { return this.form.get('lastname'); }

@@ -33,18 +33,8 @@
                             percent="100">
                         </app-circle-progress>
                     </div>
-                    <!-- <form class="form" #form="ngForm" (ngSubmit)="form.valid && openModal()" novalidate>
-                        <div class="form-group">
-                            <label for="stock" class="cyan sms-label">{{ 'SMS_PACKS.BUY' | translate }} {{ packNumber * smsPack.smsNumber }} {{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }} {{ packNumber * smsPack.price }}{{ currency }}</label>
-                            <input type="number" id="stock" name="stock" class="form-control mx-sm-3" min="1" max="10000" 
-                                    [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
-                        </div>
-                        <app-submit-button value="{{ 'SMS_PACKS.BUY_BTN' | translate }}" [form]="form" 
-                            buttonClass="btn btn-primary btn-lg">
-                        </app-submit-button>
-                    </form> -->
-
-                    <form #form class="form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    
+                    <form #form class="form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                         <input name="cmd" type="hidden" value="_xclick" />
                         <input name="business" type="hidden" value="ZBD6ZJMJF737A" />
                         <input name="lc" type="hidden" value="FR" />

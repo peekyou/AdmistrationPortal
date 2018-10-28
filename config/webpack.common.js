@@ -336,7 +336,7 @@ module.exports = function (options) {
         staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
       }),
 
-      //new BundleAnalyzerPlugin(),
+      // new BundleAnalyzerPlugin(),
     ],
 
     /**

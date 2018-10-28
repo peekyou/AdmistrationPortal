@@ -23,8 +23,7 @@
             </tbody>
         </table>
         <pagination-controls *ngIf="users && users.paging.itemsCount > 0" (pageChange)="pageChanged($event)" 
-            autoHide="true" directionLinks="true" id="pg-users"
-            previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+            autoHide="true" directionLinks="true" id="pg-users" previousLabel="" nextLabel="" maxSize="5">
         </pagination-controls>
         
         <div class="d-flex justify-content-center">
@@ -71,8 +70,7 @@
                     </div>
 
                     <pagination-controls *ngIf="products && products.paging.itemsCount > 0" (pageChange)="productsPageChanged($event)" 
-                        autoHide="true" directionLinks="true" id="pg-products"
-                        previousLabel="{{ 'COMMON.PREVIOUS' | translate }}" nextLabel="{{ 'COMMON.NEXT' | translate }}">
+                        autoHide="true" directionLinks="true" id="pg-products" previousLabel="" nextLabel="" maxSize="5">
                     </pagination-controls>
                 </div>
             </div>
