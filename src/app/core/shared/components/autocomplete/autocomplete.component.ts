@@ -176,9 +176,13 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
     validate(control: FormControl) {
         var isValid = false;
         var values = this.getValues();
-        if ((!control.value || !values || values.length === 0) && !this.required) {
+        if (!control.value && !this.required) {
             isValid = true;
         }
+        else if (control.value && (!values || values.length === 0)) {
+            // Any value without list is not valid
+            isValid = false;
+        }            
         else {
             // Use the selected value if control value is not a Lookup
             // Useful when the value patched in the control is a string, but selectedValue is a Lookup
