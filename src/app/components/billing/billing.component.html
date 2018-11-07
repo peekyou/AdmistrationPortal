@@ -1,14 +1,13 @@
-<div *ngIf="bills && bills.paging.itemsCount === 0" class="no-result">
+<div *ngIf="!loading && (!groupedBills || groupedBills.length === 0)" class="no-result">
     <span class="icon"></span>
     <h2>{{ 'BILLS.NO_BILL' | translate }}</h2>
 </div>
 
-<div class="container bills-container" *ngIf="bills && bills.paging.itemsCount > 0">
+<div class="container bills-container" *ngIf="groupedBills && groupedBills.length > 0">
     <div class="row">
-        <div class="col"></div>
         <div class="col">
-            <div class="card">
-                <h6 class="card-header">{{ 'BILLS.HISTORY' | translate }}</h6>                
+            <div class="card" *ngFor="let group of groupedBills">
+                <h6 class="card-header">{{ moment(group.date).format("MMMM YYYY") }}</h6>                
                 <div class="card-body bills">
                     <table class="table table-sm text-align-center">
                         <thead>
@@ -20,16 +19,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bill of bills.data">
+                            <tr *ngFor="let bill of group.bills">
                                 <td>{{bill.createdDate | date: 'dd-MM-yyyy'}}</td>
                                 <td class="cyan"><b>{{bill.amount}}</b><small>{{user.getCurrency()}}</small></td>
                                 <td>
-                                    <i class="fa fa-download theme-color"  title="{{ 'COMMON.DOWNLOAD' | translate }}"></i>
+                                    <i (click)="download(bill.id)" class="fa fa-lg fa-download theme-color"  
+                                       title="{{ 'COMMON.DOWNLOAD' | translate }}"></i>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm">
+                                    <!-- <button *ngIf="!bill.paid" class="btn btn-primary btn-sm">
                                         {{ 'BILLS.PAY' | translate }}
-                                    </button>
+                                    </button> -->
                                 </td>
                             </tr>
                         </tbody>

@@ -4,4 +4,9 @@ export class Bill {
     reference: string;
     amount: number;
     paid: boolean
+}
+
+export class GroupedBills {
+    bills: Bill[];
+    date: Date;
 }   

@@ -37,6 +37,23 @@
                 </div>
             </div>
             <div class="col">
+                <div class="form-group" *ngIf="isEdit">
+                    <label for="password">{{ 'COMMON.PASSWORD' | translate }}<span *ngIf="!isEdit">*</span></label>
+                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password" 
+                            [required]="!isEdit" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isEdit">
+                    <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}<span *ngIf="!isEdit">*</span></label>
+                    <input type="password" class="form-control form-control-sm" id="password-confirmation" 
+                            formControlName="passwordConfirmation" [required]="!isEdit" />
+                    <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="invalid-field">
+                        {{ 'FORM.REQUIRED' | translate }}
+                    </div>
+                </div>
+                <div class="row invalid-field" *ngIf="form.errors">{{ form.errors?.passwords | json }}</div>
                 <label>{{ 'USER_MANAGEMENT.PERMISSIONS' | translate }}</label>
                 <div formArrayName="permissions">
                     <div class="form-check" *ngFor="let permission of permissions; let i = index">

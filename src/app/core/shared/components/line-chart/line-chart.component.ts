@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { LineChartData } from './line-chart';
 import { ngbDateStructToDate, dateToNgbDateStruct } from '../../../helpers/utils';
 import { UserService } from '../../../../components/user/user.service';
-import * as moment from 'moment';
 
 @Component({
     selector: 'app-line-chart',

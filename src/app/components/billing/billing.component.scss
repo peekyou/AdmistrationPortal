@@ -3,8 +3,12 @@
 }
 
 .bills-container {
-    width: 80%;
+    max-width: 650px;
     
+    .card-header {
+        text-transform: capitalize;
+    }
+
     .bills {
         font-size: 13px;
 

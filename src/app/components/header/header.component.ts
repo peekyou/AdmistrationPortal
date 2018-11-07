@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { APP_CONFIG, AppConfig } from '../../app.config';
@@ -34,9 +33,13 @@ export class HeaderComponent implements OnInit {
         @Inject(APP_CONFIG) config: AppConfig,
         private fb: FormBuilder,
         public searchService: SearchService,
-        public user: UserService, 
-        public translate: TranslateService,
-        public router: Router) { 
+        public user: UserService,
+        public router: Router) {
+            
+            // Reset months selected by default after route changed
+            router.events.subscribe((val) => {
+                this.param = 'months';
+            });
 
             this.form = this.fb.group({
                 dateFrom: [null],

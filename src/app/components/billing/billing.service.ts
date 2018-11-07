@@ -18,5 +18,11 @@ export class BillingService {
     getBills(page: number, count: number): Observable<PagingResponse<Bill>> {
         return this.http.get(this.api + '?pageNumber=' + page + '&itemsCount=' + count);
     }
+
+    downloadBill(id: string) {
+        return this.http.download(this.api + '/download/' + id)
+        .subscribe(data => { },
+        err => { console.log(err); });
+    }
 }
 

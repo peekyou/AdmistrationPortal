@@ -49,6 +49,6 @@ export class TranslationService {
         return this.translate.get(names).subscribe(res => {
             this.translations = {...this.translations, ...res};
             callback(res);
-        });;
+        });
     }
 }

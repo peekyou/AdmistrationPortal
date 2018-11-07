@@ -1,9 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
+import { CustomerScanModal } from '../customer-scan/customer-scan.modal';
 import { UserService } from '../../user/user.service';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
@@ -24,6 +26,7 @@ export class CustomerDetailComponent implements OnInit {
     
     constructor(
         private route: ActivatedRoute,
+        private modalService: NgbModal,
         private user: UserService,
         private service: CustomerService,
         public c: CustomerDetailService) {
@@ -50,5 +53,18 @@ export class CustomerDetailComponent implements OnInit {
                 this.c.customer = customer;
                 this.c.customer.purchaseData = this.service.calculatePurchaseData(customer.points);
             });
+    }
+
+    openScanner() {
+        const modalRef = this.modalService.open(CustomerScanModal, { 
+            // size: 'lg', 
+            windowClass: 'customer-modal',
+            // container: 'test'
+        });
+
+        modalRef.result.then((result) => {
+            if (result === 'Y') {
+            }
+        }, (reason) => { });
     }
 }

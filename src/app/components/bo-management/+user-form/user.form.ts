@@ -35,15 +35,30 @@ export class UserForm implements OnInit {
     init() {
         this.form = this.fb.group({
             username: [null, Validators.required],
+            password: [null],
+            passwordConfirmation: [null],
             firstname: [null, Validators.required],
             lastname: [null, Validators.required],
             email: [null, Validators.email],
             status,
             permissions: this.fb.array([]),
             userPermissions: this.fb.array([])
-        });
+        }, { validator: this.areEqual('password', 'passwordConfirmation') });
 
         this.getPermissions(<FormArray>this.form.controls.permissions);
+    }
+
+    areEqual(field1: string, field2: string) {
+        return (group: FormGroup): { [key: string]: any } => {
+            let f1 = group.controls[field1];
+            let f2 = group.controls[field2];
+            if (f1.value && f2.value && f1.value !== f2.value) {
+                return {
+                    passwords: "Passwords should match"
+                };
+            }
+            return {};
+        }
     }
     
     getPermissions(formArray: FormArray) {
@@ -105,6 +120,8 @@ export class UserForm implements OnInit {
     }
     
     get username() { return this.form.get('username'); }
+    get password() { return this.form.get('password'); }
+    get passwordConfirmation() { return this.form.get('passwordConfirmation'); }
     get email() { return this.form.get('email'); }
     get firstname() { return this.form.get('firstname'); }
     get lastname() { return this.form.get('lastname'); }

@@ -20,6 +20,11 @@ export class AuthHttpService extends HttpService {
         return super.get(url);
     }
 
+    download(url: string): Observable<any> {
+        this.addAuthHeader();
+        return super.download(url);
+    }
+
     post(url: string, data: any): Observable<any> {
         this.addAuthHeader();
         return super.post(url, data);

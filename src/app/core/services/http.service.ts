@@ -2,6 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { RequestArgs } from "@angular/http/src/interfaces";
 import { Observable } from 'rxjs/Observable';
+import { saveAs } from 'file-saver';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -23,6 +24,23 @@ export class HttpService {
         }
 
         return this.http.get(url, { headers: this.headers })
+            .catch(this.handleError);
+    }
+
+    download(url: string, token: string = null): Observable<any> {
+        if (token) {
+            this.headers['Authorization'] = 'Bearer ' + token;
+        }
+
+        return this.http.get(url, { headers: this.headers, responseType: 'blob', observe: 'response' })
+            .map(res => {
+                var fileName = null;
+                var contentDisposition = res.headers.get('Content-Disposition');
+                if (contentDisposition) {
+                    fileName = contentDisposition.split('=')[1];
+                }
+                return saveAs(res.body, fileName);
+            })
             .catch(this.handleError);
     }
 

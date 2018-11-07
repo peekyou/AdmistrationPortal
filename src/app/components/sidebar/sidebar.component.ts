@@ -1,5 +1,4 @@
 import { Component, Input, HostListener, ElementRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from '../user/user.service';
 import { Permissions } from '../../core/helpers/permissions';
@@ -35,7 +34,6 @@ export class SidebarComponent {
     constructor(
         private _element: ElementRef,
         public user: UserService,
-        public translate: TranslateService,
         public searchService: SearchService) { 
     }
 

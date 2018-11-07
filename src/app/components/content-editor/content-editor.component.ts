@@ -87,8 +87,9 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
 
         this.ckeditorConfig = {
             enterMode: 2, //CKEDITOR.ENTER_BR
+            allowedContent: true, // allow html
             toolbar: [
-                //{ name: 'document', items: ['Source', '-', 'Templates'] },
+                { name: 'document', items: ['Source'/*, '-', 'Templates'*/] },
                 { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
                 
                 { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
@@ -96,6 +97,7 @@ export class ContentEditorComponent implements OnInit, ComponentCanDeactivate  {
                     name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
                         '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']
                 },
+                { name: 'links', items : [ 'Link','Unlink' ] },
                 { name: 'styles', items: ['Font', 'FontSize'] },
                 { name: 'colors', items: ['TextColor', 'BGColor'] },
                 { name: 'tools', items: [ 'About'] }
