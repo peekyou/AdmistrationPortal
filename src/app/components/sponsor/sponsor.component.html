@@ -14,21 +14,21 @@
                                 <div class="form-group">
                                     <label for="fullname">{{ 'COMMON.FULLNAME' | translate }}*</label>
                                     <input type="text" class="form-control form-control-sm" id="fullname" formControlName="fullname" required />
-                                    <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)" class="invalid-field">
+                                    <div *ngIf="fullname.invalid && fullname.touched" class="invalid-field">
                                         {{ 'FORM.REQUIRED' | translate }}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="companyName">{{ 'SPONSOR.COMPANY_NAME' | translate }}*</label>
                                     <input type="text" class="form-control form-control-sm" id="companyName" formControlName="companyName" required />
-                                    <div *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)" class="invalid-field">
+                                    <div *ngIf="companyName.invalid && companyName.touched" class="invalid-field">
                                         {{ 'FORM.REQUIRED' | translate }}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
                                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email" />
-                                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
+                                    <div *ngIf="email.invalid && email.touched" class="invalid-field">
                                         {{ 'FORM.INVALID_EMAIL' | translate }}
                                     </div>
                                 </div> 

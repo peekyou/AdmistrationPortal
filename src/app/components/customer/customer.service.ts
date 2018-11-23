@@ -110,5 +110,9 @@ export class CustomerService {
     sendApplicationSms(customerId: string): Observable<void> {
         return this.http.post(this.api + '/' + customerId + '/sms/send', {});
     }
+
+    getFormConfiguration(): Observable<any> {
+        return this.http.get('/customer-assets/form.json');
+    }
 }
 

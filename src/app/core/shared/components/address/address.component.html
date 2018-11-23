@@ -19,7 +19,7 @@
             <div *ngIf="!minimal || showAddressLine1()" class="form-group">
                 <label for="addressLine1">{{ 'COMMON.ADDRESS_LINE_1' | translate }}<span *ngIf="required">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="addressLine1" 
-                       formControlName="addressLine1"  [required]="required"/>
+                       formControlName="addressLine1" [required]="required"/>
             </div>
             <div *ngIf="!minimal" class="form-group">
                 <label for="addressLine2">{{ 'COMMON.ADDRESS_LINE_2' | translate }}</label>
@@ -31,26 +31,26 @@
                 <app-autocomplete [source]="'cities-' + getCountryCode()" name="zipCodeCity" id="zipCodeCity"
                     formControlName="cityZipCode" small="true" (onChange)="zipCodeCityChanged($event)" [required]="required">
                 </app-autocomplete>
-                <div *ngIf="cityZipCodeControl.invalid && (cityZipCodeControl.dirty || cityZipCodeControl.touched)" class="invalid-field">
+                <div *ngIf="cityZipCodeControl.invalid && cityZipCodeControl.touched" class="invalid-field">
                     {{ 'FORM.INVALID_VALUE' | translate }}
                 </div>
             </div>
             <div *ngIf="isDefault() && !combineCityZipCode()" class="form-group">
                 <label for="zip">{{ 'COMMON.ZIP_CODE' | translate }}<span *ngIf="required">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="zip"
-                       formControlName="zipCode"  [required]="required"/>
+                       formControlName="zipCode" [required]="required"/>
             </div>
             <div *ngIf="isDefault() && !combineCityZipCode()" class="form-group">
                 <label for="city">{{ 'COMMON.CITY' | translate }}<span *ngIf="required">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="city"
-                       formControlName="city"  [required]="required"/>
+                       formControlName="city" [required]="required"/>
             </div>
             <div *ngIf="showEmirate()" class="form-group">
                 <label for="state">{{ 'COMMON.EMIRATE' | translate }}<span *ngIf="required">*</span></label>
                 <app-autocomplete [source]="'states-' + getCountryCode()" name="state" id="state" [required]="required"
                     formControlName="state" small="true" (onChange)="onStateChange($event)" openOnFocus="true">
                 </app-autocomplete>
-                <div *ngIf="stateControl.invalid && (stateControl.dirty || stateControl.touched)" class="invalid-field">
+                <div *ngIf="stateControl.invalid && stateControl.touched" class="invalid-field">
                     {{ 'FORM.INVALID_VALUE' | translate }}
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     formControlName="city" small="true" (onChange)="onCityChange($event)" 
                     openOnFocus="true" [parent]="state" [required]="required">
                 </app-autocomplete>
-                <div *ngIf="cityControl.invalid && (cityControl.dirty || cityControl.touched)" class="invalid-field">
+                <div *ngIf="cityControl.invalid && cityControl.touched" class="invalid-field">
                     {{ 'FORM.INVALID_VALUE' | translate }}
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <app-autocomplete [source]="'areas-' + getCountryCode()" name="area" id="area" [required]="required"
                     formControlName="area" small="true" openOnFocus="true" limit="100" [parent]="city || state">
                 </app-autocomplete>
-                <div *ngIf="areaControl.invalid && (areaControl.dirty || areaControl.touched)" class="invalid-field">
+                <div *ngIf="areaControl.invalid && areaControl.touched" class="invalid-field">
                     {{ 'FORM.INVALID_VALUE' | translate }}
                 </div>
             </div>

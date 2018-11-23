@@ -192,6 +192,7 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
                 isValid = this.findLookupById(val.id) != null;
             }
         }
+        
         if (!isValid) {
             return {
                 selectedValue: {

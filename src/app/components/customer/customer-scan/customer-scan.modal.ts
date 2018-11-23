@@ -14,22 +14,24 @@ import { isMobileNumber } from '../../../core/helpers/utils';
     templateUrl: './customer-scan.modal.html'
 })
 export class CustomerScanModal {
-    camera: any;
+    selectedDevice: any;
     error: boolean;
-
+    availableDevices: any[];
+    
     constructor(
         public activeModal: NgbActiveModal, 
         private router: Router, 
         private service: CustomerService) { }
 
     camerasFoundHandler($event) {
+        this.availableDevices = $event;
         if ($event && $event.length > 0) {
             if ($event.length == 2) {
-                this.camera = $event[1];
+                this.selectedDevice = $event[1];
                 
             }
             else {
-                this.camera = $event[0];
+                this.selectedDevice = $event[0];
             }
         }
     }
@@ -37,7 +39,6 @@ export class CustomerScanModal {
     scanSuccessHandler($event) {
         this.error = false;
         if ($event) {
-            console.log($event)
             var customerId = $event.substr($event.lastIndexOf('/') + 1)
             this.activeModal.close();
             this.router.navigate(['/customers', customerId]);
@@ -47,5 +48,12 @@ export class CustomerScanModal {
     scanErrorHandler($event) {
         console.log($event);
         this.error = true;
+    }
+
+    onDeviceSelectChange(selectedValue: string) {
+        var filtered = this.availableDevices.filter(d => d.deviceId == selectedValue);
+        if (filtered && filtered.length > 0) {
+            this.selectedDevice = filtered[0];
+        }
     }
  }

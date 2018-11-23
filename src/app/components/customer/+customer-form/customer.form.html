@@ -7,12 +7,12 @@
                     <br />                        
                     <div class="form-check form-check-inline">
                         <input type="radio" name="gender" id="genderM" value="M"
-                            formControlName="gender" class="form-check-input" required>
+                            formControlName="gender" class="form-check-input">
                         <label for="genderM" class="form-check-label">{{ 'COMMON.GENDER_M' | translate }}</label>
                     </div>
                     <div class="form-check-inline">
                         <input type="radio" name="gender" id="genderF" value="F"
-                            formControlName="gender" class="form-check-input" required>
+                            formControlName="gender" class="form-check-input">
                         <label for="genderF" class="form-check-label">{{ 'COMMON.GENDER_F' | translate }}</label>
                     </div>
                     <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="invalid-field">
@@ -22,14 +22,14 @@
         
                 <div class="form-group">
                     <label for="firstname">{{ 'COMMON.FIRSTNAME' | translate }}*</label>
-                    <input type="text" class="form-control form-control-sm" id="firstname" formControlName="firstname" required />
+                    <input type="text" class="form-control form-control-sm" id="firstname" formControlName="firstname" />
                     <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="lastname">{{ 'COMMON.LASTNAME' | translate }}*</label>
-                    <input type="text" class="form-control form-control-sm" id="lastname" formControlName="lastname" required />
+                    <input type="text" class="form-control form-control-sm" id="lastname" formControlName="lastname" />
                     <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
@@ -56,7 +56,7 @@
                         [maxlength]="20" [defaultCountry]="!isEdit && (!mobile.value || !mobile.value.startsWith('+')) && user.getCountryCode().toLowerCase()">
                     </international-phone-number>
                     
-                    <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="invalid-field">
+                    <div *ngIf="mobile.invalid && mobile.touched" class="invalid-field">
                         <div *ngIf="mobile.errors.required">
                             {{ 'FORM.REQUIRED' | translate }}
                         </div>
@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email" />
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
+                    <div *ngIf="email.invalid && email.touched" class="invalid-field">
                         {{ 'FORM.INVALID_EMAIL' | translate }}
                     </div>
                 </div> 
@@ -79,7 +79,7 @@
                 <div class="form-group" *ngIf="!isEdit && showLanguages">
                     <label for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
-                            [placeholder]="user.getCurrency() || ''" formControlName="amount" required>
+                            [placeholder]="user.getCurrency() || ''" formControlName="amount">
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
@@ -125,7 +125,7 @@
                     </div>
                 </div>
                 
-                <app-address [group]="form.controls.address" hideCountry="true" minimal="true" required="true" cardPadding=".85rem"></app-address>
+                <app-address [group]="form.controls.address" hideCountry="true" minimal="true" [required]="formConfiguration.address.mandatory" cardPadding=".85rem"></app-address>
                 
                 <div *ngIf="showLanguages" class="card card-languages">
                     <div class="card-body">
@@ -165,7 +165,7 @@
                     <label *ngIf="!showCurrentPoints || isEdit" for="amount">{{ 'COMMON.AMOUNT' | translate }}*</label>
                     <label *ngIf="!isEdit && showCurrentPoints" for="amount">Historique en montant*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="amount"
-                            [placeholder]="user.getCurrency() || ''" formControlName="amount" required>
+                            [placeholder]="user.getCurrency() || ''" formControlName="amount">
                     <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
@@ -174,7 +174,7 @@
                 <div class="form-group" *ngIf="!isEdit && showCurrentPoints">
                     <label for="currentPoints">Points en cours*</label>
                     <input type="number" min="0" class="form-control form-control-sm" id="currentPoints"
-                            formControlName="currentPoints" required>
+                            formControlName="currentPoints">
                     <div *ngIf="currentPoints.invalid && (currentPoints.dirty || currentPoints.touched)" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>

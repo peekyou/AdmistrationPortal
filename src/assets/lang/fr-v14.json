@@ -1,6 +1,7 @@
 {
     "TOOLBAR": {
         "TODAY": "Aujourd'hui",
+        "TODAY_SHORT": "Auj.",
         "WEEK": "Semaine",
         "MONTH": "Mois",
         "YEAR": "Année",
@@ -18,7 +19,8 @@
         "SPONSOR": "Parrainer",
         "MOBILE_PREVIEW": "Aperçu mobile",
         "STATISTICS": "Tableau de bord",
-        "LOGOUT": "Déconnexion"
+        "LOGOUT": "Déconnexion",
+        "HELP": "Aide"
     },
     "FORM": {
         "REQUIRED": "Champs obligatoire",
@@ -151,7 +153,8 @@
         "CONFIRMATION_CREATION": "Voulez-vous l'enregistrer ?",
         "REGISTRATION_SMS_UNDELIVERED": "Le SMS d'inscription n'a pas pu être envoyé à",
         "REDEEMED_POINTS": "Utilisés",
-        "SCAN": "Scanner"
+        "SCAN": "Scanner",
+        "NO_DEVICE": "Aucune caméra"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",

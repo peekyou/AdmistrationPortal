@@ -7,8 +7,13 @@
 <div class="modal-body">
     <app-alert [(error)]="error" errorMessage="{{ 'COMMON.SERVER_ERROR' | translate }}">
     </app-alert>
-    <zxing-scanner 
-        [device]="camera"
+    <select (change)="onDeviceSelectChange($event.target.value)" class="form-control">
+        <option value="" [selected]="!selectedDevice">{{ 'CUSTOMERS.NO_DEVICE' | translate }}</option>
+        <option *ngFor="let device of availableDevices" [value]="device.deviceId" 
+            [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>
+    </select>
+    <zxing-scanner
+        [device]="selectedDevice"
         (camerasFound)="camerasFoundHandler($event)"
         (scanSuccess)="scanSuccessHandler($event)"
         (scanError)="scanErrorHandler($event)"></zxing-scanner>    

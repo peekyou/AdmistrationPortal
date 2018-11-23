@@ -19,6 +19,7 @@ export class CustomerComponent implements OnInit {
 
     constructor(private service: CustomerService, private modalService: NgbModal, c: CustomerDetailService) { 
         c.customer = null;
+        service.searchTerm = null;
     }
 
     public ngOnInit() {

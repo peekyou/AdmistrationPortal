@@ -1,6 +1,7 @@
 {
     "TOOLBAR": {
         "TODAY": "Today",
+        "TODAY_SHORT": "Today",
         "WEEK": "Week",
         "MONTH": "Month",
         "YEAR": "Year",
@@ -18,7 +19,8 @@
         "SPONSOR": "Sponsor",
         "MOBILE_PREVIEW": "Mobile preview",
         "STATISTICS": "Dashboard",
-        "LOGOUT": "Logout"
+        "LOGOUT": "Logout",
+        "HELP": "Help"
     },
     "FORM": {
         "REQUIRED": "Required field",
@@ -151,7 +153,8 @@
         "CONFIRMATION_CREATION": "Do you want to create it?",
         "REGISTRATION_SMS_UNDELIVERED": "The registration SMS could not been sent to",
         "REDEEMED_POINTS": "Redeemed",
-        "SCAN": "Scan"
+        "SCAN": "Scan",
+        "NO_DEVICE": "No device"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section saved successfully",

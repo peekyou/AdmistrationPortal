@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="email">{{ 'COMMON.EMAIL' | translate }}*</label>
                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email" />
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-field">
+                    <div *ngIf="email.invalid && email.touched" class="invalid-field">
                         {{ 'FORM.INVALID_EMAIL' | translate }}
                     </div>
                 </div> 
@@ -41,7 +41,7 @@
                     <label for="password">{{ 'COMMON.PASSWORD' | translate }}<span *ngIf="!isEdit">*</span></label>
                     <input type="password" class="form-control form-control-sm" id="password" formControlName="password" 
                             [required]="!isEdit" />
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-field">
+                    <div *ngIf="password.invalid && password.touched" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <label for="password-confirmation">{{ 'COMMON.PASSWORD_CONFIRMATION' | translate }}<span *ngIf="!isEdit">*</span></label>
                     <input type="password" class="form-control form-control-sm" id="password-confirmation" 
                             formControlName="passwordConfirmation" [required]="!isEdit" />
-                    <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="invalid-field">
+                    <div *ngIf="passwordConfirmation.invalid && passwordConfirmation.touched" class="invalid-field">
                         {{ 'FORM.REQUIRED' | translate }}
                     </div>
                 </div>

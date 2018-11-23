@@ -1,0 +1,11 @@
+{
+ "firstname": { "mandatory": true },
+ "lastname": { "mandatory": false },
+ "gender": { "mandatory": true },
+ "mobile": { "mandatory": true },
+ "email": { "mandatory": false },
+ "birthdate": { "mandatory": true },
+ "languages": { "mandatory": false },
+ "favoriteProducts": { "mandatory": false },
+ "address": { "mandatory": true }
+}

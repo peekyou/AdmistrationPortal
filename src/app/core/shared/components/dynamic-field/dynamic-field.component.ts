@@ -4,8 +4,6 @@ import { FormGroup, FormArray } from '@angular/forms';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 import { CustomerCustomFields } from '../../../models/customerCustomFields';
-import { Lookup } from '../../../models/lookup';
-import { UserService } from '../../../../components/user/user.service';
 
 @Component({
     selector: 'app-dynamic-field',

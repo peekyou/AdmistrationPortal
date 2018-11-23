@@ -20,6 +20,18 @@ import * as moment from 'moment';
     providers: [NgbDatepickerConfig]
 })
 export class CustomerFormComponent implements OnInit {
+    formConfiguration = {
+        "firstname": { "mandatory": true },
+        "lastname": { "mandatory": true },
+        "gender": { "mandatory": true },
+        "mobile": { "mandatory": true },
+        "email": { "mandatory": true },
+        "birthdate": { "mandatory": true },
+        "languages": { "mandatory": false },
+        "favoriteProducts": { "mandatory": false },
+        "address": { "mandatory": true }
+    };
+       
     form: FormGroup;
     products: Product[];
     showLanguageCountries = ['ae'];
@@ -46,7 +58,13 @@ export class CustomerFormComponent implements OnInit {
             
             var cc = user.getCountryCode().toLowerCase();
             this.showLanguages = this.showLanguageCountries.indexOf(cc) > -1;
-               
+            
+            service.getFormConfiguration()
+                .subscribe(
+                res => this.formConfiguration = res,
+                err => { }
+            );
+
             productService.getProducts(null, null)
                 .subscribe(
                     res => this.products = res.data,
@@ -63,12 +81,12 @@ export class CustomerFormComponent implements OnInit {
             this.customer.address = {};
         }
         this.form = this.fb.group({
-            firstname: [this.customer.firstname, Validators.required],
-            lastname: [this.customer.lastname, Validators.required],
-            gender: [this.customer.gender, Validators.required],
-            mobile: [this.customer.mobileNumber, Validators.required],
-            email: [this.customer.email, Validators.email],
-            birthdate: [dateToNgbDateStruct(this.customer.birthdate), Validators.required],
+            firstname: [this.customer.firstname, (c) => this.configurationValidation(c, 'firstname')],
+            lastname: [this.customer.lastname, (c) => this.configurationValidation(c, 'lastname')],
+            gender: [this.customer.gender, (c) => this.configurationValidation(c, 'gender')],
+            mobile: [this.customer.mobileNumber, (c) => this.configurationValidation(c, 'mobileNumber')],
+            email: [this.customer.email, (c) => this.configurationValidation(c, 'email')],
+            birthdate: [dateToNgbDateStruct(this.customer.birthdate), (c) => this.configurationValidation(c, 'birthdate')],
             languages: this.fb.array(this.customer.languages),
             favoriteProducts: this.fb.array(this.customer.favoriteProducts),
             address: this.fb.group({
@@ -168,11 +186,15 @@ export class CustomerFormComponent implements OnInit {
         return false;
     }
 
-    private customEmailValidator(control: AbstractControl): ValidationErrors {
-        if (!control.value) {
-            return null;
+    private configurationValidation(control: AbstractControl, controlName: string): ValidationErrors {
+        if (this.formConfiguration && this.formConfiguration[controlName] && this.formConfiguration[controlName].mandatory) {
+            return controlName == 'email' ? Validators.email(control) : Validators.required(control);
         }
-        return Validators.email(control);
+
+        if (controlName == 'email' && control.value) {
+            return Validators.email(control);
+        }
+        return null;
     }
 
     private currentPointsValidator(control: AbstractControl): ValidationErrors {

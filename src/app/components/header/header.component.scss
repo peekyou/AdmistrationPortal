@@ -15,7 +15,7 @@
     }
 
     .date-filter {
-        margin-left: 35px;
+        margin-left: 27px;
     }
 }
 
@@ -23,10 +23,14 @@
     :host {        
         left: $sidebar-width;
     }
+}
 
-    .username {
-        margin-right: 1.5em;
-    }
+.username {
+    margin-right: 10px;
+}
+
+.help {
+    margin-right: 10px;
 }
 
 .navbar {
@@ -34,6 +38,7 @@
 
     a, i {
         color: white;
+        text-decoration: none;
     }
 
     input {
