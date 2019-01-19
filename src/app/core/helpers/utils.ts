@@ -69,6 +69,9 @@ export function isMobileNumber(searchTerm: string): boolean {
 export function validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
         const control = formGroup.get(field);
+        if (control.invalid) {
+            console.log(field)
+        }
         if (control instanceof FormControl) {
             control.markAsTouched({ onlySelf: true });
         } else if (control instanceof FormGroup) {

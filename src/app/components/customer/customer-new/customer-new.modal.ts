@@ -18,7 +18,7 @@ export class CustomerNewModal {
     saveSubscription: Subscription;    
 
     constructor(
-        public activeModal: NgbActiveModal, 
+        public activeModal: NgbActiveModal,
         private router: Router, 
         private service: CustomerService,
         private notifications: NotificationService) { }

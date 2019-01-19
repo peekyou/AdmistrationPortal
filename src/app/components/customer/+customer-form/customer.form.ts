@@ -131,7 +131,7 @@ export class CustomerFormComponent implements OnInit {
         const arrayControl = <FormArray>this.form.controls[control];
         arrayControl.removeAt(index);
     }
-    
+
     submit() {
         if (this.form.valid) {
             var customer: Customer = {

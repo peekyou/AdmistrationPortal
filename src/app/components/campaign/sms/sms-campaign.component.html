@@ -1,0 +1,8 @@
+<app-lock package="2"></app-lock>
+<div class="container content-container" *ngIf="user.getPackage() >= 2">
+    <div class="quota">
+        <h4>Votre quota SMS : <b>{{quota}}</b></h4>
+        <button class="btn btn-info" (click)="openSmsPackModal()">Acheter des SMS</button>
+    </div>
+    <app-promotion [quota]="quota" campaignType="sms"></app-promotion>
+</div>

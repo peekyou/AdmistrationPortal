@@ -1,0 +1,32 @@
+<app-lock package="2"></app-lock>
+
+<div class="main-content" *ngIf="user.getPackage() >= 2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col" *ngIf="user.hasPermission(marketingPermission)">
+          <div class="card card-block">
+            <div class="card-body" routerLink="sms">
+                <i class="fa fa-comment-o fa-4x"></i>
+                <div class="text-icon">SMS</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="user.hasPermission(marketingPermission)">
+          <div class="card card-block">
+            <div class="card-body" routerLink="push">
+                <i class="fa fa-bell-o fa-4x"></i>
+                <div class="text-icon">Push notification</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="user.hasPermission(marketingPermission)">
+          <div class="card card-block">
+            <div class="card-body" routerLink="email">
+                <i class="fa fa-envelope-o fa-4x"></i>
+                <div class="text-icon">Email</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

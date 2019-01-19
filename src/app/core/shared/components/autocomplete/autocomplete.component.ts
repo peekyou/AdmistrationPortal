@@ -181,7 +181,8 @@ export class AutoCompleteComponent implements OnInit, ControlValueAccessor, Vali
         }
         else if (control.value && (!values || values.length === 0)) {
             // Any value without list is not valid
-            isValid = false;
+            // Except if value has an ID, because it is coming from server and list of values may no be loaded yet
+            isValid = control.value.id != null;
         }            
         else {
             // Use the selected value if control value is not a Lookup

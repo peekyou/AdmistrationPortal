@@ -10,10 +10,10 @@ import { UserService } from './components/user/user.service';
 import { ContentEditorService } from './components/content-editor/content-editor.service'
 import { CustomerService } from './components/customer/customer.service';
 import { CustomerDetailService } from './components/customer/customer-detail/customer-detail.service';
-import { PromotionService } from './components/promotion/promotion.service';
+import { PromotionService } from './components/campaign/promotion/promotion.service';
 import { ReviewService } from './components/review/review.service';
-import { SmsService } from './components/sms/sms.service';
-import { EmailCampaignService } from './components/email-campaign/email-campaign.service';
+import { PackService } from './components/campaign/pack/pack.service';
+import { EmailCampaignService } from './components/campaign/email/email-campaign.service';
 import { BillingService } from './components/billing/billing.service';
 import { UserManagementService } from './components/bo-management/user-management.service';
 import { ProductService } from './components/bo-management/product/product.service';
@@ -39,7 +39,7 @@ export const APP_PROVIDERS = [
     CustomerDetailService,
     PromotionService,
     ReviewService,
-    SmsService,
+    PackService,
     EmailCampaignService,
     BillingService,
     UserManagementService,

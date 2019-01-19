@@ -1,0 +1,33 @@
+<form [formGroup]="topLevelForm" class="form" (ngSubmit)="topLevelForm.valid && openModal()" novalidate>
+<div class="row">
+    <div class="col-12" [ngClass]="{'col-lg-5': !user.showCustomControl(1), 'col-lg-4': user.showCustomControl(1) }">
+        <div class="card">
+            <h6 class="card-header">{{ 'PROMOTIONS.CREATE_NEW' | translate }} {{ campaignType?.toUpperCase() }}</h6>                
+            <div class="card-body">
+                <promotion-info [quota]="quota" [campaignType]="campaignType" [topLevelForm]="topLevelForm"></promotion-info>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" [ngClass]="{'col-lg-7': !user.showCustomControl(1), 'col-lg-8': user.showCustomControl(1) }">
+        <div class="card">
+            <h6 class="card-header">{{ 'PROMOTIONS.TARGET' | translate }}</h6>                
+            <div class="card-body">
+                <promotion-filter [campaignType]="campaignType" [topLevelForm]="topLevelForm">
+                </promotion-filter>
+                <div style="float:right">
+                    <app-submit-button value="{{ 'PROMOTIONS.SEND_CAMPAIGN_BUTTON' | translate }}" 
+                        loadingValue="{{ 'COMMON.LOADING' | translate }}" buttonClass="btn btn-lg btn-primary"
+                        [form]="topLevelForm" [subscription]="submitSubscription">
+                    </app-submit-button>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!-- <pre>{{ topLevelForm.value | json }}</pre> -->
+<div class="row">
+    <div class="col">
+        <app-promotion-list [campaignType]="campaignType" [reload]="reload"></app-promotion-list>
+    </div>
+</div>

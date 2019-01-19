@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { EmailCampaignService } from '../../../../components/email-campaign/email-campaign.service';
+import { EmailCampaignService } from '../../../../components/campaign/email/email-campaign.service';
 
 @Component({
     templateUrl: './email-campaign.modal.html'

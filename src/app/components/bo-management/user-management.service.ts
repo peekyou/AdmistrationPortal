@@ -5,15 +5,20 @@ import 'rxjs/add/observable/of';
 import { APP_CONFIG, AppConfig } from '../../app.config';
 import { AuthHttpService } from '../../core/services/auth-http.service';
 import { User, Permission } from '../user/user';
+import { Permissions } from '../../core/helpers/permissions';
 import { PagingResponse } from '../../core/models/paging';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Injectable()
 export class UserManagementService {
     private api: string;
     permissions: Permission[];    
     
-    constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
-        this.api = config.ApiEndpoint + '/users';
+    constructor(
+        @Inject(APP_CONFIG) private config: AppConfig,
+        private http: AuthHttpService,
+        private translation: TranslationService) {
+            this.api = config.ApiEndpoint + '/users';
     }
 
     getUser(id: string): Observable<User> {
@@ -21,11 +26,23 @@ export class UserManagementService {
     }
 
     getPermissions(): Observable<Permission[]> {
-        // if (this.permissions) {
-        //     return Observable.of(this.permissions);
-        // }
         return this.http.get(this.config.ApiEndpoint + '/permissions')
-                        .map(res => this.permissions = res);
+                        .map((res: Permission[]) => {
+                            this.permissions = res.filter(x => x.id != Permissions.SMS && x.id != Permissions.Email);
+                            this.setPermissionsTranslation();
+                            return this.permissions;
+                        });
+    }
+
+    setPermissionsTranslation() {
+        if (this.permissions) {
+            var keys = this.permissions.map(p => 'PERMISSIONS.' + p.resourceKey);
+            this.translation.getMultiple(keys, x => {
+                this.permissions.forEach(p => {
+                    p.resourceKey = x['PERMISSIONS.' + p.resourceKey]
+                });
+            });
+        }
     }
 
     getUsers(page: number, count: number): Observable<PagingResponse<User>> {

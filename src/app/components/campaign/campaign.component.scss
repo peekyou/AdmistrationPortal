@@ -1,0 +1,29 @@
+.card-block {
+    border-radius: 10px;
+    max-width: 300px;
+    margin: 30px auto;
+
+    .card-body {
+        text-align: center;
+        color: #161e3d;    
+        
+        .mat-icon {
+            font-size: 60px;
+            height: 60px;
+            width: 60px;
+            line-height: 60px;
+        }
+
+        .text-icon {
+            font-size: 20px;
+            font-weight: 400;
+            margin-top: 1rem;
+        }
+    }
+
+    .card-body:hover {
+        cursor: pointer;
+        background: #9d9d9c;
+        color: #fff;    
+    }
+}

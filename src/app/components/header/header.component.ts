@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     public customersPermission = Permissions.Customers;
     public contentPermission = Permissions.Content;
     public reviewsPermission = Permissions.Reviews;
-    public promotionsPermission = Permissions.Promotions;
+    public promotionsPermission = Permissions.Marketing;
     public smsPermission = Permissions.SMS;
     public userManagementPermission = Permissions.Management;
     public billsPermission = Permissions.Bills;
