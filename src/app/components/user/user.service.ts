@@ -11,6 +11,7 @@ import { parseJwt } from '../../core/helpers/utils';
 import { Claims } from '../../core/helpers/permissions';
 import { MerchantInfo } from '../../core/models/merchantInfo';
 import { CustomerCustomFields } from '../../core/models/customerCustomFields';
+import { LoyaltyProgram } from '../../core/models/loyaltyPrograms';
 import { AppwardsPackage } from '../../core/models/appwardsPackage';
 import { UserPreferences } from './user';
 
@@ -29,6 +30,7 @@ export class UserService {
     private systemCustomerId: string;
     private accessibleMerchants: MerchantInfo[];
     public customerCustomFields: CustomerCustomFields[];
+    public loyaltyPrograms: LoyaltyProgram[];
     public token: string = null;
     
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpService) {
@@ -44,6 +46,7 @@ export class UserService {
         // }
         this.setPermissions();
         this.setCustomerCustomFields();
+        this.setLoyaltyPrograms();
     }
 
     login(username: string, password: string): Observable<boolean> {
@@ -57,6 +60,11 @@ export class UserService {
                     localStorage.setItem(this.tokenKey, token);
                     this.setPermissions();
                     this.setCustomerCustomFields();
+                    this.setLoyaltyPrograms();
+                    
+                    if (!this.permissions || this.permissions.length == 0) {
+                        this.logout();
+                    }
                     return true;
                 } else {
                     return false;
@@ -231,13 +239,27 @@ export class UserService {
     }
 
     private setCustomerCustomFields() {
-        this.http
-            .get(this.api + '/merchants/customfields', this.token)
-            .subscribe(response => {
-                if (response) {
-                    this.customerCustomFields = response;
-                    localStorage.setItem(this.customFieldsKey, JSON.stringify(this.customerCustomFields));
-                }
-            });
+        if (this.token) {
+            this.http
+                .get(this.api + '/merchants/customfields', this.token)
+                .subscribe(response => {
+                    if (response) {
+                        this.customerCustomFields = response;
+                        localStorage.setItem(this.customFieldsKey, JSON.stringify(this.customerCustomFields));
+                    }
+                });
+        }
+    }
+
+    private setLoyaltyPrograms() {
+        if (this.token) {
+            this.http
+                .get(this.api + '/merchants/loyalty', this.token)
+                .subscribe(response => {
+                    if (response) {
+                        this.loyaltyPrograms = response;
+                    }
+                });
+        }
     }
 }

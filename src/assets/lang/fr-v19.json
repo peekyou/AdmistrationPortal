@@ -146,6 +146,7 @@
         "POINTS_USED": "Points déjà utilisé",
         "MOBILE_PLACEHOLDER": "Numéro de télépone",
         "ELIGIBLE_DISCOUNT": "Eligible pour une réduction :",
+        "ELIGIBLE_FOR": "Récompense(s) à utiliser : ",
         "SEND_APPLICATION_SMS": "Renvoyer SMS application",
         "NOT_FOUND": "Client inexistant",
         "NOT_EXISTING_SENTENCE": "Le client recherché n'est pas enregistré",
@@ -153,7 +154,8 @@
         "REGISTRATION_SMS_UNDELIVERED": "Le SMS d'inscription n'a pas pu être envoyé à",
         "REDEEMED_POINTS": "Utilisés",
         "SCAN": "Scanner",
-        "NO_DEVICE": "Aucune caméra"
+        "NO_DEVICE": "Aucune caméra",
+        "BIRTHDAY_LOYALTY": "Offert !"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section sauvegardée",
@@ -248,14 +250,20 @@
         "TITLE": "Acheter des SMS",
         "SMS": "SMS",
         "STOCK": "Votre stock",
+        "QUOTA": "Votre quota : ",
         "BUY": "Acheter",
         "BUY_BTN": "Acheter",
         "MODAL_TITLE": "Achat SMS",
-        "MODAL_SENTENCE": "Vous achetez {{smsNumber}} SMS pour {{price}}{{currency}}",
+        "MODAL_SENTENCE": "Vous achetez {{number}} SMS pour {{price}}{{currency}}",
         "NEW_STOCK": "Votre nouveau stock",
-        "CC_NOTICE": "Le montant de cet achat est à régler par carte bancaire.",
-        "INVOICE_NOTICE": "Votre paiement sera impacté sur votre prochaine facture",
         "ADD_SMS_LABEL": "SMS pour"
+    },
+    "PUSH_PACKS": {
+        "TITLE": "Acheter des notifications",
+        "PUSH": "PUSH",
+        "MODAL_TITLE": "Achat notifications",
+        "MODAL_SENTENCE": "Vous achetez {{number}} notifications push pour {{price}}{{currency}}",
+        "ADD_PUSH_LABEL": "Notifications push pour"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "Aucun utilisateur",
@@ -327,6 +335,7 @@
         "LoginFailed": "Mot de passe ou utilisateur incorrect",
         "TokenExpired": "Token invalide",
         "TokenMismatch": "Token invalide",
-        "InvalidCurrentPoints": "L'historique du montant est trop petit par rapport aux points en cours"
+        "InvalidCurrentPoints": "L'historique du montant est trop petit par rapport aux points en cours",
+        "InsufficientQuota": "Quota insuffisant"
     }
 }

@@ -85,6 +85,13 @@ export class PromotionInfoComponent implements OnInit {
         }
         return true;
     }
+    
+    pushQuotaValid() {
+        if (this.quota != null && this.service.nbRecipients != null) {
+            return this.service.nbRecipients <= this.quota;
+        }
+        return true;
+    }
 
     private buildSmsTemplate(name: string, percentage: string, dateFrom: any, dateTo: any): string {
         let dateString: string = '';

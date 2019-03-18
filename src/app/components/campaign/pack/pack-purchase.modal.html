@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{ 'SMS_PACKS.TITLE' | translate }}</h4>
+    <h4 *ngIf="type == 'sms'" class="modal-title">{{ 'SMS_PACKS.TITLE' | translate }}</h4>
+    <h4 *ngIf="type == 'push'" class="modal-title">{{ 'PUSH_PACKS.TITLE' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -11,7 +12,7 @@
             <div>
                 <div class="cyan bold lead">{{ 'SMS_PACKS.STOCK' | translate }}</div>
                 <app-circle-progress
-                    subtitle="{{ 'SMS_PACKS.SMS' | translate }}"
+                    [subtitle]="subtitle"
                     [title]="quota" 
                     backgroundColor="#0cb3c2"
                     backgroundOpacity=1
@@ -37,7 +38,7 @@
             
             <form #form class="form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                 <input name="cmd" type="hidden" value="_xclick" />
-                <input name="business" type="hidden" value="ZBD6ZJMJF737A" />
+                <input name="business" type="hidden" value="VFCE629RSSW24" />
                 <input name="lc" type="hidden" value="FR" />
                 <input name="item_name" type="hidden" value="SMS Packs" />
                 <input name="amount" type="hidden" value="{{ pack.price }}" />
@@ -46,12 +47,12 @@
                 <input name="no_note" type="hidden" value="1" />
                 <input name="no_shipping" type="hidden" value="1" />
                 <input name="currency_code" type="hidden" value="{{ currency }}" />
-                <input type="hidden" name="return" value="https://shop.app-wards.com/odwichbj/sms?payment=s&c={{ packNumber }}" />
-                <input type="hidden" name="cancel_return" value="https://shop.app-wards.com/odwichbj/sms" />
+                <input type="hidden" name="return" [ngModel]="redirectSuccessUrl" />
+                <input type="hidden" name="cancel_return" [ngModel]="redirectCancelUrl" />
                 <input name="bn" type="hidden" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted" />
                 
                 <div class="form-group">
-                    <label for="stock" class="cyan sms-label">{{ 'SMS_PACKS.BUY' | translate }} {{ packNumber * pack.number }} {{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }} {{ packNumber * pack.price }}{{ currency }}</label>
+                    <label for="stock" class="cyan sms-label">{{ 'SMS_PACKS.BUY' | translate }} {{ packNumber * pack.number }} <span *ngIf="type == 'sms'">{{ 'SMS_PACKS.ADD_SMS_LABEL' | translate }}</span><span *ngIf="type == 'push'">{{ 'PUSH_PACKS.ADD_PUSH_LABEL' | translate }}</span> {{ packNumber * pack.price }}{{ currency }}</label>
                     <input type="number" id="stock" name="stock" class="form-control mx-sm-3" min="1" max="10000" 
                             [(ngModel)]="packNumber" (keypress)="onInputChange($event)" step="1">
                 </div>
@@ -64,7 +65,7 @@
         <div class="col-12 col-sm-6 col-md-12 col-lg-6">
             <p class="lead theme-color bold">{{ 'SMS_PACKS.NEW_STOCK' | translate }}</p>                                            
             <app-circle-progress 
-                subtitle="{{ 'SMS_PACKS.SMS' | translate }}"
+                [subtitle]="subtitle"
                 [title]="(packNumber * pack.number) + quota" 
                 backgroundColor="#fdbc00"
                 backgroundOpacity=1
@@ -89,6 +90,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="sendEmail()" [disabled]="sending">Yes</button>
-</div> -->

@@ -8,7 +8,8 @@ import { Pack } from './pack';
 @Injectable()
 
 export class PackService {
-    
+    backOfficeUrl: string;
+
     constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: AuthHttpService) {
     }
 
@@ -22,6 +23,26 @@ export class PackService {
     
     buySmsPack(packNumber: number): Observable<number> {
         return this.http.post(this.config.ApiEndpoint + '/sms/pack/buy', packNumber);
+    }
+    
+    getPushQuota(): Observable<number> {
+        return this.http.get(this.config.ApiEndpoint + '/merchants/push/quota');
+    }
+
+    getPushPackInfos(): Observable<Pack> {
+        return this.http.get(this.config.ApiEndpoint + '/push/pack');
+    }
+    
+    buyPushPack(packNumber: number): Observable<number> {
+        return this.http.post(this.config.ApiEndpoint + '/push/pack/buy', packNumber);
+    }
+    
+    getBackOfficeUrl(): Observable<string> {
+        if (this.backOfficeUrl) {
+            return Observable.of(this.backOfficeUrl);
+        }
+        return this.http.get(this.config.ApiEndpoint + '/merchants/url/backoffice')
+                        .map(res => this.backOfficeUrl = res);
     }
 }
 

@@ -91,6 +91,15 @@ export class CustomerService {
     giveDiscount(customerId: string): Observable<Customer> {
         return this.http.post(this.api + '/' + customerId + '/discount', {});
     }
+    
+    giveLoyaltyDiscount(customerId: string, loyaltyId: string, rewardId: string): Observable<Customer> {
+        return this.http.post(this.api + '/discount', 
+        {
+            customerId: customerId,
+            loyaltyId: loyaltyId,
+            rewardId: rewardId
+        });
+    }
 
     deletePoints(point: CustomerPoint): Observable<number> {
         return this.http.delete(this.api + '/points/' + point.id);

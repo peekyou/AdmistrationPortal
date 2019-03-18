@@ -3,7 +3,11 @@
 </div>
 
 <div class="card-body text-align-center" *ngIf="c.customer">
-    <div *ngIf="c.customer.discountAmount == null || useDiscountLater" class="entry-form">
+    <div *ngIf="birthdayLoyaltyGift()" class="birthday-card">
+        <i class="fa fa-birthday-cake"></i>
+        <b>{{birthdayLoyaltyGift()}}</b> {{ 'CUSTOMERS.BIRTHDAY_LOYALTY' | translate }}
+    </div>
+    <div *ngIf="(c.customer.discountAmount == null && !c.customer.isEligibleForDiscount) || useDiscountLater" class="entry-form">
         <form class="form-inline" #entryF="ngForm" (ngSubmit)="entryF.valid && saveEntry()" novalidate>
             <label for="amount" class="col-12">{{ 'CUSTOMERS.SAVE_ENTRY_LABEL' | translate:{currency: currency} }}</label>
             <input type="number" min="0" class="form-control" id="amount" name="amount" style="max-width: 50%;" [readonly]="loading"
@@ -14,8 +18,15 @@
             </app-submit-button>
         </form>
     </div>
-    <div *ngIf="c.customer.discountAmount != null && !useDiscountLater">
-        <div class="card-text">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ c.customer.discountAmount }} {{ currency }}</div>
+    <div *ngIf="(c.customer.discountAmount != null || c.customer.isEligibleForDiscount) && !useDiscountLater">
+        <div class="card-text" *ngIf="c.customer.discountAmount != null">{{ 'CUSTOMERS.ELIGIBLE_DISCOUNT' | translate }} {{ c.customer.discountAmount }} {{ currency }}</div>
+        <div class="card-text" *ngIf="c.customer.isEligibleForDiscount">
+            {{ 'CUSTOMERS.ELIGIBLE_FOR' | translate }}
+            <span *ngIf="getEligibleRewards().length == 1">{{selectedReward.name}}</span>
+            <select *ngIf="getEligibleRewards().length > 1" class="form-control" [(ngModel)]="selectedReward">
+                <option [ngValue]="reward" *ngFor="let reward of getEligibleRewards()">{{reward.name}}</option>
+            </select>
+        </div>
         <form class="form-inline" (ngSubmit)="giveDiscount()" novalidate>
             <app-submit-button value="{{ 'CUSTOMERS.GIVE_DISCOUNT_BUTTON' | translate }}" 
                             loadingValue="{{ 'COMMON.LOADING' | translate }}"

@@ -71,7 +71,8 @@
         </div>
         <div *ngIf="!isSMSCampaign()">
             <small class="form-text text-muted"><b>{{ details.value.length }}</b> {{ 'PROMOTIONS.PUSH_CHARS' | translate }}</small>
-            <small class="form-text text-muted" *ngIf="!isSMSCampaign()"><b>{{ 'PROMOTIONS.MAX_CHARS' | translate:{chars: '100'} }}</b> {{ 'PROMOTIONS.PUSH_CHARS_RECOMMENDED' | translate }}</small>
+            <small class="form-text text-muted"><b>{{ 'PROMOTIONS.MAX_CHARS' | translate:{chars: '100'} }}</b> {{ 'PROMOTIONS.PUSH_CHARS_RECOMMENDED' | translate }}</small>
+            <small class="form-text text-danger" *ngIf="!pushQuotaValid()">{{ 'PROMOTIONS.INSUFICIENT_QUOTA' | translate }} ({{quota}})</small>
         </div>
     </div>
 </form>

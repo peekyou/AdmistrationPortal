@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
 
 import { TranslationService } from '../../../core/services/translation.service';
 import { PackService } from './pack.service';
@@ -15,19 +12,21 @@ import { Pack } from './pack';
     styleUrls: ['./pack-purchase.modal.scss'],
     templateUrl: './pack-purchase.modal.html'
 })
-export class PackPurchaseModal {
+export class PackPurchaseModal implements OnInit {
     loading: boolean;
+    subtitle: string;
     modalTitle: string;
     modalSentence: string;
     modalConfirmation: string;
     packNumber: number = 1;
     pack: Pack;
     quota = 0;
+    type: string;
     currency: string;
+    redirectSuccessUrl: string;
+    redirectCancelUrl: string;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
         private service: PackService,
         public activeModal: NgbActiveModal,
         private modalService: NgbModal,
@@ -36,38 +35,12 @@ export class PackPurchaseModal {
 
         this.currency = user.getCurrency();
         this.loading = true;
-        this.getSmsPackInfo();
-
-        this.translation.getMultiple([
-            'SMS_PACKS.MODAL_TITLE',
-            'SMS_PACKS.MODAL_SENTENCE',
-            'COMMON.CONFIRMATION_QUESTION'], x => {
-                this.modalTitle = x['SMS_PACKS.MODAL_TITLE'];
-                this.modalSentence = x['SMS_PACKS.MODAL_SENTENCE'];
-                this.modalConfirmation = x['COMMON.CONFIRMATION_QUESTION'];
-        });
     }
 
     public ngOnInit() {
-        this.route.queryParams
-            .switchMap(params => {
-                var payment = params['payment'];
-                var packCount = params['c'];
-                if (payment == 's' && packCount) {
-                    return Observable.of(packCount);
-                }
-                return Observable.of(0);
-            })
-            .subscribe(count => {
-                if (count > 0) {
-                    this.service.buySmsPack(count)
-                        .subscribe(
-                            res => this.quota += res,
-                            err => console.log(err)
-                        );
-                }
-            },
-            err => { });
+        this.getTranslations();
+        this.getPackInfo();
+        this.setUrl();
     }
 
     onInputChange(event: KeyboardEvent) {
@@ -76,8 +49,8 @@ export class PackPurchaseModal {
         }
     }
 
-    getSmsPackInfo() {
-        this.service.getSmsPackInfos()
+    getPackInfo() {
+        this.getPack()
             .subscribe(
                 res => {
                     this.pack = res;
@@ -87,20 +60,36 @@ export class PackPurchaseModal {
             )
     }
 
+    setUrl() {
+        this.service.getBackOfficeUrl()
+            .subscribe(url => {
+                this.redirectCancelUrl = url + '/campaigns/' + this.type;
+                this.redirectSuccessUrl = url + '/campaigns/' + this.type + '?payment=s&c=' + this.packNumber;
+            });
+    }
+
     openModal() {
         const modalRef = this.modalService.open(AppModal);
         modalRef.componentInstance.title = this.modalTitle;
-        modalRef.componentInstance.text1 = this.modalSentence.replace('{{smsNumber}}', (this.packNumber * this.pack.number).toString()).replace('{{price}}', (this.packNumber * this.pack.price).toString()).replace('{{currency}}', this.currency);
+        modalRef.componentInstance.text1 = this.modalSentence.replace('{{number}}', (this.packNumber * this.pack.number).toString()).replace('{{price}}', (this.packNumber * this.pack.price).toString()).replace('{{currency}}', this.currency);
         modalRef.componentInstance.text2 = this.modalConfirmation;
-        
-        modalRef.result.then((result) => {
-            if (result === 'Y') {
-                this.service.buySmsPack(this.packNumber)
-                    .subscribe(
-                        res => this.quota += res,
-                        err => console.log(err)
-                    );
-            }
-        }, (reason) => { });
+    }
+
+    private getPack(): Observable<Pack> {
+        return this.type == 'sms' ? this.service.getSmsPackInfos() : this.service.getPushPackInfos();
+    }
+
+    private getTranslations() {
+        var category = this.type.toUpperCase();
+        this.translation.getMultiple([
+            category + '_PACKS.' + category,
+            category + '_PACKS.MODAL_TITLE',
+            category + '_PACKS.MODAL_SENTENCE',
+            'COMMON.CONFIRMATION_QUESTION'], x => {
+                this.subtitle = x[category + '_PACKS.' + category];
+                this.modalTitle = x[category + '_PACKS.MODAL_TITLE'];
+                this.modalSentence = x[category + '_PACKS.MODAL_SENTENCE'];
+                this.modalConfirmation = x['COMMON.CONFIRMATION_QUESTION'];
+        });
     }
  }

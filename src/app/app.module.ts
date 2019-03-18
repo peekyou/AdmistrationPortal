@@ -29,7 +29,6 @@ import { CustomerModule } from './components/customer';
 import { ContentEditorModule } from './components/content-editor';
 import { CampaignModule } from './components/campaign';
 import { ReviewModule } from './components/review';
-import { SmsModule } from './components/sms';
 import { BillingModule } from './components/billing';
 import { BackOfficeManagementModule } from './components/bo-management'
 import { MobilePreviewModule } from './components/mobile-preview';
@@ -49,7 +48,7 @@ const PROVIDERS = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, "/assets/lang/", "-v17.json");
+    return new TranslateHttpLoader(http, "/assets/lang/", "-v19.json");
 }
 
 /**
@@ -88,7 +87,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ContentEditorModule,
         CampaignModule,
         ReviewModule,
-        SmsModule,
         BillingModule,
         MobilePreviewModule,
         BackOfficeManagementModule,

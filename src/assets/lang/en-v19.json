@@ -146,6 +146,7 @@
         "POINTS_USED": "Points already used",
         "MOBILE_PLACEHOLDER": "Enter phone number",
         "ELIGIBLE_DISCOUNT": "Eligible for a discount:",
+        "ELIGIBLE_FOR": "Reward(s) to use: ",
         "SEND_APPLICATION_SMS": "Resend application SMS",
         "NOT_FOUND": "Customer not found",
         "NOT_EXISTING_SENTENCE": "The customer searched is not registered.",
@@ -153,7 +154,8 @@
         "REGISTRATION_SMS_UNDELIVERED": "The registration SMS could not been sent to",
         "REDEEMED_POINTS": "Redeemed",
         "SCAN": "Scan",
-        "NO_DEVICE": "No device"
+        "NO_DEVICE": "No device",
+        "BIRTHDAY_LOYALTY": "Free!"
     },
     "CONTENT": {
         "SAVE_PAGE_SUCCESS": "Section saved successfully",
@@ -248,14 +250,20 @@
         "TITLE": "Buy SMS",
         "SMS": "SMS",
         "STOCK": "Your current stock is",
+        "QUOTA": "Your quota is: ",
         "BUY": "Buy",
         "BUY_BTN": "Buy now",
         "MODAL_TITLE": "Buy SMS",
-        "MODAL_SENTENCE": "You are about to get {{smsNumber}} SMS for {{price}}{{currency}}",
+        "MODAL_SENTENCE": "You are about to get {{number}} SMS for {{price}}{{currency}}",
         "NEW_STOCK": "Your new SMS stock will be",
-        "CC_NOTICE": "The amount of this purchase has to be paid by credit card.",
-        "INVOICE_NOTICE": "Your payment will be impacted on your next invoice",
         "ADD_SMS_LABEL": "SMS for"
+    },
+    "PUSH_PACKS": {
+        "TITLE": "Buy push",
+        "PUSH": "PUSH",
+        "MODAL_TITLE": "Buy push notifications",
+        "MODAL_SENTENCE": "You are about to get {{number}} push notifications for {{price}}{{currency}}",
+        "ADD_PUSH_LABEL": "Push notifications for"
     },
     "USER_MANAGEMENT": {
         "NO_USER": "No user",
@@ -329,6 +337,7 @@
         "LoginFailed": "Invalid credentials",
         "TokenExpired": "Invalid token",
         "TokenMismatch": "Invalid token",
-        "InvalidCurrentPoints": "Total amount must cover customer current points"
+        "InvalidCurrentPoints": "Total amount must cover customer current points",
+        "InsufficientQuota": "Insufficient quota"
     }
 }

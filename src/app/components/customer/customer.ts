@@ -21,6 +21,7 @@ export class Customer {
     points?: CustomerPoint[];
     discountAmount?: number;
     pointsToDiscount?: number;
+    isEligibleForDiscount?: boolean;
     purchaseData?: PurchaseData;
     languages?: Lookup[];
     favoriteProducts?: Lookup[];
