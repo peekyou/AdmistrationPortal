@@ -48,7 +48,7 @@ const PROVIDERS = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, "/assets/lang/", "-v19.json");
+    return new TranslateHttpLoader(http, "/assets/lang/", "-v20.json");
 }
 
 /**

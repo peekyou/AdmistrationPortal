@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +13,7 @@ import { PagingResponse } from '../../../core/models/paging';
 import { NotificationService } from '../../../core/shared/components/notifcations/notification.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { AppModal } from '../../../core/shared/modals/modal';
+import { SmsPreviewModal } from '../../../core/shared/modals/sms-preview/sms-preview.modal';
 
 @Component({
     selector: 'app-promotion',
@@ -56,7 +57,10 @@ export class PromotionComponent {
     initForm() {
         var firstForm = this.fb.group({
             // promotionType: ['sms', Validators.required],
-            name: ['', Validators.required],
+            name: new FormControl('', {
+                validators: Validators.required,
+                updateOn: 'blur'
+            }),
             dateFrom: [dateToNgbDateStruct(new Date()), Validators.required],
             dateTo: [null, Validators.required],
             percentage: [''],
@@ -94,13 +98,18 @@ export class PromotionComponent {
     openModal() {
         var promoInfo = this.topLevelForm.value['stepInfo'];
         var sentence = '';
+        var modalRef = null;
         if (this.campaignType == 'sms') {
-            sentence = this.modalSentence.replace('{{smsNumber}}', (promoInfo.nbRecipients * promoInfo.nbSmsPerCustomer).toString());
+            modalRef = this.modalService.open(SmsPreviewModal);
+            modalRef.componentInstance.sms = promoInfo.details;            
+            modalRef.componentInstance.smsNumber = promoInfo.nbRecipients * promoInfo.nbSmsPerCustomer;
         }
-        const modalRef = this.modalService.open(AppModal);
-        modalRef.componentInstance.title = this.modalTitle;
-        modalRef.componentInstance.text1 = sentence;
-        modalRef.componentInstance.text2 = this.modalConfirmation;
+        else {
+            modalRef = this.modalService.open(AppModal);
+            modalRef.componentInstance.title = this.modalTitle;
+            modalRef.componentInstance.text1 = sentence;
+            modalRef.componentInstance.text2 = this.modalConfirmation;
+        }
         
         modalRef.result.then((result) => {
             if (result === 'Y') {

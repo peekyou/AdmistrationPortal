@@ -103,7 +103,8 @@
         "SAVE_SUCCESS": "Enregistré avec succès",
         "PASSWORD_MATCH_ERROR": "Les mots de passe ne correspondent pas",
         "SMS": "SMS",
-        "PUSH_NOTIFICATION": "Notifications push"
+        "PUSH_NOTIFICATION": "Notifications push",
+        "OR": "OU"
     },
     "LOGIN": {
         "TITLE": "Connexion à votre compte",
@@ -235,7 +236,8 @@
         "PUSH_CHARS": "caractères",
         "MODAL_TITLE": "Envoyer Campagne",
         "MODAL_SENTENCE": "Vous allez utiliser {{smsNumber}} SMS de votre stock",
-        "ANDROID_ONLY": "Seulement sur Android"
+        "ANDROID_ONLY": "Seulement sur Android",
+        "SMS_PREVIEW": "Aperçu SMS"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Campagnes email",

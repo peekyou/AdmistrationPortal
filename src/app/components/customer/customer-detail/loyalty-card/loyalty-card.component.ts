@@ -31,6 +31,7 @@ export class CustomerLoyaltyCardComponent implements OnInit {
     loading = false; 
     selectedReward;
     pointsLabel: string = 'Points';
+    orLabel: string = 'OU';
     rewards;
     
     constructor(
@@ -44,7 +45,10 @@ export class CustomerLoyaltyCardComponent implements OnInit {
         public c: CustomerDetailService
     ) {
         this.currency = user.getCurrency();
-        this.translation.get('COMMON.POINTS', x => this.pointsLabel = x);    
+        this.translation.getMultiple(['COMMON.POINTS', 'COMMON.OR'], x => {
+            this.pointsLabel = x['COMMON.POINTS'];
+            this.orLabel = x['COMMON.OR'];
+        });    
      }
 
     ngOnInit() {
@@ -63,8 +67,11 @@ export class CustomerLoyaltyCardComponent implements OnInit {
                 r => {
                     this.c.customer = r;
                     this.newEntryAmount = null;
+                    this.rewards = null;
                     this.loading = false;
+                    this.useDiscountLater = false;
                     this.c.customer.purchaseData = this.service.calculatePurchaseData(this.c.customer.points);
+                    this.getEligibleRewards();
                 },
                 err => { 
                     console.log(err);
@@ -129,13 +136,31 @@ export class CustomerLoyaltyCardComponent implements OnInit {
 
             var program = this.user.loyaltyPrograms[i];
             if (program.$type.toLowerCase().indexOf('points') > -1) {
+                (<LoyaltyProgramPoints>program).rewards.sort(function(a,b) {
+                    return (a.pointsThreshold > b.pointsThreshold) ? 1 : ((b.pointsThreshold > a.pointsThreshold) ? -1 : 0);
+                });
+
                 (<LoyaltyProgramPoints>program).rewards.forEach(x => {
                     if (this.c.customer.currentPoints >= x.pointsThreshold) {
                         var pointsLabel = ' (' + x.pointsThreshold + ' ' + this.pointsLabel + ')';
+                        var rewardLabel = '';
+                        if (x.reward && x.amount) {
+                            rewardLabel = x.reward + ' ' + this.orLabel + ' ' + x.amount + ' ' + this.currency;
+                        }
+                        else if (x.reward) {
+                            rewardLabel = x.reward;
+                        }
+                        else if (x.pointsReward) {
+                            rewardLabel = x.pointsReward + ' ' + this.pointsLabel;
+                        }
+                        else {
+                            rewardLabel = x.amount + ' ' + this.currency;
+                        }
+
                         this.rewards.push({
                             id: (<LoyaltyProgramPoints>program).id,
                             rewardId: x.id, 
-                            name: x.reward ? x.reward + pointsLabel : x.amount + ' ' + this.currency + pointsLabel
+                            name: rewardLabel + pointsLabel
                         });
                     }
                 });

@@ -24,7 +24,7 @@
                 </app-etiquette-card>
             </div>
             <div class="col-12 col-lg-8">
-                <app-customer-table [customers]="bestCustomers" small="true" 
+                <app-customer-table [customers]="bestCustomers" small="true" paginationId="best-customers-pagination"
                     title="{{ 'STATS.BEST_CUSTOMERS' | translate }}"></app-customer-table>                    
                 <ngx-loading [show]="loadingBestCustomer" [config]="{ backdropBackgroundColour: 'transparent' }"></ngx-loading>                                        
             </div>

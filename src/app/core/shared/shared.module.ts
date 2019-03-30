@@ -40,13 +40,15 @@ import { DynamicFieldSearchComponent } from './components/dynamic-field-search/d
 import { AppModal } from './modals/modal';
 import { DeleteModal } from './modals/delete.modal';
 import { EmailCampaignModal } from './modals/email-campaign/email-campaign.modal';
+import { SmsPreviewModal } from './modals/sms-preview/sms-preview.modal';
 
 import { OnlyNumberDirective } from '../../directives/only-number.directive';
 
 const MODALS = [
     AppModal,
     DeleteModal,
-    EmailCampaignModal
+    EmailCampaignModal,
+    SmsPreviewModal
 ];
 
 const IMPORTS = [

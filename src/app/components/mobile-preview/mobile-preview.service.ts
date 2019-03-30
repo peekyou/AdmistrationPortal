@@ -9,8 +9,6 @@ import { UserService } from '../user/user.service';
 @Injectable()
 
 export class MobilePreviewService {
-    public applicationUrl: string;
-    
     constructor(
         @Inject(APP_CONFIG) private config: AppConfig, 
         private http: AuthHttpService,
@@ -18,11 +16,8 @@ export class MobilePreviewService {
     }
     
     getApplicationUrl(): Observable<string> {
-        if (this.applicationUrl) {
-            return Observable.of(this.applicationUrl);
-        }
         return this.http.get(this.config.ApiEndpoint + '/merchants/url')
-                        .map(res => this.applicationUrl = this.formatUrl(res));
+                        .map(res => this.formatUrl(res));
     }
 
     getApplicationHTML(url: string): Observable<string> {

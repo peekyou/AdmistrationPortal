@@ -50,7 +50,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let customer of customers.data || customers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: customers?.paging?.totalCount }" 
+            <tr *ngFor="let customer of customers.data || customers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: customers?.paging?.totalCount, id: paginationId }" 
                 [routerLink]="['/customers', customer.id]">
                 <th>
                     <div class="gender-logo">
@@ -91,5 +91,5 @@
     </div>
 </div>
 <pagination-controls *ngIf="customers && showPagination()" (pageChange)="pageChanged($event)" 
-    autoHide="true" directionLinks="true" previousLabel="" nextLabel="" maxSize="5">
+    autoHide="true" directionLinks="true" previousLabel="" nextLabel="" maxSize="5" [id]="paginationId">
 </pagination-controls>

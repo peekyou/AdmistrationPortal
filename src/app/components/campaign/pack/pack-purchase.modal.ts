@@ -33,7 +33,10 @@ export class PackPurchaseModal implements OnInit {
         private translation: TranslationService,
         public user: UserService) {
 
-        this.currency = user.getCurrency();
+        this.currency = user.getAppwardsCurrency();
+        if (!this.currency) {
+            this.currency = user.getCurrency();
+        }
         this.loading = true;
     }
 

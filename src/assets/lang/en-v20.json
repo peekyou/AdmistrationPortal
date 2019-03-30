@@ -103,7 +103,8 @@
         "SAVE_SUCCESS": "Successfully saved",
         "PASSWORD_MATCH_ERROR": "Passwords must match",
         "SMS": "SMS",
-        "PUSH_NOTIFICATION": "Push notifications"
+        "PUSH_NOTIFICATION": "Push notifications",
+        "OR": "OR"
     },
     "LOGIN": {
         "TITLE": "Login to your account",
@@ -235,7 +236,8 @@
         "PUSH_CHARS": "characters",
         "MODAL_TITLE": "Send Campaign",
         "MODAL_SENTENCE": "You are about to use {{smsNumber}} SMS from your SMS stock",
-        "ANDROID_ONLY": "Android Only"
+        "ANDROID_ONLY": "Android Only",
+        "SMS_PREVIEW": "SMS preview"
     },
     "EMAIL_CAMPAIGNS": {
         "TITLE": "Email campaigns",

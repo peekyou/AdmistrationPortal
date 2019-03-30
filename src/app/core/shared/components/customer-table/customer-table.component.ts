@@ -32,6 +32,7 @@ export class CustomerTableComponent implements OnInit {
     @Input() sortable: boolean;
     @Input() filterable: boolean;
     @Input() itemsPerPage: number;
+    @Input() paginationId: string = '';
     // @Output() onPageChanged: EventEmitter<number> = new EventEmitter();
     
     @Input() 

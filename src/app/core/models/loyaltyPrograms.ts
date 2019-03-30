@@ -22,4 +22,5 @@ export class LoyaltyProgramPointsReward {
     amount: number;
     pointsThreshold: number;
     reward: string;
+    pointsReward: number;
 }

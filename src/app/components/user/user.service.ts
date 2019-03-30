@@ -201,6 +201,21 @@ export class UserService {
         return null;
     }
 
+    getAppwardsCurrency(merchantId: string = null) {
+        this.getAccessibleMerchants();
+        if (this.accessibleMerchants && this.accessibleMerchants.length > 0) {
+            if (!merchantId) {
+                return this.accessibleMerchants[0].appwardsCurrency;
+            }
+            for (var i = 0; i < this.accessibleMerchants.length; i++) {
+                if (this.accessibleMerchants[i].merchantId == merchantId) {
+                    return this.accessibleMerchants[i].appwardsCurrency;
+                }
+            }
+        }
+        return null;
+    }
+
     getAccessibleMerchants() {
         if (this.token && !this.accessibleMerchants) {
             var claims = parseJwt(this.token);

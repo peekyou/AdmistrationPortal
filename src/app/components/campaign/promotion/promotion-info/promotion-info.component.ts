@@ -45,27 +45,13 @@ export class PromotionInfoComponent implements OnInit {
     ngOnInit() {
         this.form = this.topLevelForm.controls[this.stepName];
         this.name.valueChanges.forEach(
-            (value: string) => this.form.patchValue({
-                details: this.buildSmsTemplate(value, this.percentage.value, this.dateFrom.value, this.dateTo.value)
-            })
-        );
-
-        this.dateFrom.valueChanges.forEach(
-            (value: any) => this.form.patchValue({
-                details: this.buildSmsTemplate(this.name.value, this.percentage.value, value, this.dateTo.value)
-            })
-        );
-
-        this.dateTo.valueChanges.forEach(
-            (value: any) => this.form.patchValue({
-                details: this.buildSmsTemplate(this.name.value, this.percentage.value, this.dateFrom.value, value)
-            })
-        );
-
-        this.percentage.valueChanges.forEach(
-            (value: string) => this.form.patchValue({
-                details: this.buildSmsTemplate(this.name.value, value, this.dateFrom.value, this.dateTo.value)
-            })
+            (value: string) => {
+                if (!this.details.value) {
+                    this.form.patchValue({
+                        details: this.buildSmsTemplate(value, this.percentage.value, this.dateFrom.value, this.dateTo.value)
+                    })
+                }
+            }
         );
     }
 
